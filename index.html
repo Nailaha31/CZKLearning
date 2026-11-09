@@ -877,7 +877,34 @@ html.is-tel #app { height: 100%; }
                        "boss":  "coder ta propre liste dynamique et la reconnaître en mémoire",
                        "duree":  "7-8 sem",
                        "lecons":  [
-
+                                      {
+                                          "id":  "7-1",
+                                          "numero":  "7.1",
+                                          "titre":  "Les outils tout faits du C++",
+                                          "duree":  15,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "7-2",
+                                          "numero":  "7.2",
+                                          "titre":  "std::vector : une liste qui grandit",
+                                          "duree":  17,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "7-3",
+                                          "numero":  "7.3",
+                                          "titre":  "Texte, modèles et pointeurs intelligents",
+                                          "duree":  16,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "7-4",
+                                          "numero":  "7.4",
+                                          "titre":  "Boss : code ton propre vector",
+                                          "duree":  35,
+                                          "dispo":  true
+                                      }
                                   ]
                    },
                    {
@@ -4775,6 +4802,511 @@ html.is-tel #app { height: 100%; }
                        "jeu":  "",
                        "titre":  "La vtable vue dans Ghidra",
                        "texte":  "Quand un reverse engineer clique sur une table virtuelle dans Ghidra, il voit une liste d\u0027adresses : ce sont les méthodes de la classe. En suivant chaque adresse, il récupère les fonctions de l\u0027objet une à une."
+                   },
+                   {
+                       "id":  "c701",
+                       "type":  "concept",
+                       "lecon":  "7-1",
+                       "jeu":  "",
+                       "titre":  "La boîte à outils du C++",
+                       "texte":  "La **bibliothèque standard** (standard library), c\u0027est l\u0027ensemble des outils livrés avec le C++ : des listes, du texte, des calculs tout prêts. Tu n\u0027as pas à les écrire. Tu l\u0027utilises depuis la phase 1 : `std::cout` en fait partie. On la surnomme souvent « la STL »."
+                   },
+                   {
+                       "id":  "c702",
+                       "type":  "code",
+                       "lecon":  "7-1",
+                       "jeu":  "",
+                       "titre":  "Lis : que fait push_back ?",
+                       "langage":  "cpp",
+                       "code":  "#include \u003cvector\u003e\n\nstd::vector\u003cint\u003e scores;\nscores.push_back(100);\nscores.push_back(250);\nscores.push_back(50);",
+                       "question":  "Combien d\u0027éléments contient `scores` après ces lignes ?",
+                       "reponse":  "Trois : 100, 250, puis 50. `std::vector\u003cint\u003e` part vide. Chaque `push_back` ajoute une valeur à la fin, et la liste s\u0027agrandit toute seule. `scores.size()` vaudrait 3.",
+                       "explication":  "`#include \u003cvector\u003e` fait entrer l\u0027outil. Pas de taille à fixer d\u0027avance, contrairement à un tableau `int scores[3]`."
+                   },
+                   {
+                       "id":  "c703",
+                       "type":  "code",
+                       "lecon":  "7-1",
+                       "jeu":  "",
+                       "titre":  "Lis : d\u0027où vient cet outil ?",
+                       "langage":  "cpp",
+                       "code":  "std::string nom = \"Heros\";\nstd::cout \u003c\u003c nom;",
+                       "question":  "Que signifie le préfixe `std::` devant `string` et `cout` ?",
+                       "reponse":  "Que ces outils viennent de la **bibliothèque standard**. `std` est son **espace de noms** (namespace) : une étiquette qui groupe ses outils. `std::string` se lit « le `string` de la boîte standard ».",
+                       "explication":  "Le `::` sépare l\u0027étiquette `std` du nom de l\u0027outil. Deux bibliothèques peuvent ainsi avoir chacune leur `string` sans se mélanger."
+                   },
+                   {
+                       "id":  "c704",
+                       "type":  "vraifaux",
+                       "lecon":  "7-1",
+                       "jeu":  "",
+                       "titre":  "Un seul #include suffit ?",
+                       "affirmation":  "Pour utiliser `std::vector`, il suffit d\u0027avoir écrit `#include \u003ciostream\u003e` en haut du fichier.",
+                       "vrai":  false,
+                       "explication":  "Faux. Chaque outil vit dans son propre en-tête. `std::vector` a besoin de `#include \u003cvector\u003e`. `\u003ciostream\u003e` n\u0027apporte que l\u0027affichage, avec `std::cout`."
+                   },
+                   {
+                       "id":  "c705",
+                       "type":  "code",
+                       "lecon":  "7-1",
+                       "jeu":  "",
+                       "titre":  "Lis : le tableau à taille fixe",
+                       "langage":  "cpp",
+                       "code":  "int scores[3];\nscores[0] = 100;\nscores[1] = 250;\nscores[2] = 50;\n// et un 4e score ?",
+                       "question":  "Peux-tu ajouter un 4e score à ce tableau ?",
+                       "reponse":  "Non. `int scores[3]` réserve exactement 3 cases, fixées d\u0027avance. Écrire `scores[3] = ...` déborderait du tableau : un bug. Il faudrait un tableau plus grand et tout recopier.",
+                       "explication":  "C\u0027est justement ce qu\u0027évite un `std::vector` : il s\u0027agrandit tout seul avec `push_back`. Moins de bugs, moins de code."
+                   },
+                   {
+                       "id":  "c706",
+                       "type":  "concept",
+                       "lecon":  "7-1",
+                       "jeu":  "",
+                       "titre":  "L\u0027espace de noms std",
+                       "texte":  "Un **espace de noms** (namespace) est une étiquette posée sur un groupe d\u0027outils, pour éviter les confusions. Tous ceux de la bibliothèque standard portent l\u0027étiquette `std`, pour *standard*. D\u0027où `std::cout`, `std::vector`, `std::string`. Le `::` sépare l\u0027étiquette du nom."
+                   },
+                   {
+                       "id":  "c707",
+                       "type":  "quiz",
+                       "lecon":  "7-1",
+                       "jeu":  "",
+                       "titre":  "Quel en-tête inclure ?",
+                       "question":  "Tu veux ranger du texte dans un `std::string`. Quel en-tête faut-il inclure ?",
+                       "choix":  [
+                                     "`#include \u003cstring\u003e`",
+                                     "`#include \u003cvector\u003e`",
+                                     "`#include \u003ctext\u003e`"
+                                 ],
+                       "bonne":  0,
+                       "explication":  "`std::string` vient de l\u0027en-tête `\u003cstring\u003e`. Chaque outil de la bibliothèque standard a le sien. `\u003ctext\u003e` n\u0027existe pas."
+                   },
+                   {
+                       "id":  "c708",
+                       "type":  "anglais",
+                       "lecon":  "7-1",
+                       "jeu":  "",
+                       "titre":  "container",
+                       "en":  "container",
+                       "fr":  "conteneur",
+                       "texte":  "Un outil qui range une collection d\u0027éléments, comme `std::vector`. Un jeu en est plein : listes d\u0027ennemis, d\u0027objets, de projectiles."
+                   },
+                   {
+                       "id":  "c709",
+                       "type":  "vraifaux",
+                       "lecon":  "7-1",
+                       "jeu":  "",
+                       "titre":  "Chaque outil, son en-tête",
+                       "affirmation":  "Pour te servir de `std::vector`, il faut écrire `#include \u003cvector\u003e` en haut du fichier.",
+                       "vrai":  true,
+                       "explication":  "Vrai : chaque outil de la bibliothèque standard a son en-tête. `std::cout` vient de `\u003ciostream\u003e`, `std::vector` de `\u003cvector\u003e`, `std::string` de `\u003cstring\u003e`."
+                   },
+                   {
+                       "id":  "c710",
+                       "type":  "capot",
+                       "lecon":  "7-1",
+                       "jeu":  "",
+                       "titre":  "Un std::vector, c\u0027est trois pointeurs",
+                       "cpp":  "int taille(const std::vector\u003cint\u003e\u0026 v)\n{\n    return (int)v.size();\n}",
+                       "asm":  "mov rax, QWORD PTR [rcx+8]\nsub rax, QWORD PTR [rcx]\nsar rax, 2",
+                       "texte":  "MSVC en x64. `size()` ne lit aucun compteur : il calcule « fin moins début », divisé par 4. `[rcx]` = début (offset 0), `[rcx+8]` = fin (offset 8). Un `std::vector`, c\u0027est trois pointeurs côte à côte. Détaillé en 7.2."
+                   },
+                   {
+                       "id":  "c711",
+                       "type":  "savaistu",
+                       "lecon":  "7-1",
+                       "jeu":  "",
+                       "titre":  "D\u0027où vient le nom « STL »",
+                       "texte":  "On surnomme souvent la bibliothèque standard « la STL », pour *Standard Template Library*. C\u0027est le nom d\u0027une bibliothèque conçue par Alexander Stepanov, intégrée au C++ avec sa première norme, C++98. Ses conteneurs, comme `vector`, en forment le cœur."
+                   },
+                   {
+                       "id":  "c712",
+                       "type":  "quiz",
+                       "lecon":  "7-1",
+                       "jeu":  "",
+                       "titre":  "Pourquoi réutiliser la boîte standard ?",
+                       "question":  "Pourquoi, en C++ moderne, préfère-t-on `std::vector` à une liste codée à la main ?",
+                       "choix":  [
+                                     "Coder à la main est interdit par le compilateur",
+                                     "Moins de bugs, code plus court, outils optimisés",
+                                     "`std::vector` est le seul moyen de ranger des nombres"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "La bibliothèque standard est déjà écrite, testée et optimisée. Tu codes moins et tu fais moins d\u0027erreurs. Coder à la main reste permis, mais on réutilise ce qui existe."
+                   },
+                   {
+                       "id":  "c714",
+                       "type":  "concept",
+                       "lecon":  "7-2",
+                       "jeu":  "",
+                       "titre":  "std::vector, la liste qui grandit",
+                       "texte":  "`std::vector` est une liste d\u0027éléments du même type qui grandit toute seule. `push_back(x)` ajoute à la fin, `size()` donne le nombre d\u0027éléments, `v[i]` accède au i-e. Fini la taille fixe : le vector réserve plus grand quand il se remplit. Le conteneur le plus courant du C++."
+                   },
+                   {
+                       "id":  "c715",
+                       "type":  "code",
+                       "lecon":  "7-2",
+                       "jeu":  "minecraft",
+                       "titre":  "Que vaut size() ?",
+                       "langage":  "cpp",
+                       "code":  "std::vector\u003cint\u003e vies;\nvies.push_back(20);\nvies.push_back(20);\nvies.push_back(20);\nstd::cout \u003c\u003c vies.size();",
+                       "question":  "Qu\u0027affiche ce code ?",
+                       "reponse":  "3. Chaque `push_back` ajoute un élément à la fin de `vies`, donc la liste en contient trois. `size()` renvoie ce nombre, 3, peu importe que les valeurs soient identiques.",
+                       "explication":  "`size()` compte les éléments, pas les valeurs différentes. Trois `push_back`, trois éléments."
+                   },
+                   {
+                       "id":  "c716",
+                       "type":  "code",
+                       "lecon":  "7-2",
+                       "jeu":  "",
+                       "titre":  "Lis la boucle pour chaque",
+                       "langage":  "cpp",
+                       "code":  "std::vector\u003cint\u003e degats = {10, 25, 5};\nint total = 0;\nfor (int d : degats)\n    total += d;\nstd::cout \u003c\u003c total;",
+                       "question":  "Qu\u0027affiche ce programme ?",
+                       "reponse":  "40. La boucle « pour chaque » passe sur chaque élément de `degats` : `d` vaut 10, puis 25, puis 5. On les additionne dans `total`, ce qui donne 40.",
+                       "explication":  "`for (int d : degats)` parcourt le vector sans compteur, du premier au dernier élément. Le `= {10, 25, 5}` remplit le vector avec ces trois valeurs d\u0027un coup, une autre façon que push_back."
+                   },
+                   {
+                       "id":  "c717",
+                       "type":  "vraifaux",
+                       "lecon":  "7-2",
+                       "jeu":  "",
+                       "titre":  "capacity plus petit que size ?",
+                       "affirmation":  "Dans un std::vector, `capacity()` est toujours plus petit que `size()`.",
+                       "vrai":  false,
+                       "explication":  "Faux, c\u0027est l\u0027inverse : `capacity()` (la place réservée) est toujours supérieur ou égal à `size()` (le nombre d\u0027éléments). Le vector réserve un peu d\u0027avance pour éviter de recopier à chaque ajout."
+                   },
+                   {
+                       "id":  "c718",
+                       "type":  "capot",
+                       "lecon":  "7-2",
+                       "jeu":  "",
+                       "titre":  "size() sans compteur",
+                       "cpp":  "int taille(const std::vector\u003cint\u003e\u0026 v)\n{\n    return (int)v.size();\n}",
+                       "asm":  "mov rax, QWORD PTR [rcx+8]\nsub rax, QWORD PTR [rcx]\nsar rax, 2\nret 0",
+                       "texte":  "Avec MSVC en x64, `v.size()` = `[rcx+8]` (pointeur fin) moins `[rcx]` (pointeur début), puis `sar rax, 2` (division par 4). Aucun compteur : un std::vector tient en trois pointeurs, sa taille vient d\u0027une soustraction."
+                   },
+                   {
+                       "id":  "c719",
+                       "type":  "concept",
+                       "lecon":  "7-2",
+                       "jeu":  "",
+                       "titre":  "Trois pointeurs, c\u0027est un vector",
+                       "texte":  "En mémoire, un std::vector n\u0027est que trois pointeurs : début des données (offset 0), fin (offset 8), fin de la capacité réservée (offset 16). `size()` = (fin − début) / taille d\u0027un élément. Repérer ce trio dans un jeu révèle une liste d\u0027ennemis ou d\u0027objets."
+                   },
+                   {
+                       "id":  "c720",
+                       "type":  "code",
+                       "lecon":  "7-2",
+                       "jeu":  "",
+                       "titre":  "L\u0027accès par indice",
+                       "langage":  "cpp",
+                       "code":  "std::vector\u003cint\u003e scores = {100, 250, 50};\nstd::cout \u003c\u003c scores[0] \u003c\u003c \" \";\nstd::cout \u003c\u003c scores[2];",
+                       "question":  "Qu\u0027affichent ces deux lignes ?",
+                       "reponse":  "100 50. `scores[0]` est le premier élément (100) et `scores[2]` le troisième (50). Les éléments se comptent à partir de 0 : `[2]` est donc le troisième, pas le deuxième.",
+                       "explication":  "Piège classique : l\u0027indice part de 0. `scores[1]` vaudrait 250."
+                   },
+                   {
+                       "id":  "c721",
+                       "type":  "anglais",
+                       "lecon":  "7-2",
+                       "jeu":  "",
+                       "titre":  "push_back",
+                       "en":  "push_back",
+                       "fr":  "ajouter à la fin",
+                       "texte":  "La méthode qui ajoute un élément à la fin d\u0027un vector. *to push back* : « pousser au bout, repousser ». Chaque appel allonge la liste d\u0027un cran."
+                   },
+                   {
+                       "id":  "c722",
+                       "type":  "quiz",
+                       "lecon":  "7-2",
+                       "jeu":  "",
+                       "titre":  "Vector plein",
+                       "question":  "Un std::vector est plein (`size` égale `capacity`) et reçoit un `push_back`. Que fait-il ?",
+                       "choix":  [
+                                     "Il perd son premier élément",
+                                     "Il réserve une zone plus grande (souvent le double) et recopie",
+                                     "Il refuse d\u0027ajouter l\u0027élément"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "Plein, il réserve plus grand — souvent le double —, recopie les anciens éléments, puis ajoute le nouveau. C\u0027est ce que fait le boss `MonVecteur`."
+                   },
+                   {
+                       "id":  "c723",
+                       "type":  "code",
+                       "lecon":  "7-2",
+                       "jeu":  "minecraft",
+                       "titre":  "Combien d\u0027ennemis vivants ?",
+                       "langage":  "cpp",
+                       "code":  "std::vector\u003cint\u003e pv = {30, 0, 12};\nint vivants = 0;\nfor (int v : pv)\n    if (v \u003e 0)\n        vivants++;\nstd::cout \u003c\u003c vivants;",
+                       "question":  "Cette liste donne les PV de 3 ennemis. Combien sont encore vivants ?",
+                       "reponse":  "2. La boucle lit chaque PV : 30, 0, 12. Le `if (v \u003e 0)` ne compte que ceux au-dessus de 0, soit 30 et 12 : deux ennemis encore vivants.",
+                       "explication":  "Un ennemi à 0 PV est mort. La boucle « pour chaque » parcourt le vector, le `if` filtre."
+                   },
+                   {
+                       "id":  "c724",
+                       "type":  "vraifaux",
+                       "lecon":  "7-2",
+                       "jeu":  "",
+                       "titre":  "Un compteur caché ?",
+                       "affirmation":  "Pour renvoyer `size()`, un std::vector lit un compteur rangé à l\u0027intérieur de lui-même.",
+                       "vrai":  false,
+                       "explication":  "Faux. Avec MSVC, `size()` calcule (pointeur fin − pointeur début) / taille d\u0027un élément. Pas de compteur stocké : juste une soustraction de deux des trois pointeurs du vector."
+                   },
+                   {
+                       "id":  "c725",
+                       "type":  "savaistu",
+                       "lecon":  "7-2",
+                       "jeu":  "",
+                       "titre":  "Il recopie tout en douce",
+                       "texte":  "Quand un std::vector est plein et qu\u0027on ajoute un élément, il ne s\u0027agrandit pas sur place. Il réserve une zone plus grande, souvent le double, y recopie tout, puis libère l\u0027ancienne. Ajouter beaucoup d\u0027éléments déclenche ainsi plusieurs recopies, comme le boss `MonVecteur`."
+                   },
+                   {
+                       "id":  "c727",
+                       "type":  "concept",
+                       "lecon":  "7-3",
+                       "jeu":  "",
+                       "titre":  "Du texte qui se connaît",
+                       "texte":  "`std::string`, c\u0027est du texte rangé dans un objet qui retient sa longueur. `nom.size()` la donne d\u0027un coup, sans recompter. On colle deux textes avec `+`, on les compare avec `==`. C\u0027est l\u0027outil texte de tous les jours en C++."
+                   },
+                   {
+                       "id":  "c728",
+                       "type":  "code",
+                       "lecon":  "7-3",
+                       "jeu":  "",
+                       "titre":  "Lis cette string",
+                       "langage":  "cpp",
+                       "code":  "std::string classe = \"Guerrier\";\nstd::string s = classe + \" niveau 1\";",
+                       "question":  "Que contient `s` après ces deux lignes ?",
+                       "reponse":  "« Guerrier niveau 1 ». Le `+` colle les deux textes bout à bout : d\u0027abord `classe` (« Guerrier »), puis « niveau 1 ». `s` est une seule chaîne.",
+                       "explication":  "Coller des textes avec `+`, c\u0027est la concaténation. Très courant pour fabriquer un message à l\u0027écran."
+                   },
+                   {
+                       "id":  "c729",
+                       "type":  "vraifaux",
+                       "lecon":  "7-3",
+                       "jeu":  "",
+                       "titre":  "Une string plus lourde qu\u0027on croit",
+                       "affirmation":  "Pour un texte court, un `std::string` range les lettres directement dans l\u0027objet, sans réserver de mémoire ailleurs.",
+                       "vrai":  true,
+                       "explication":  "Vrai, c\u0027est la SSO (Small String Optimization). Les petits textes tiennent sur place, ce qui rend l\u0027objet `std::string` plus gros qu\u0027on ne l\u0027imagine en mémoire."
+                   },
+                   {
+                       "id":  "c730",
+                       "type":  "concept",
+                       "lecon":  "7-3",
+                       "jeu":  "",
+                       "titre":  "Le `\u003c...\u003e` contient un type",
+                       "texte":  "Les modèles (templates), c\u0027est le `\u003c...\u003e` que tu vois partout. Entre les chevrons, un type. `std::vector\u003cint\u003e` est « un vector d\u0027int » ; `std::vector\u003cstd::string\u003e`, « un vector de chaînes ». Le même outil marche pour n\u0027importe quel contenu : tu choisis dans les chevrons."
+                   },
+                   {
+                       "id":  "c731",
+                       "type":  "code",
+                       "lecon":  "7-3",
+                       "jeu":  "minecraft",
+                       "titre":  "Lis cette liste de noms",
+                       "langage":  "cpp",
+                       "code":  "std::vector\u003cstd::string\u003e joueurs;\njoueurs.push_back(\"Steve\");\njoueurs.push_back(\"Alex\");\njoueurs.push_back(\"Herobrine\");",
+                       "question":  "Que vaut `joueurs.size()` ?",
+                       "reponse":  "3. Trois `push_back`, donc trois noms dans la liste. `size()` compte les éléments ; `joueurs[0]` serait « Steve ».",
+                       "explication":  "Une liste de pseudos, c\u0027est typiquement un `std::vector\u003cstd::string\u003e` dans un serveur."
+                   },
+                   {
+                       "id":  "c732",
+                       "type":  "anglais",
+                       "lecon":  "7-3",
+                       "jeu":  "",
+                       "titre":  "template",
+                       "en":  "template",
+                       "fr":  "modèle",
+                       "texte":  "Le `\u003c...\u003e` qui contient un type. `vector\u003cint\u003e` est le modèle `vector` rempli d\u0027int. Le mot est partout en C++."
+                   },
+                   {
+                       "id":  "c733",
+                       "type":  "concept",
+                       "lecon":  "7-3",
+                       "jeu":  "",
+                       "titre":  "Le pointeur qui se range tout seul",
+                       "texte":  "Un pointeur intelligent (smart pointer) libère sa mémoire tout seul, dès qu\u0027on n\u0027en a plus besoin. Le plus courant, `std::unique_ptr`, fait le `delete` à ta place. C\u0027est la parade moderne aux pièges de la phase 5 : fuite mémoire et pointeur pendouillant."
+                   },
+                   {
+                       "id":  "c734",
+                       "type":  "code",
+                       "lecon":  "7-3",
+                       "jeu":  "gmod",
+                       "titre":  "Qui fait le delete ?",
+                       "langage":  "cpp",
+                       "code":  "auto arme = std::make_unique\u003cArme\u003e();\narme-\u003edegats = 25;\n// fin du bloc : arme disparait",
+                       "question":  "Qui libère la mémoire de l\u0027`Arme` à la fin ?",
+                       "reponse":  "`arme` lui-même. C\u0027est un `std::unique_ptr` : quand il disparaît, il fait le `delete` tout seul. Aucune ligne à écrire, aucune fuite.",
+                       "explication":  "`auto` laisse le compilateur deviner le type. `-\u003e` suit le pointeur jusqu\u0027au champ, comme en phase 5."
+                   },
+                   {
+                       "id":  "c735",
+                       "type":  "vraifaux",
+                       "lecon":  "7-3",
+                       "jeu":  "",
+                       "titre":  "new sans delete",
+                       "affirmation":  "Si tu réserves de la mémoire avec `new` et que tu oublies le `delete`, cette mémoire est rendue automatiquement à la fin de la fonction.",
+                       "vrai":  false,
+                       "explication":  "Faux. Un `new` sans `delete` n\u0027est jamais rendu tout seul : c\u0027est une fuite mémoire (memory leak). C\u0027est justement ce qu\u0027un `std::unique_ptr` évite."
+                   },
+                   {
+                       "id":  "c736",
+                       "type":  "quiz",
+                       "lecon":  "7-3",
+                       "jeu":  "gta",
+                       "titre":  "Quel outil pour une liste ?",
+                       "question":  "Dans un jeu moderne, pour garder une liste d\u0027objets qui grandit, qu\u0027est-ce qu\u0027on préfère aujourd\u0027hui ?",
+                       "choix":  [
+                                     "Un `std::vector`, qui grandit et se libère tout seul",
+                                     "Un tableau `new[]` géré entièrement à la main",
+                                     "Une suite de variables séparées"
+                                 ],
+                       "bonne":  0,
+                       "explication":  "En C++ moderne, on préfère `std::vector` et les smart pointers aux `new`/`delete` à la main. Moins de fuites, moins de pièges. On garde `new`/`delete` surtout pour apprendre ce qui se passe dessous."
+                   },
+                   {
+                       "id":  "c737",
+                       "type":  "anglais",
+                       "lecon":  "7-3",
+                       "jeu":  "",
+                       "titre":  "memory leak",
+                       "en":  "memory leak",
+                       "fr":  "fuite mémoire",
+                       "texte":  "De la mémoire réservée avec `new`, puis jamais rendue. Elle s\u0027accumule et finit par ralentir le jeu. Un smart pointer l\u0027évite."
+                   },
+                   {
+                       "id":  "c738",
+                       "type":  "savaistu",
+                       "lecon":  "7-3",
+                       "jeu":  "",
+                       "titre":  "Un vector, trois pointeurs",
+                       "texte":  "Avec MSVC en x64, un `std::vector` tient en trois pointeurs : début des données, fin des données, fin de la place réservée. Trois pointeurs de 8 octets, soit 24 octets, quel que soit le type rangé. C\u0027est ce trio qu\u0027on repère pour dire « ici, un vector »."
+                   },
+                   {
+                       "id":  "c740",
+                       "type":  "concept",
+                       "lecon":  "7-4",
+                       "jeu":  "",
+                       "titre":  "MonVecteur en trois champs",
+                       "texte":  "Un `MonVecteur`, c\u0027est `std::vector` en tout petit. Il tient en trois champs : `donnees`, un **pointeur** vers le tableau ; `taille`, le nombre d\u0027éléments rangés ; `capacite`, le nombre de places réservées. Un pointeur et deux nombres : voilà une liste qui grandit."
+                   },
+                   {
+                       "id":  "c741",
+                       "type":  "code",
+                       "lecon":  "7-4",
+                       "jeu":  "",
+                       "titre":  "Lis le constructeur",
+                       "langage":  "cpp",
+                       "code":  "MonVecteur()\n{\n    capacite = 2;\n    taille = 0;\n    donnees = new int[capacite];\n}",
+                       "question":  "Juste après `MonVecteur v;`, que valent `taille` et `capacite` ?",
+                       "reponse":  "`taille` vaut 0 (aucun élément rangé) et `capacite` vaut 2. `new int[capacite]` a réservé 2 places sur le tas, mais elles sont encore vides. La sortie affiche « capacite au depart : 2 ».",
+                       "explication":  ""
+                   },
+                   {
+                       "id":  "c742",
+                       "type":  "code",
+                       "lecon":  "7-4",
+                       "jeu":  "",
+                       "titre":  "Lis le rangement",
+                       "langage":  "cpp",
+                       "code":  "void ajouter(int valeur)\n{\n    // si plein, on double d\u0027abord\n    donnees[taille] = valeur;\n    taille += 1;\n}",
+                       "question":  "Sur un vector qui a encore de la place, que fait la fin d\u0027`ajouter` ?",
+                       "reponse":  "Elle range `valeur` dans la première case libre (`donnees[taille]`), puis augmente `taille` de 1. Pas de doublement ici : le `if` du dessus ne s\u0027est pas déclenché, car il restait de la place.",
+                       "explication":  ""
+                   },
+                   {
+                       "id":  "c743",
+                       "type":  "code",
+                       "lecon":  "7-4",
+                       "jeu":  "",
+                       "titre":  "Lis le doublement",
+                       "langage":  "cpp",
+                       "code":  "if (taille == capacite)\n{\n    capacite *= 2;\n    int* neuf = new int[capacite];\n    for (int i = 0; i \u003c taille; i++)\n        neuf[i] = donnees[i];\n    delete[] donnees;  donnees = neuf;\n}",
+                       "question":  "On ajoute le 3e élément à un vector plein (taille 2, capacite 2). Que se passe-t-il ?",
+                       "reponse":  "`taille == capacite`, donc on entre dans le `if`. La capacité double (2 vers 4), on alloue `neuf` (4 cases), on y recopie les 2 éléments, on `delete[]` l\u0027ancien, et `donnees` pointe le neuf. C\u0027est la réallocation.",
+                       "explication":  ""
+                   },
+                   {
+                       "id":  "c744",
+                       "type":  "vraifaux",
+                       "lecon":  "7-4",
+                       "jeu":  "",
+                       "titre":  "Le destructeur, à quoi bon",
+                       "affirmation":  "Sans le `delete[] donnees` du destructeur, le programme planterait tout de suite au lancement.",
+                       "vrai":  false,
+                       "explication":  "Faux. Sans lui, le programme tourne quand même, mais la mémoire réservée par `new` n\u0027est jamais rendue : c\u0027est une **fuite mémoire** (memory leak). Le `delete[]` sert justement à la rendre."
+                   },
+                   {
+                       "id":  "c745",
+                       "type":  "code",
+                       "lecon":  "7-4",
+                       "jeu":  "",
+                       "titre":  "Lis la sortie",
+                       "langage":  "cpp",
+                       "code":  "MonVecteur v;             // capacite 2, taille 0\nv.ajouter(10);\nv.ajouter(20);\nv.ajouter(30);            // force le doublement\nstd::cout \u003c\u003c \"taille : \" \u003c\u003c v.taille\n          \u003c\u003c \", capacite : \" \u003c\u003c v.capacite;",
+                       "question":  "Qu\u0027affiche cette dernière ligne ?",
+                       "reponse":  "« taille : 3, capacite : 4 ». Trois éléments sont rangés, donc `taille` vaut 3. Le 3e ajout a fait doubler la capacité de 2 à 4, et elle y reste. C\u0027est la vraie sortie du programme.",
+                       "explication":  ""
+                   },
+                   {
+                       "id":  "c746",
+                       "type":  "capot",
+                       "lecon":  "7-4",
+                       "jeu":  "",
+                       "titre":  "Un vrai vector en mémoire",
+                       "cpp":  "int taille(const std::vector\u003cint\u003e\u0026 v) {\n    return (int)v.size();\n}",
+                       "asm":  "mov rax, QWORD PTR [rcx+8]\nsub rax, QWORD PTR [rcx]\nsar rax, 2",
+                       "texte":  "Avec MSVC en x64, `size()` ne lit aucun compteur. `[rcx+8]` prend le pointeur *fin*, `[rcx]` le *début* ; la soustraction donne des octets, que `sar rax, 2` divise par 4 (un `int`). Un vrai vector tient en 3 pointeurs."
+                   },
+                   {
+                       "id":  "c747",
+                       "type":  "concept",
+                       "lecon":  "7-4",
+                       "jeu":  "",
+                       "titre":  "Ton vector miniature",
+                       "texte":  "Tes trois champs — `donnees` (le pointeur vers les éléments), `taille`, `capacite` — sont exactement les trois informations qu\u0027un vrai `std::vector` range à l\u0027intérieur (début, fin, fin de capacité). Tu viens de recoder, en plus simple, ce que la bibliothèque fait."
+                   },
+                   {
+                       "id":  "c748",
+                       "type":  "concept",
+                       "lecon":  "7-4",
+                       "jeu":  "minecraft",
+                       "titre":  "Un ESP parcourt une liste",
+                       "texte":  "Dans un jeu, les entités (joueurs, mobs) forment souvent une liste d\u0027objets, comme un `std::vector`. Un **ESP** (voir le **bestiaire**) parcourt cette liste pour lire la position de chacun et la dessiner par-dessus l\u0027image. Triche en ligne : on l\u0027étudie en défense, hors ligne."
+                   },
+                   {
+                       "id":  "c749",
+                       "type":  "quiz",
+                       "lecon":  "7-4",
+                       "jeu":  "",
+                       "titre":  "Pourquoi recopier ?",
+                       "question":  "Dans `ajouter`, pourquoi recopier l\u0027ancien tableau avant le `delete[]` ?",
+                       "choix":  [
+                                     "Pour aller plus vite",
+                                     "Parce que le nouveau tableau est vide : sans la recopie, on perdrait les éléments déjà rangés",
+                                     "Pour remettre la taille à zéro"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "Le nouveau tableau `neuf` est tout neuf, donc vide. Il faut y recopier les anciens éléments avant de libérer l\u0027ancien avec `delete[]`, sinon 10 et 20 seraient perdus."
+                   },
+                   {
+                       "id":  "c750",
+                       "type":  "anglais",
+                       "lecon":  "7-4",
+                       "jeu":  "",
+                       "titre":  "capacity",
+                       "en":  "capacity",
+                       "fr":  "capacité",
+                       "texte":  "La place réservée dans un vector, que donne `capacity()`. Souvent plus grande que la taille (`size()`), pour ne pas tout recopier à chaque ajout."
+                   },
+                   {
+                       "id":  "c751",
+                       "type":  "savaistu",
+                       "lecon":  "7-4",
+                       "jeu":  "",
+                       "titre":  "Un vector ne stocke pas sa taille",
+                       "texte":  "Surprise : un `std::vector` ne garde aucun compteur de taille. Avec MSVC, `size()` est calculé en soustrayant deux pointeurs, `(fin - début)`, puis en divisant par la taille d\u0027un élément. En assembleur, ça donne un `sub` suivi d\u0027un `sar`, sans aucun champ « taille »."
                    }
                ]
 },"glossaire":{
@@ -5709,6 +6241,90 @@ html.is-tel #app { height: 100%; }
                           "definition":  "Une petite bibliothèque gratuite pour créer des jeux 2D en C ou C++. Plus tard dans le parcours, ton coach t\u0027aidera à t\u0027en servir pour transformer ton jeu console en petit jeu 2D.",
                           "exemple":  "Rien à installer dans cette phase : on reste sur `Entites.cpp`. Ta cible passera en 2D plus tard.",
                           "lecon":  "6-4"
+                      },
+                      {
+                          "terme":  "STL",
+                          "en":  "Standard Template Library",
+                          "definition":  "La STL, c\u0027est le surnom courant de la bibliothèque standard : sa boîte à outils tout faits. Surtout ses listes (comme `std::vector`) et les algorithmes qui vont avec.",
+                          "exemple":  "Quand tu vois `std::vector` ou `std::string` dans du code C++, tu lis la STL : les outils livrés avec le langage.",
+                          "lecon":  "7-1"
+                      },
+                      {
+                          "terme":  "espace de noms",
+                          "en":  "namespace",
+                          "definition":  "Un tiroir qui regroupe des noms pour éviter qu\u0027ils se télescopent. Les outils de la bibliothèque standard vivent dans le tiroir `std`. Le `std::` dit « cherche dans ce tiroir ».",
+                          "exemple":  "`std::cout`, `std::vector`, `std::string` : le `std::` répété, c\u0027est le nom du tiroir de la bibliothèque standard.",
+                          "lecon":  "7-1"
+                      },
+                      {
+                          "terme":  "std::vector",
+                          "en":  "vector",
+                          "definition":  "Une liste d\u0027éléments du même type qui grandit toute seule. `push_back` ajoute à la fin, `size()` donne le nombre, `v[0]` lit le premier. En mémoire : trois pointeurs côte à côte.",
+                          "exemple":  "Dans un jeu, la liste des ennemis ou l\u0027inventaire est souvent un `std::vector` : repère son trio de pointeurs en mémoire.",
+                          "lecon":  "7-2"
+                      },
+                      {
+                          "terme":  "capacité",
+                          "en":  "capacity",
+                          "definition":  "La place déjà réservée dans un `std::vector`, souvent plus grande que sa taille. Plein, il réserve le double et recopie. `capacity()` donne cette place, `size()` le nombre réel.",
+                          "exemple":  "Dans `Inventaire.cpp`, trois `push_back` donnent `size()` 3 mais une `capacity()` plus grande : la place est réservée d\u0027avance.",
+                          "lecon":  "7-2"
+                      },
+                      {
+                          "terme":  "boucle for-each",
+                          "en":  "range-based for",
+                          "definition":  "Une boucle qui parcourt chaque élément d\u0027une liste sans gérer de compteur. On écrit `for (int s : scores)` : à chaque tour, `s` prend la valeur suivante du `std::vector`.",
+                          "exemple":  "Dans `Inventaire.cpp`, `for (int s : scores) total += s;` additionne les trois scores sans jamais écrire d\u0027index.",
+                          "lecon":  "7-2"
+                      },
+                      {
+                          "terme":  "std::string",
+                          "en":  "string",
+                          "definition":  "Du texte qui connaît sa longueur (`size()`). Il grandit tout seul. Pour un texte court, il range les lettres dans l\u0027objet même, sans allocation à part : la SSO.",
+                          "exemple":  "Dans `Inventaire.cpp`, `std::string nom = \"Heros\";` et `nom.size()` vaut 5 : la chaîne connaît sa longueur.",
+                          "lecon":  "7-3"
+                      },
+                      {
+                          "terme":  "modèle",
+                          "en":  "template",
+                          "definition":  "Le signe `\u003c \u003e` qui contient un type. `std::vector\u003cint\u003e` est « un vector d\u0027int », `std::vector\u003cstd::string\u003e` « un vector de chaînes ». Un modèle sert pour n\u0027importe quel type.",
+                          "exemple":  "`std::vector\u003cint\u003e` range des entiers, `std::vector\u003cstd::string\u003e` du texte : un seul modèle, tous les types.",
+                          "lecon":  "7-3"
+                      },
+                      {
+                          "terme":  "SSO",
+                          "en":  "Small String Optimization",
+                          "definition":  "Une astuce de `std::string` : pour un texte court, il range les lettres dans l\u0027objet même, sans mémoire à part sur le tas. Plus rapide, et ça change ce qu\u0027on lit en mémoire.",
+                          "exemple":  "`nom = \"Heros\"` est court : grâce à la SSO, les 5 lettres tiennent dans l\u0027objet `std::string`, pas sur le tas.",
+                          "lecon":  "7-3"
+                      },
+                      {
+                          "terme":  "pointeur intelligent",
+                          "en":  "smart pointer",
+                          "definition":  "Un pointeur qui libère tout seul sa mémoire. `std::unique_ptr` en est un. C\u0027est la parade moderne aux pièges de la phase 5 : fuite mémoire et pointeur pendouillant.",
+                          "exemple":  "En C++ moderne, on préfère `std::vector` et `std::unique_ptr` au `new`/`delete` à la main : moins d\u0027oublis, moins de bugs.",
+                          "lecon":  "7-3"
+                      },
+                      {
+                          "terme":  "allocation dynamique",
+                          "en":  "dynamic allocation",
+                          "definition":  "Réserver de la mémoire sur le tas pendant que le programme tourne, avec `new` (`new int[n]` pour un tableau), et la rendre avec `delete` ou `delete[]`. L\u0027oublier = fuite mémoire.",
+                          "exemple":  "Dans `MonVecteur.cpp`, `new int[capacite]` réserve le tableau et `delete[] donnees` le rend dans le destructeur.",
+                          "lecon":  "7-4"
+                      },
+                      {
+                          "terme":  "fuite mémoire",
+                          "en":  "memory leak",
+                          "definition":  "De la mémoire réservée avec `new` qu\u0027on oublie de rendre avec `delete`. Le programme la garde pour rien ; répété, il gonfle et finit par ramer. Les pointeurs intelligents l\u0027évitent.",
+                          "exemple":  "Si `MonVecteur` n\u0027avait pas son `delete[]` dans le destructeur, chaque objet détruit laisserait une fuite mémoire.",
+                          "lecon":  "7-4"
+                      },
+                      {
+                          "terme":  "tableau dynamique",
+                          "en":  "dynamic array",
+                          "definition":  "Un tableau qui grandit en cours de route. On garde un pointeur, une taille et une capacité ; plein, on réserve plus grand et on recopie. C\u0027est ce que fait `std::vector`.",
+                          "exemple":  "`MonVecteur` est un tableau dynamique fait main : `int* donnees`, `taille`, `capacite`. Un `std::vector` en miniature.",
+                          "lecon":  "7-4"
                       }
                   ]
 },"bestiaire":{
@@ -11603,6 +12219,896 @@ html.is-tel #app { height: 100%; }
                       "type":  "suite",
                       "titre":  "Phase 7 — C++ moderne",
                       "texte":  "Boss plié : tu sais lire la disposition d\u0027un objet et reconnaître un pointeur de vtable en tête. En phase 7, tu passes au **C++ moderne** et à la **bibliothèque standard** : `std::vector` (une liste qui grandit) et `std::string` (du texte), et comment les repérer en mémoire. Et quand tu voudras, ton coach pourra faire passer ta cible en 2D avec raylib, une petite bibliothèque de jeu."
+                  }
+              ]
+},"7-1":{
+    "id":  "7-1",
+    "phase":  7,
+    "numero":  "7.1",
+    "titre":  "Les outils tout faits du C++",
+    "duree":  15,
+    "objectif":  "Découvrir la **bibliothèque standard** (standard library, souvent « la STL ») : la boîte à outils livrée avec le C++, déjà écrite, testée et optimisée. Comprendre qu\u0027on fait entrer un outil avec son en-tête (`#include \u003cvector\u003e`, `\u003cstring\u003e`, `\u003ciostream\u003e`), et que ces outils vivent dans l\u0027**espace de noms** (namespace) `std`, d\u0027où le préfixe `std::`. Voir, sur un avant/après, pourquoi un `std::vector` bat une liste bricolée à la main : moins de bugs, code plus court, outils optimisés. Croiser le mot **conteneur** (container), un classique à repérer en mémoire quand on analyse un jeu.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Depuis la phase 1, tu as tout fabriqué à la main : tes fonctions, tes structures, tes classes. C\u0027est la bonne façon d\u0027apprendre, et tu sais maintenant lire ce que la machine en fait. Mais les vrais jeux ne réinventent pas tout. Minecraft tourne en Java, Oblivion et GTA V en C++. Tous s\u0027appuient sur d\u0027énormes **boîtes à outils** déjà écrites : des listes, du texte, des calculs tout prêts. Chaque langage est livré avec la sienne, et celle du C++ s\u0027appelle la **bibliothèque standard**. Cette phase 7 t\u0027apprend à t\u0027en servir, et surtout à la reconnaître quand tu liras un jeu."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La boîte à outils livrée avec le C++",
+                      "paragraphes":  [
+                                          "Tu connais déjà un morceau de cette boîte. Depuis ton tout premier programme, `#include \u003ciostream\u003e` fait entrer de quoi afficher du texte, avec `std::cout`. `iostream` n\u0027est qu\u0027un **en-tête** (header) parmi des dizaines : chacun apporte un outil tout fait.",
+                                          "La **bibliothèque standard** (standard library), c\u0027est l\u0027ensemble de ces outils, livrés avec chaque compilateur C++. Tu n\u0027as pas à les écrire : ils sont déjà codés, testés et optimisés depuis des années. Deux lignes suffisent souvent là où tu en écrivais trente.",
+                                          "Pour te servir d\u0027un outil, tu inclus son en-tête, comme pour `iostream`. `#include \u003cvector\u003e` apporte une liste qui grandit toute seule, `#include \u003cstring\u003e` du texte malin. Tu choisis l\u0027outil, tu l\u0027inclus, tu l\u0027utilises."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Trois outils, trois #include",
+                      "code":  "#include \u003ciostream\u003e   // afficher du texte (deja vu en phase 1)\n#include \u003cvector\u003e     // une liste qui grandit toute seule\n#include \u003cstring\u003e     // du texte qui connait sa longueur\n\nint main()\n{\n    std::vector\u003cint\u003e scores;   // une liste vide d\u0027entiers\n    scores.push_back(100);     // on ajoute 100 a la fin\n    scores.push_back(250);     // puis 250\n\n    std::string nom = \"Heros\"; // du texte range dans une string\n    std::cout \u003c\u003c nom \u003c\u003c \" a \" \u003c\u003c scores.size() \u003c\u003c \" scores\\n\";\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  1,
+                                        "texte":  "`#include \u003ciostream\u003e` apporte `std::cout`, de quoi afficher. Tu l\u0027utilises depuis ton premier programme, en phase 1."
+                                    },
+                                    {
+                                        "ligne":  2,
+                                        "texte":  "`#include \u003cvector\u003e` fait entrer `std::vector`, une **liste** qui grandit toute seule quand on ajoute des éléments."
+                                    },
+                                    {
+                                        "ligne":  7,
+                                        "texte":  "`std::vector\u003cint\u003e scores;` crée une liste d\u0027entiers, vide au départ. Le `\u003cint\u003e` dit « une liste d\u0027`int` »."
+                                    },
+                                    {
+                                        "ligne":  8,
+                                        "texte":  "`scores.push_back(100)` ajoute 100 à la fin. La liste s\u0027agrandit d\u0027elle-même : pas de taille à prévoir."
+                                    },
+                                    {
+                                        "ligne":  11,
+                                        "texte":  "`std::string nom = \"Heros\";` range du texte dans une `string`. Elle connaît sa longueur, sans que tu comptes les lettres."
+                                    },
+                                    {
+                                        "ligne":  12,
+                                        "texte":  "`scores.size()` donne le nombre d\u0027éléments, ici 2. Le programme affiche « Heros a 2 scores »."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "`std::`, l\u0027étiquette « maison »",
+                      "paragraphes":  [
+                                          "Un détail revient partout : le préfixe `std::`. Pourquoi `std::cout` et `std::vector`, et pas juste `cout` ou `vector` ? À cause des **espaces de noms** (namespaces).",
+                                          "Un **espace de noms** est une étiquette posée sur un groupe d\u0027outils, pour éviter les confusions. Tous ceux de la bibliothèque standard portent l\u0027étiquette `std`, pour *standard*. `std::vector` se lit « le `vector` de la bibliothèque standard ».",
+                                          "L\u0027intérêt : deux bibliothèques peuvent avoir chacune leur `vector` sans se gêner. Le `::` sépare l\u0027étiquette du nom. Si tu croises `std::` dans du code, tu sais d\u0027un coup d\u0027œil que l\u0027outil vient de la boîte standard."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "La doc de référence : cppreference",
+                      "texte":  "Tu veux savoir ce que fait un outil, ou quel en-tête inclure ? Le site de référence est **cppreference.com**. Il décrit chaque outil de la bibliothèque standard : `std::vector`, `std::string`, leurs méthodes, avec des exemples. Il est en anglais, mais c\u0027est LA documentation que lisent les développeurs C++. Garde-le sous la main : tu y reviendras souvent."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Avant / après : une liste à la main, puis un std::vector",
+                      "paragraphes":  [
+                                          "Prenons un cas concret : garder une liste de scores. Sans la bibliothèque standard, tu utilises un **tableau** (array) à taille fixe. Tu décides du nombre de cases à l\u0027avance, et tu ne peux plus en changer.",
+                                          "Regarde la même idée écrite de deux façons : d\u0027abord à la main avec un tableau fixe, ensuite avec un `std::vector`. Lis les deux, puis compare."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Avant : un tableau à taille fixe",
+                      "code":  "int scores[3];       // exactement 3 cases, decidees d\u0027avance\nscores[0] = 100;\nscores[1] = 250;\nscores[2] = 50;\n\n// Et pour un 4e score ? Pas de place : le tableau est plein.\n// Il faudrait un tableau plus grand, puis tout recopier.",
+                      "notes":  [
+                                    {
+                                        "ligne":  1,
+                                        "texte":  "`int scores[3]` réserve 3 cases, pas une de plus. La taille est figée dès l\u0027écriture du code."
+                                    },
+                                    {
+                                        "ligne":  6,
+                                        "texte":  "Un 4e score ne rentre pas. Écrire `scores[3] = ...` sortirait du tableau : un débordement, le genre de bug vu en phase 5."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Après : un std::vector",
+                      "code":  "#include \u003cvector\u003e\n\nstd::vector\u003cint\u003e scores;   // une liste vide, sans taille fixe\nscores.push_back(100);\nscores.push_back(250);\nscores.push_back(50);\nscores.push_back(10);       // un 4e ? elle s\u0027agrandit toute seule",
+                      "notes":  [
+                                    {
+                                        "ligne":  3,
+                                        "texte":  "Aucune taille à décider. La liste part vide et grandit à la demande."
+                                    },
+                                    {
+                                        "ligne":  7,
+                                        "texte":  "`push_back` ajoute un élément de plus, et le `std::vector` trouve la place tout seul. C\u0027est tout l\u0027intérêt."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Trois bonnes raisons de s\u0027en servir",
+                      "paragraphes":  [
+                                          "Le `std::vector` gagne sur toute la ligne, à commencer par **moins de bugs** : tu ne risques plus de déborder d\u0027un tableau trop petit. **Plus lisible** : `push_back` dit clairement « ajoute à la fin », et le code est plus court. **Plus rapide** : ces outils sont optimisés depuis des années, souvent mieux que du code écrit à la va-vite.",
+                                          "En C++ moderne, c\u0027est la règle : on préfère les outils tout faits de la bibliothèque standard à tout refaire soi-même. Tu codes moins, et tu fais moins d\u0027erreurs."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Reconnaître un conteneur dans un jeu",
+                      "texte":  "`std::vector` fait partie des **conteneurs** (containers) : des outils qui rangent une collection d\u0027éléments. Un jeu en est plein : la liste des ennemis, de l\u0027inventaire, des projectiles. Quand tu analyseras un jeu écrit en C++, repérer un conteneur en mémoire, c\u0027est mettre la main sur toute une liste d\u0027un coup. Cette phase t\u0027apprend à quoi ça ressemble ; la prochaine leçon ouvre le `std::vector`."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "standard library",
+                                       "fr":  "bibliothèque standard",
+                                       "note":  "La boîte à outils livrée avec le C++. Dans les outils et les forums, on lit souvent son surnom : « la STL »."
+                                   },
+                                   {
+                                       "en":  "namespace",
+                                       "fr":  "espace de noms",
+                                       "note":  "L\u0027étiquette qui groupe des outils pour éviter les confusions de noms. Celle de la bibliothèque standard est `std`."
+                                   },
+                                   {
+                                       "en":  "include",
+                                       "fr":  "inclure",
+                                       "note":  "`#include \u003cvector\u003e` fait entrer un outil dans ton fichier. Tu le fais depuis la phase 1 avec `\u003ciostream\u003e`."
+                                   },
+                                   {
+                                       "en":  "container",
+                                       "fr":  "conteneur",
+                                       "note":  "Un outil qui range une collection d\u0027éléments, comme `std::vector`. Le mot revient sans cesse quand on analyse un jeu."
+                                   },
+                                   {
+                                       "en":  "push_back",
+                                       "fr":  "ajouter à la fin",
+                                       "note":  "La méthode qui ajoute un élément au bout d\u0027un `std::vector`. La liste s\u0027agrandit toute seule."
+                                   },
+                                   {
+                                       "en":  "size",
+                                       "fr":  "taille",
+                                       "note":  "`scores.size()` donne le nombre d\u0027éléments d\u0027un conteneur. À ne pas confondre avec sa capacité (place réservée)."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Que veut dire le préfixe `std::` devant `std::vector` ?",
+                                            "choix":  [
+                                                          "Que l\u0027outil est très rapide",
+                                                          "Que c\u0027est une variable à toi",
+                                                          "Que l\u0027outil vient de la bibliothèque standard (espace de noms `std`)"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "`std` est l\u0027espace de noms de la bibliothèque standard. `std::vector` se lit « le `vector` de cette boîte à outils ». Le `::` sépare l\u0027étiquette du nom."
+                                        },
+                                        {
+                                            "q":  "Tu veux utiliser `std::vector`. Que faut-il écrire en haut du fichier ?",
+                                            "choix":  [
+                                                          "`#include \u003cvector\u003e`",
+                                                          "`#include \u003ciostream\u003e`",
+                                                          "Rien, il est toujours disponible"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "Chaque outil vit dans son en-tête. `#include \u003cvector\u003e` fait entrer `std::vector`, comme `#include \u003ciostream\u003e` fait entrer `std::cout` depuis la phase 1."
+                                        },
+                                        {
+                                            "q":  "Quel est l\u0027avantage d\u0027un `std::vector` sur un tableau `int scores[3]` à taille fixe ?",
+                                            "choix":  [
+                                                          "Il occupe moins de place sur le disque",
+                                                          "Il grandit tout seul quand on ajoute un élément",
+                                                          "Il n\u0027a pas besoin d\u0027être inclus"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Un tableau fixe reste coincé à sa taille de départ. Le `std::vector` s\u0027agrandit à la demande, avec `push_back`. Moins de bugs, et du code plus court."
+                                        },
+                                        {
+                                            "q":  "Pourquoi préfère-t-on la bibliothèque standard à tout coder soi-même ?",
+                                            "choix":  [
+                                                          "Parce que coder à la main est interdit en C++",
+                                                          "Parce que le compilateur refuse le code fait maison",
+                                                          "Parce que ces outils sont déjà testés, optimisés et plus lisibles"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Moins de bugs, code plus court, outils optimisés depuis des années. En C++ moderne, on réutilise la boîte standard au lieu de tout refaire."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "La **bibliothèque standard** (standard library) est la boîte à outils livrée avec le C++ : listes, texte, calculs déjà écrits et testés. Tu t\u0027en sers depuis la phase 1 avec `std::cout`.",
+                                     "On fait entrer un outil avec son en-tête : `#include \u003cvector\u003e`, `#include \u003cstring\u003e`, `#include \u003ciostream\u003e`. Un `#include` par outil.",
+                                     "Ces outils vivent dans l\u0027**espace de noms** (namespace) `std`, d\u0027où le préfixe `std::`. C\u0027est l\u0027étiquette « vient de la bibliothèque standard ».",
+                                     "On les préfère au code à la main : moins de bugs, plus court, optimisé. `std::vector` est un **conteneur** : une liste qui grandit seule, qu\u0027on apprendra à retrouver en mémoire dans les jeux."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "7.2 — std::vector, la liste qui grandit",
+                      "texte":  "Tu sais maintenant ouvrir la boîte à outils. Le prochain outil, c\u0027est la star du C++ moderne : `std::vector`. Tu vas voir comment il range ses éléments, comment il s\u0027agrandit quand il est plein, et surtout à quoi il ressemble en mémoire : **trois pointeurs** côte à côte. De quoi le reconnaître dans un vrai jeu."
+                  }
+              ]
+},"7-2":{
+    "id":  "7-2",
+    "phase":  7,
+    "numero":  "7.2",
+    "titre":  "std::vector : une liste qui grandit",
+    "duree":  17,
+    "objectif":  "Découvrir std::vector, la liste qui grandit toute seule, et surtout apprendre à la reconnaître en mémoire. Lire le code d\u0027Inventaire.cpp : push_back pour ajouter, size() pour compter, capacity() pour la place réservée, scores[0] pour accéder, et la boucle « pour chaque » qui parcourt sans compteur. Comprendre qu\u0027un vector plein double sa capacité et recopie, comme le boss MonVecteur. Avec la vérité terrain de MSVC en x64, découvrir qu\u0027un std::vector tient en trois pointeurs (début +0, fin +8, fin de capacité +16) : repérer ce trio en mémoire, c\u0027est repérer une liste d\u0027ennemis ou d\u0027objets dans un vrai jeu.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Dans Minecraft, ton inventaire se remplit à mesure que tu ramasses des objets. Sur un serveur, la liste des joueurs connectés grandit et rétrécit sans arrêt. Dans un jeu d\u0027action, les projectiles et les ennemis apparaissent, puis disparaissent. Toutes ces listes ont un point commun : leur taille change pendant la partie. En C++, l\u0027outil tout fait pour ça s\u0027appelle **std::vector** (vector), et tu le croiseras partout en mémoire."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Une liste qui s\u0027agrandit toute seule",
+                      "paragraphes":  [
+                                          "**std::vector** fait partie de la **bibliothèque standard** (standard library), la boîte à outils livrée avec le C++, déjà croisée en phase 1. Comme tout ce qui en vient, son nom commence par `std::`. Pour t\u0027en servir, tu ajoutes la ligne `#include \u003cvector\u003e` en haut du fichier.",
+                                          "Un vector est un **conteneur** (container) : un objet qui range une liste d\u0027éléments du même type. `std::vector\u003cint\u003e` se lit « un vector d\u0027`int` », donc une liste de nombres entiers. Ce qui est écrit entre les chevrons `\u003c \u003e` dit quel type on range ; on verra ce mécanisme, les **modèles** (templates), en 7.3.",
+                                          "Son intérêt par rapport à un simple tableau tient en un mot : il grandit tout seul. Tu ajoutes un élément, il trouve la place. Plus besoin de fixer sa taille d\u0027avance."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Un extrait d\u0027Inventaire.cpp",
+                      "code":  "#include \u003cvector\u003e\n\nstd::vector\u003cint\u003e scores;\nscores.push_back(100);\nscores.push_back(250);\nscores.push_back(50);\n\nstd::cout \u003c\u003c \"Nombre de scores : \" \u003c\u003c scores.size() \u003c\u003c \"\\n\";\nstd::cout \u003c\u003c \"Place reservee : \" \u003c\u003c scores.capacity() \u003c\u003c \"\\n\";\nstd::cout \u003c\u003c \"Premier score : \" \u003c\u003c scores[0] \u003c\u003c \"\\n\";\n\nint total = 0;\nfor (int s : scores)\n    total += s;",
+                      "notes":  [
+                                    {
+                                        "ligne":  3,
+                                        "texte":  "`std::vector\u003cint\u003e scores;` crée une liste d\u0027`int` vide. Le `\u003cint\u003e` entre chevrons dit « de `int` » : une liste de nombres entiers."
+                                    },
+                                    {
+                                        "ligne":  4,
+                                        "texte":  "`push_back(100)` ajoute 100 **à la fin**. La liste grandit toute seule à chaque ajout, sans qu\u0027on fixe sa taille."
+                                    },
+                                    {
+                                        "ligne":  8,
+                                        "texte":  "`size()` renvoie le nombre d\u0027éléments présents : 3 ici. C\u0027est la question la plus courante qu\u0027on pose à un vector."
+                                    },
+                                    {
+                                        "ligne":  9,
+                                        "texte":  "`capacity()` renvoie la place déjà réservée, souvent plus grande que `size()`. On voit pourquoi juste après."
+                                    },
+                                    {
+                                        "ligne":  10,
+                                        "texte":  "`scores[0]` lit le premier élément, comme dans un tableau. Les éléments se comptent à partir de 0."
+                                    },
+                                    {
+                                        "ligne":  13,
+                                        "texte":  "`for (int s : scores)` est la boucle « pour chaque » : `s` prend chaque valeur, du premier au dernier, sans compteur."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Ajouter, compter, parcourir",
+                      "paragraphes":  [
+                                          "Récapitulons les gestes de base. `push_back(100)` ajoute 100 à la fin de la liste : chaque appel allonge le vector d\u0027un cran. Et `scores[0]` lit un élément précis, comme dans un tableau, en comptant à partir de 0.",
+                                          "Pour mesurer, deux méthodes : `size()` compte les éléments présents, `capacity()` donne la place réservée. L\u0027encadré qui suit détaille leur différence.",
+                                          "Reste à tout parcourir. La **boucle « pour chaque »** (range-based for, ou for-each) s\u0027écrit `for (int s : scores)` : `s` prend chaque valeur, du premier au dernier, sans compteur. Tu la reverras partout : les ennemis d\u0027un niveau, les objets d\u0027un inventaire, les joueurs d\u0027un serveur."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "size() et capacity(), à ne pas confondre",
+                      "texte":  "Deux mesures, deux rôles. `size()` compte les éléments **vraiment présents** ; `capacity()` donne la place **déjà réservée**, prête à accueillir d\u0027autres éléments sans nouvelle demande de mémoire. La capacité est toujours supérieure ou égale à la taille. Pourquoi réserver plus ? Pour ne pas redemander de la place à chaque ajout. Quand tu liras un vector en mémoire, retiens que ces deux nombres ne se calculent pas pareil : l\u0027un s\u0027arrête au dernier élément, l\u0027autre à la fin de la zone réservée."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Quand il est plein, il double",
+                      "paragraphes":  [
+                                          "Comment un vector grandit-il vraiment ? Tant qu\u0027il reste de la place réservée (`size` sous `capacity`), un `push_back` range l\u0027élément et c\u0027est fini. Rapide.",
+                                          "Mais quand il est plein (`size` égale `capacity`), il doit s\u0027agrandir. Il réserve alors une zone **plus grande**, souvent le double, y **recopie** tous les anciens éléments, puis ajoute le nouveau. L\u0027ancienne zone est rendue.",
+                                          "C\u0027est exactement ce que fait le boss de la phase, `MonVecteur` : quand `taille` atteint `capacite`, il double la capacité et recopie. Ajoute 10, 20, 30, et la capacité passe de 2 à 4 sous tes yeux. `std::vector` fait pareil, en mieux réglé."
+                                      ]
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Voici le plus utile pour toi : reconnaître un std::vector en mémoire. On compile une petite fonction qui rend la taille d\u0027un vector. `v`, l\u0027adresse du vector, arrive dans **RCX**, comme premier argument en x64. Regarde comment MSVC calcule `v.size()`.",
+                      "cpp":  "int taille(const std::vector\u003cint\u003e\u0026 v)\n{\n    return (int)v.size();\n}",
+                      "asm":  "?taille@@... PROC\n    mov rax, QWORD PTR [rcx+8]\n    sub rax, QWORD PTR [rcx]\n    sar rax, 2\n    ret 0\n?taille@@... ENDP",
+                      "liens":  [
+                                    {
+                                        "cpp":  1,
+                                        "asm":  [
+                                                    1
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  3,
+                                        "asm":  [
+                                                    2,
+                                                    3,
+                                                    4
+                                                ]
+                                    }
+                                ],
+                      "conclusion":  "Regarde bien : MSVC ne lit **aucun compteur**. Il fait `[rcx+8]` moins `[rcx]`, soit le **pointeur \u0027fin\u0027 (offset 8) moins le pointeur \u0027début\u0027 (offset 0)**. Ça donne la distance en octets entre le premier élément et juste après le dernier. Puis `sar rax, 2` décale de 2 bits, une **division par 4** (la taille d\u0027un `int`) : on obtient le nombre d\u0027éléments. **La révélation** : un std::vector tient en **trois pointeurs** collés — \u0027début\u0027 des données à l\u0027offset 0, \u0027fin\u0027 des données à l\u0027offset 8, \u0027fin de la capacité\u0027 à l\u0027offset 16. Du coup `size()` = (fin − début) / 4, et `capacity()` = (fin_capacité − début) / 4. Le nom décoré complet, `?taille@@YAHAEBV?$vector@HV?$allocator@H@std@@@std@@@Z`, est long à cause du modèle (template) ; les instructions, elles, restent limpides.",
+                      "godbolt":  "https://godbolt.org/clientstate/eyJzZXNzaW9ucyI6W3sic291cmNlIjoiI2luY2x1ZGUgPHZlY3Rvcj5cblxuaW50IHRhaWxsZShjb25zdCBzdGQ6OnZlY3RvcjxpbnQ+JiB2KVxue1xuICAgIHJldHVybiAoaW50KXYuc2l6ZSgpO1xufVxuIiwibGFuZ3VhZ2UiOiJjKysiLCJpZCI6MSwiY29tcGlsZXJzIjpbeyJpZCI6InZjcHBfdjE5X2xhdGVzdF94NjQiLCJvcHRpb25zIjoiL08yIn1dfV19"
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "txt",
+                      "titre":  "Un std::vector = 3 pointeurs",
+                      "code":  "std::vector\u003cint\u003e en memoire = 3 pointeurs cote a cote\n\noffset  pointeur       vers quoi\n  +0    debut          le 1er element des donnees\n  +8    fin            juste apres le dernier element\n  +16   fin_capacite   la fin de la place reservee\n\nsize()     = (fin - debut) / 4          (un int = 4 octets)\ncapacity() = (fin_capacite - debut) / 4",
+                      "notes":  [
+                                    {
+                                        "ligne":  5,
+                                        "texte":  "C\u0027est ce pointeur \u0027fin\u0027 que lit `mov rax, [rcx+8]` dans le capot. Il est à l\u0027offset 8 parce que le pointeur \u0027début\u0027 occupe les 8 premiers octets."
+                                    },
+                                    {
+                                        "ligne":  8,
+                                        "texte":  "`size()` ne range pas le nombre : il le calcule, par soustraction puis division par 4. Exactement l\u0027assembleur qu\u0027on vient de lire."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Repérer un vector dans un vrai jeu",
+                      "texte":  "Voilà une signature en or pour le reverse. **Trois pointeurs côte à côte**, dont les deux premiers encadrent une zone de données, et dont la différence divisée par la taille d\u0027un élément donne un compte rond : c\u0027est très probablement un `std::vector`. Dans un vrai jeu, ce motif révèle une liste d\u0027ennemis, les objets d\u0027un inventaire, une file de projectiles. Tu repères le trio, tu soustrais, tu divises, et tu sais combien d\u0027éléments la liste contient, sans jamais avoir le code source. Un grand classique du reverse en C++. Règle du dojo : on s\u0027entraîne sur ses propres programmes ou un jeu solo, hors ligne."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "vector",
+                                       "fr":  "vecteur",
+                                       "note":  "Le conteneur le plus courant : une liste qui grandit toute seule. On garde le mot `vector` tel quel dans le code."
+                                   },
+                                   {
+                                       "en":  "push_back",
+                                       "fr":  "ajouter à la fin",
+                                       "note":  "La méthode qui ajoute un élément à la fin du vector. *to push back* : « pousser au bout »."
+                                   },
+                                   {
+                                       "en":  "size",
+                                       "fr":  "taille",
+                                       "note":  "`size()` renvoie le nombre d\u0027éléments présents. À ne pas confondre avec `capacity`."
+                                   },
+                                   {
+                                       "en":  "capacity",
+                                       "fr":  "capacité",
+                                       "note":  "`capacity()` renvoie la place déjà réservée, souvent supérieure à `size`."
+                                   },
+                                   {
+                                       "en":  "container",
+                                       "fr":  "conteneur",
+                                       "note":  "Un objet qui range une collection d\u0027éléments. `std::vector` en est un ; il en existe d\u0027autres."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Que fait `scores.push_back(50);` ?",
+                                            "choix":  [
+                                                          "Ajoute 50 à la fin du vector `scores`",
+                                                          "Enlève le dernier élément de `scores`",
+                                                          "Remplace tout le contenu de `scores` par 50"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "`push_back` ajoute un élément à la fin, et le vector s\u0027agrandit tout seul si besoin. C\u0027est le geste de base pour remplir un vector."
+                                        },
+                                        {
+                                            "q":  "Avec MSVC en x64, comment `size()` est-il calculé dans l\u0027assembleur qu\u0027on a lu sous le capot ?",
+                                            "choix":  [
+                                                          "Il lit un compteur rangé dans le vector",
+                                                          "Il parcourt les éléments et les compte un par un",
+                                                          "Il fait (pointeur fin − pointeur début), puis divise par la taille d\u0027un élément"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "`mov rax, [rcx+8]` (fin) moins `[rcx]` (début), puis `sar rax, 2` (division par 4) : aucun compteur, juste une soustraction de pointeurs."
+                                        },
+                                        {
+                                            "q":  "Dans la disposition d\u0027un std::vector, qu\u0027y a-t-il à l\u0027offset 0 ?",
+                                            "choix":  [
+                                                          "Le nombre d\u0027éléments",
+                                                          "Le pointeur vers le début des données",
+                                                          "La capacité réservée"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "À l\u0027offset 0, le pointeur \u0027début\u0027 ; à +8, le pointeur \u0027fin\u0027 ; à +16, la fin de la capacité. Trois pointeurs, et aucun compteur stocké."
+                                        },
+                                        {
+                                            "q":  "Un vector plein (`size` égale `capacity`) reçoit un `push_back`. Que se passe-t-il ?",
+                                            "choix":  [
+                                                          "Il refuse le nouvel élément",
+                                                          "Il écrase son premier élément",
+                                                          "Il réserve une zone plus grande, recopie l\u0027ancien contenu, puis ajoute"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Quand `size` atteint `capacity`, le vector réserve plus grand (souvent le double) et recopie tout avant d\u0027ajouter. C\u0027est ce que fait le boss `MonVecteur`."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "**std::vector** (de la bibliothèque standard) est une liste d\u0027éléments du même type qui grandit toute seule. `push_back` ajoute à la fin, `size()` compte, `capacity()` donne la place réservée, `v[i]` accède au i-e élément.",
+                                     "La boucle « pour chaque » `for (int s : scores)` parcourt tout le vector sans compteur : `s` prend chaque valeur, du premier au dernier.",
+                                     "Quand un vector est plein (`size` égale `capacity`), il réserve une zone plus grande, souvent le double, recopie l\u0027ancien contenu, puis ajoute. C\u0027est le boss `MonVecteur` en miniature.",
+                                     "Avec MSVC en x64, un std::vector tient en **trois pointeurs** : début (+0), fin (+8), fin de capacité (+16). `size()` = (fin − début) / 4. Repérer ce trio en mémoire, c\u0027est reconnaître une liste d\u0027ennemis ou d\u0027objets dans un vrai jeu."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "7.3 — Texte, modèles et pointeurs intelligents",
+                      "texte":  "Tu sais lire un vector. En 7.3, on complète la trousse du C++ moderne. D\u0027abord **std::string**, le texte qui connaît sa longueur et range les mots courts à même l\u0027objet (la SSO). Ensuite les **modèles** (templates), le mécanisme derrière les chevrons `\u003cint\u003e`, qui fait marcher le même outil pour n\u0027importe quel type. Enfin les **pointeurs intelligents** (smart pointers), la parade moderne aux pièges de la phase 5 : un pointeur qui libère sa mémoire tout seul."
+                  }
+              ]
+},"7-3":{
+    "id":  "7-3",
+    "phase":  7,
+    "numero":  "7.3",
+    "titre":  "Texte, modèles et pointeurs intelligents",
+    "duree":  16,
+    "objectif":  "Découvrir les trois outils du C++ moderne qu\u0027on croise sans cesse en lecture. `std::string` : du texte qui connaît sa longueur, qu\u0027on colle avec `+` et compare avec `==` (avec la SSO, qui loge les textes courts dans l\u0027objet). Les modèles (templates) : le `\u003c...\u003e` qui contient un type, le même outil pour `std::vector\u003cint\u003e` comme pour `std::vector\u003cstd::string\u003e`. Les pointeurs intelligents (smart pointers) comme `std::unique_ptr`, qui libèrent leur mémoire tout seuls. Rappeler `new`/`delete` et la fuite mémoire, et retenir qu\u0027en C++ moderne on préfère `std::vector` et les smart pointers au `new`/`delete` à la main, sauf pour apprendre ce qui se passe dessous, comme au boss.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Ouvre le code d\u0027un vrai jeu, ou d\u0027un gros mod, et trois motifs reviennent à chaque page. Du texte rangé dans des `std::string`. Des listes écrites `vector\u003c...\u003e`. Et des pointeurs au nom bizarre, comme `unique_ptr`. Ce sont les outils de tous les jours du **C++ moderne**. Les reconnaître, c\u0027est lire un vrai projet sans caler à chaque ligne. Cette leçon te donne les trois."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Rappel, et les trois outils du jour",
+                      "paragraphes":  [
+                                          "Depuis le début de la phase 7, tu puises dans la **bibliothèque standard**, la boîte à outils livrée avec le C++. Tu y as déjà trouvé `std::vector`, une liste qui grandit toute seule.",
+                                          "Aujourd\u0027hui, trois outils de plus, tous très courants en lecture. `std::string` range du texte. Les **modèles** (templates) expliquent le `\u003c...\u003e` que tu vois partout. Les **pointeurs intelligents** (smart pointers) rangent des adresses sans les pièges de la phase 5."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "std::string : du texte qui se connaît",
+                      "paragraphes":  [
+                                          "`std::string`, c\u0027est du texte qui se connaît. La ligne `std::string nom = \"Heros\";` retient la suite de lettres, et surtout sa longueur. `nom.size()` répond d\u0027un coup : 5, sans jamais recompter.",
+                                          "Deux gestes très courants. Le `+` colle deux textes bout à bout : `\"Niveau \" + nom` donne un seul texte. Le `==` compare deux textes lettre à lettre : pratique pour tester un pseudo ou une commande.",
+                                          "En C, un texte n\u0027était qu\u0027un tableau de caractères, à gérer soi-même. `std::string` fait le travail à ta place : il retient la taille, et libère sa mémoire tout seul quand on a fini."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Lis cette string",
+                      "code":  "std::string nom = \"Heros\";\nstd::string salut = \"Salut \" + nom;\n\nstd::cout \u003c\u003c salut \u003c\u003c \"\\n\";          // Salut Heros\nstd::cout \u003c\u003c nom.size() \u003c\u003c \"\\n\";     // 5\nstd::cout \u003c\u003c (nom == \"Heros\") \u003c\u003c \"\\n\"; // 1 (vrai)",
+                      "notes":  [
+                                    {
+                                        "ligne":  1,
+                                        "texte":  "`std::string nom = \"Heros\";` range le texte « Heros ». L\u0027objet connaît déjà sa longueur, sans qu\u0027on la lui donne."
+                                    },
+                                    {
+                                        "ligne":  2,
+                                        "texte":  "`\"Salut \" + nom` colle les deux textes. `salut` contient alors « Salut Heros », en un seul morceau."
+                                    },
+                                    {
+                                        "ligne":  5,
+                                        "texte":  "`nom.size()` renvoie 5, le nombre de lettres. C\u0027est tout l\u0027intérêt d\u0027une `std::string` : elle se mesure d\u0027elle-même."
+                                    },
+                                    {
+                                        "ligne":  6,
+                                        "texte":  "`nom == \"Heros\"` compare lettre à lettre. C\u0027est vrai, et un « vrai » s\u0027affiche en 1. Très utile pour tester une commande tapée."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La SSO : pourquoi une string pèse lourd",
+                      "paragraphes":  [
+                                          "Un détail surprenant, et utile en rétro-ingénierie. Pour un texte court, `std::string` range les lettres directement dans l\u0027objet, sans aller chercher de la mémoire ailleurs. On appelle ça la **SSO** (Small String Optimization, « optimisation des petites chaînes »).",
+                                          "Résultat : un `std::string` occupe plus de place qu\u0027on ne croit en mémoire, même pour un mot de trois lettres. En analysant un jeu, un bloc qui mêle une petite longueur et quelques lettres lisibles, c\u0027est souvent une `std::string`."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Les modèles (templates) : un outil, tous les types",
+                      "paragraphes":  [
+                                          "Regarde le `\u003c...\u003e` de `std::vector\u003cint\u003e`. Ces chevrons contiennent un **type**. On lit « un vector d\u0027`int` » ; et `std::vector\u003cstd::string\u003e`, « un vector de chaînes ».",
+                                          "C\u0027est ça, un **modèle** (template) : un outil écrit une seule fois, qui marche pour n\u0027importe quel type. Le même `vector` te donne une liste d\u0027entiers, de chaînes, ou d\u0027objets `Joueur`. Tu choisis le contenu dans les chevrons.",
+                                          "En mémoire, la forme ne change pas. Un `vector` reste le même trio de repères, trois pointeurs côte à côte, quel que soit le type rangé. C\u0027est pour ça qu\u0027on le reconnaît toujours de la même façon (leçon 7.2)."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Lis ce vector de chaînes",
+                      "code":  "std::vector\u003cstd::string\u003e noms;\nnoms.push_back(\"Steve\");\nnoms.push_back(\"Alex\");\n\nstd::cout \u003c\u003c noms.size() \u003c\u003c \"\\n\";   // 2\nstd::cout \u003c\u003c noms[0] \u003c\u003c \"\\n\";       // Steve",
+                      "notes":  [
+                                    {
+                                        "ligne":  1,
+                                        "texte":  "`std::vector\u003cstd::string\u003e` : une liste de chaînes. Le `\u003cstd::string\u003e` dit ce que chaque case contient."
+                                    },
+                                    {
+                                        "ligne":  2,
+                                        "texte":  "`push_back(\"Steve\")` ajoute un nom à la fin. La liste grandit toute seule, comme en 7.1."
+                                    },
+                                    {
+                                        "ligne":  5,
+                                        "texte":  "`noms.size()` vaut 2 : deux noms ont été ajoutés. La `string` et le `vector` comptent chacun de leur côté."
+                                    },
+                                    {
+                                        "ligne":  6,
+                                        "texte":  "`noms[0]` est le premier élément, « Steve ». On accède à une case comme à un tableau."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "Lire un `\u003c...\u003e` sans paniquer",
+                      "texte":  "Quand tu croises des chevrons dans du code, ne te crispe pas. Lis juste « tel outil, rempli de tel type ». `std::vector\u003cJoueur*\u003e` ? « une liste de pointeurs vers des `Joueur` ». `std::map\u003cstd::string, int\u003e` ? « un annuaire qui associe un texte à un nombre ». Le `\u003c...\u003e` dit toujours *de quoi* c\u0027est fait."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "new, delete, et la fuite mémoire",
+                      "paragraphes":  [
+                                          "Petit retour sur le **tas** (heap) de la phase 5 : la grande réserve de mémoire pour ce qui doit durer. Pour y prendre de la place pendant que le programme tourne, un mot : `new`. Pour la rendre quand tu as fini : `delete` (ou `delete[]` pour un tableau).",
+                                          "C\u0027est l\u0027**allocation dynamique** (dynamic allocation) : réserver et libérer à la demande. Ton futur boss `MonVecteur` fait exactement ça, avec `new int[...]` puis `delete[]`.",
+                                          "Le danger : oublier le `delete`. La mémoire reste prise pour rien, encore et encore, jusqu\u0027à étouffer le jeu. On appelle ça une **fuite mémoire** (memory leak)."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Les pointeurs intelligents (smart pointers)",
+                      "paragraphes":  [
+                                          "La parade moderne tient en deux mots : **pointeur intelligent** (smart pointer). C\u0027est un pointeur qui libère sa mémoire tout seul, dès qu\u0027on n\u0027en a plus besoin. Fini le `delete` oublié.",
+                                          "Le plus courant s\u0027appelle `std::unique_ptr`. Il possède une adresse sur le tas, et quand il disparaît, il fait le `delete` à ta place. Plus de fuite mémoire, plus de **pointeur pendouillant** (dangling, phase 5) qui montre une case déjà libérée.",
+                                          "D\u0027où la règle du C++ moderne : préfère `std::vector` et les smart pointers aux `new`/`delete` à la main. On garde les `new`/`delete` pour une seule raison : apprendre ce qui se passe dessous, comme à ton boss `MonVecteur`."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Lis ces deux styles",
+                      "code":  "// vieux style : a toi de liberer\nint* a = new int(42);\ndelete a;                 // si tu oublies : fuite\n\n// style moderne : libere tout seul\nstd::unique_ptr\u003cint\u003e b = std::make_unique\u003cint\u003e(42);\n// pas de delete : b s\u0027en charge en partant",
+                      "notes":  [
+                                    {
+                                        "ligne":  2,
+                                        "texte":  "`new int(42)` réserve un `int` sur le tas, valeur 42. `a` retient son adresse, comme tout pointeur (phase 5)."
+                                    },
+                                    {
+                                        "ligne":  3,
+                                        "texte":  "`delete a` rend la mémoire. L\u0027oublier, c\u0027est la fuite mémoire : la case reste prise pour rien."
+                                    },
+                                    {
+                                        "ligne":  6,
+                                        "texte":  "`std::unique_ptr\u003cint\u003e` range la même adresse, mais en pointeur intelligent. Le `\u003cint\u003e` dit ce qu\u0027il garde."
+                                    },
+                                    {
+                                        "ligne":  7,
+                                        "texte":  "Aucun `delete` à écrire. Quand `b` disparaît, il libère tout seul. C\u0027est la parade aux pièges de la phase 5."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "curieux",
+                      "titre":  "Du neuf et du vieux dans le même fichier",
+                      "texte":  "Tu vas voir une chose déroutante en lisant de vrais jeux. Le même fichier mêle du C++ tout neuf, `std::vector` et `unique_ptr`, et du très vieux style hérité du C : des `new`/`delete` à la main, des pointeurs bruts, des tableaux nus. Pourquoi ? Un gros jeu vit des années, écrit par des dizaines de mains, et on ne réécrit pas tout. Les triches et les mods, eux, doivent s\u0027accrocher à ce code existant, donc ils parlent sa langue. Pour le reverse, la leçon est simple : il faut savoir lire les deux."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "string",
+                                       "fr":  "chaîne (de caractères)",
+                                       "note":  "Du texte qui connaît sa taille. Dans le code d\u0027un jeu, `std::string` est partout : noms, messages, commandes."
+                                   },
+                                   {
+                                       "en":  "template",
+                                       "fr":  "modèle",
+                                       "note":  "Le `\u003c...\u003e` qui contient un type. `vector\u003cint\u003e` est le modèle `vector` rempli d\u0027`int`."
+                                   },
+                                   {
+                                       "en":  "smart pointer",
+                                       "fr":  "pointeur intelligent",
+                                       "note":  "Un pointeur qui libère sa mémoire tout seul. La parade moderne aux pièges de la phase 5."
+                                   },
+                                   {
+                                       "en":  "unique_ptr",
+                                       "fr":  "pointeur unique",
+                                       "note":  "Le smart pointer le plus courant. Il possède une adresse sur le tas et fait le `delete` à ta place."
+                                   },
+                                   {
+                                       "en":  "memory leak",
+                                       "fr":  "fuite mémoire",
+                                       "note":  "De la mémoire réservée puis jamais rendue. Elle s\u0027accumule et finit par ralentir, puis étouffer, le programme."
+                                   },
+                                   {
+                                       "en":  "to allocate",
+                                       "fr":  "allouer",
+                                       "note":  "Réserver de la mémoire sur le tas, avec `new`. « Allocation » revient sans cesse dans les outils et les messages d\u0027erreur."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Que renvoie `nom.size()` pour `std::string nom = \"Heros\";` ?",
+                                            "choix":  [
+                                                          "5, le nombre de lettres",
+                                                          "1, parce que c\u0027est un seul mot",
+                                                          "L\u0027adresse du texte en mémoire"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "Une `std::string` connaît sa longueur. `size()` renvoie 5, le nombre de lettres, sans rien recompter."
+                                        },
+                                        {
+                                            "q":  "Dans `std::vector\u003cstd::string\u003e`, à quoi sert le `\u003cstd::string\u003e` ?",
+                                            "choix":  [
+                                                          "À trier la liste par ordre alphabétique",
+                                                          "À limiter la liste à une seule chaîne",
+                                                          "À dire que chaque case contient une chaîne"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Les chevrons d\u0027un modèle (template) contiennent le type rangé. Ici, chaque case du `vector` est une `std::string`."
+                                        },
+                                        {
+                                            "q":  "Tu écris `int* a = new int(42);` et tu oublies le `delete`. Qu\u0027est-ce qui se passe ?",
+                                            "choix":  [
+                                                          "Le programme refuse de compiler",
+                                                          "Une fuite mémoire : la place reste prise pour rien",
+                                                          "La valeur 42 est effacée aussitôt"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "`new` réserve sur le tas ; sans `delete`, cette mémoire n\u0027est jamais rendue. C\u0027est une fuite mémoire (memory leak)."
+                                        },
+                                        {
+                                            "q":  "À quoi sert un `std::unique_ptr` ?",
+                                            "choix":  [
+                                                          "À rendre un pointeur plus rapide",
+                                                          "À comparer deux adresses",
+                                                          "À libérer sa mémoire tout seul, sans `delete` à la main"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Un pointeur intelligent (smart pointer) libère sa mémoire quand il disparaît. Plus de `delete` oublié, plus de fuite, plus de pointeur pendouillant."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "`std::string`, c\u0027est du texte qui connaît sa longueur (`size()`), qu\u0027on colle avec `+` et compare avec `==`. La **SSO** loge les textes courts dans l\u0027objet : une `string` pèse plus lourd qu\u0027on croit en mémoire.",
+                                     "Les **modèles** (templates), c\u0027est le `\u003c...\u003e` : un type entre chevrons. `std::vector\u003cint\u003e`, `std::vector\u003cstd::string\u003e` — le même outil pour n\u0027importe quel contenu.",
+                                     "`new` réserve de la mémoire sur le tas, `delete` la rend. Oublier le `delete`, c\u0027est une **fuite mémoire** (memory leak).",
+                                     "Un **pointeur intelligent** (smart pointer) comme `std::unique_ptr` libère tout seul. En C++ moderne, on préfère `std::vector` et les smart pointers aux `new`/`delete` à la main."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "7.4 — Boss : code ton propre vector",
+                      "texte":  "Tu as les trois outils du C++ moderne en lecture : le texte, les modèles, les pointeurs intelligents. Place au **boss** de la phase 7 : tu codes toi-même `MonVecteur`, une liste qui grandit, avec un pointeur, une taille et une capacité. En le construisant de tes mains, tu comprendras ce qu\u0027un `std::vector` fait à l\u0027intérieur, et tu le reconnaîtras les yeux fermés dans un vrai jeu."
+                  }
+              ]
+},"7-4":{
+    "id":  "7-4",
+    "phase":  7,
+    "numero":  "7.4",
+    "titre":  "Boss : code ton propre vector",
+    "duree":  35,
+    "objectif":  "Coder, lancer et comprendre MonVecteur.cpp : ta propre liste dynamique, std::vector en miniature. Voir ses trois champs (un pointeur `donnees`, `taille`, `capacite`), regarder au débogueur la capacité doubler et le pointeur changer d\u0027adresse au moment de la réallocation, puis relier ces trois champs aux trois pointeurs d\u0027un vrai std::vector révélés par l\u0027assembleur de MSVC en x64. Comprendre qu\u0027un vector = pointeur + taille + capacité, c\u0027est pouvoir le lire en mémoire dans un vrai jeu.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "La nuit tombe sur ton monde Minecraft, et les monstres apparaissent un par un. Le jeu doit les garder quelque part : une liste qui grandit à chaque apparition. En phase 7, tu as rencontré `std::vector`, l\u0027outil du C++ qui fait exactement ça. Ce boss te fait coder le tien, en tout petit, pour voir ce que `std::vector` cache à l\u0027intérieur. C\u0027est un vrai pas de « programmeur d\u0027excellence » : comprendre un outil en le reconstruisant toi-même."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Ce que la phase 7 t\u0027a appris",
+                      "paragraphes":  [
+                                          "La **bibliothèque standard** du C++ (souvent « la STL ») offre des outils tout faits. `std::vector`, c\u0027est une liste qui grandit toute seule : `push_back` ajoute un élément, `size()` donne leur nombre, `capacity()` la place réservée, `v[i]` accède au i-e. `std::string`, c\u0027est du texte qui connaît sa longueur.",
+                                          "Ces listes vivent sur le **tas** (heap, phase 5). Le mot `new` y réserve de la mémoire pendant que le programme tourne ; `delete` (ou `delete[]` pour un tableau) la rend. Oublier de la rendre, c\u0027est une **fuite mémoire** (memory leak).",
+                                          "Place au boss. Tu vas coder ta propre liste qui grandit, pour voir `std::vector` de l\u0027intérieur. Trois choses suffisent, rien de plus : un **pointeur** vers les données, la **taille** et la **capacité**."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "MonVecteur.cpp, en entier",
+                      "code":  "// MonVecteur.cpp - le boss de la phase 7 : ta propre liste qui grandit.\n// C\u0027est std::vector en tout petit et tout simple. Trois choses suffisent :\n//   un pointeur vers les donnees, la taille (combien d\u0027elements), la capacite (place reservee).\n// En le codant, tu comprends ce que std::vector fait a l\u0027interieur.\n// Compile :  cl /nologo /EHsc /std:c++20 /W4 MonVecteur.cpp\n\n#include \u003ciostream\u003e\n\nclass MonVecteur\n{\npublic:\n    int* donnees;    // un pointeur vers le tableau (phase 5)\n    int taille;      // combien d\u0027elements sont ranges\n    int capacite;    // combien de places sont reservees\n\n    MonVecteur()\n    {\n        capacite = 2;\n        taille = 0;\n        donnees = new int[capacite];   // on reserve de la place sur le tas\n    }\n\n    ~MonVecteur()\n    {\n        delete[] donnees;              // un bon vector libere sa memoire\n    }\n\n    void ajouter(int valeur)\n    {\n        if (taille == capacite)\n        {\n            capacite *= 2;                       // plus de place : on double\n            int* neuf = new int[capacite];\n            for (int i = 0; i \u003c taille; i++)\n                neuf[i] = donnees[i];            // on recopie l\u0027ancien contenu\n            delete[] donnees;\n            donnees = neuf;\n        }\n        donnees[taille] = valeur;\n        taille += 1;\n    }\n};\n\nint main()\n{\n    MonVecteur v;\n    std::cout \u003c\u003c \"capacite au depart : \" \u003c\u003c v.capacite \u003c\u003c \"\\n\";\n\n    v.ajouter(10);\n    v.ajouter(20);\n    v.ajouter(30);   // la 3e valeur force la capacite a doubler\n\n    std::cout \u003c\u003c \"taille : \" \u003c\u003c v.taille \u003c\u003c \", capacite : \" \u003c\u003c v.capacite \u003c\u003c \"\\n\";\n    for (int i = 0; i \u003c v.taille; i++)\n        std::cout \u003c\u003c \"  element \" \u003c\u003c i \u003c\u003c \" : \" \u003c\u003c v.donnees[i] \u003c\u003c \"\\n\";\n\n    return 0;\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  12,
+                                        "texte":  "Le cœur de la leçon : trois champs. `donnees` est un **pointeur** (phase 5) vers le tableau ; `taille` compte les éléments rangés ; `capacite` compte les places réservées. Un vrai `std::vector` ne range rien d\u0027autre."
+                                    },
+                                    {
+                                        "ligne":  20,
+                                        "texte":  "`new int[capacite]` réserve 2 cases sur le **tas** (heap, phase 5) : c\u0027est l\u0027**allocation dynamique**, faite pendant que le programme tourne. `donnees` retient l\u0027adresse de ce tableau."
+                                    },
+                                    {
+                                        "ligne":  25,
+                                        "texte":  "Le **destructeur** (destructor, phase 6) rend la mémoire avec `delete[]`. Sans lui, elle resterait prise jusqu\u0027à la fin : une **fuite mémoire** (memory leak). Un bon vector libère toujours ce qu\u0027il a réservé."
+                                    },
+                                    {
+                                        "ligne":  32,
+                                        "texte":  "Le tableau est plein (`taille == capacite`). On double la capacité : c\u0027est la stratégie de `std::vector`, pour ne pas réallouer à chaque ajout."
+                                    },
+                                    {
+                                        "ligne":  35,
+                                        "texte":  "On recopie l\u0027ancien contenu dans le nouveau tableau, élément par élément. Sans cette boucle, on perdrait les valeurs déjà rangées."
+                                    },
+                                    {
+                                        "ligne":  37,
+                                        "texte":  "`donnees` pointe maintenant le nouveau tableau : son **adresse change**. Au débogueur, tu verras cette valeur sauter au moment de la réallocation."
+                                    },
+                                    {
+                                        "ligne":  51,
+                                        "texte":  "Le troisième ajout est le seul où `taille == capacite` : c\u0027est lui qui force le doublement, de 2 à 4. Les deux premiers avaient encore de la place."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Lis le programme comme une histoire",
+                      "paragraphes":  [
+                                          "Prends ton temps. `main` crée un `MonVecteur v`. À sa naissance, le constructeur réserve 2 places et met la taille à 0. Le programme affiche « capacite au depart : 2 ».",
+                                          "Puis trois ajouts. `v.ajouter(10)` range 10, la taille passe à 1. `v.ajouter(20)` range 20, la taille passe à 2 : les deux places sont prises. `v.ajouter(30)` trouve alors `taille == capacite`.",
+                                          "Là, le vector grandit. Il double la capacité (2 vers 4), recopie 10 et 20 dans un tableau neuf, puis range 30. La fin affiche « taille : 3, capacite : 4 », puis les trois éléments. Tu viens de voir une liste s\u0027agrandir toute seule."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Un vector, ça se lit en mémoire",
+                      "texte":  "Retiens ce trio : un vector, c\u0027est un **pointeur** vers les données, une **taille** et une **capacité**. Rien de plus. Quand tu analyseras un vrai jeu, repérer ce motif en mémoire, c\u0027est tomber sur une liste du jeu : les ennemis, les objets de l\u0027inventaire, les projectiles. Beaucoup de triches ne font que parcourir une telle liste pour lire la position de chaque objet. Savoir la reconnaître, c\u0027est déjà savoir la lire."
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "`std::vector` n\u0027a rien de magique : il range les mêmes informations que ton `MonVecteur`. Pour le prouver, voici une petite fonction qui rend la taille d\u0027un vector, compilée avec MSVC en x64 (option /O2). Son nom décoré complet est long à cause du *template*, le `\u003cint\u003e` : `?taille@@YAHAEBV?$vector@HV?$allocator@H@std@@@std@@@Z`. On l\u0027abrège ici en `?taille@@... PROC`. Regarde comment le compilateur calcule `size()`.",
+                      "cpp":  "int taille(const std::vector\u003cint\u003e\u0026 v)\n{\n    return (int)v.size();\n}",
+                      "asm":  "?taille@@... PROC\n    mov rax, QWORD PTR [rcx+8]\n    sub rax, QWORD PTR [rcx]\n    sar rax, 2\n    ret 0\n?taille@@... ENDP",
+                      "liens":  [
+                                    {
+                                        "cpp":  3,
+                                        "asm":  [
+                                                    2,
+                                                    3,
+                                                    4
+                                                ]
+                                    }
+                                ],
+                      "conclusion":  "Trois instructions disent tout. `mov rax, QWORD PTR [rcx+8]` lit le pointeur *fin* (à l\u0027offset 8 du vector) ; `sub rax, QWORD PTR [rcx]` lui retranche le pointeur *début* (à l\u0027offset 0). La différence est un nombre d\u0027octets, et `sar rax, 2` la divise par 4, la taille d\u0027un `int` : voilà le nombre d\u0027éléments. MSVC ne range donc aucun compteur de taille, il la calcule. Pour ça, il lui faut deux pointeurs côte à côte, plus un troisième pour la capacité (à l\u0027offset 16). Trois pointeurs, qui portent la même information que tes trois champs `donnees`, `taille` et `capacite`."
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "Pourquoi on préfère std::vector",
+                      "texte":  "Ton `MonVecteur` est simple à dessein. Il lui manque une chose : la copie sûre. Si tu écris `MonVecteur b = v;`, les deux objets se retrouvent avec le même pointeur `donnees` ; à la fin, leurs deux destructeurs font `delete[]` sur la même mémoire, et le programme plante. La parade porte un nom : la **règle de trois** (rule of three). Dès qu\u0027une classe gère une ressource à la main, elle doit gérer ensemble sa copie et sa libération. Le vrai `std::vector` s\u0027en occupe déjà. C\u0027est pour ça qu\u0027en C++ moderne on l\u0027utilise, au lieu de jongler avec `new` et `delete`."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "capacity",
+                                       "fr":  "capacité",
+                                       "note":  "La place réservée dans un vector, donnée par `capacity()`. Souvent plus grande que la taille, pour ne pas recopier à chaque ajout."
+                                   },
+                                   {
+                                       "en":  "size",
+                                       "fr":  "taille",
+                                       "note":  "Le nombre d\u0027éléments rangés, donné par `size()`. Pour un vector, MSVC la calcule au lieu de la stocker."
+                                   },
+                                   {
+                                       "en":  "to allocate",
+                                       "fr":  "allouer",
+                                       "note":  "Réserver de la mémoire. `new` alloue sur le tas ; `allocator` apparaît d\u0027ailleurs dans le nom décoré d\u0027un vector."
+                                   },
+                                   {
+                                       "en":  "to copy",
+                                       "fr":  "recopier",
+                                       "note":  "Copier élément par élément, comme le fait `ajouter` quand la capacité double."
+                                   },
+                                   {
+                                       "en":  "dynamic",
+                                       "fr":  "dynamique",
+                                       "note":  "Qui se décide à l\u0027exécution. L\u0027allocation *dynamique* (`new`) réserve de la mémoire pendant que le programme tourne."
+                                   },
+                                   {
+                                       "en":  "to grow",
+                                       "fr":  "grandir",
+                                       "note":  "S\u0027agrandir. Un vector grandit tout seul quand il est plein : il réserve plus grand et recopie."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "atoi",
+                      "titre":  "À toi : code ton vector",
+                      "etapes":  [
+                                     "Dans Visual Studio, crée un projet **Application console** (Console App) nommé `MonVecteur`, avec pour Emplacement (Location) ton dossier `Learning\\exercices\\phase-7`. Efface le code proposé, colle celui de `MonVecteur.cpp` ci-dessus, et lance avec Ctrl+F5. Les messages affichés n\u0027ont pas d\u0027accents (« capacite », « depart ») : la console Windows les gère mal, on les évite dans le texte imprimé.",
+                                     "Lis la sortie. Tu vois « capacite au depart : 2 », puis « taille : 3, capacite : 4 », puis les trois éléments 10, 20 et 30. La capacité est passée de 2 à 4 au troisième ajout : tu viens de voir une liste grandir toute seule, exactement comme un vrai `std::vector`.",
+                                     "Passe au débogueur. Pose un **point d\u0027arrêt** (F9) dans `ajouter`, sur la ligne `capacite *= 2;`, puis lance avec F5. Ouvre Déboguer \u003e Fenêtres \u003e Variables locales (Debug \u003e Windows \u003e Locals) et avance pas à pas avec F10. Regarde `capacite` passer de 2 à 4, et `donnees` (une adresse) changer au moment de la recopie : c\u0027est la réallocation, en direct.",
+                                     "Fais le lien. Tes trois champs — `donnees`, `taille`, `capacite` — portent la même information que les trois pointeurs d\u0027un vrai `std::vector`, vus dans « Sous le capot ». Un pointeur vers les données, de quoi retrouver la taille, de quoi retrouver la capacité. Tu as codé un `std::vector` en miniature."
+                                 ],
+                      "indices":  [
+                                      "Première exécution : Ctrl+F5, juste pour voir la sortie. Pour fouiller, c\u0027est F5 (avec débogage) : la fenêtre Variables locales ne s\u0027ouvre qu\u0027en cours de débogage.",
+                                      "Le point d\u0027arrêt dans `ajouter` ne se déclenche qu\u0027au troisième ajout : c\u0027est le seul où `taille == capacite`. Les deux premiers passent à côté du `if`.",
+                                      "`donnees` est une adresse (phase 5). Avant la recopie, elle pointe le petit tableau de 2 ; après, un tableau neuf de 4. L\u0027ancien est rendu par `delete[]`.",
+                                      "Un point te bloque ? Demande à ton coach dans VS Code, avec le numéro de l\u0027étape."
+                                  ],
+                      "solution":  "Au lancement, tu lis « capacite au depart : 2 », puis « taille : 3, capacite : 4 », puis les trois éléments. Au débogueur, dans `ajouter`, tu as vu `capacite` doubler (2 vers 4) et `donnees` changer d\u0027adresse : la réallocation. Et tes trois champs portent la même information que les trois pointeurs d\u0027un vrai `std::vector`. Tu as codé, et compris de l\u0027intérieur, une liste dynamique. C\u0027est un vrai pas de programmeur d\u0027excellence."
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Dans `ajouter`, à quel moment la capacité double-t-elle ?",
+                                            "choix":  [
+                                                          "À chaque appel d\u0027`ajouter`",
+                                                          "Quand on retire un élément",
+                                                          "Quand `taille == capacite`, c\u0027est-à-dire quand il n\u0027y a plus de place"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Le `if (taille == capacite)` ne déclenche le doublement que lorsque le tableau est plein. Les autres fois, on range juste la valeur et on augmente `taille` de 1."
+                                        },
+                                        {
+                                            "q":  "On ajoute 10, 20 puis 30 à un `MonVecteur` tout neuf (capacité 2). Que vaut la capacité à la fin ?",
+                                            "choix":  [
+                                                          "4",
+                                                          "3",
+                                                          "6"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "Les deux premiers ajouts remplissent les 2 places. Le troisième trouve `taille == capacite`, double la capacité (2 vers 4), recopie, puis range 30. La sortie réelle affiche « capacite : 4 »."
+                                        },
+                                        {
+                                            "q":  "À quoi sert `delete[] donnees` dans le destructeur `~MonVecteur` ?",
+                                            "choix":  [
+                                                          "À remettre la taille à zéro",
+                                                          "À rendre la mémoire réservée par `new`, pour éviter une fuite mémoire",
+                                                          "À doubler la capacité"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "`new int[...]` réserve de la mémoire sur le tas ; `delete[]` la rend. Sans lui, elle resterait prise jusqu\u0027à la fin du programme : une fuite mémoire (memory leak)."
+                                        },
+                                        {
+                                            "q":  "Avec MSVC en x64, pour calculer `v.size()` d\u0027un vrai `std::vector`, le compilateur fait `(fin - debut)` puis `sar rax, 2`. Qu\u0027est-ce que ça révèle ?",
+                                            "choix":  [
+                                                          "Que le vector stocke sa taille dans un `int` caché",
+                                                          "Que `size()` est toujours égal à la capacité",
+                                                          "Qu\u0027un vector tient en trois pointeurs, et calcule sa taille au lieu de la stocker"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "`(fin - debut)` donne un nombre d\u0027octets ; `sar rax, 2` le divise par 4 (la taille d\u0027un `int`) pour obtenir le nombre d\u0027éléments. Pas de compteur : la taille est calculée à partir de deux pointeurs. Un vector en range trois."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Un `MonVecteur` tient en trois choses : un **pointeur** vers les données (`donnees`), la **taille** (combien d\u0027éléments) et la **capacité** (places réservées). C\u0027est `std::vector` en miniature.",
+                                     "Quand `taille == capacite`, il n\u0027y a plus de place : on double la capacité, on alloue un nouveau tableau avec `new`, on recopie l\u0027ancien, puis `delete[]` le libère. C\u0027est la **réallocation**.",
+                                     "Le destructeur fait `delete[] donnees` : il rend la mémoire. Sans ça, c\u0027est une **fuite mémoire** (memory leak). En C++ moderne, on laisse `std::vector` gérer tout ça.",
+                                     "Avec MSVC en x64, un vrai `std::vector`, c\u0027est trois pointeurs côte à côte (début à +0, fin à +8, fin de capacité à +16) ; il calcule `size()` par `(fin - début) / 4`. Repérer ce trio en mémoire, c\u0027est repérer une liste du jeu."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "Phase 8 — Code machine",
+                      "texte":  "Boss plié : tu as codé ta propre liste dynamique et tu sais reconnaître un `std::vector` en mémoire. En phase 8, tu passes au **code machine** pour de vrai : lire l\u0027assembleur x86-64 sans filet, comprendre la différence entre **Debug** et **Release**, et ouvrir ton propre binaire dans **Ghidra**, l\u0027outil des reverse engineers. Tout ce que tu as désassemblé « Sous le capot » depuis la phase 1, tu vas commencer à le lire par toi-même."
                   }
               ]
 }}};</script>
