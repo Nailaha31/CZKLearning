@@ -687,7 +687,34 @@ html.is-tel #app { height: 100%; }
                        "boss":  "geler le score de ton propre programme avec Cheat Engine : ton premier hack",
                        "duree":  "3-4 sem",
                        "lecons":  [
-
+                                      {
+                                          "id":  "2-1",
+                                          "numero":  "2.1",
+                                          "titre":  "Compter comme une machine",
+                                          "duree":  16,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "2-2",
+                                          "numero":  "2.2",
+                                          "titre":  "Les nombres rangés à l\u0027envers",
+                                          "duree":  15,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "2-3",
+                                          "numero":  "2.3",
+                                          "titre":  "Le négatif et les limites",
+                                          "duree":  15,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "2-4",
+                                          "numero":  "2.4",
+                                          "titre":  "Boss : ton premier hack",
+                                          "duree":  35,
+                                          "dispo":  true
+                                      }
                                   ]
                    },
                    {
@@ -2091,6 +2118,528 @@ html.is-tel #app { height: 100%; }
                        "jeu":  "",
                        "titre":  "Majuscule, minuscule : 20 d\u0027écart",
                        "texte":  "L\u0027ASCII numérote 128 caractères, sans lettres accentuées. Une majuscule et sa minuscule y sont séparées de 20 en hexadécimal, soit 32 : `F` vaut 46, `f` vaut 66. Né en 1963, doté des minuscules en 1967, il numérote encore les lettres de « Fiche de heros » dans ton `.exe`."
+                   },
+                   {
+                       "id":  "c201",
+                       "type":  "concept",
+                       "lecon":  "2-1",
+                       "jeu":  "minecraft",
+                       "titre":  "Un bit : allumé ou éteint",
+                       "texte":  "Un **bit** est la plus petite information possible : 0 ou 1, éteint ou allumé, comme un levier de redstone dans Minecraft. Ton PC ne connaît que ça, mais il en aligne des milliards. Tout le reste, nombres, textes, images, n\u0027est qu\u0027un empilement de bits."
+                   },
+                   {
+                       "id":  "c202",
+                       "type":  "code",
+                       "lecon":  "2-1",
+                       "jeu":  "",
+                       "titre":  "Lis cet octet",
+                       "langage":  "txt",
+                       "code":  "bit   : 0 1 1 0 0 1 0 0\npoids : 128 64 32 16 8 4 2 1",
+                       "question":  "Combien vaut cet octet en décimal ?",
+                       "reponse":  "100. On additionne les poids des bits à 1 : 64 + 32 + 4 = 100. En hexadécimal, ça s\u0027écrit `0x64`.",
+                       "explication":  "Chaque bit porte une puissance de 2. Les bits à 0 ne comptent pas."
+                   },
+                   {
+                       "id":  "c203",
+                       "type":  "anglais",
+                       "lecon":  "2-1",
+                       "jeu":  "",
+                       "titre":  "bit",
+                       "en":  "bit",
+                       "fr":  "bit",
+                       "texte":  "De « binary digit », chiffre binaire : il vaut 0 ou 1. Ne le confonds pas avec l\u0027octet (byte), qui en regroupe huit."
+                   },
+                   {
+                       "id":  "c204",
+                       "type":  "concept",
+                       "lecon":  "2-1",
+                       "jeu":  "",
+                       "titre":  "Un octet, 256 valeurs",
+                       "texte":  "Huit bits forment un **octet** (byte). Avec 8 interrupteurs, tu obtiens 256 combinaisons : les valeurs de 0 à 255. En hexadécimal, ça va de `00` à `FF`. C\u0027est l\u0027unité de base de la mémoire, qui se lit octet par octet."
+                   },
+                   {
+                       "id":  "c205",
+                       "type":  "concept",
+                       "lecon":  "2-1",
+                       "jeu":  "",
+                       "titre":  "L\u0027hexadécimal en 10 secondes",
+                       "texte":  "L\u0027**hexadécimal** est la base 16. On compte avec 16 chiffres : 0 à 9, puis A, B, C, D, E, F pour 10 à 15. Un chiffre hex vaut 4 bits (un quartet) ; deux chiffres valent un octet. C\u0027est l\u0027écriture courte des octets."
+                   },
+                   {
+                       "id":  "c206",
+                       "type":  "code",
+                       "lecon":  "2-1",
+                       "jeu":  "",
+                       "titre":  "Trois valeurs en hexadécimal",
+                       "langage":  "txt",
+                       "code":  "0x0A\n0x10\n0xFF",
+                       "question":  "Ces trois nombres valent combien en décimal ?",
+                       "reponse":  "10, 16 et 255. Piège classique : `0x10` ne vaut pas 10 mais 16. Et `0xFF` est la plus grande valeur d\u0027un octet.",
+                       "explication":  "Le préfixe `0x` annonce l\u0027hexadécimal. Sans lui, `10` voudrait dire dix."
+                   },
+                   {
+                       "id":  "c207",
+                       "type":  "vraifaux",
+                       "lecon":  "2-1",
+                       "jeu":  "",
+                       "titre":  "0x10, c\u0027est dix ?",
+                       "affirmation":  "En hexadécimal, `0x10` vaut 10 en décimal.",
+                       "vrai":  false,
+                       "explication":  "Faux. `0x10` vaut 16 : le `1` est en position des « seize », comme le 1 de 10 vaut dix en base 10. En hexadécimal, dix s\u0027écrit `0x0A`."
+                   },
+                   {
+                       "id":  "c208",
+                       "type":  "anglais",
+                       "lecon":  "2-1",
+                       "jeu":  "",
+                       "titre":  "nibble",
+                       "en":  "nibble",
+                       "fr":  "quartet",
+                       "texte":  "4 bits, la moitié d\u0027un octet, soit un chiffre hexadécimal. Le mot veut dire « petite bouchée » : une demi-bouchée de « byte »."
+                   },
+                   {
+                       "id":  "c209",
+                       "type":  "capot",
+                       "lecon":  "2-1",
+                       "jeu":  "",
+                       "titre":  "1000 en hexadécimal",
+                       "cpp":  "int score()\n{\n    return 1000;\n}",
+                       "asm":  "mov eax, 1000   ; 000003e8H\nret 0",
+                       "texte":  "Avec MSVC en x64, `return 1000;` devient `mov eax, 1000`. Dans son commentaire, après le `;`, MSVC réécrit 1000 en hexadécimal : `000003E8H`, soit `0x3E8`. Même nombre, autre écriture."
+                   },
+                   {
+                       "id":  "c210",
+                       "type":  "quiz",
+                       "lecon":  "2-1",
+                       "jeu":  "",
+                       "titre":  "Un octet en hexadécimal",
+                       "question":  "Combien de chiffres hexadécimaux faut-il pour écrire un octet ?",
+                       "choix":  [
+                                     "1",
+                                     "2",
+                                     "8"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "Deux. Un chiffre hex vaut 4 bits ; un octet en fait 8, donc deux chiffres. Exemple : `FF` = 255."
+                   },
+                   {
+                       "id":  "c211",
+                       "type":  "savaistu",
+                       "lecon":  "2-1",
+                       "jeu":  "minecraft",
+                       "titre":  "La redstone compte jusqu\u0027à 15",
+                       "texte":  "Dans Minecraft, le signal d\u0027un fil de redstone va de 0 à 15 : seize niveaux. Pile ce qui tient dans 4 bits, un quartet (nibble). À chaque bloc parcouru, le signal perd 1, puis s\u0027éteint à 0. Sans le savoir, tu lis déjà des quartets en jouant."
+                   },
+                   {
+                       "id":  "c212",
+                       "type":  "quiz",
+                       "lecon":  "2-1",
+                       "jeu":  "",
+                       "titre":  "Pourquoi l\u0027hexadécimal ?",
+                       "question":  "Pourquoi Cheat Engine et les éditeurs de mémoire affichent-ils tout en hexadécimal ?",
+                       "choix":  [
+                                     "Le processeur ne comprend que l\u0027hexadécimal",
+                                     "Deux chiffres hex font pile un octet : compact et lisible",
+                                     "Pour cacher les valeurs aux joueurs"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "L\u0027hexadécimal n\u0027est qu\u0027une écriture. Deux chiffres valent un octet, donc la mémoire se lit octet par octet. Le processeur, lui, ne manipule que des bits."
+                   },
+                   {
+                       "id":  "c215",
+                       "type":  "concept",
+                       "lecon":  "2-2",
+                       "jeu":  "",
+                       "titre":  "Les octets rangés à l\u0027envers",
+                       "texte":  "Avec MSVC en x64, un `int` tient sur 4 octets, rangés à l\u0027envers en mémoire : l\u0027octet de poids faible en premier. On appelle ça le petit-boutisme (little-endian). Le nombre 100 (`64`) se range donc `64 00 00 00`, et pas l\u0027inverse."
+                   },
+                   {
+                       "id":  "c216",
+                       "type":  "code",
+                       "lecon":  "2-2",
+                       "jeu":  "",
+                       "titre":  "Lis ces octets",
+                       "langage":  "txt",
+                       "code":  "E8 03 00 00",
+                       "question":  "Ces 4 octets d\u0027un `int` sont rangés en petit-boutisme (poids faible d\u0027abord). Quel nombre représentent-ils ?",
+                       "reponse":  "1000. On remet les octets dans l\u0027ordre : `00 00 03 E8`, soit `3E8` en hexadécimal, c\u0027est-à-dire 1000.",
+                       "explication":  "L\u0027octet de poids faible `E8` est écrit en premier. Pour lire la valeur, on le remet à sa place, tout à droite."
+                   },
+                   {
+                       "id":  "c217",
+                       "type":  "capot",
+                       "lecon":  "2-2",
+                       "jeu":  "",
+                       "titre":  "1000 atterrit dans EAX",
+                       "cpp":  "int score()\n{\n    return 1000;\n}",
+                       "asm":  "    mov eax, 1000   ; 000003e8H\n    ret 0",
+                       "texte":  "Avec MSVC en x64, `return 1000;` devient `mov eax, 1000`. Dans l\u0027instruction, 1000 est rangé à l\u0027envers : `E8 03 00 00`. Puis `ret 0` rend la main, et `000003e8H` redonne 1000 en hexadécimal."
+                   },
+                   {
+                       "id":  "c218",
+                       "type":  "vraifaux",
+                       "lecon":  "2-2",
+                       "jeu":  "",
+                       "titre":  "1000 en mémoire",
+                       "affirmation":  "En mémoire, avec MSVC en x64, le nombre 1000 est rangé octet par octet sous la forme `00 00 03 E8`.",
+                       "vrai":  false,
+                       "explication":  "Faux. C\u0027est l\u0027inverse : le petit-boutisme range l\u0027octet de poids faible en premier. 1000 (`3E8`) devient `E8 03 00 00` en mémoire."
+                   },
+                   {
+                       "id":  "c219",
+                       "type":  "quiz",
+                       "lecon":  "2-2",
+                       "jeu":  "",
+                       "titre":  "Qui vient en premier ?",
+                       "question":  "En petit-boutisme, quel octet d\u0027un nombre est rangé en premier ?",
+                       "choix":  [
+                                     "Celui de poids fort",
+                                     "Celui de poids faible",
+                                     "Celui du milieu"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "Le poids faible d\u0027abord : c\u0027est la définition du petit-boutisme (little-endian). D\u0027où `E8` en tête pour ranger 1000."
+                   },
+                   {
+                       "id":  "c220",
+                       "type":  "anglais",
+                       "lecon":  "2-2",
+                       "jeu":  "",
+                       "titre":  "little-endian",
+                       "en":  "little-endian",
+                       "fr":  "petit-boutisme",
+                       "texte":  "La façon de ranger un nombre avec l\u0027octet de poids faible en premier. C\u0027est le cas sur ton PC, en x86 comme en x64."
+                   },
+                   {
+                       "id":  "c221",
+                       "type":  "anglais",
+                       "lecon":  "2-2",
+                       "jeu":  "",
+                       "titre":  "least significant byte",
+                       "en":  "least significant byte",
+                       "fr":  "octet de poids faible",
+                       "texte":  "L\u0027octet des petites valeurs d\u0027un nombre, comme le chiffre des unités. En petit-boutisme, il est rangé en premier."
+                   },
+                   {
+                       "id":  "c222",
+                       "type":  "concept",
+                       "lecon":  "2-2",
+                       "jeu":  "",
+                       "titre":  "Toujours 4 octets",
+                       "texte":  "Un `int` occupe 4 octets avec MSVC en x64, quelle que soit sa valeur. Un petit nombre comme 100 ne remplit qu\u0027un octet (`64`) : les trois autres valent `00`. En mémoire, à l\u0027envers : `64 00 00 00`."
+                   },
+                   {
+                       "id":  "c223",
+                       "type":  "code",
+                       "lecon":  "2-2",
+                       "jeu":  "",
+                       "titre":  "Un vieux souvenir",
+                       "langage":  "txt",
+                       "code":  "64 00 00 00",
+                       "question":  "Tu croises ces 4 octets d\u0027un `int` dans la mémoire. Quel nombre est-ce ?",
+                       "reponse":  "100. Remis dans l\u0027ordre, ça donne `00 00 00 64`, soit `64` en hexadécimal, c\u0027est-à-dire 100. C\u0027est l\u0027exemple de la phase 1.",
+                       "explication":  "Même règle que pour 1000 : l\u0027octet de poids faible `64` est écrit en premier, et les `00` complètent les 4 octets."
+                   },
+                   {
+                       "id":  "c224",
+                       "type":  "vraifaux",
+                       "lecon":  "2-2",
+                       "jeu":  "",
+                       "titre":  "Un petit nombre, 4 octets",
+                       "affirmation":  "Même un petit nombre comme 100 occupe 4 octets dans un `int`, avec MSVC en x64.",
+                       "vrai":  true,
+                       "explication":  "Vrai. Un `int` fait toujours 4 octets. Les octets inutiles valent `00` : 100 se range `64 00 00 00`."
+                   },
+                   {
+                       "id":  "c225",
+                       "type":  "quiz",
+                       "lecon":  "2-2",
+                       "jeu":  "",
+                       "titre":  "Lis les octets",
+                       "question":  "En mémoire, un int qui vaut 1000 apparaît comme E8 03 00 00. Que vaut le tout premier octet, E8 ?",
+                       "choix":  [
+                                     "232, le poids faible du nombre",
+                                     "1000, le nombre entier",
+                                     "3, le poids fort"
+                                 ],
+                       "bonne":  0,
+                       "explication":  "E8 vaut 232 : c\u0027est l\u0027octet de poids faible, rangé en premier (petit-boutisme). Les quatre octets ensemble font 1000."
+                   },
+                   {
+                       "id":  "c226",
+                       "type":  "savaistu",
+                       "lecon":  "2-2",
+                       "jeu":  "",
+                       "titre":  "D\u0027où vient le nom",
+                       "texte":  "« Petit-boutisme » vient du roman *Les Voyages de Gulliver*, où deux peuples se font la guerre pour un œuf à la coque : par quel bout le casser, le petit ou le gros ? En 1980, l\u0027ingénieur Danny Cohen a emprunté l\u0027image pour nommer l\u0027ordre des octets."
+                   },
+                   {
+                       "id":  "c229",
+                       "type":  "concept",
+                       "lecon":  "2-3",
+                       "jeu":  "",
+                       "titre":  "-1, c\u0027est FF FF FF FF",
+                       "texte":  "Avec MSVC en x64, un `int` tient sur 4 octets. `-1` n\u0027y est pas rangé avec un signe « moins » : ses 32 bits passent tous à 1, soit `FF FF FF FF`. C\u0027est le complément à deux (two\u0027s complement)."
+                   },
+                   {
+                       "id":  "c230",
+                       "type":  "capot",
+                       "lecon":  "2-3",
+                       "jeu":  "",
+                       "titre":  "Une dette sous le capot",
+                       "cpp":  "int dette()\n{\n    return -1;\n}",
+                       "asm":  "    mov eax, -1\n    ret 0",
+                       "texte":  "Avec MSVC en x64, `return -1;` devient `mov eax, -1`. Le compilateur range ce `-1` sur 4 octets : `FF FF FF FF`, ses 32 bits à 1. Un négatif, pour la machine, c\u0027est juste une configuration de 0 et de 1."
+                   },
+                   {
+                       "id":  "c231",
+                       "type":  "code",
+                       "lecon":  "2-3",
+                       "jeu":  "gta",
+                       "titre":  "L\u0027argent qui déborde",
+                       "langage":  "cpp",
+                       "code":  "int argent = 2147483647;\nargent += 1;",
+                       "question":  "Après `argent += 1`, que montre le compteur ?",
+                       "reponse":  "`-2147483648`. `argent` était au maximum d\u0027un `int` signé ; `+1` déborde et repart au minimum. L\u0027« argent infini » tourne à la dette.",
+                       "explication":  "C\u0027est le dépassement (overflow) : au-delà du maximum, un entier signé revient tout en bas, dans le négatif."
+                   },
+                   {
+                       "id":  "c232",
+                       "type":  "vraifaux",
+                       "lecon":  "2-3",
+                       "jeu":  "",
+                       "titre":  "FF FF FF FF = -1 ?",
+                       "affirmation":  "Les octets `FF FF FF FF` valent forcément `-1`.",
+                       "vrai":  false,
+                       "explication":  "Faux : en signé, c\u0027est `-1` ; en non signé (unsigned), c\u0027est `4 294 967 295`. Les mêmes octets, deux lectures selon le type choisi."
+                   },
+                   {
+                       "id":  "c233",
+                       "type":  "quiz",
+                       "lecon":  "2-3",
+                       "jeu":  "",
+                       "titre":  "La recette de l\u0027opposé",
+                       "question":  "Pour ranger `-1` à partir de `+1` (`0000 0001`), quelle est la bonne recette (complément à deux) ?",
+                       "choix":  [
+                                     "Inverser les bits, puis ajouter 1",
+                                     "Ajouter 1, puis inverser les bits",
+                                     "Mettre juste le dernier bit à 1"
+                                 ],
+                       "bonne":  0,
+                       "explication":  "Inverser `0000 0001` donne `1111 1110`, puis `+1` donne `1111 1111`, soit `-1`. C\u0027est le complément à deux."
+                   },
+                   {
+                       "id":  "c234",
+                       "type":  "anglais",
+                       "lecon":  "2-3",
+                       "jeu":  "",
+                       "titre":  "overflow",
+                       "en":  "overflow",
+                       "fr":  "dépassement",
+                       "texte":  "Quand un entier franchit sa limite et repart de l\u0027autre bout. Au-delà du maximum, un `int` signé retombe au minimum, dans le négatif."
+                   },
+                   {
+                       "id":  "c235",
+                       "type":  "concept",
+                       "lecon":  "2-3",
+                       "jeu":  "",
+                       "titre":  "Les bornes d\u0027un int",
+                       "texte":  "Un `int` signé (4 octets) va de `-2 147 483 648` à `2 147 483 647`. La moitié des valeurs sert aux négatifs. Au-delà du maximum, il déborde et repart tout en bas."
+                   },
+                   {
+                       "id":  "c236",
+                       "type":  "code",
+                       "lecon":  "2-3",
+                       "jeu":  "minecraft",
+                       "titre":  "Déborder en Java aussi",
+                       "langage":  "java",
+                       "code":  "int xp = 2147483647;\nxp = xp + 1;",
+                       "question":  "En Java, le langage de Minecraft, que vaut `xp` ensuite ?",
+                       "reponse":  "`-2147483648`. L\u0027`int` de Java tient aussi sur 4 octets et déborde pareil : passé le maximum, il repart tout en bas, dans le négatif.",
+                       "explication":  "Java et C++ rangent l\u0027`int` de la même façon : 32 bits, complément à deux. Le dépassement se lit donc pareil."
+                   },
+                   {
+                       "id":  "c237",
+                       "type":  "vraifaux",
+                       "lecon":  "2-3",
+                       "jeu":  "",
+                       "titre":  "Le compteur qui recommence",
+                       "affirmation":  "Au-delà de son maximum, un `int` signé repart à sa valeur la plus négative.",
+                       "vrai":  true,
+                       "explication":  "Vrai : il n\u0027y a pas de case au-dessus du maximum. Le compteur déborde (overflow) et recommence tout en bas, à `-2 147 483 648`."
+                   },
+                   {
+                       "id":  "c238",
+                       "type":  "savaistu",
+                       "lecon":  "2-3",
+                       "jeu":  "",
+                       "titre":  "L\u0027écran 256 de Pac-Man",
+                       "texte":  "Le fameux « écran de la mort » de Pac-Man surgit au niveau 256. Un seul octet compte les niveaux et déborde à 256 : la moitié droite de l\u0027écran vire en salade de symboles. Un vrai dépassement d\u0027entier."
+                   },
+                   {
+                       "id":  "c239",
+                       "type":  "quiz",
+                       "lecon":  "2-3",
+                       "jeu":  "oblivion",
+                       "titre":  "L\u0027or qui vire au rouge",
+                       "question":  "Ton or s\u0027affiche à `-2 000 000 000` après un gain énorme. Que s\u0027est-il le plus probablement passé ?",
+                       "choix":  [
+                                     "Le jeu a planté",
+                                     "Un dépassement d\u0027entier (overflow)",
+                                     "Les octets se sont effacés"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "Le compteur a franchi le maximum d\u0027un `int` signé et s\u0027est retourné dans le négatif. Un grand négatif inattendu sent le dépassement."
+                   },
+                   {
+                       "id":  "c240",
+                       "type":  "anglais",
+                       "lecon":  "2-3",
+                       "jeu":  "",
+                       "titre":  "signed",
+                       "en":  "signed",
+                       "fr":  "signé",
+                       "texte":  "Un entier qui accepte le négatif, comme `int`. Les mêmes octets lus en « non signé » (unsigned) donnent un grand positif à la place du négatif."
+                   },
+                   {
+                       "id":  "c261",
+                       "type":  "concept",
+                       "lecon":  "2-4",
+                       "jeu":  "",
+                       "titre":  "Cheat Engine, un éditeur de mémoire",
+                       "texte":  "Cheat Engine est un éditeur de mémoire : il lit et change les valeurs d\u0027un programme en train de tourner. Tu choisis ta cible, tu y cherches un nombre comme un score ou une vie, puis tu le modifies ou tu le gèles. C\u0027est l\u0027outil de base du trainer."
+                   },
+                   {
+                       "id":  "c262",
+                       "type":  "concept",
+                       "lecon":  "2-4",
+                       "jeu":  "",
+                       "titre":  "Éliminer, pas chercher",
+                       "texte":  "Un programme qui tourne occupe des millions d\u0027octets. Pour y trouver un seul nombre, tu n\u0027en cherches pas l\u0027adresse : tu élimines les mauvaises cases. Un premier scan liste celles qui valent 1000 ; tu changes la valeur, un nouveau scan ne garde que celles qui ont suivi, jusqu\u0027à une seule."
+                   },
+                   {
+                       "id":  "c263",
+                       "type":  "quiz",
+                       "lecon":  "2-4",
+                       "jeu":  "",
+                       "titre":  "Quel type de valeur ?",
+                       "question":  "Ton score est rangé dans un `int`. Quel type de valeur choisis-tu dans Cheat Engine pour le trouver ?",
+                       "choix":  [
+                                     "« Float »",
+                                     "« 4 Bytes »",
+                                     "« String »"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "Un `int` tient sur 4 octets : c\u0027est « 4 Bytes ». « Float » vise les nombres à virgule, « String » les textes."
+                   },
+                   {
+                       "id":  "c264",
+                       "type":  "code",
+                       "lecon":  "2-4",
+                       "jeu":  "",
+                       "titre":  "Les octets de 1000",
+                       "langage":  "txt",
+                       "code":  "E8 03 00 00",
+                       "question":  "Cheat Engine montre ces 4 octets à l\u0027adresse de ton score. Ils valent 1000 (`0x3E8`). Pourquoi cet ordre ?",
+                       "reponse":  "C\u0027est le petit-boutisme (little-endian) : l\u0027octet de poids faible vient en premier. 1000 vaut `0x3E8`, donc `E8` puis `03`, suivis de `00 00`.",
+                       "explication":  "Ton PC range presque tout ainsi. Cheat Engine et Ghidra affichent les octets dans cet ordre."
+                   },
+                   {
+                       "id":  "c265",
+                       "type":  "capot",
+                       "lecon":  "2-4",
+                       "jeu":  "",
+                       "titre":  "1000, sous le capot",
+                       "cpp":  "int score()\n{\n    return 1000;\n}",
+                       "asm":  "    mov eax, 1000   ; 000003e8H\n    ret 0",
+                       "texte":  "Avec MSVC en x64, `return 1000;` devient `mov eax, 1000`, soit les octets `b8 e8 03 00 00`. Après le `b8`, la valeur est rangée poids faible d\u0027abord : `e8 03 00 00`, l\u0027empreinte de 1000 en mémoire."
+                   },
+                   {
+                       "id":  "c266",
+                       "type":  "vraifaux",
+                       "lecon":  "2-4",
+                       "jeu":  "",
+                       "titre":  "La même adresse demain ?",
+                       "affirmation":  "L\u0027adresse où Cheat Engine trouve ton score sera la même au prochain lancement du programme.",
+                       "vrai":  false,
+                       "explication":  "Faux : à chaque lancement, le programme est rangé un peu différemment en mémoire, et l\u0027adresse change souvent. Pour la retrouver à coup sûr, on suit un chemin de pointeurs, en phase 5."
+                   },
+                   {
+                       "id":  "c267",
+                       "type":  "anglais",
+                       "lecon":  "2-4",
+                       "jeu":  "",
+                       "titre":  "freeze",
+                       "en":  "freeze",
+                       "fr":  "geler",
+                       "texte":  "Figer une valeur pour qu\u0027elle ne bouge plus. Dans Cheat Engine, la case « Frozen » (gelé) garde ton score à 99999 quoi qu\u0027il arrive."
+                   },
+                   {
+                       "id":  "c268",
+                       "type":  "anglais",
+                       "lecon":  "2-4",
+                       "jeu":  "",
+                       "titre":  "scan",
+                       "en":  "scan",
+                       "fr":  "balayage",
+                       "texte":  "Cheat Engine parcourt la mémoire pour trouver une valeur. « First Scan » lance le premier passage, « Next Scan » réduit la liste."
+                   },
+                   {
+                       "id":  "c269",
+                       "type":  "quiz",
+                       "lecon":  "2-4",
+                       "jeu":  "",
+                       "titre":  "L\u0027antivirus s\u0027affole",
+                       "question":  "Au lancement, ton antivirus signale Cheat Engine. Le bon réflexe ?",
+                       "choix":  [
+                                     "Je sais que c\u0027est normal pour cet outil et je ne coupe rien",
+                                     "Je coupe l\u0027antivirus le temps de jouer",
+                                     "J\u0027efface Cheat Engine, c\u0027est un virus"
+                                 ],
+                       "bonne":  0,
+                       "explication":  "Cheat Engine change la mémoire d\u0027autres programmes : l\u0027antivirus le signale souvent, c\u0027est normal. On ne le coupe jamais, et on reste sur ses propres programmes, hors ligne."
+                   },
+                   {
+                       "id":  "c270",
+                       "type":  "vraifaux",
+                       "lecon":  "2-4",
+                       "jeu":  "",
+                       "titre":  "Couper l\u0027antivirus ?",
+                       "affirmation":  "Pour te servir de Cheat Engine, tu dois d\u0027abord couper ton antivirus.",
+                       "vrai":  false,
+                       "explication":  "Faux : on ne coupe jamais l\u0027antivirus. Il signale souvent Cheat Engine, car l\u0027outil modifie la mémoire d\u0027autres programmes, et c\u0027est normal. Un site qui exige de le couper est un signal d\u0027alarme."
+                   },
+                   {
+                       "id":  "c271",
+                       "type":  "concept",
+                       "lecon":  "2-4",
+                       "jeu":  "oblivion",
+                       "titre":  "Geler une valeur",
+                       "texte":  "Geler (Frozen) une valeur, c\u0027est la réécrire sans cesse pour qu\u0027elle ne change plus. Gèle une vie à 100, et le personnage ne meurt plus : c\u0027est la triche « vie infinie » (god mode). Tu t\u0027entraînes d\u0027abord sur un simple score, dans ton propre programme."
+                   },
+                   {
+                       "id":  "c272",
+                       "type":  "savaistu",
+                       "lecon":  "2-4",
+                       "jeu":  "",
+                       "titre":  "Le terrain d\u0027entraînement caché",
+                       "texte":  "Cheat Engine cache un terrain d\u0027entraînement. Dans le menu Aide (Help) \u003e Cheat Engine Tutorial, un petit programme te fait chercher, changer et geler des valeurs, étape par étape. C\u0027est hors ligne et fait pour ça : l\u0027endroit idéal pour t\u0027exercer après ce boss."
+                   },
+                   {
+                       "id":  "c273",
+                       "type":  "savaistu",
+                       "lecon":  "2-4",
+                       "jeu":  "oblivion",
+                       "titre":  "Oblivion triche tout seul",
+                       "texte":  "Oblivion cache ses propres triches. Dans sa console de commandes, `tgm` active le mode invincible (toggle god mode), et `player.additem` ajoute des objets. Bethesda a laissé cette console ouverte pour tester le jeu : un terrain légal, sur un jeu que tu possèdes."
+                   },
+                   {
+                       "id":  "c274",
+                       "type":  "savaistu",
+                       "lecon":  "2-4",
+                       "jeu":  "",
+                       "titre":  "Un tutoriel fait exprès",
+                       "texte":  "Cheat Engine contient son propre terrain d\u0027entraînement : menu Help \u003e Cheat Engine Tutorial. Il lance un programme-énigme (Tutorial-x86_64) où tu t\u0027exerces à scanner et geler des valeurs, en toute légalité et hors ligne."
                    }
                ]
 },"glossaire":{
@@ -2563,6 +3112,97 @@ html.is-tel #app { height: 100%; }
                           "definition":  "Les deux réglages de compilation d\u0027un projet Visual Studio. Debug, celui par défaut, colle au code source pour faciliter le débogage. Release optimise : un code plus rapide, comme dans un jeu livré.",
                           "exemple":  "Ton `.exe` de travail est dans `x64\\Debug\\`. L\u0027assembleur montré « Sous le capot », lui, est optimisé comme en Release (`/O2`).",
                           "lecon":  "1-2"
+                      },
+                      {
+                          "terme":  "binaire",
+                          "en":  "binary",
+                          "definition":  "Le système de numération du processeur : deux chiffres seulement, 0 et 1. Chaque chiffre est un bit. On dit aussi « base 2 », par opposition à la base 10 de tous les jours.",
+                          "exemple":  "Le nombre 100 s\u0027écrit `1100100` en binaire : 64 + 32 + 4. Ça tient sur 7 bits, donc dans un octet.",
+                          "lecon":  "2-1"
+                      },
+                      {
+                          "terme":  "base 2",
+                          "en":  "base 2",
+                          "definition":  "Autre nom du binaire. « Base 2 » dit qu\u0027on compte avec deux chiffres, 0 et 1 ; la base 10 habituelle en utilise dix, de 0 à 9. Le processeur ne connaît que la base 2.",
+                          "exemple":  "« Binaire » et « base 2 », c\u0027est pareil. Un interrupteur Minecraft est en base 2 : éteint (0) ou allumé (1).",
+                          "lecon":  "2-1"
+                      },
+                      {
+                          "terme":  "base 16",
+                          "en":  "base 16",
+                          "definition":  "Autre nom de l\u0027hexadécimal. « Base 16 » veut dire seize chiffres : 0 à 9, puis A à F. Un chiffre y vaut un quartet (4 bits), et deux chiffres font pile un octet.",
+                          "exemple":  "`0x64` en base 16 vaut 100. Le préfixe `0x` est le panneau « ce qui suit est en base 16 ».",
+                          "lecon":  "2-1"
+                      },
+                      {
+                          "terme":  "quartet",
+                          "en":  "nibble",
+                          "definition":  "Un groupe de 4 bits, soit la moitié d\u0027un octet. Un quartet code exactement un chiffre hexadécimal, de 0 à F. Deux quartets mis bout à bout font un octet.",
+                          "exemple":  "L\u0027octet `0x3E` se lit en deux quartets : 3 vaut `0011`, E vaut `1110`. Ensemble : `0011 1110`.",
+                          "lecon":  "2-1"
+                      },
+                      {
+                          "terme":  "kibi-octet",
+                          "en":  "kibibyte",
+                          "definition":  "Un paquet de 1024 octets, soit 2 à la puissance 10, et non 1000 : la mémoire se compte en base 2. On l\u0027écrit Kio. Le kilo-octet (Ko), lui, vaut 1000 octets pile.",
+                          "exemple":  "1 Kio = 1024 octets = 256 `int` de 4 octets. D\u0027où les tailles en 1, 2, 4, 8, 16... plutôt que 10, 100.",
+                          "lecon":  "2-1"
+                      },
+                      {
+                          "terme":  "petit-boutisme",
+                          "en":  "little-endian",
+                          "definition":  "La façon dont l\u0027ordinateur range un nombre en mémoire : l\u0027octet de poids faible en premier. Avec MSVC en x64, les nombres sont « à l\u0027envers » par rapport à l\u0027écriture habituelle.",
+                          "exemple":  "1000 (`0x000003E8`) est rangé `E8 03 00 00` en mémoire. Cheat Engine affiche ses octets dans cet ordre.",
+                          "lecon":  "2-2"
+                      },
+                      {
+                          "terme":  "complément à deux",
+                          "en":  "two\u0027s complement",
+                          "definition":  "La méthode standard pour écrire un nombre entier négatif en binaire. Pour obtenir l\u0027opposé d\u0027un nombre : inverse tous ses bits, puis ajoute 1. Pas de signe « moins » séparé.",
+                          "exemple":  "`-1` sur 4 octets donne `FF FF FF FF`, tous les bits à 1. C\u0027est ce que compile `int dette() { return -1; }`.",
+                          "lecon":  "2-3"
+                      },
+                      {
+                          "terme":  "entier signé",
+                          "en":  "signed integer",
+                          "definition":  "Un entier qui accepte le négatif comme le positif. Avec MSVC en x64, un `int` signé tient sur 4 octets et va de −2 147 483 648 à 2 147 483 647.",
+                          "exemple":  "La vie d\u0027un héros est souvent un `int` signé : rien n\u0027empêche l\u0027ordinateur de la faire passer sous zéro.",
+                          "lecon":  "2-3"
+                      },
+                      {
+                          "terme":  "dépassement d\u0027entier",
+                          "en":  "integer overflow",
+                          "definition":  "Quand un entier dépasse sa valeur maximale, il « repart » vers le négatif, faute de place. Le nombre d\u0027octets fixe la limite : un octet déborde à 256, un `int` bien plus loin.",
+                          "exemple":  "Pac-Man plante à son niveau 256, codé sur un octet. Les Far Lands de Minecraft viennent aussi d\u0027un dépassement.",
+                          "lecon":  "2-3"
+                      },
+                      {
+                          "terme":  "adresse mémoire",
+                          "en":  "memory address",
+                          "definition":  "Le numéro qui repère une donnée dans la mémoire vive, comme un numéro de casier. Cheat Engine affiche l\u0027adresse d\u0027une valeur trouvée dans sa colonne « Adresse » (Address).",
+                          "exemple":  "L\u0027adresse de ton score peut être différente au prochain lancement du jeu. On verra pourquoi en phase 5 (pointeurs).",
+                          "lecon":  "2-4"
+                      },
+                      {
+                          "terme":  "scan de mémoire",
+                          "en":  "memory scan",
+                          "definition":  "Fouiller la mémoire vive d\u0027un programme pour retrouver où une valeur est rangée. Un premier scan (First Scan) cherche ; un scan suivant (Next Scan) affine quand la valeur a changé.",
+                          "exemple":  "Score à 1000 : First Scan avec le type « 4 octets » (4 Bytes). Il tombe à 900 : Next Scan de 900.",
+                          "lecon":  "2-4"
+                      },
+                      {
+                          "terme":  "geler une valeur",
+                          "en":  "freeze",
+                          "definition":  "Dans Cheat Engine, cocher la case « gelé » (Frozen) force une valeur à rester fixe : l\u0027outil la réécrit en boucle. Le jeu a beau vouloir la changer, elle ne bouge plus.",
+                          "exemple":  "Gèle le score de `Score.cpp` à 1000 : tu appuies sur Entrée, l\u0027outil le remet aussitôt à 1000.",
+                          "lecon":  "2-4"
+                      },
+                      {
+                          "terme":  "Cheat Engine",
+                          "en":  "",
+                          "definition":  "Un scanner et éditeur de mémoire vive. On y choisit un type de valeur : « 4 octets » (4 Bytes) pour un `int`, « Float » pour un nombre à virgule. Puis on cherche la valeur et on la change.",
+                          "exemple":  "Télécharge-le depuis cheatengine.org en refusant chaque offre. Entraîne-toi sur son tutoriel intégré, hors ligne.",
+                          "lecon":  "2-4"
                       }
                   ]
 },"bestiaire":{
@@ -4180,6 +4820,879 @@ html.is-tel #app { height: 100%; }
                       "type":  "suite",
                       "titre":  "Phase 2 — Mémoire vive",
                       "texte":  "Avec ce boss, tu boucles la phase 1. Ensuite, tu apprends à compter comme ton PC : le binaire, puis l\u0027hexadécimal pour de bon. Et tu signes ton premier hack : geler le score de ton propre programme avec Cheat Engine."
+                  }
+              ]
+},"2-1":{
+    "id":  "2-1",
+    "phase":  2,
+    "numero":  "2.1",
+    "titre":  "Compter comme une machine",
+    "duree":  16,
+    "objectif":  "Comprendre le binaire et l\u0027hexadécimal, et pourquoi tous les outils de mémoire affichent tout en hexadécimal.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Dans Minecraft, un levier de redstone est allumé ou éteint : deux états, rien d\u0027autre. Ton PC compte pareil, avec des milliards de minuscules interrupteurs, des 0 et des 1. Pour lire sa mémoire un jour, il faut d\u0027abord apprendre à compter comme lui."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Deux états, un bit",
+                      "paragraphes":  [
+                                          "Au fond, ton PC ne sait faire qu\u0027une chose : distinguer deux états, allumé ou éteint. On les note 0 et 1. Un seul de ces chiffres, c\u0027est un **bit** (binary digit, chiffre binaire).",
+                                          "Un bit tout seul ne dit pas grand-chose. Alors on les groupe par huit. Huit bits forment un **octet** (byte), que tu connais depuis la phase 1.",
+                                          "Avec 8 bits, on compte de `0000 0000` à `1111 1111` : 256 combinaisons, soit les valeurs de 0 à 255. Voilà pourquoi un octet s\u0027arrête à 255."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "txt",
+                      "titre":  "Lire un octet, bit par bit",
+                      "code":  "bit   : 0   1   1   0   0   1   0   0\npoids : 128 64  32  16  8   4   2   1",
+                      "notes":  [
+                                    {
+                                        "ligne":  2,
+                                        "texte":  "Chaque bit porte un poids, une puissance de 2. On additionne les poids des bits à 1 : ici 64 + 32 + 4 = 100. Pas besoin de retenir ça par cœur : c\u0027est la machine qui calcule, toi tu apprends à la lire."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "L\u0027hexadécimal, la base 16",
+                      "paragraphes":  [
+                                          "Écrire huit 0 et 1 pour chaque octet, c\u0027est long et vite illisible. Les informaticiens utilisent donc une écriture plus courte : l\u0027**hexadécimal** (hexadecimal), la base 16.",
+                                          "En base 16, on compte avec 16 chiffres : 0 à 9, puis A, B, C, D, E, F pour 10 à 15. Un seul chiffre hexadécimal représente exactement 4 bits, un demi-octet qu\u0027on appelle un **quartet** (nibble). Deux chiffres hexadécimaux font donc pile un octet.",
+                                          "C\u0027est pour ça que les outils de mémoire, comme Cheat Engine ou l\u0027éditeur binaire de Visual Studio, affichent la mémoire en hexadécimal. C\u0027est compact, et chaque paire de chiffres correspond à un octet précis. Tu l\u0027avais déjà croisé en phase 1, quand MSVC écrivait `00000064H` pour 100."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "txt",
+                      "titre":  "Quatre nombres, trois écritures",
+                      "code":  "binaire      hex    décimal\n0000 1010    0A      10\n0001 0000    10      16\n0110 0100    64     100\n1111 1111    FF     255"
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "« 0x » et « H » veulent dire hexadécimal",
+                      "texte":  "Un même nombre s\u0027écrit de plusieurs façons, alors on l\u0027étiquette. `0x64` (préfixe `0x`, façon C++) et `00000064H` (suffixe `H`, façon MSVC) désignent le même 100 en hexadécimal. Sans étiquette, `10` est ambigu : dix, ou seize ? Dès que tu vois `0x` ou `H`, lis en base 16."
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Reprenons la fonction de la phase 1. Avec MSVC en x64, `return 100;` devient une seule instruction, et MSVC réécrit le nombre en hexadécimal dans son commentaire, après le `;`.",
+                      "cpp":  "int vie()\n{\n    return 100;\n}",
+                      "asm":  "mov eax, 100   ; 00000064H\nret 0",
+                      "liens":  [
+                                    {
+                                        "cpp":  3,
+                                        "asm":  [
+                                                    1
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  4,
+                                        "asm":  [
+                                                    2
+                                                ]
+                                    }
+                                ],
+                      "octets":  [
+                                     {
+                                         "hex":  "B8 64 00 00 00",
+                                         "asm":  "mov eax, 100",
+                                         "explication":  "`B8` veut dire « mets dans EAX le nombre qui suit ». Ce nombre, c\u0027est `64 00 00 00` : l\u0027octet `64` est bien notre `0x64`, soit 100. Les trois `00` complètent, car un `int` occupe 4 octets. L\u0027ordre des octets te paraîtra à l\u0027envers : c\u0027est le sujet de la leçon 2.2."
+                                     }
+                                 ],
+                      "conclusion":  "Quand tu afficheras les octets en mémoire dans Cheat Engine, tu liras `64`, pas `100` : le même nombre, en écriture hexadécimale. Dans la liste d\u0027un scan, Cheat Engine montre d\u0027abord la valeur en décimal ; une case « Hexadecimal » bascule l\u0027affichage. Lire la base 16 couramment, c\u0027est la première clé de la phase 2.",
+                      "godbolt":  "https://godbolt.org/clientstate/eyJzZXNzaW9ucyI6W3sic291cmNlIjoiaW50IHZpZSgpXG57XG4gICAgcmV0dXJuIDEwMDtcbn1cbiIsImxhbmd1YWdlIjoiYysrIiwiaWQiOjEsImNvbXBpbGVycyI6W3siaWQiOiJ2Y3BwX3YxOV9sYXRlc3RfeDY0Iiwib3B0aW9ucyI6Ii9PMiJ9XX1dfQ"
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Ce que tu liras au boss",
+                      "texte":  "À la fin de cette phase, tu chercheras un score de 1000 dans la mémoire de ton propre programme. Cheat Engine peut te l\u0027afficher en décimal (`1000`) ou en hexadécimal (`3E8`). Passer de l\u0027un à l\u0027autre de tête, c\u0027est la base pour repérer la bonne valeur."
+                  },
+                  {
+                      "type":  "tesjeux",
+                      "titre":  "Et tes jeux ?",
+                      "intro":  "Tu manipules déjà des bits et des quartets sans le savoir.",
+                      "jeux":  [
+                                   {
+                                       "nom":  "Minecraft",
+                                       "langage":  "Redstone",
+                                       "texte":  "Un levier, une torche ou un bloc de redstone : allumé ou éteint, c\u0027est un bit. Et le signal d\u0027un fil de redstone va de 0 à 15, seize niveaux : exactement ce qui tient dans 4 bits, un quartet."
+                                   },
+                                   {
+                                       "nom":  "Tous tes jeux",
+                                       "langage":  "Couleurs",
+                                       "texte":  "Les couleurs à l\u0027écran s\u0027écrivent souvent en hexadécimal. `FF0000`, c\u0027est rouge à fond (`FF`), vert à zéro, bleu à zéro : trois octets, un par couleur."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "bit",
+                                       "fr":  "bit",
+                                       "note":  "De « binary digit », chiffre binaire : 0 ou 1. La plus petite information."
+                                   },
+                                   {
+                                       "en":  "binary",
+                                       "fr":  "binaire",
+                                       "note":  "La base 2 : on ne compte qu\u0027avec 0 et 1."
+                                   },
+                                   {
+                                       "en":  "hexadecimal",
+                                       "fr":  "hexadécimal",
+                                       "note":  "La base 16 : 0-9 puis A-F. Souvent abrégé « hex »."
+                                   },
+                                   {
+                                       "en":  "nibble",
+                                       "fr":  "quartet",
+                                       "note":  "4 bits, un demi-octet, soit un chiffre hexadécimal."
+                                   },
+                                   {
+                                       "en":  "base",
+                                       "fr":  "base",
+                                       "note":  "Le nombre de chiffres d\u0027un système : 2 en binaire, 10 en décimal, 16 en hexadécimal."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "atoi",
+                      "titre":  "À toi : convertir sans rien installer",
+                      "etapes":  [
+                                     "Ouvre la calculatrice de Windows (menu Démarrer, tape « calc »). Clique le bouton de menu en haut à gauche et choisis « Programmeur » (Programmer).",
+                                     "Tu vois quatre lignes : HEX, DÉC, OCT, BIN. Tape 100 : la ligne DÉC affiche 100, et la ligne HEX te donne son écriture hexadécimale.",
+                                     "Efface, puis convertis 255, et enfin 1000. Note les trois résultats en hexadécimal.",
+                                     "Dans l\u0027autre sens : clique sur HEX, tape FF, et lis la ligne DÉC. Tu retrouves 255."
+                                 ],
+                      "indices":  [
+                                      "Le bouton de menu est l\u0027icône à trois traits, tout en haut à gauche.",
+                                      "En mode HEX, les touches A à F s\u0027activent ; en mode DÉC, elles sont grisées.",
+                                      "La ligne BIN t\u0027affiche aussi les 0 et les 1, par groupes de 4 : des quartets."
+                                  ],
+                      "solution":  "100 donne `64`, 255 donne `FF`, et 1000 donne `3E8`. Dans l\u0027autre sens, `FF` en HEX redonne 255 en DÉC. Regarde au passage la ligne BIN de 100 : `0110 0100`, exactement l\u0027octet qu\u0027on a lu ensemble."
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Combien de valeurs différentes tiennent dans un octet (8 bits) ?",
+                                            "choix":  [
+                                                          "8",
+                                                          "256",
+                                                          "255"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "8 bits donnent 256 combinaisons, soit les valeurs de 0 à 255. 255 est la plus grande valeur, pas le nombre total."
+                                        },
+                                        {
+                                            "q":  "En hexadécimal, qu\u0027écrit-on juste après le chiffre 9 ?",
+                                            "choix":  [
+                                                          "Le symbole X",
+                                                          "10",
+                                                          "A"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Après 9 vient A, puis B, C, D, E, F, c\u0027est-à-dire 10, 11, 12, 13, 14, 15. La base 16 compte avec seize chiffres en tout."
+                                        },
+                                        {
+                                            "q":  "Un chiffre hexadécimal représente combien de bits ?",
+                                            "choix":  [
+                                                          "4",
+                                                          "8",
+                                                          "2"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "Un chiffre hex vaut 4 bits, un quartet (nibble). Deux chiffres valent donc un octet entier."
+                                        },
+                                        {
+                                            "q":  "Pourquoi un outil comme Cheat Engine affiche-t-il la mémoire en hexadécimal ?",
+                                            "choix":  [
+                                                          "Le processeur ne comprend que l\u0027hexadécimal",
+                                                          "Deux chiffres hex font pile un octet, c\u0027est compact",
+                                                          "C\u0027est la seule façon d\u0027écrire un nombre négatif"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "L\u0027hexadécimal n\u0027est qu\u0027une écriture. Deux chiffres valent un octet, donc la mémoire se lit octet par octet. Le processeur, lui, ne manipule que des bits."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Un **bit** vaut 0 ou 1, comme un interrupteur. 8 bits = 1 **octet**, soit 256 valeurs (0 à 255).",
+                                     "On lit un octet en additionnant les puissances de 2 : `0110 0100` = 64 + 32 + 4 = 100.",
+                                     "L\u0027**hexadécimal** (0-9 puis A-F) note 4 bits par chiffre ; 2 chiffres = 1 octet. `0x64` = 100, `0xFF` = 255.",
+                                     "Les outils de mémoire affichent tout en hexadécimal : compact, et chaque paire de chiffres est un octet."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "2.2 — Les nombres rangés à l\u0027envers",
+                      "texte":  "Tu as vu MSVC ranger 100 en `64 00 00 00`. Pourquoi cet ordre étrange ? En 2.2, tu découvres le petit-boutisme (little-endian) : la façon dont ton PC range vraiment les octets en mémoire, et donc l\u0027ordre que tu liras dans Cheat Engine."
+                  }
+              ]
+},"2-2":{
+    "id":  "2-2",
+    "phase":  2,
+    "numero":  "2.2",
+    "titre":  "Les nombres rangés à l\u0027envers",
+    "duree":  15,
+    "objectif":  "Comprendre le petit-boutisme (little-endian) : pourquoi ton PC range les octets d\u0027un nombre à l\u0027envers, l\u0027octet de poids faible d\u0027abord.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "En phase 1, une promesse est restée en suspens. Les octets `64 00 00 00` rangeaient le nombre 100, mais « à l\u0027envers », et je t\u0027ai dit : on verra pourquoi en phase 2. On y est. Et ça tombe bien : bientôt, tu chercheras le score de ton propre programme dans Cheat Engine, et ces octets à l\u0027envers, tu les verras pour de vrai."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La promesse de la phase 1",
+                      "paragraphes":  [
+                                          "Petit rappel. Avec MSVC en x64, un `int` occupe toujours 4 octets. Le nombre 100 s\u0027écrit `64` en hexadécimal, soit un seul octet.",
+                                          "Pour remplir ses 4 cases, 100 devient `00 00 00 64`. Mais en mémoire, MSVC l\u0027a rangé autrement : `64 00 00 00`.",
+                                          "L\u0027octet `64` s\u0027est retrouvé en premier. Ce n\u0027est ni une erreur ni un hasard : c\u0027est une règle, et elle a un nom."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Le poids des chiffres",
+                      "paragraphes":  [
+                                          "Dans le nombre 1234, les chiffres ne pèsent pas tous pareil. Le `1` vaut mille, le `4` vaut quatre.",
+                                          "On dit que le `4` est le chiffre de **poids faible**, celui des petites valeurs, et le `1` celui de poids fort.",
+                                          "Les octets d\u0027un nombre marchent comme ces chiffres. Il y a un octet de poids faible et un octet de poids fort. La règle de ton PC tient en une phrase : l\u0027octet de poids faible est rangé en premier."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Un ordre, pas un hasard",
+                      "paragraphes":  [
+                                          "Ce rangement s\u0027appelle le **petit-boutisme** (little-endian). « À l\u0027envers », donc ? Pas vraiment : c\u0027est juste un ordre choisi.",
+                                          "Pense à une date. En France, on écrit le jour, puis le mois, puis l\u0027année : 09/11/2026. Ailleurs, on commence par l\u0027année.",
+                                          "Même date, autre ordre, aucun mystère. Le petit-boutisme, c\u0027est pareil : les processeurs de ton PC (x86 et x64) ont choisi de commencer par le poids faible. D\u0027autres puces font l\u0027inverse."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Au tour de 1000",
+                      "paragraphes":  [
+                                          "Reprenons avec un nombre plus grand : 1000, le score de départ de ton programme d\u0027entraînement.",
+                                          "1000 s\u0027écrit `3E8` en hexadécimal, soit `00 00 03 E8` sur 4 octets. Devine comment MSVC va le ranger en mémoire."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Une fonction qui vaut 1000",
+                      "code":  "int score()\n{\n    return 1000;\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  3,
+                                        "texte":  "`return 1000;` renvoie 1000, le score de départ. Souviens-toi : avec MSVC en x64, ce nombre va occuper 4 octets, pas un de moins."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Voici cette fonction `score`, traduite par MSVC en x64. Comme en phase 1, les lignes qui portent le nom marquent le début (PROC) et la fin (ENDP), sans produire d\u0027octet. Ce nom, `score`, apparaît ici transformé en `?score@@YAHXZ` : MSVC réécrit les noms à sa façon. Après le `;`, un commentaire pour les humains : 1000 réécrit en hexadécimal, `000003e8H`. Regarde maintenant les octets de l\u0027instruction `mov`.",
+                      "cpp":  "int score()\n{\n    return 1000;\n}",
+                      "asm":  "?score@@YAHXZ PROC\n    mov eax, 1000      ; 000003e8H\n    ret 0\n?score@@YAHXZ ENDP",
+                      "liens":  [
+                                    {
+                                        "cpp":  1,
+                                        "asm":  [
+                                                    1
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  3,
+                                        "asm":  [
+                                                    2
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  4,
+                                        "asm":  [
+                                                    3,
+                                                    4
+                                                ]
+                                    }
+                                ],
+                      "octets":  [
+                                     {
+                                         "hex":  "B8 E8 03 00 00",
+                                         "asm":  "mov eax, 1000",
+                                         "explication":  "`B8` veut dire « mets dans EAX le nombre qui suit ». Ce nombre tient sur 4 octets : `E8 03 00 00`. C\u0027est 1000 rangé à l\u0027envers, l\u0027octet de poids faible `E8` en premier."
+                                     },
+                                     {
+                                         "hex":  "C3",
+                                         "asm":  "ret",
+                                         "explication":  "`C3`, c\u0027est `ret`, le retour : la fonction a fini et rend la main au code qui l\u0027a appelée. MSVC l\u0027affiche `ret 0`, mais c\u0027est le même octet unique."
+                                     }
+                                 ],
+                      "conclusion":  "Retiens deux choses. Un `int` occupe 4 octets, toujours : même 1000 remplit ses 4 cases, quitte à mettre des `00`. Et dans l\u0027instruction, ces 4 octets sont rangés à l\u0027envers, `E8 03 00 00` : tu les reverras très bientôt.",
+                      "godbolt":  "https://godbolt.org/clientstate/eyJzZXNzaW9ucyI6W3sic291cmNlIjoiaW50IHNjb3JlKClcbntcbiAgICByZXR1cm4gMTAwMDtcbn1cbiIsImxhbmd1YWdlIjoiYysrIiwiaWQiOjEsImNvbXBpbGVycyI6W3siaWQiOiJ2Y3BwX3YxOV9sYXRlc3RfeDY0Iiwib3B0aW9ucyI6Ii9PMiJ9XX1dfQ"
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Repère-les dans Score.cpp",
+                      "texte":  "Ton programme d\u0027entraînement, `Score.cpp`, garde un score à 1000. Dans quelques leçons, tu le chercheras dans Cheat Engine, sur ta machine et hors ligne. Dans la vue mémoire, ses octets seront `E8 03 00 00` : tu sauras les reconnaître."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Pourquoi ça compte",
+                      "paragraphes":  [
+                                          "Tout ça te servira vite. Dans Cheat Engine, l\u0027outil qui fouille la mémoire, une valeur entière se cherche au format « 4 Bytes » : les 4 octets d\u0027un `int`.",
+                                          "La liste de résultats affichera bien `1000`. Mais si tu ouvres la vue mémoire, octet par octet, tu liras `E8 03 00 00`. Même nombre, rangé à l\u0027envers.",
+                                          "Savoir le lire t\u0027évitera de croire à une erreur. C\u0027est le b.a.-ba avant ton premier hack."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "curieux",
+                      "titre":  "Petit-boutiste, gros-boutiste",
+                      "texte":  "Le nom vient d\u0027un roman, *Les Voyages de Gulliver*. Deux peuples s\u0027y font la guerre pour un œuf à la coque : faut-il le casser par le petit bout ou par le gros ? En 1980, l\u0027ingénieur Danny Cohen a repris l\u0027image pour baptiser les deux façons de ranger les octets : petit-boutisme et gros-boutisme."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "little-endian",
+                                       "fr":  "petit-boutisme",
+                                       "note":  "L\u0027octet de poids faible rangé en premier. C\u0027est le cas sur ton PC, en x86 comme en x64."
+                                   },
+                                   {
+                                       "en":  "big-endian",
+                                       "fr":  "gros-boutisme",
+                                       "note":  "L\u0027ordre inverse, le poids fort d\u0027abord. On le croise ailleurs, mais pas sur ton PC."
+                                   },
+                                   {
+                                       "en":  "byte order",
+                                       "fr":  "ordre des octets",
+                                       "note":  "La façon de ranger les octets d\u0027un nombre. Le petit-boutisme en est une."
+                                   },
+                                   {
+                                       "en":  "least significant byte",
+                                       "fr":  "octet de poids faible",
+                                       "note":  "L\u0027octet des petites valeurs, comme le chiffre des unités. Abrégé LSB."
+                                   },
+                                   {
+                                       "en":  "most significant byte",
+                                       "fr":  "octet de poids fort",
+                                       "note":  "L\u0027octet des grandes valeurs. Abrégé MSB, rangé en dernier en petit-boutisme."
+                                   },
+                                   {
+                                       "en":  "4 Bytes",
+                                       "fr":  "4 octets",
+                                       "note":  "Dans Cheat Engine, le type d\u0027un `int` : une valeur rangée sur 4 octets."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "atoi",
+                      "titre":  "À toi : vérifie 1000 dans la calculatrice",
+                      "etapes":  [
+                                     "Ouvre la calculatrice de Windows. En haut à gauche, clique sur le menu (les trois traits) et choisis « Programmeur » (Programmer).",
+                                     "Quatre lignes apparaissent : HEX, DÉC, OCT, BIN. Vérifie que la ligne « DÉC » (décimal) est active, puis tape 1000.",
+                                     "Regarde la ligne « HEX » : elle affiche `3E8`. Tu viens de lire 1000 en hexadécimal, sans rien calculer.",
+                                     "Sur 4 octets, un `int` écrit 1000 ainsi : `00 00 03 E8`. En mémoire, MSVC les range à l\u0027envers : `E8 03 00 00`.",
+                                     "Bonus : tape 100, puis lis la ligne HEX. Retrouve l\u0027octet et le rangement mémoire vus en phase 1."
+                                 ],
+                      "indices":  [
+                                      "Pas de ligne HEX ? Vérifie que tu es bien en mode « Programmeur », pas en mode « Standard ».",
+                                      "La ligne HEX ignore les zéros de tête : `3E8`, c\u0027est pareil que `000003E8`.",
+                                      "Pour le bonus, souviens-toi que l\u0027octet de poids faible est rangé en premier."
+                                  ],
+                      "solution":  "La ligne HEX affiche `3E8` : 1000 vaut donc 0x3E8, soit `00 00 03 E8` sur 4 octets, rangé `E8 03 00 00` en mémoire. Avec 100, la ligne HEX donne `64`, soit les octets `64 00 00 00` : exactement l\u0027exemple de la phase 1."
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Dans quel ordre MSVC range-t-il les octets d\u0027un `int` en mémoire ?",
+                                            "choix":  [
+                                                          "L\u0027octet de poids faible en premier",
+                                                          "L\u0027octet de poids fort en premier",
+                                                          "Dans un ordre au hasard à chaque fois"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "C\u0027est le petit-boutisme (little-endian) : le poids faible d\u0027abord. 1000 se range donc `E8 03 00 00`, et non `00 00 03 E8`."
+                                        },
+                                        {
+                                            "q":  "Le nombre 1000 vaut `3E8` en hexadécimal. Comment est-il rangé en mémoire ?",
+                                            "choix":  [
+                                                          "03 E8 00 00",
+                                                          "E8 03 00 00",
+                                                          "00 00 03 E8"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Sur 4 octets, 1000 s\u0027écrit `00 00 03 E8`. En mémoire, à l\u0027envers : l\u0027octet de poids faible `E8` vient en premier, d\u0027où `E8 03 00 00`."
+                                        },
+                                        {
+                                            "q":  "Pourquoi un petit nombre comme 100 occupe-t-il quand même 4 octets ?",
+                                            "choix":  [
+                                                          "Parce que 100 est un grand nombre",
+                                                          "Parce que MSVC gaspille de la place exprès",
+                                                          "Parce qu\u0027un `int` fait toujours 4 octets avec MSVC en x64"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Un `int` occupe 4 octets, toujours. Les octets inutiles valent `00` : 100 se range `64 00 00 00`."
+                                        },
+                                        {
+                                            "q":  "Dans Cheat Engine, tu cherches une valeur entière. Quel type choisis-tu ?",
+                                            "choix":  [
+                                                          "Float",
+                                                          "4 Bytes",
+                                                          "String"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "« 4 Bytes », les 4 octets d\u0027un `int`. Dans la vue mémoire, ses octets suivent le petit-boutisme, comme `E8 03 00 00` pour 1000."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Avec MSVC en x64, un `int` occupe toujours 4 octets, même pour un petit nombre : les octets inutiles valent `00`.",
+                                     "Les octets sont rangés en mémoire **à l\u0027envers**, l\u0027octet de poids faible en premier : c\u0027est le **petit-boutisme** (little-endian).",
+                                     "1000 vaut `3E8` en hexadécimal, donc `00 00 03 E8` sur 4 octets, et se range `E8 03 00 00` en mémoire.",
+                                     "Dans Cheat Engine, un `int` se cherche en « 4 Bytes », et ses octets suivent ce rangement : savoir les lire t\u0027évite de te tromper."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "2.3 — Le négatif et les limites",
+                      "texte":  "Tu sais ranger les nombres positifs. Mais comment ton PC écrit-il -1, ou gère-t-il un nombre devenu trop grand pour ses 4 octets ? La prochaine leçon t\u0027ouvre les nombres négatifs et les limites d\u0027un `int`."
+                  }
+              ]
+},"2-3":{
+    "id":  "2-3",
+    "phase":  2,
+    "numero":  "2.3",
+    "titre":  "Le négatif et les limites",
+    "duree":  15,
+    "objectif":  "Comprendre comment la machine range les entiers négatifs (complément à deux) et ce qui arrive quand un `int` dépasse sa limite.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Dans un jeu, tu as peut-être vu un compteur d\u0027or grimper, puis basculer d\u0027un coup dans le négatif. Ou un score géant affiché avec un signe moins. Ce n\u0027est pas un bug mystérieux : c\u0027est la façon dont ta machine range les négatifs, et tu vas la lire en face."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Un négatif, avec juste des 0 et des 1",
+                      "paragraphes":  [
+                                          "Depuis la phase 1, tu sais qu\u0027un `int` occupe 4 octets, soit 32 bits (MSVC en x64). Nos nombres étaient positifs. Mais un `int` est un entier **signé** (signed) : il accepte aussi le négatif.",
+                                          "Un bit ne connaît pourtant que 0 et 1, aucun signe « moins ». Alors comment la machine range-t-elle `-1` ?"
+                                      ]
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Regardons une fonction qui renvoie `-1`, compilée avec MSVC en x64 et l\u0027optimisation (`/O2`).",
+                      "cpp":  "int dette()\n{\n    return -1;\n}",
+                      "asm":  "?dette@@YAHXZ PROC\n    mov eax, -1\n    ret 0\n?dette@@YAHXZ ENDP",
+                      "liens":  [
+                                    {
+                                        "cpp":  3,
+                                        "asm":  [
+                                                    2
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  4,
+                                        "asm":  [
+                                                    3
+                                                ]
+                                    }
+                                ],
+                      "octets":  [
+                                     {
+                                         "hex":  "B8 FF FF FF FF",
+                                         "asm":  "mov eax, -1",
+                                         "explication":  "`B8` veut dire « mets dans EAX le nombre qui suit ». Ce nombre tient sur 4 octets : `FF FF FF FF`, soit `-1` rangé par la machine, ses 32 bits à 1. Les quatre octets étant identiques, leur ordre « à l\u0027envers » ne change rien ici."
+                                     },
+                                     {
+                                         "hex":  "C3",
+                                         "asm":  "ret 0",
+                                         "explication":  "`C3`, c\u0027est `ret 0`, le retour : la fonction a fini. La réponse `-1` attend dans EAX, où un `int` laisse sa valeur de retour (MSVC en x64)."
+                                     }
+                                 ],
+                      "conclusion":  "Retiens l\u0027image : `-1` sur 32 bits, c\u0027est `FF FF FF FF`, tous les bits allumés. Pour la machine, un négatif, c\u0027est juste une autre configuration de 0 et de 1.",
+                      "godbolt":  "https://godbolt.org/clientstate/eyJzZXNzaW9ucyI6W3sic291cmNlIjoiaW50IGRldHRlKClcbntcbiAgICByZXR1cm4gLTE7XG59XG4iLCJsYW5ndWFnZSI6ImMrKyIsImlkIjoxLCJjb21waWxlcnMiOlt7ImlkIjoidmNwcF92MTlfbGF0ZXN0X3g2NCIsIm9wdGlvbnMiOiIvTzIifV19XX0"
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Inverser les bits, puis ajouter 1",
+                      "paragraphes":  [
+                                          "Pourquoi `-1` donne-t-il `FF FF FF FF` ? À cause d\u0027une règle unique, le **complément à deux** (two\u0027s complement). Pour obtenir l\u0027opposé d\u0027un nombre, la machine inverse tous ses bits, puis ajoute 1.",
+                                          "Prends `+1` sur 8 bits, pour rester lisible. Tu inverses ses bits, puis tu ajoutes 1 : tu tombes sur `1111 1111`, soit `FF`.",
+                                          "Et `1111 1111`, sur 8 bits, c\u0027est justement `-1`. Sur 32 bits, même recette : `-1` devient `FF FF FF FF`, ce que tu viens de lire sous le capot."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "txt",
+                      "titre":  "L\u0027opposé de 1, pas à pas (sur 8 bits)",
+                      "code":  "  +1               0000 0001\n  on inverse  -\u003e    1111 1110\n  on ajoute 1 -\u003e    1111 1111     =  -1   (0xFF)"
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "Le bit de gauche donne le signe",
+                      "texte":  "Un raccourci pour lire un entier signé : son bit de poids fort, le tout premier à gauche, porte le signe. S\u0027il vaut 1, le nombre est négatif. D\u0027où `FF FF FF FF` (que des 1) qui vaut `-1`, tandis que `7F FF FF FF` reste positif."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Les limites, et le moment où ça déborde",
+                      "paragraphes":  [
+                                          "Quatre octets, c\u0027est un nombre fini de cases : un peu plus de quatre milliards. La moitié part pour les négatifs. Un `int` signé va donc de `-2 147 483 648` à `2 147 483 647`.",
+                                          "Au-delà du maximum ? Ajoute 1 à `2 147 483 647` : plus de case au-dessus. Le compteur repart tout en bas, à `-2 147 483 648`. C\u0027est le **dépassement** (overflow).",
+                                          "Tu l\u0027as déjà croisé en phase 1 : Pac-Man qui déraille à l\u0027écran 256, sur un seul octet, ou le bug des Far Lands de Minecraft, poussé par un nombre qui déborde."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "curieux",
+                      "titre":  "L\u0027argent infini qui tourne au négatif",
+                      "texte":  "Beaucoup de triches « argent infini » écrivent une valeur énorme dans le compteur du jeu. Si ce compteur est un `int` signé, franchir `2 147 483 647` le fait basculer dans le négatif : ta fortune vire à la dette. D\u0027où l\u0027intérêt de connaître les limites avant de pousser une valeur."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Pourquoi ça compte quand tu lis du code",
+                      "paragraphes":  [
+                                          "Garde ce réflexe : un nombre négatif énorme là où tu attendais un grand positif sent le dépassement. La valeur a franchi le maximum de son `int` et s\u0027est retournée.",
+                                          "Autre piste : les mêmes octets se lisent de deux façons. `FF FF FF FF`, c\u0027est `-1` en **signé** (signed), mais `4 294 967 295` en **non signé** (unsigned). Cheat Engine te laissera choisir : le type décide du sens, pas les octets."
+                                      ]
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "integer",
+                                       "fr":  "entier",
+                                       "note":  "Un nombre entier, sans virgule. `int` en est l\u0027abréviation."
+                                   },
+                                   {
+                                       "en":  "signed",
+                                       "fr":  "signé",
+                                       "note":  "Un entier qui accepte le négatif. Un `int` est signé."
+                                   },
+                                   {
+                                       "en":  "unsigned",
+                                       "fr":  "non signé",
+                                       "note":  "Un entier positif ou nul seulement. Les mêmes octets, mais lus sans le signe."
+                                   },
+                                   {
+                                       "en":  "two\u0027s complement",
+                                       "fr":  "complément à deux",
+                                       "note":  "La règle de l\u0027opposé : inverser les bits, puis ajouter 1."
+                                   },
+                                   {
+                                       "en":  "overflow",
+                                       "fr":  "dépassement",
+                                       "note":  "Quand un nombre franchit sa limite et repart de l\u0027autre bout."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "atoi",
+                      "titre":  "À toi : fais déborder un nombre dans la Calculatrice",
+                      "etapes":  [
+                                     "Ouvre la **Calculatrice** de Windows et passe-la en mode **Programmeur** (Programmer). Quatre lignes apparaissent : HEX, DÉC, OCT, BIN.",
+                                     "Choisis la taille **DWORD** : 32 bits, soit 4 octets, la taille d\u0027un `int` avec MSVC en x64.",
+                                     "Tape `1`, puis le bouton `+/-` pour le rendre négatif. Lis la ligne HEX : elle affiche `FFFFFFFF`, le `-1` que tu as vu sous le capot.",
+                                     "Efface, tape `2147483647`, le maximum, puis `+ 1 =`. La ligne DÉC bascule dans le négatif. Que montre la ligne HEX ?"
+                                 ],
+                      "indices":  [
+                                      "Le menu du mode est l\u0027icône à trois traits, en haut à gauche. Le sélecteur DWORD est juste sous les lignes HEX/DÉC/OCT/BIN.",
+                                      "En DWORD, la Calculatrice lit les octets comme un entier signé : un grand motif de bits peut donc s\u0027afficher négatif, comme un `int`."
+                                  ],
+                      "solution":  "Après `2147483647 + 1`, la ligne DÉC affiche `-2 147 483 648`, le minimum : le nombre a débordé. La ligne HEX passe de `7FFFFFFF` à `80000000`. Ce `8` de tête, c\u0027est le bit de signe qui vient de s\u0027allumer."
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Avec MSVC en x64, comment `-1` est-il rangé sur les 4 octets d\u0027un `int` ?",
+                                            "choix":  [
+                                                          "`00 00 00 01`",
+                                                          "`FF FF FF FF`",
+                                                          "`80 00 00 00`"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "`-1` allume les 32 bits : `FF FF FF FF`. C\u0027est ce que montre `int dette() { return -1; }` sous le capot."
+                                        },
+                                        {
+                                            "q":  "Pour obtenir l\u0027opposé d\u0027un nombre (complément à deux), que fait la machine ?",
+                                            "choix":  [
+                                                          "Elle inverse tous les bits, puis ajoute 1",
+                                                          "Elle met un bit « moins » devant",
+                                                          "Elle ajoute 1, puis inverse les bits"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "On inverse chaque bit, puis on ajoute 1. Sur `+1` (`0000 0001`), ça donne `1111 1111`, soit `-1`."
+                                        },
+                                        {
+                                            "q":  "Un `int` signé vaut au maximum `2 147 483 647`. Que donne `+ 1` de plus ?",
+                                            "choix":  [
+                                                          "`2 147 483 648`",
+                                                          "Une erreur qui stoppe le jeu",
+                                                          "`-2 147 483 648`, le minimum"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Pas de case au-dessus du maximum : le compteur déborde et repart tout en bas, dans le négatif. C\u0027est le dépassement (overflow)."
+                                        },
+                                        {
+                                            "q":  "Les octets `FF FF FF FF` s\u0027affichent `4 294 967 295` au lieu de `-1`. Pourquoi ?",
+                                            "choix":  [
+                                                          "Les octets ont changé",
+                                                          "Ils sont lus comme non signé (unsigned)",
+                                                          "C\u0027est une erreur d\u0027affichage"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Les mêmes octets donnent `-1` en signé et `4 294 967 295` en non signé. Le type choisi décide du sens, pas les octets."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Un `int` est **signé** : il range aussi le négatif. Avec MSVC en x64, `-1` s\u0027écrit `FF FF FF FF`, tous les bits à 1.",
+                                     "Le **complément à deux** donne l\u0027opposé d\u0027un nombre : inverser tous les bits, puis ajouter 1.",
+                                     "Un `int` signé va de `-2 147 483 648` à `2 147 483 647`. Au-delà du maximum, il **déborde** et repart au minimum.",
+                                     "Les mêmes octets se lisent en signé ou non signé : un grand négatif inattendu est souvent un dépassement, ou une valeur lue sans son signe."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "2.4 — Boss : ton premier hack",
+                      "texte":  "Tu sais maintenant comment ta machine range les nombres, signe compris. Place au boss de la phase : tu lances ton programme `Score`, tu retrouves sa valeur en mémoire avec Cheat Engine, puis tu la gèles. Ton tout premier hack, sur ta propre cible."
+                  }
+              ]
+},"2-4":{
+    "id":  "2-4",
+    "phase":  2,
+    "numero":  "2.4",
+    "titre":  "Boss : ton premier hack",
+    "duree":  35,
+    "objectif":  "Trouver, changer, puis geler le score de ton propre programme avec Cheat Engine : ton premier hack, cent pour cent légal et hors ligne.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Dans Oblivion ou GTA V en solo, taper un code pour l\u0027or ou les munitions amuse un moment. Mais le vrai geste, c\u0027est de trouver soi-même ce nombre dans la mémoire du programme, de le changer, puis de le figer. Aujourd\u0027hui tu le fais pour de bon : ton premier hack, sur ta propre cible, cent pour cent hors ligne."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Tout ce que la phase 2 t\u0027a appris",
+                      "paragraphes":  [
+                                          "Depuis le début de la phase 2, tu sais comment ton PC range les nombres. Un `int` tient sur 4 octets, et l\u0027hexadécimal écrit chaque octet avec deux chiffres. Ainsi 1000 s\u0027écrit `0x3E8`.",
+                                          "Deux détails de la leçon 2.3 vont servir tout de suite. En mémoire, l\u0027octet de poids faible vient en premier : 1000 est rangé `E8 03 00 00`, le petit-boutisme (little-endian). Et les nombres négatifs suivent le complément à deux : -1 s\u0027écrit `FF FF FF FF`."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Le cœur de ta cible",
+                      "code":  "int score = 1000;",
+                      "notes":  [
+                                    {
+                                        "ligne":  1,
+                                        "texte":  "Ton programme garde ce score dans un `int`, donc sur 4 octets. À chaque Entrée, il lui enlève 100, jusqu\u0027à 0. Dans Cheat Engine, un `int` se cherche avec le type « 4 Bytes » (4 octets)."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "txt",
+                      "titre":  "Ce que ta cible affiche",
+                      "code":  "=== Score ===\nCe programme garde un score en memoire vive.\nTrouve-le dans Cheat Engine, puis gele-le.\n\nScore : 1000\nEntree = perdre 100 points, q = quitter :",
+                      "notes":  [
+                                    {
+                                        "ligne":  2,
+                                        "texte":  "Pas d\u0027accent à « memoire » : par défaut, la console de Windows affiche mal les lettres accentuées, comme vu en phase 1."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Cheat Engine : d\u0027où le prendre, et la règle",
+                      "texte":  "Cheat Engine est un éditeur de mémoire : il lit et change les valeurs d\u0027un programme qui tourne. Prends-le uniquement sur cheatengine.org, et refuse chaque offre en plus pendant l\u0027installation. Comme il modifie la mémoire d\u0027autres programmes, ton antivirus le signale souvent : c\u0027est normal pour cet outil, mais on ne coupe jamais l\u0027antivirus. Tu l\u0027utilises sur tes propres programmes, hors ligne, jamais sur un jeu en ligne."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La chasse : éliminer, pas chercher",
+                      "paragraphes":  [
+                                          "Un programme qui tourne occupe des millions d\u0027octets. Chercher une adresse précise à la main serait sans espoir. L\u0027astuce de Cheat Engine : il élimine les mauvaises cases, au lieu de deviner la bonne.",
+                                          "Premier passage (First Scan) : tu demandes toutes les cases qui valent 1000. Il y en a souvent des centaines. Tu changes alors le score dans le programme, puis un nouveau passage (Next Scan) ne garde que les cases qui ont suivi.",
+                                          "Tu répètes avec 900, 800, 700. À chaque tour, la liste fond, jusqu\u0027à une seule adresse. C\u0027est ton score, débusqué parmi des millions d\u0027octets."
+                                      ]
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Ton programme garde 1000 dans une variable. Pour voir comment ce nombre vit en octets, regardons un cousin minuscule : une fonction qui renvoie 1000, compilée avec MSVC en x64. Le compilateur y écrit la valeur exactement comme elle sera rangée en mémoire.",
+                      "cpp":  "int score()\n{\n    return 1000;\n}",
+                      "asm":  "?score@@YAHXZ PROC\n    mov eax, 1000   ; 000003e8H\n    ret 0\n?score@@YAHXZ ENDP",
+                      "liens":  [
+                                    {
+                                        "cpp":  1,
+                                        "asm":  [
+                                                    1,
+                                                    4
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  3,
+                                        "asm":  [
+                                                    2,
+                                                    3
+                                                ]
+                                    }
+                                ],
+                      "octets":  [
+                                     {
+                                         "hex":  "B8",
+                                         "asm":  "mov eax, …",
+                                         "explication":  "Cet octet déclenche « copie dans EAX le nombre qui suit »."
+                                     },
+                                     {
+                                         "hex":  "E8 03 00 00",
+                                         "asm":  "1000",
+                                         "explication":  "1000 vaut `0x3E8`. Ses 4 octets sont rangés poids faible d\u0027abord : `E8`, `03`, puis `00 00`. C\u0027est le petit-boutisme (little-endian)."
+                                     },
+                                     {
+                                         "hex":  "C3",
+                                         "asm":  "ret 0",
+                                         "explication":  "Un seul octet pour rendre la main au code qui a appelé la fonction."
+                                     }
+                                 ],
+                      "conclusion":  "Retiens `E8 03 00 00` : l\u0027empreinte de 1000 en mémoire. Quand Cheat Engine trouvera ton score, c\u0027est dans cet ordre qu\u0027il rangera ses octets. Chercher la valeur 1000, c\u0027est chercher cette suite d\u0027octets."
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "curieux",
+                      "titre":  "L\u0027adresse d\u0027aujourd\u0027hui n\u0027est pas celle de demain",
+                      "texte":  "Note l\u0027adresse trouvée, ferme le programme, puis relance-le et refais la chasse. L\u0027adresse a sans doute changé : à chaque lancement, le système range le programme un peu différemment en mémoire. Pour retrouver une valeur à coup sûr, on suit un chemin stable, fait de pointeurs, et c\u0027est tout l\u0027objet de la phase 5."
+                  },
+                  {
+                      "type":  "atoi",
+                      "titre":  "À toi : trouve, change, puis gèle ton score",
+                      "etapes":  [
+                                     "Dans Visual Studio, ouvre `Score.cpp` depuis ton dossier `Learning\\exercices\\phase-2`. S\u0027il n\u0027y a pas encore de projet, crée un projet « Application console » (Console App) nommé `Score`, colle le code fourni, puis lance-le avec Ctrl+F5. Une console s\u0027ouvre, affiche « Score : 1000 » et reste ouverte.",
+                                     "Télécharge Cheat Engine depuis cheatengine.org, et refuse chaque offre en plus pendant l\u0027installation. Ouvre-le, puis clique sur l\u0027icône en haut à gauche, l\u0027ordinateur avec la loupe. Choisis le processus de ton programme Score dans la liste, puis « Ouvrir » (Open).",
+                                     "Mets le type de valeur (Value Type) sur « 4 Bytes », la taille d\u0027un `int`. Tape 1000 dans la case de valeur, puis clique « First Scan ». Cheat Engine liste à gauche toutes les adresses qui contiennent 1000, souvent des centaines.",
+                                     "Reviens dans la console et appuie sur Entrée : le score passe à 900. Dans Cheat Engine, tape 900, puis « Next Scan » : la liste fond. Recommence (800, 700…) jusqu\u0027à ce qu\u0027il ne reste qu\u0027une adresse, ou deux.",
+                                     "Double-clique cette adresse : elle descend dans la liste du bas. Double-clique sa valeur, mets 99999, et valide. Coche enfin la case à gauche, « Frozen » (gelé) : appuie sur Entrée dans le programme, le score ne bouge plus."
+                                 ],
+                      "indices":  [
+                                      "La console reste ouverte parce que Ctrl+F5 lance sans débogage. Si elle se ferme, relance ton programme de la même façon avant de l\u0027ouvrir dans Cheat Engine.",
+                                      "Des centaines d\u0027adresses après le premier scan ? Normal : 1000 est une valeur courante en mémoire. Chaque « Next Scan » qui suit un vrai changement en élimine presque toutes.",
+                                      "Tu ne trouves pas le processus ? Il porte le nom de ton projet, par exemple `Score.exe`, et doit déjà tourner quand tu l\u0027ouvres dans Cheat Engine.",
+                                      "Rien ne gèle ? Vérifie que la case est cochée sur la bonne ligne, en bas, et que le type est bien « 4 Bytes ».",
+                                      "Envie d\u0027en faire plus ? Cheat Engine a un tutoriel intégré, légal et hors ligne : menu Aide (Help) \u003e Cheat Engine Tutorial. Pour le reste, demande à ton coach dans VS Code, avec le numéro de l\u0027étape."
+                                  ],
+                      "solution":  "Avec le type « 4 Bytes », un « First Scan » à 1000 puis des « Next Scan » à 900, 800, 700 réduisent la liste à une seule adresse : ton score. Tu la fais descendre d\u0027un double-clic, tu changes sa valeur en 99999, puis tu coches « Frozen » (gelé). Appuie sur Entrée autant que tu veux, le score reste figé. Tu viens de trouver, changer, puis geler une valeur dans la mémoire d\u0027un programme, comme un trainer sur un jeu solo.",
+                      "lien":  {
+                                   "texte":  "Cheat Engine, site officiel (refuse chaque offre de l\u0027installateur)",
+                                   "url":  "https://cheatengine.org"
+                               }
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "scan",
+                                       "fr":  "balayage",
+                                       "note":  "Cheat Engine parcourt la mémoire pour y trouver une valeur. « First Scan » lance le premier passage, « Next Scan » réduit la liste."
+                                   },
+                                   {
+                                       "en":  "value type",
+                                       "fr":  "type de valeur",
+                                       "note":  "Ce que Cheat Engine cherche. « 4 Bytes » correspond à un `int`, « Float » à un nombre à virgule."
+                                   },
+                                   {
+                                       "en":  "freeze",
+                                       "fr":  "geler",
+                                       "note":  "Réécrire une valeur sans cesse pour qu\u0027elle ne change plus. La case « Frozen » (gelé) de Cheat Engine s\u0027en charge."
+                                   },
+                                   {
+                                       "en":  "process",
+                                       "fr":  "processus",
+                                       "note":  "Un programme en train de tourner. Tu choisis celui de ta cible pour que Cheat Engine lise sa mémoire."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Ton score est rangé dans un `int`. Quel type de valeur (Value Type) choisis-tu dans Cheat Engine ?",
+                                            "choix":  [
+                                                          "« Float »",
+                                                          "« 4 Bytes »",
+                                                          "« String »"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Un `int` tient sur 4 octets : c\u0027est « 4 Bytes ». « Float » sert aux nombres à virgule, « String » aux textes."
+                                        },
+                                        {
+                                            "q":  "Après le « First Scan », Cheat Engine montre des centaines d\u0027adresses à 1000. Comment n\u0027en garder qu\u0027une ?",
+                                            "choix":  [
+                                                          "Redémarrer le PC",
+                                                          "Couper l\u0027antivirus",
+                                                          "Changer le score dans le programme, puis « Next Scan »"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Tu changes la valeur dans le programme, puis « Next Scan » ne garde que les adresses qui ont suivi. En répétant, la liste fond jusqu\u0027à une seule."
+                                        },
+                                        {
+                                            "q":  "1000 vaut `0x3E8`. En mémoire, en petit-boutisme (little-endian), comment ses 4 octets sont-ils rangés ?",
+                                            "choix":  [
+                                                          "`E8 03 00 00`",
+                                                          "`00 00 03 E8`",
+                                                          "`03 E8 00 00`"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "L\u0027octet de poids faible vient en premier : `E8`, puis `03`, puis `00 00`. C\u0027est aussi l\u0027ordre que Cheat Engine affiche."
+                                        },
+                                        {
+                                            "q":  "Ton antivirus signale Cheat Engine. Le bon réflexe ?",
+                                            "choix":  [
+                                                          "Je coupe l\u0027antivirus le temps de jouer",
+                                                          "Je sais que c\u0027est normal pour cet outil et je ne coupe rien",
+                                                          "J\u0027efface Cheat Engine, c\u0027est un virus"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Cheat Engine modifie la mémoire d\u0027autres programmes, donc l\u0027antivirus le signale souvent. C\u0027est normal. On ne coupe jamais l\u0027antivirus, et on reste sur ses propres programmes."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Trouver une valeur : type « 4 Bytes » pour un `int`, « First Scan » sur 1000, change le score, « Next Scan », jusqu\u0027à l\u0027adresse unique.",
+                                     "Geler : double-clique l\u0027adresse pour la faire descendre, change sa valeur, puis coche « Frozen » (gelé). Le score ne bouge plus.",
+                                     "1000 vit en mémoire comme `E8 03 00 00`, poids faible d\u0027abord (little-endian). Cheat Engine suit ce rangement.",
+                                     "Les règles : Cheat Engine depuis cheatengine.org, chaque offre refusée, antivirus jamais coupé, sur tes propres programmes, hors ligne."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "Phase 3 — Logique de jeu",
+                      "texte":  "Tu viens de signer ton premier hack : trouvé, changé, gelé, sur ta propre cible. En phase 3, tu donnes des choix et des boucles à tes programmes, la logique qui fait tourner un jeu. Et tu retrouves le « si la vie tombe à zéro » directement dans l\u0027assembleur."
                   }
               ]
 }}};</script>
