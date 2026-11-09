@@ -839,7 +839,34 @@ html.is-tel #app { height: 100%; }
                        "boss":  "ta cible passe en 2D (raylib) et tu dissèques ton Joueur",
                        "duree":  "6-7 sem",
                        "lecons":  [
-
+                                      {
+                                          "id":  "6-1",
+                                          "numero":  "6.1",
+                                          "titre":  "Les objets : des données qui agissent",
+                                          "duree":  16,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "6-2",
+                                          "numero":  "6.2",
+                                          "titre":  "L\u0027héritage : des familles d\u0027objets",
+                                          "duree":  15,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "6-3",
+                                          "numero":  "6.3",
+                                          "titre":  "Fonctions virtuelles et table virtuelle",
+                                          "duree":  18,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "6-4",
+                                          "numero":  "6.4",
+                                          "titre":  "Boss : dissèque un objet Joueur",
+                                          "duree":  30,
+                                          "dispo":  true
+                                      }
                                   ]
                    },
                    {
@@ -4242,6 +4269,512 @@ html.is-tel #app { height: 100%; }
                                  ],
                        "bonne":  1,
                        "explication":  "Il cherche une chaîne de pointeurs stable : une adresse de base qui ne bouge pas, puis des sauts et décalages jusqu\u0027à la valeur, pour la retrouver à chaque lancement."
+                   },
+                   {
+                       "id":  "c601",
+                       "type":  "concept",
+                       "lecon":  "6-1",
+                       "jeu":  "",
+                       "titre":  "Données plus actions",
+                       "texte":  "Une `struct` rangeait des nombres. Une **classe** (class) va plus loin : elle réunit données (champs) ET actions (méthodes) au même endroit. Un **objet** (object) est un exemplaire concret du moule ; une **méthode** (method), une action qu\u0027il sait faire."
+                   },
+                   {
+                       "id":  "c602",
+                       "type":  "code",
+                       "lecon":  "6-1",
+                       "jeu":  "",
+                       "titre":  "Lis cette méthode",
+                       "langage":  "cpp",
+                       "code":  "class Heros {\npublic:\n    int vie = 100;\n    void subir_degats(int d) { vie -= d; }\n};\nHeros h;\nh.subir_degats(30);",
+                       "question":  "Que vaut `h.vie` après la dernière ligne ?",
+                       "reponse":  "70. `h` part avec `vie` à 100. `h.subir_degats(30)` appelle la méthode sur `h` : elle fait `vie -= 30`, donc 100 - 30 = 70.",
+                       "explication":  "Le point relie l\u0027objet `h` à son action. La méthode agit sur la `vie` de l\u0027objet appelé, pas sur une autre."
+                   },
+                   {
+                       "id":  "c603",
+                       "type":  "code",
+                       "lecon":  "6-1",
+                       "jeu":  "",
+                       "titre":  "Deux héros, une méthode",
+                       "langage":  "cpp",
+                       "code":  "Heros a;   // a.vie = 100\nHeros b;   // b.vie = 100\na.subir_degats(40);",
+                       "question":  "Après ces lignes, que valent `a.vie` et `b.vie` ?",
+                       "reponse":  "`a.vie` vaut 60 ; `b.vie` vaut 100. La méthode n\u0027a touché que `a`, car c\u0027est sur `a` qu\u0027on l\u0027a appelée. Chaque objet garde sa propre `vie`.",
+                       "explication":  "C\u0027est le rôle de `this` : la méthode sait sur quel objet elle travaille, ici `a`."
+                   },
+                   {
+                       "id":  "c604",
+                       "type":  "concept",
+                       "lecon":  "6-1",
+                       "jeu":  "",
+                       "titre":  "this, le pointeur caché",
+                       "texte":  "Quand tu appelles `heros.subir_degats(30)`, la méthode reçoit en secret l\u0027**adresse** de `heros`. Cette adresse cachée s\u0027appelle `this` : un **pointeur** vers l\u0027objet sur lequel on travaille. C\u0027est ainsi qu\u0027une méthode sait *quel* objet modifier."
+                   },
+                   {
+                       "id":  "c605",
+                       "type":  "quiz",
+                       "lecon":  "6-1",
+                       "jeu":  "",
+                       "titre":  "Où arrive this ?",
+                       "question":  "Avec MSVC en x64, dans quel registre arrive le `this` d\u0027une méthode ?",
+                       "choix":  [
+                                     "RAX, le registre de réponse",
+                                     "RCX, comme un 1er argument caché",
+                                     "RSP, le pointeur de pile"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "`this` est le 1er argument caché d\u0027une méthode. Il voyage dans RCX, là même où arrive le 1er paramètre d\u0027une fonction ordinaire (phases 2 à 4)."
+                   },
+                   {
+                       "id":  "c606",
+                       "type":  "vraifaux",
+                       "lecon":  "6-1",
+                       "jeu":  "",
+                       "titre":  "struct contre class",
+                       "affirmation":  "En C++, `struct` met tout en `public` par défaut et `class` met tout en `private` ; sinon, les deux sont identiques.",
+                       "vrai":  true,
+                       "explication":  "Vrai. C\u0027est le seul vrai écart. Une fois compilés, un `struct` et une `class` donnent le même code et la même disposition en mémoire : indiscernables dans l\u0027exécutable."
+                   },
+                   {
+                       "id":  "c607",
+                       "type":  "concept",
+                       "lecon":  "6-1",
+                       "jeu":  "",
+                       "titre":  "Public ou privé",
+                       "texte":  "L\u0027**encapsulation** décide qui touche quoi. `public` = accessible de partout. `private` = accessible seulement depuis l\u0027intérieur de la classe, par ses méthodes. On garde souvent les champs en `private`, pour qu\u0027ils ne changent que par des méthodes contrôlées."
+                   },
+                   {
+                       "id":  "c608",
+                       "type":  "code",
+                       "lecon":  "6-1",
+                       "jeu":  "gmod",
+                       "titre":  "Une méthode en Lua",
+                       "langage":  "lua",
+                       "code":  "function soigner(ply)\n    ply:SetHealth(100)\nend",
+                       "question":  "Dans `ply:SetHealth(100)`, que passe le deux-points `:` en secret ?",
+                       "reponse":  "L\u0027objet `ply` lui-même. En Lua, `ply:SetHealth(100)` passe `ply` comme 1er argument caché (appelé `self`). C\u0027est exactement le `this` du C++, sous un autre nom.",
+                       "explication":  "Les addons de Garry\u0027s Mod sont en Lua. `SetHealth` est une méthode du joueur ; le `:` relie l\u0027objet à son action, comme le point en C++."
+                   },
+                   {
+                       "id":  "c609",
+                       "type":  "code",
+                       "lecon":  "6-1",
+                       "jeu":  "minecraft",
+                       "titre":  "La même classe, en Java",
+                       "langage":  "java",
+                       "code":  "class Heros {\n    int vie = 100;\n    void subirDegats(int d) {\n        vie -= d;\n    }\n}",
+                       "question":  "Qu\u0027est-ce qui change par rapport à la version C++ ?",
+                       "reponse":  "Presque rien : pas de `public:` ni de `;` après la dernière accolade. Champs, méthode et logique sont identiques. Java aussi a un `this` caché.",
+                       "explication":  "Minecraft (Java Edition) est en Java, un cousin proche du C++. Savoir lire l\u0027un aide à lire l\u0027autre."
+                   },
+                   {
+                       "id":  "c610",
+                       "type":  "anglais",
+                       "lecon":  "6-1",
+                       "jeu":  "",
+                       "titre":  "method",
+                       "en":  "method",
+                       "fr":  "méthode",
+                       "texte":  "Une fonction qui appartient à une classe. En Java (Minecraft), c\u0027est le mot officiel. On l\u0027appelle sur un objet : `heros.subirDegats(10)`."
+                   },
+                   {
+                       "id":  "c611",
+                       "type":  "savaistu",
+                       "lecon":  "6-1",
+                       "jeu":  "",
+                       "titre":  "Au début, C with Classes",
+                       "texte":  "Le C++ ne s\u0027est pas toujours appelé ainsi. Bjarne Stroustrup l\u0027a créé vers 1979 sous le nom *C with Classes* (« C avec des classes ») : du C, plus les classes. Rebaptisé C++ en 1983. Les classes sont donc dans l\u0027ADN du langage depuis le début."
+                   },
+                   {
+                       "id":  "c612",
+                       "type":  "quiz",
+                       "lecon":  "6-1",
+                       "jeu":  "",
+                       "titre":  "Classe ou objet ?",
+                       "question":  "`Heros` est une classe. Dans `Heros gandalf;`, qu\u0027est-ce que `gandalf` ?",
+                       "choix":  [
+                                     "Un objet : un exemplaire concret de la classe `Heros`",
+                                     "Une deuxième classe",
+                                     "Une méthode de `Heros`"
+                                 ],
+                       "bonne":  0,
+                       "explication":  "`gandalf` est un **objet**, coulé dans le moule `Heros`. Avec la même classe, tu fabriques autant d\u0027objets que tu veux, chacun avec sa propre `vie`."
+                   },
+                   {
+                       "id":  "c614",
+                       "type":  "concept",
+                       "lecon":  "6-2",
+                       "jeu":  "minecraft",
+                       "titre":  "Joueur, monstre, PNJ : tous des entités",
+                       "texte":  "Dans un jeu, un joueur, un monstre et un PNJ (personnage non-joueur) ont tous une position et une vie. Au lieu de recopier ces champs partout, on les écrit une fois dans une **classe de base** : une *entité*. Chaque sorte en **hérite**. C\u0027est l\u0027**héritage** (inheritance)."
+                   },
+                   {
+                       "id":  "c615",
+                       "type":  "code",
+                       "lecon":  "6-2",
+                       "jeu":  "",
+                       "titre":  "Lis : que dit le `:` ?",
+                       "langage":  "cpp",
+                       "code":  "struct Entite\n{\n    int vie;\n};\nstruct Joueur : Entite\n{\n    int niveau;\n};",
+                       "question":  "Que signifie le `: Entite` sur la ligne de `Joueur` ?",
+                       "reponse":  "« `Joueur` hérite d\u0027`Entite` ». Grâce à ce signe, `Joueur` reçoit d\u0027office le champ `vie` de la base, sans le réécrire. Il y ajoute ensuite son propre champ, `niveau`.",
+                       "explication":  "Les deux points, c\u0027est la marque de l\u0027héritage à repérer en lecture."
+                   },
+                   {
+                       "id":  "c616",
+                       "type":  "code",
+                       "lecon":  "6-2",
+                       "jeu":  "",
+                       "titre":  "Lis : combien de champs ?",
+                       "langage":  "cpp",
+                       "code":  "struct Entite { int vie; };\n\nstruct Joueur : Entite\n{\n    int niveau;\n};",
+                       "question":  "Combien de champs possède un `Joueur` ?",
+                       "reponse":  "Deux. `Joueur` hérite de `vie` depuis `Entite`, puis ajoute `niveau`. On n\u0027a écrit `vie` qu\u0027une seule fois, et toutes les entités en profitent : c\u0027est tout l\u0027intérêt de l\u0027héritage.",
+                       "explication":  "Les champs hérités comptent autant que les champs ajoutés."
+                   },
+                   {
+                       "id":  "c617",
+                       "type":  "code",
+                       "lecon":  "6-2",
+                       "jeu":  "",
+                       "titre":  "Lis : les champs d\u0027un Monstre",
+                       "langage":  "cpp",
+                       "code":  "struct Entite { int vie; };\n\nstruct Monstre : Entite\n{\n    int force;\n};",
+                       "question":  "Un `Monstre` a-t-il un champ `vie` ?",
+                       "reponse":  "Oui. `Monstre` hérite d\u0027`Entite`, donc il reçoit `vie` sans le réécrire. Il ajoute en plus son champ `force`. Un Monstre a deux champs : `vie` (hérité) et `force` (le sien).",
+                       "explication":  "Même base qu\u0027un `Joueur`, mais un champ propre différent."
+                   },
+                   {
+                       "id":  "c618",
+                       "type":  "concept",
+                       "lecon":  "6-2",
+                       "jeu":  "",
+                       "titre":  "Base et dérivée : les deux mots",
+                       "texte":  "Deux termes à connaître. La **classe de base** (base class) porte le tronc commun : ici `Entite`, avec son champ `vie`. La **classe dérivée** (derived class) en hérite, puis ajoute le sien : `Joueur` ajoute `niveau`, `Monstre` ajoute `force`. Une base, plusieurs dérivées."
+                   },
+                   {
+                       "id":  "c619",
+                       "type":  "code",
+                       "lecon":  "6-2",
+                       "jeu":  "",
+                       "titre":  "Lis : le mot `override`",
+                       "langage":  "cpp",
+                       "code":  "struct Entite\n{\n    virtual std::string type() const { return \"entite\"; }\n};\nstruct Joueur : Entite\n{\n    std::string type() const override { return \"joueur\"; }\n};",
+                       "question":  "Que fait le mot `override` sur la méthode `type()` de `Joueur` ?",
+                       "reponse":  "Il **redéfinit** la méthode `type()` héritée d\u0027`Entite`. Pour un `Joueur`, `type()` renvoie « joueur » au lieu de « entite ». Le mot `virtual` et la vtable sont le sujet de la leçon 6.3.",
+                       "explication":  "`override` = « je remplace la version de la base »."
+                   },
+                   {
+                       "id":  "c620",
+                       "type":  "vraifaux",
+                       "lecon":  "6-2",
+                       "jeu":  "",
+                       "titre":  "Faut-il réécrire les champs hérités ?",
+                       "affirmation":  "Puisque `Joueur` hérite d\u0027`Entite`, il doit quand même réécrire le champ `vie` dans `Joueur`.",
+                       "vrai":  false,
+                       "explication":  "Faux. Tout l\u0027intérêt de l\u0027héritage est de NE PAS réécrire `vie` : `Joueur` le reçoit d\u0027office de sa base. Il n\u0027écrit que ce qu\u0027il ajoute, `niveau`. C\u0027est la réutilisation (DRY)."
+                   },
+                   {
+                       "id":  "c621",
+                       "type":  "quiz",
+                       "lecon":  "6-2",
+                       "jeu":  "",
+                       "titre":  "Repérer l\u0027héritage",
+                       "question":  "En lisant du C++, quel signe trahit qu\u0027une classe hérite d\u0027une autre ?",
+                       "choix":  [
+                                     "Une étoile `*` après le nom",
+                                     "Deux points `:` après le nom, suivis de la base",
+                                     "Un `\u0026` devant le nom"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "`struct Joueur : Entite` ou `class Arme : public Objet` : après les deux points, c\u0027est la **classe de base**. Dès que tu vois ce `:`, demande-toi de quelle famille l\u0027objet hérite."
+                   },
+                   {
+                       "id":  "c622",
+                       "type":  "anglais",
+                       "lecon":  "6-2",
+                       "jeu":  "",
+                       "titre":  "base class",
+                       "en":  "base class",
+                       "fr":  "classe de base",
+                       "texte":  "La classe de départ, le tronc commun dont d\u0027autres héritent, comme `Entite`. On dit aussi « classe parente » (parent class)."
+                   },
+                   {
+                       "id":  "c623",
+                       "type":  "anglais",
+                       "lecon":  "6-2",
+                       "jeu":  "",
+                       "titre":  "derived class",
+                       "en":  "derived class",
+                       "fr":  "classe dérivée",
+                       "texte":  "La classe qui hérite d\u0027une base, comme `Joueur` ou `Monstre`. On dit aussi « sous-classe » (subclass) ou « classe fille »."
+                   },
+                   {
+                       "id":  "c624",
+                       "type":  "concept",
+                       "lecon":  "6-2",
+                       "jeu":  "gmod",
+                       "titre":  "L\u0027héritage dans les vrais moteurs",
+                       "texte":  "L\u0027héritage fait tourner les vrais moteurs. Dans **Unreal**, presque tout hérite de `UObject` ; dans **Unity**, de `MonoBehaviour`. Même un addon Garry\u0027s Mod part d\u0027une entité de base. Reconnaître ce tronc commun, c\u0027est comprendre d\u0027un coup une foule d\u0027objets."
+                   },
+                   {
+                       "id":  "c625",
+                       "type":  "savaistu",
+                       "lecon":  "6-2",
+                       "jeu":  "minecraft",
+                       "titre":  "Tout est une Entity dans Minecraft",
+                       "texte":  "Dans le code de Minecraft Java, presque tout — toi, un zombie, une flèche, un wagonnet — hérite d\u0027une même classe de base, `Entity`. C\u0027est grâce à cette base commune qu\u0027un mod traite souvent un joueur et un zombie par le même bout de code."
+                   },
+                   {
+                       "id":  "c627",
+                       "type":  "concept",
+                       "lecon":  "6-3",
+                       "jeu":  "minecraft",
+                       "titre":  "Un appel, deux réponses",
+                       "texte":  "Dans Minecraft, un zombie et un villageois réagissent à leur façon quand le jeu les met à jour. Dans `Entites.cpp`, `decrire(e)` appelle `e-\u003etype()` : un Joueur répond « joueur », un Monstre « monstre ». Un seul appel, deux réponses selon le vrai type : le **polymorphisme**."
+                   },
+                   {
+                       "id":  "c628",
+                       "type":  "code",
+                       "lecon":  "6-3",
+                       "jeu":  "",
+                       "titre":  "Lis : que renvoie `type()` ?",
+                       "langage":  "cpp",
+                       "code":  "struct Entite {\n    virtual std::string type() const { return \"entite\"; }\n};\nstruct Joueur : Entite {\n    std::string type() const override { return \"joueur\"; }\n};\nJoueur j;",
+                       "question":  "Que renvoie l\u0027appel `j.type()` ?",
+                       "reponse":  "« joueur ». `Joueur` redéfinit (`override`) `type()`, donc sa version l\u0027emporte sur celle d\u0027`Entite`. Même en passant par une `Entite*`, c\u0027est le vrai type de l\u0027objet qui décide.",
+                       "explication":  "Grâce à `override`, `Joueur` a sa propre version de `type()`. Le polymorphisme se voit surtout quand on appelle via une `Entite*` (carte suivante)."
+                   },
+                   {
+                       "id":  "c629",
+                       "type":  "code",
+                       "lecon":  "6-3",
+                       "jeu":  "",
+                       "titre":  "Lis : à quoi sert `virtual` ?",
+                       "langage":  "cpp",
+                       "code":  "struct Entite {\n    virtual std::string type() const { return \"entite\"; }\n};\nstruct Joueur : Entite {\n    std::string type() const override { return \"joueur\"; }\n};\n// e est une Entite* qui pointe un Joueur",
+                       "question":  "Sans le mot `virtual` devant `type()`, que renverrait `e-\u003etype()` ?",
+                       "reponse":  "« entite ». Sans `virtual`, le choix est figé à la compilation d\u0027après le type écrit, `Entite`. C\u0027est `virtual` qui laisse le vrai type de l\u0027objet décider à l\u0027exécution.",
+                       "explication":  "Pas de `virtual`, pas de vtable, pas de polymorphisme."
+                   },
+                   {
+                       "id":  "c630",
+                       "type":  "capot",
+                       "lecon":  "6-3",
+                       "jeu":  "",
+                       "titre":  "Le motif d\u0027un appel virtuel",
+                       "cpp":  "int type_de(const Entite* e)\n{\n    return e-\u003etype();\n}",
+                       "asm":  "mov rax, QWORD PTR [rcx]\nrex_jmp QWORD PTR [rax]",
+                       "texte":  "MSVC en x64. `mov rax, [rcx]` lit l\u0027offset 0 de l\u0027objet : le pointeur de vtable. `[rax]` désigne alors `type()`. `rex_jmp` est un `jmp` qui y saute. Charger la vtable puis sauter : LE motif d\u0027un appel virtuel."
+                   },
+                   {
+                       "id":  "c631",
+                       "type":  "concept",
+                       "lecon":  "6-3",
+                       "jeu":  "",
+                       "titre":  "La table virtuelle",
+                       "texte":  "Une **table virtuelle** (vtable) est un tableau d\u0027adresses de fonctions, un par classe, partagé par ses objets. Celle de `Joueur` mène au `type()` qui renvoie « joueur », celle de `Monstre` au sien. Appeler une méthode virtuelle, c\u0027est y lire une adresse et sauter."
+                   },
+                   {
+                       "id":  "c632",
+                       "type":  "concept",
+                       "lecon":  "6-3",
+                       "jeu":  "",
+                       "titre":  "Le vfptr, en tête de l\u0027objet",
+                       "texte":  "Dès qu\u0027une classe a au moins une fonction virtuelle, chacun de ses objets commence (offset 0) par un **pointeur vers sa vtable** : le **vfptr**. Avant même les champs de données. Un Joueur en mémoire, c\u0027est d\u0027abord 8 octets de vfptr, puis `vie`, puis `niveau`."
+                   },
+                   {
+                       "id":  "c633",
+                       "type":  "vraifaux",
+                       "lecon":  "6-3",
+                       "jeu":  "",
+                       "titre":  "L\u0027objet commence par le vfptr",
+                       "affirmation":  "Un objet dont la classe a une fonction virtuelle commence, à l\u0027offset 0, par un pointeur vers sa table virtuelle.",
+                       "vrai":  true,
+                       "explication":  "Vrai. Avec MSVC, le **vfptr** est le tout premier champ, avant les données. C\u0027est pour ça que le code lit `[rcx]` (offset 0) pour trouver la vtable avant d\u0027appeler la méthode."
+                   },
+                   {
+                       "id":  "c634",
+                       "type":  "quiz",
+                       "lecon":  "6-3",
+                       "jeu":  "",
+                       "titre":  "Que charge `mov rax, [rcx]` ?",
+                       "question":  "Dans un appel virtuel, l\u0027objet est dans RCX. Que charge `mov rax, QWORD PTR [rcx]` ?",
+                       "choix":  [
+                                     "La valeur de `vie`",
+                                     "Le pointeur de vtable, au début de l\u0027objet",
+                                     "L\u0027adresse de retour"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "`[rcx]` lit les 8 octets du début de l\u0027objet (offset 0) : le vfptr, le pointeur vers la vtable. Ensuite `[rax]` donne la bonne fonction."
+                   },
+                   {
+                       "id":  "c635",
+                       "type":  "code",
+                       "lecon":  "6-3",
+                       "jeu":  "",
+                       "titre":  "Lis : où est `niveau` ?",
+                       "langage":  "txt",
+                       "code":  "class Joueur  taille(24) :\n  +0    {vfptr}   pointeur de vtable (8 octets)\n  +8    vie       int\n  +16   niveau    int",
+                       "question":  "D\u0027après cette disposition donnée par MSVC, à quel offset se trouve `niveau` ?",
+                       "reponse":  "À l\u0027offset +16. Le vfptr occupe +0 (8 octets), `vie` est à +8, puis `niveau` à +16 (MSVC laisse des octets de remplissage pour l\u0027alignement). L\u0027objet entier fait 24 octets.",
+                       "explication":  "Le vfptr décale tout : les données ne commencent qu\u0027après lui."
+                   },
+                   {
+                       "id":  "c636",
+                       "type":  "vraifaux",
+                       "lecon":  "6-3",
+                       "jeu":  "",
+                       "titre":  "Virtuel, choisi quand ?",
+                       "affirmation":  "Avec une fonction `virtual`, le compilateur choisit dès la compilation quelle version de `type()` sera appelée.",
+                       "vrai":  false,
+                       "explication":  "Faux. Tout l\u0027intérêt de `virtual`, c\u0027est que le choix se fait à l\u0027**exécution**, selon le vrai type de l\u0027objet, via la vtable. Sans `virtual`, là oui, le choix serait figé à la compilation."
+                   },
+                   {
+                       "id":  "c637",
+                       "type":  "anglais",
+                       "lecon":  "6-3",
+                       "jeu":  "",
+                       "titre":  "vtable",
+                       "en":  "virtual table (vtable)",
+                       "fr":  "table virtuelle",
+                       "texte":  "Le tableau d\u0027adresses de fonctions d\u0027une classe. Un objet à fonctions virtuelles pointe vers elle par son vfptr, à l\u0027offset 0."
+                   },
+                   {
+                       "id":  "c638",
+                       "type":  "savaistu",
+                       "lecon":  "6-3",
+                       "jeu":  "",
+                       "titre":  "Le nom de classe caché dans le .exe",
+                       "texte":  "Près d\u0027une vtable, MSVC range aussi des infos de type : le **RTTI** (Run-Time Type Information). Il contient le nom de la classe sous forme encodée, parfois lisible tel quel dans le `.exe`. Pour qui lit un binaire, c\u0027est un indice en or."
+                   },
+                   {
+                       "id":  "c640",
+                       "type":  "concept",
+                       "lecon":  "6-4",
+                       "jeu":  "",
+                       "titre":  "Classe et objet",
+                       "texte":  "Une **classe** (class) regroupe au même endroit des données, les **champs**, et des fonctions, les **méthodes** (methods). Un **objet** (object) est un exemplaire concret d\u0027une classe, avec ses propres valeurs. `Joueur j;` crée un objet `Joueur`, rangé en mémoire."
+                   },
+                   {
+                       "id":  "c641",
+                       "type":  "code",
+                       "lecon":  "6-4",
+                       "jeu":  "",
+                       "titre":  "Qui répond à type() ?",
+                       "langage":  "cpp",
+                       "code":  "struct Entite {\n    virtual std::string type() const { return \"entite\"; }\n};\nstruct Joueur : Entite {\n    std::string type() const override { return \"joueur\"; }\n};\n// decrire(e) fait :  cout \u003c\u003c e-\u003etype();",
+                       "question":  "Si `e` pointe sur un `Joueur`, qu\u0027affiche `e-\u003etype()` ?",
+                       "reponse":  "« joueur ». `type()` est virtuelle, donc `e-\u003etype()` suit la vtable de l\u0027objet pointé et appelle la version de `Joueur`, pas celle d\u0027`Entite`. C\u0027est le polymorphisme.",
+                       "explication":  ""
+                   },
+                   {
+                       "id":  "c642",
+                       "type":  "code",
+                       "lecon":  "6-4",
+                       "jeu":  "",
+                       "titre":  "Qu\u0027y a-t-il à l\u0027offset 0 ?",
+                       "langage":  "cpp",
+                       "code":  "struct Entite {\n    int vie;\n    virtual int type() const;\n};\n// Entite e;  en memoire, a l\u0027offset 0 :",
+                       "question":  "Quels octets lit-on tout au début de l\u0027objet `e`, à l\u0027offset 0 ?",
+                       "reponse":  "Le pointeur de vtable (vfptr), 8 octets. Dès qu\u0027une classe a une fonction virtuelle, l\u0027objet commence par lui, avant même `vie` ; `vie` est repoussé à +8.",
+                       "explication":  ""
+                   },
+                   {
+                       "id":  "c643",
+                       "type":  "concept",
+                       "lecon":  "6-4",
+                       "jeu":  "",
+                       "titre":  "La vtable et son pointeur",
+                       "texte":  "La **table virtuelle** (vtable) est un tableau d\u0027adresses de fonctions, un par classe, partagé par ses objets. Chaque objet à fonctions virtuelles commence par un **pointeur de vtable** (vfptr), à l\u0027offset 0. C\u0027est par là que `e-\u003etype()` trouve sa version à l\u0027exécution."
+                   },
+                   {
+                       "id":  "c644",
+                       "type":  "capot",
+                       "lecon":  "6-4",
+                       "jeu":  "",
+                       "titre":  "Un appel virtuel en 2 instructions",
+                       "cpp":  "int type_de(const Entite* e)\n{\n    return e-\u003etype();\n}",
+                       "asm":  "mov rax, QWORD PTR [rcx]\nrex_jmp QWORD PTR [rax]",
+                       "texte":  "Avec MSVC en x64, l\u0027appel virtuel tient en deux instructions. `[rcx]` lit le pointeur de vtable, au début de l\u0027objet, et le met dans RAX. `rex_jmp QWORD PTR [rax]` saute à la première entrée de la vtable : `type()`."
+                   },
+                   {
+                       "id":  "c645",
+                       "type":  "vraifaux",
+                       "lecon":  "6-4",
+                       "jeu":  "",
+                       "titre":  "Où est le vfptr ?",
+                       "affirmation":  "Dans un objet à fonctions virtuelles, le pointeur de vtable est rangé APRÈS les champs de données.",
+                       "vrai":  false,
+                       "explication":  "Faux : le pointeur de vtable est tout au début, à l\u0027offset 0. Les champs viennent après (dans Joueur, `vie` à +8, `niveau` à +16)."
+                   },
+                   {
+                       "id":  "c646",
+                       "type":  "quiz",
+                       "lecon":  "6-4",
+                       "jeu":  "",
+                       "titre":  "Pourquoi RCX pour this ?",
+                       "question":  "Pourquoi le pointeur `this` d\u0027une méthode voyage-t-il dans RCX ?",
+                       "choix":  [
+                                     "Parce que `this` est le 1er argument caché de la méthode",
+                                     "Parce que RCX est réservé aux objets",
+                                     "Parce que `this` vaut toujours zéro"
+                                 ],
+                       "bonne":  0,
+                       "explication":  "Une méthode reçoit l\u0027adresse de l\u0027objet comme 1er argument, mais caché. Et le 1er argument voyage dans RCX (phases 2-4). Donc `this` arrive dans RCX."
+                   },
+                   {
+                       "id":  "c647",
+                       "type":  "code",
+                       "lecon":  "6-4",
+                       "jeu":  "",
+                       "titre":  "Lis la sortie du Monstre",
+                       "langage":  "cpp",
+                       "code":  "struct Monstre : Entite {\n    std::string type() const override { return \"monstre\"; }\n};\nMonstre m; m.vie = 50;\ndecrire(\u0026m);   // decrire : cout \u003c\u003c e-\u003etype() \u003c\u003c \" avec \" \u003c\u003c e-\u003evie \u003c\u003c \" PV\"",
+                       "question":  "Qu\u0027affiche `decrire(\u0026m)` ?",
+                       "reponse":  "« monstre avec 50 PV ». `decrire` ne connaît qu\u0027une `Entite*`, mais `e-\u003etype()` suit la vtable et appelle la version de `Monstre`. Chaque objet répond à sa façon.",
+                       "explication":  ""
+                   },
+                   {
+                       "id":  "c648",
+                       "type":  "concept",
+                       "lecon":  "6-4",
+                       "jeu":  "gta",
+                       "titre":  "ESP : lire la liste des objets",
+                       "texte":  "Un **ESP** / **wallhack** (voir le **bestiaire**) lit souvent la **liste des objets** du jeu. Chaque entité y est un objet C++, repéré par son pointeur de vtable et ses champs (position, vie). Triche en ligne : on l\u0027étudie en défense, hors ligne."
+                   },
+                   {
+                       "id":  "c649",
+                       "type":  "anglais",
+                       "lecon":  "6-4",
+                       "jeu":  "",
+                       "titre":  "virtual",
+                       "en":  "virtual",
+                       "fr":  "virtuel",
+                       "texte":  "Le mot-clé qui rend une méthode redéfinissable. C\u0027est lui qui fait naître la vtable et le pointeur de vtable en tête de l\u0027objet."
+                   },
+                   {
+                       "id":  "c650",
+                       "type":  "quiz",
+                       "lecon":  "6-4",
+                       "jeu":  "",
+                       "titre":  "Pourquoi vie est à +8",
+                       "question":  "Dans un `Joueur`, pourquoi le champ `vie` est-il à l\u0027offset +8, et pas +0 ?",
+                       "choix":  [
+                                     "Parce que `vie` fait 8 octets",
+                                     "Parce que le pointeur de vtable occupe les 8 premiers octets",
+                                     "Par pur hasard"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "Les 8 premiers octets sont pris par le pointeur de vtable (une adresse). `vie`, un `int` de 4 octets, est donc repoussé à +8 ; `niveau` arrive à +16, à cause de l\u0027alignement."
+                   },
+                   {
+                       "id":  "c651",
+                       "type":  "savaistu",
+                       "lecon":  "6-4",
+                       "jeu":  "",
+                       "titre":  "La vtable vue dans Ghidra",
+                       "texte":  "Quand un reverse engineer clique sur une table virtuelle dans Ghidra, il voit une liste d\u0027adresses : ce sont les méthodes de la classe. En suivant chaque adresse, il récupère les fonctions de l\u0027objet une à une."
                    }
                ]
 },"glossaire":{
@@ -5071,6 +5604,111 @@ html.is-tel #app { height: 100%; }
                           "definition":  "Un outil de Cheat Engine qui cherche une chaîne de pointeurs menant à une adresse. Il teste des bases et des décalages, et garde ceux qui retombent sur la valeur même après un redémarrage.",
                           "exemple":  "L\u0027adresse des PV change à chaque lancement : un scan de pointeurs (Pointer scan) retrouve une chaîne stable qui y mène.",
                           "lecon":  "5-2"
+                      },
+                      {
+                          "terme":  "classe",
+                          "en":  "class",
+                          "definition":  "Un type que tu crées, réunissant au même endroit des données (les champs) et des fonctions qui agissent dessus (les méthodes). `class` et `struct` sont presque identiques.",
+                          "exemple":  "Dans `Entites.cpp`, `Entite` est une classe : le champ `vie` et la méthode `type()` vivent ensemble.",
+                          "lecon":  "6-1"
+                      },
+                      {
+                          "terme":  "objet",
+                          "en":  "object, instance",
+                          "definition":  "Un exemplaire concret d\u0027une classe, fabriqué d\u0027après son modèle, avec ses propres valeurs en mémoire. On dit aussi une instance. La classe est le plan ; l\u0027objet, la maison bâtie.",
+                          "exemple":  "Dans `main`, le `Joueur` à 100 PV et le `Monstre` à 50 PV sont deux objets de classes différentes.",
+                          "lecon":  "6-1"
+                      },
+                      {
+                          "terme":  "méthode",
+                          "en":  "method, member function",
+                          "definition":  "Une fonction qui appartient à une classe et agit sur un objet. On l\u0027appelle avec un point ou une flèche : `e-\u003etype()`. Elle reçoit en secret un pointeur vers l\u0027objet concerné : `this`.",
+                          "exemple":  "`type()` est une méthode d\u0027`Entite` : `e-\u003etype()` renvoie « joueur » ou « monstre » selon l\u0027objet.",
+                          "lecon":  "6-1"
+                      },
+                      {
+                          "terme":  "this",
+                          "en":  "",
+                          "definition":  "Le pointeur caché qu\u0027une méthode reçoit en douce : l\u0027adresse de l\u0027objet sur lequel elle travaille. Avec MSVC en x64, `this` arrive comme premier argument, dans le registre `RCX`.",
+                          "exemple":  "Quand tu écris `e-\u003etype()`, l\u0027adresse `e` devient le `this` de `type()` : il arrive dans `RCX`.",
+                          "lecon":  "6-1"
+                      },
+                      {
+                          "terme":  "encapsulation",
+                          "en":  "encapsulation",
+                          "definition":  "Choisir ce qui, dans une classe, se voit du dehors ou reste caché. `public` : accessible de partout. `private` : seulement depuis l\u0027intérieur de la classe. Un `struct` est public par défaut.",
+                          "exemple":  "`Entites.cpp` utilise `struct` : tout est public, plus simple à lire quand on débute.",
+                          "lecon":  "6-1"
+                      },
+                      {
+                          "terme":  "héritage",
+                          "en":  "inheritance",
+                          "definition":  "Un mécanisme où une classe dérivée reprend les champs et les méthodes d\u0027une classe de base, puis peut en ajouter ou en redéfinir. On évite ainsi de tout réécrire pour chaque variante.",
+                          "exemple":  "`Joueur` et `Monstre` héritent d\u0027`Entite` : chacun garde le champ `vie`, puis ajoute le sien.",
+                          "lecon":  "6-2"
+                      },
+                      {
+                          "terme":  "classe de base",
+                          "en":  "base class",
+                          "definition":  "La classe dont une autre hérite : celle qui fournit les champs et méthodes de départ. Les classes dérivées la reprennent et la complètent. On dit aussi classe mère ou classe parente.",
+                          "exemple":  "`Entite` est la classe de base : elle apporte `vie` et `type()` à `Joueur` comme à `Monstre`.",
+                          "lecon":  "6-2"
+                      },
+                      {
+                          "terme":  "classe dérivée",
+                          "en":  "derived class",
+                          "definition":  "Une classe qui hérite d\u0027une classe de base : elle reçoit ses champs et méthodes, puis ajoute les siens ou en redéfinit. On dit aussi classe fille. `Joueur` dérive d\u0027`Entite`.",
+                          "exemple":  "`Joueur` est une classe dérivée : elle ajoute le champ `niveau` à ce qu\u0027elle tient d\u0027`Entite`.",
+                          "lecon":  "6-2"
+                      },
+                      {
+                          "terme":  "fonction virtuelle",
+                          "en":  "virtual function",
+                          "definition":  "Une méthode marquée `virtual` dans la classe de base. L\u0027appel choisit la version du vrai type de l\u0027objet, décidé à l\u0027exécution, et non d\u0027après le type écrit dans le code. Ça passe par la vtable.",
+                          "exemple":  "`type()` est `virtual` : `e-\u003etype()` descend jusqu\u0027à la version de `Joueur` ou de `Monstre`.",
+                          "lecon":  "6-3"
+                      },
+                      {
+                          "terme":  "polymorphisme",
+                          "en":  "polymorphism",
+                          "definition":  "Un même appel qui donne des comportements différents selon le vrai type de l\u0027objet. Grâce aux fonctions virtuelles, un seul bout de code traite des objets variés, chacun répondant à sa façon.",
+                          "exemple":  "`decrire` ne connaît qu\u0027`Entite`, mais affiche « joueur » puis « monstre » : c\u0027est le polymorphisme.",
+                          "lecon":  "6-3"
+                      },
+                      {
+                          "terme":  "redéfinition",
+                          "en":  "override",
+                          "definition":  "Donner, dans une classe dérivée, une nouvelle version d\u0027une méthode héritée. Si cette méthode est `virtual`, c\u0027est la version de la dérivée qui s\u0027exécute. D\u0027où le polymorphisme.",
+                          "exemple":  "`Joueur` et `Monstre` redéfinissent `type()` : chacun renvoie son propre nom au lieu de « entite ».",
+                          "lecon":  "6-3"
+                      },
+                      {
+                          "terme":  "table virtuelle",
+                          "en":  "virtual table (vtable)",
+                          "definition":  "Un petit tableau d\u0027adresses de fonctions, une case par méthode virtuelle. Il y en a un par classe, partagé par tous ses objets. Un appel virtuel va y chercher la bonne fonction à exécuter.",
+                          "exemple":  "`mov rax, [rcx]` lit la vtable au début de l\u0027objet ; `rex_jmp [rax]` saute à sa première fonction.",
+                          "lecon":  "6-3"
+                      },
+                      {
+                          "terme":  "pointeur de vtable",
+                          "en":  "vtable pointer (vfptr)",
+                          "definition":  "Un pointeur caché, rangé tout au début d\u0027un objet (décalage 0), qui mène à la vtable de sa classe. Dès qu\u0027une classe a une méthode virtuelle, chacun de ses objets commence par ce pointeur.",
+                          "exemple":  "Dans un `Joueur` (24 octets), le vfptr occupe les 8 premiers octets ; `vie` suit à +8, `niveau` à +16.",
+                          "lecon":  "6-3"
+                      },
+                      {
+                          "terme":  "RTTI",
+                          "en":  "Run-Time Type Information",
+                          "definition":  "Des informations sur le type d\u0027un objet, que MSVC range près de la vtable, dont le nom de la classe sous forme encodée. Parfois lisible dans un `.exe`, ce nom aide le reverse.",
+                          "exemple":  "En mémoire, un objet C++ à méthodes virtuelles commence par un vfptr ; la RTTI traîne juste à côté.",
+                          "lecon":  "6-3"
+                      },
+                      {
+                          "terme":  "raylib",
+                          "en":  "",
+                          "definition":  "Une petite bibliothèque gratuite pour créer des jeux 2D en C ou C++. Plus tard dans le parcours, ton coach t\u0027aidera à t\u0027en servir pour transformer ton jeu console en petit jeu 2D.",
+                          "exemple":  "Rien à installer dans cette phase : on reste sur `Entites.cpp`. Ta cible passera en 2D plus tard.",
+                          "lecon":  "6-4"
                       }
                   ]
 },"bestiaire":{
@@ -10122,6 +10760,837 @@ html.is-tel #app { height: 100%; }
                       "type":  "suite",
                       "titre":  "Phase 6 — Objets",
                       "texte":  "Boss plié : tu sais lire et suivre une chaîne de pointeurs, et tu as résolu l\u0027énigme de la phase 2. En phase 6, tu passes aux **objets** : comment un `Joueur` entier est rangé en mémoire, avec ses classes et ses tables virtuelles. Et ta cible fait un grand saut : elle passe en 2D avec raylib."
+                  }
+              ]
+},"6-1":{
+    "id":  "6-1",
+    "phase":  6,
+    "numero":  "6.1",
+    "titre":  "Les objets : des données qui agissent",
+    "duree":  16,
+    "objectif":  "Comprendre ce qu\u0027est une **classe** (class) : un moule qui réunit des données (champs) ET des actions (méthodes) au même endroit. Savoir qu\u0027un **objet** (object) est un exemplaire concret de ce moule, et qu\u0027une **méthode** (member function) s\u0027appelle sur un objet avec le point. Découvrir le pointeur `this`, l\u0027adresse de l\u0027objet que la méthode reçoit en secret, qui arrive dans RCX avec MSVC en x64. Distinguer `public` et `private` (l\u0027encapsulation), et voir le seul vrai écart entre `struct` et `class`.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "En phase 1, ta fiche de héros était une `struct` : un casier bien rangé pour `vie` et `niveau`. Utile, mais passif. Dans un vrai jeu comme Minecraft ou GTA V, un héros ne fait pas que *contenir* des nombres : il *sait agir* — subir des dégâts, attaquer, ramasser de l\u0027or. Une **classe** (class) réunit les deux : les données ET les actions, au même endroit."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Le moule, l\u0027exemplaire et l\u0027action",
+                      "paragraphes":  [
+                                          "Repars de la `struct` de la phase 1. Elle regroupait des **champs** : des cases de données posées côte à côte. Une **classe** va plus loin : elle range au même endroit des champs ET des fonctions.",
+                                          "Une fonction rangée dans une classe porte un nom spécial : une **méthode** (member function). C\u0027est une action que la classe sait faire. `subir_degats` ou `attaquer` seraient des méthodes d\u0027un héros.",
+                                          "La classe, c\u0027est le *moule* : elle décrit à quoi ressemble un héros, mais ce n\u0027est pas un héros. Un **objet** (object) est un exemplaire concret coulé dans ce moule. Tu peux en fabriquer autant que tu veux, chacun avec ses propres valeurs."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Une classe Heros, en C++",
+                      "code":  "class Heros\n{\npublic:\n    int vie = 100;             // un champ : une donnee\n\n    void subir_degats(int d)   // une methode : une action\n    {\n        vie -= d;              // elle modifie SON propre champ vie\n    }\n};\n\nint main()\n{\n    Heros heros;               // heros est un objet, un exemplaire\n    heros.subir_degats(30);    // on appelle la methode : vie passe a 70\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  1,
+                                        "texte":  "`class Heros` ouvre la classe, le moule. Tout ce qui tient entre les accolades `{ }` décrit ce qu\u0027est un héros et ce qu\u0027il sait faire."
+                                    },
+                                    {
+                                        "ligne":  3,
+                                        "texte":  "`public:` veut dire « ce qui suit est accessible de partout ». On y revient plus bas, avec l\u0027encapsulation."
+                                    },
+                                    {
+                                        "ligne":  4,
+                                        "texte":  "`vie` est un **champ**, comme dans une `struct`. Le `= 100` lui donne une valeur de départ. Chaque héros aura ensuite sa propre `vie`."
+                                    },
+                                    {
+                                        "ligne":  6,
+                                        "texte":  "`subir_degats` est une **méthode**. Le `void` annonce qu\u0027elle ne renvoie rien : elle agit, c\u0027est tout. `int d` est son paramètre, les dégâts reçus."
+                                    },
+                                    {
+                                        "ligne":  8,
+                                        "texte":  "`vie -= d` est un raccourci pour `vie = vie - d` : enlève `d` à `vie`. On écrit juste `vie`, sans dire de quel héros : c\u0027est celui sur lequel la méthode est appelée."
+                                    },
+                                    {
+                                        "ligne":  14,
+                                        "texte":  "`Heros heros;` coule un **objet** dans le moule. Voilà un vrai héros, avec sa `vie` à 100."
+                                    },
+                                    {
+                                        "ligne":  15,
+                                        "texte":  "`heros.subir_degats(30)` appelle la méthode *sur* `heros`. Le point relie l\u0027objet à son action. Résultat : la `vie` de `heros` tombe à 70."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Le `this` caché : quel héros, au juste ?",
+                      "paragraphes":  [
+                                          "Dans `heros.subir_degats(30)`, la méthode écrit `vie -= d`. Mais la `vie` de *quel* héros ? Si tu as deux héros, comment sait-elle lequel toucher ?",
+                                          "Réponse : en secret, la méthode reçoit l\u0027adresse de l\u0027objet (phase 5). Cette adresse cachée a un nom : `this`, un **pointeur** vers l\u0027objet sur lequel on travaille. Quand tu écris `heros.subir_degats(30)`, `this` vaut l\u0027adresse de `heros`.",
+                                          "Où arrive ce `this` dans la machine ? Souviens-toi des phases 2 à 4 : le 1er paramètre d\u0027une fonction voyage dans RCX (ou ECX, sa moitié basse). Avec MSVC en x64, `this` est justement le 1er argument caché, et il arrive donc dans RCX."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Reconnaître une méthode dans un jeu",
+                      "texte":  "Quand tu liras le code désassemblé d\u0027un jeu, ce détail te servira vite. Une fonction qui se sert d\u0027emblée de RCX comme d\u0027une adresse, pour lire des champs avec `[rcx]`, est très souvent une méthode C++ : RCX tient son `this`. Repérer `this` dans RCX, c\u0027est l\u0027un des premiers réflexes pour distinguer une méthode d\u0027une fonction ordinaire. Tu en étudies ici la mécanique, sur tes propres programmes."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Public et privé : l\u0027encapsulation",
+                      "paragraphes":  [
+                                          "Reste un mot croisé dans le code : `public`. Il fait partie de l\u0027**encapsulation** (encapsulation) : l\u0027idée de décider qui a le droit de toucher quoi.",
+                                          "`public` veut dire « accessible de partout », depuis l\u0027extérieur de la classe. `private` veut dire « accessible seulement depuis l\u0027intérieur », par les méthodes de la classe elle-même. On range souvent les champs en `private` et les méthodes en `public`.",
+                                          "Pourquoi ? Pour que `vie` ne change que par des méthodes contrôlées, comme `subir_degats`, jamais n\u0027importe comment depuis l\u0027extérieur. La classe garde ainsi la main sur ses propres données."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "`struct` ou `class` ? Le seul vrai écart",
+                      "texte":  "Tu connais déjà `struct` depuis la phase 1. Bonne nouvelle : `struct` et `class` sont presque jumeaux en C++. La seule différence tient à l\u0027accès par défaut : `struct` met tout en `public`, `class` met tout en `private`. Mieux : une fois compilés, les deux donnent le même code et la même disposition en mémoire, indiscernables dans l\u0027exécutable."
+                  },
+                  {
+                      "type":  "tesjeux",
+                      "titre":  "Et dans tes jeux ?",
+                      "intro":  "Classes et méthodes ne sont pas réservées au C++. Tu en croises dans les langages de tes jeux, avec presque les mêmes mots.",
+                      "jeux":  [
+                                   {
+                                       "nom":  "Garry\u0027s Mod",
+                                       "langage":  "Lua",
+                                       "texte":  "Les extensions (addons) de Garry\u0027s Mod sont en Lua. Pour soigner un joueur, on écrit `ply:SetHealth(100)`. Le deux-points `:` est l\u0027appel de méthode : il passe `ply` en secret, comme 1er argument caché. C\u0027est le même `this` qu\u0027en C++, appelé ici `self`."
+                                   },
+                                   {
+                                       "nom":  "Minecraft (Java Edition)",
+                                       "langage":  "Java",
+                                       "texte":  "Minecraft est en Java, un cousin proche du C++. Une classe s\u0027y écrit presque pareil : `class Heros { int vie; void subirDegats(int d) { vie -= d; } }`. Java a lui aussi un `this` caché, passé quand tu appelles `heros.subirDegats(10)`."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "class",
+                                       "fr":  "classe",
+                                       "note":  "Le moule qui réunit champs et méthodes. Les décompilateurs et les outils de rétro-ingénierie affichent souvent le mot `class`."
+                                   },
+                                   {
+                                       "en":  "object",
+                                       "fr":  "objet",
+                                       "note":  "Un exemplaire concret d\u0027une classe. De là vient le nom *programmation orientée objet* (object-oriented)."
+                                   },
+                                   {
+                                       "en":  "method",
+                                       "fr":  "méthode",
+                                       "note":  "Une fonction rangée dans une classe. En Java (Minecraft), c\u0027est le mot officiel : *method*."
+                                   },
+                                   {
+                                       "en":  "this",
+                                       "fr":  "this",
+                                       "note":  "Le pointeur caché vers l\u0027objet d\u0027une méthode. Le mot reste en anglais en C++. Avec MSVC en x64, il arrive dans RCX."
+                                   },
+                                   {
+                                       "en":  "encapsulation",
+                                       "fr":  "encapsulation",
+                                       "note":  "Séparer ce qui est accessible de partout (`public`) de ce qui reste interne (`private`)."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Quelle est la différence entre une **classe** et un **objet** ?",
+                                            "choix":  [
+                                                          "Aucune, ce sont deux mots pour la même chose",
+                                                          "La classe est le moule ; l\u0027objet est un exemplaire concret coulé dedans",
+                                                          "La classe existe en mémoire, l\u0027objet sur le disque dur"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "La classe décrit (le moule) ; l\u0027objet existe (l\u0027exemplaire). Avec une seule classe `Heros`, tu fabriques autant d\u0027objets héros que tu veux, chacun avec sa propre `vie`."
+                                        },
+                                        {
+                                            "q":  "Quand tu appelles `heros.subir_degats(30)`, que reçoit la méthode en secret ?",
+                                            "choix":  [
+                                                          "Rien de spécial, juste le nombre 30",
+                                                          "Une copie complète de l\u0027objet `heros`",
+                                                          "L\u0027adresse de `heros`, appelée `this`"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "La méthode reçoit `this` : un pointeur vers l\u0027objet appelé, ici l\u0027adresse de `heros`. C\u0027est ainsi qu\u0027elle sait quelle `vie` modifier."
+                                        },
+                                        {
+                                            "q":  "Avec MSVC en x64, dans quel registre arrive le `this` d\u0027une méthode ?",
+                                            "choix":  [
+                                                          "RCX, comme un 1er argument caché",
+                                                          "EAX, le registre de réponse",
+                                                          "RSP, le pointeur de pile"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "`this` est le 1er argument caché d\u0027une méthode. Il voyage donc dans RCX, là où arrive le 1er paramètre d\u0027une fonction ordinaire (phases 2 à 4)."
+                                        },
+                                        {
+                                            "q":  "En C++, quelle est la seule vraie différence entre `struct` et `class` ?",
+                                            "choix":  [
+                                                          "`struct` est plus rapide que `class`",
+                                                          "`struct` met tout en `public` par défaut, `class` en `private`",
+                                                          "Une `class` ne peut pas contenir de champs"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Le seul écart est l\u0027accès par défaut : `public` pour `struct`, `private` pour `class`. Une fois compilés, les deux donnent exactement le même code."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Une **classe** (class) réunit données (champs) ET actions (méthodes) au même endroit. Un **objet** (object) est un exemplaire concret, coulé dans ce moule.",
+                                     "Une **méthode** (method) est une fonction rangée dans la classe. On l\u0027appelle *sur* un objet avec le point : `heros.subir_degats(30)`.",
+                                     "En secret, la méthode reçoit l\u0027adresse de l\u0027objet : `this`, un pointeur. Avec MSVC en x64, `this` arrive dans RCX, comme un 1er argument caché.",
+                                     "L\u0027**encapsulation** sépare `public` (accessible partout) et `private` (interne). `struct` met tout en public par défaut, `class` en privé ; sinon, c\u0027est pareil."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "6.2 — L\u0027héritage",
+                      "texte":  "Tu sais fabriquer une classe `Heros`. Mais un Joueur et un Monstre ont beaucoup en commun : tous deux ont une `vie`, tous deux peuvent subir des dégâts. Faut-il tout réécrire pour chacun ? Non. Une classe peut **hériter** d\u0027une autre : reprendre ses champs et ses méthodes, puis ajouter les siens. C\u0027est l\u0027héritage, la prochaine leçon."
+                  }
+              ]
+},"6-2":{
+    "id":  "6-2",
+    "phase":  6,
+    "numero":  "6.2",
+    "titre":  "L\u0027héritage : des familles d\u0027objets",
+    "duree":  15,
+    "objectif":  "Comprendre l\u0027héritage : écrire une fois les champs et méthodes communs dans une classe de base (comme `Entite`), puis laisser des classes dérivées (comme `Joueur` et `Monstre`) en hériter et y ajouter ou redéfinir ce qui leur est propre. Savoir repérer l\u0027héritage en lecture (le signe `:`), et pourquoi, en mémoire, un `Joueur` range d\u0027abord ce qui vient de sa base.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Dans Minecraft, un zombie, un villageois et ton propre personnage sont tous des **entités** (entities). Chacun a une position, une vie, un identifiant : les mêmes champs, encore et encore. Plutôt que de recopier ces champs dans chaque sorte de personnage, un jeu les écrit une seule fois, dans une famille commune. Cette idée s\u0027appelle l\u0027**héritage** (inheritance), et c\u0027est le sujet du jour."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "L\u0027idée de l\u0027héritage",
+                      "paragraphes":  [
+                                          "L\u0027héritage range tes objets en familles. Rappelle-toi : une **classe** est la fiche qui décrit une sorte d\u0027objet, avec ses champs et ses méthodes. L\u0027astuce de l\u0027héritage, c\u0027est d\u0027écrire les éléments communs une seule fois, dans une **classe de base** (base class).",
+                                          "Chaque sorte particulière **hérite** de cette base : elle en reçoit les champs et méthodes sans les réécrire. Ici, la base s\u0027appelle `Entite`, et elle porte ce que toute entité possède : le champ `vie`. Un `Joueur` et un `Monstre` héritent donc de `vie`, gratuitement.",
+                                          "Une classe qui hérite s\u0027appelle une **classe dérivée** (derived class). Elle reprend tout de sa base, puis ajoute ou redéfinit ce qui lui est propre. On évite ainsi de recopier le même code partout : c\u0027est la réutilisation (DRY), vue en phase 4."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Trois structs, une seule famille",
+                      "code":  "struct Entite\n{\n    int vie;\n    virtual std::string type() const { return \"entite\"; }\n};\n\nstruct Joueur : Entite\n{\n    int niveau;\n    std::string type() const override { return \"joueur\"; }\n};\n\nstruct Monstre : Entite\n{\n    int force;\n    std::string type() const override { return \"monstre\"; }\n};",
+                      "notes":  [
+                                    {
+                                        "ligne":  1,
+                                        "texte":  "`Entite` est la **classe de base** (base class) : le tronc commun. Elle rassemble ce que toute entité partage, ici le champ `vie`. (`struct` ou `class`, c\u0027est la fiche qui décrit un objet.)"
+                                    },
+                                    {
+                                        "ligne":  4,
+                                        "texte":  "`virtual` prépare la suite : il rend `type()` redéfinissable. Sa mécanique, la table virtuelle, est le cœur de la leçon 6.3. Ici, retiens surtout l\u0027héritage."
+                                    },
+                                    {
+                                        "ligne":  7,
+                                        "texte":  "`: Entite` est tout le secret. Lis « `Joueur` **hérite d\u0027** `Entite` ». `Joueur` reçoit d\u0027office le champ `vie`, sans jamais le réécrire."
+                                    },
+                                    {
+                                        "ligne":  9,
+                                        "texte":  "`Joueur` **ajoute** son champ à lui, `niveau`. Un `Joueur` a donc deux champs : `vie` (hérité d\u0027Entite) et `niveau` (le sien)."
+                                    },
+                                    {
+                                        "ligne":  10,
+                                        "texte":  "`override` veut dire « je **redéfinis** le `type()` de la base ». Pour un `Joueur`, `type()` renverra « joueur ». Le détail attend la 6.3."
+                                    },
+                                    {
+                                        "ligne":  13,
+                                        "texte":  "`Monstre` hérite lui aussi d\u0027`Entite`. Même base `vie`, mais il ajoute `force` au lieu de `niveau`. Deux dérivées, une seule base."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La dérivée reprend, puis ajoute ou redéfinit",
+                      "paragraphes":  [
+                                          "Une dérivée suit toujours le même mouvement : elle reprend tout de sa base, puis ajoute ce qui la distingue. `Joueur` ajoute `niveau`, et se retrouve avec deux champs. `Monstre` hérite du même `vie`, puis ajoute `force` à la place.",
+                                          "Elle peut même **redéfinir** une méthode de la base. Ici, `type()` renverra « joueur » pour un `Joueur`, « monstre » pour un `Monstre`. Le mot `override` l\u0027annonce ; sa mécanique attendra la leçon 6.3."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "Le signe qui trahit l\u0027héritage",
+                      "texte":  "Quand tu lis du C++, le signe qui trahit l\u0027héritage, ce sont les deux points après le nom : `struct Joueur : Entite`. À droite des deux points, c\u0027est la **classe de base**. Dans un vrai jeu écrit avec `class`, tu verras souvent un mot glissé là, comme `class Arme : public Objet` : retiens juste qu\u0027`Arme` descend d\u0027`Objet`. Dès que tu croises ces deux points, pose-toi la question : de quelle famille cet objet hérite-t-il ?"
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Dans la mémoire, d\u0027abord la base",
+                      "paragraphes":  [
+                                          "Et en mémoire, comment un `Joueur` est-il rangé ? Dans l\u0027ordre de l\u0027héritage. D\u0027abord vient ce qui appartient à la base, puis les champs propres au `Joueur`.",
+                                          "Un `Joueur` contient donc le `vie` de sa base, puis son propre `niveau` ; en mémoire, la part qui vient de la base est rangée avant le `niveau`. Cette disposition est fixe, décidée par le compilateur. Elle explique les décalages (offsets) qu\u0027on lira bientôt à la loupe.",
+                                          "C\u0027est une piste en or pour la rétro-ingénierie. Repérer la base partagée, c\u0027est comprendre d\u0027un coup une foule d\u0027objets. On ouvrira la mémoire d\u0027un `Joueur`, octet par octet, dans les leçons 6.3 et 6.4."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "curieux",
+                      "titre":  "Dans Unreal et Unity, tout hérite",
+                      "texte":  "Ce n\u0027est pas qu\u0027une idée d\u0027école. Dans **Unreal Engine**, presque tout hérite d\u0027une base nommée `UObject` ; dans **Unity**, tes scripts héritent de `MonoBehaviour`. Un personnage, une arme, une porte : tous descendent d\u0027un petit nombre de troncs communs. Voilà pourquoi un reverse engineer qui comprend l\u0027héritage lit bien mieux un vrai jeu : il reconnaît les familles et devine les champs hérités, même dans un code qu\u0027il n\u0027a jamais écrit."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "inheritance",
+                                       "fr":  "héritage",
+                                       "note":  "Le mécanisme du jour : une classe en reprend une autre. Dans le code d\u0027un jeu, le signe `:` l\u0027accompagne."
+                                   },
+                                   {
+                                       "en":  "base class",
+                                       "fr":  "classe de base",
+                                       "note":  "La classe de départ, le tronc commun (`Entite`). On dit aussi « classe parente » (parent class)."
+                                   },
+                                   {
+                                       "en":  "derived class",
+                                       "fr":  "classe dérivée",
+                                       "note":  "La classe qui hérite (`Joueur`, `Monstre`). On dit aussi « sous-classe » (subclass)."
+                                   },
+                                   {
+                                       "en":  "to inherit",
+                                       "fr":  "hériter",
+                                       "note":  "Reprendre les champs et méthodes d\u0027une base. `Joueur` hérite de `vie` sans le réécrire."
+                                   },
+                                   {
+                                       "en":  "override",
+                                       "fr":  "redéfinir",
+                                       "note":  "Remplacer, dans la dérivée, une méthode de la base. On le revoit en 6.3, avec les fonctions virtuelles."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Dans `struct Joueur : Entite`, que dit le `: Entite` ?",
+                                            "choix":  [
+                                                          "Que Joueur contient un entier appelé Entite",
+                                                          "Que Joueur hérite d\u0027Entite",
+                                                          "Que Joueur est plus grand qu\u0027Entite"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Les deux points annoncent l\u0027héritage : « Joueur hérite d\u0027Entite ». Joueur reprend donc les champs et méthodes d\u0027Entite, à commencer par `vie`, sans les réécrire."
+                                        },
+                                        {
+                                            "q":  "`Entite` a le champ `vie`. Combien de champs possède un `Joueur` qui ajoute `niveau` ?",
+                                            "choix":  [
+                                                          "Aucun, il faut tout réécrire dans Joueur",
+                                                          "Un seul : niveau",
+                                                          "Deux : vie (hérité) et niveau (ajouté)"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Un `Joueur` hérite de `vie` depuis `Entite`, puis ajoute `niveau` : deux champs. On écrit `vie` une seule fois, et toutes les sortes d\u0027entités en profitent."
+                                        },
+                                        {
+                                            "q":  "Comment appelle-t-on la classe de départ dont les autres héritent ?",
+                                            "choix":  [
+                                                          "La classe de base (base class)",
+                                                          "La classe dérivée (derived class)",
+                                                          "La classe finale"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "La classe de base (base class) porte le tronc commun, ici `Entite`. Les classes qui en héritent, comme `Joueur` et `Monstre`, sont les classes dérivées (derived class)."
+                                        },
+                                        {
+                                            "q":  "Pourquoi l\u0027héritage aide-t-il à lire un vrai jeu ?",
+                                            "choix":  [
+                                                          "Il rend le jeu plus rapide",
+                                                          "Beaucoup d\u0027objets partagent une même base, donc les mêmes champs",
+                                                          "Il supprime les pointeurs"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Dans Unreal ou Unity, une foule d\u0027objets descendent de quelques bases communes. Reconnaître la base, c\u0027est comprendre d\u0027un coup les champs partagés par tous ces objets."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "L\u0027**héritage** (inheritance) range les objets en familles. On écrit les champs et méthodes communs une seule fois, dans une **classe de base** comme `Entite`.",
+                                     "Une **classe dérivée** (`Joueur`, `Monstre`) hérite de la base grâce au signe `:`. Elle reprend ses champs, puis **ajoute** ou **redéfinit** les siens.",
+                                     "En mémoire, un `Joueur` range d\u0027abord ce qui vient de sa base, puis ses propres champs. Cet ordre fixe est une piste en or pour la rétro-ingénierie.",
+                                     "Les vrais moteurs en vivent : tout hérite d\u0027`UObject` dans Unreal, de `MonoBehaviour` dans Unity. Comprendre l\u0027héritage, c\u0027est mieux lire un jeu."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "6.3 — Les fonctions virtuelles et la vtable",
+                      "texte":  "Tu sais lire une famille d\u0027objets. Reste une énigme : quand on appelle le même `type()` sur un `Joueur` puis sur un `Monstre`, comment chacun répond-il à sa façon ? Ce tour de magie a un nom, le **polymorphisme**, et une mécanique, la **table virtuelle** (vtable). C\u0027est la prochaine leçon, et l\u0027assembleur de MSVC y fait son retour."
+                  }
+              ]
+},"6-3":{
+    "id":  "6-3",
+    "phase":  6,
+    "numero":  "6.3",
+    "titre":  "Fonctions virtuelles et table virtuelle",
+    "duree":  18,
+    "objectif":  "Comprendre le cœur du reverse en C++ : les fonctions virtuelles, le polymorphisme et la table virtuelle. Voir comment un même appel `e-\u003etype()` choisit la bonne version selon le vrai type de l\u0027objet, à l\u0027exécution. Reconnaître, avec la vérité terrain de MSVC en x64, le motif d\u0027un appel virtuel (`mov rax, [rcx]` puis `rex_jmp [rax]`) et la disposition d\u0027un objet : un pointeur de vtable (vfptr) à l\u0027offset 0, puis les champs. C\u0027est le premier indice d\u0027un objet C++ en mémoire.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Dans Minecraft, un zombie, un villageois et un creeper sont tous des « entités ». À chaque tick (un battement du jeu, environ 20 par seconde dans Minecraft), le jeu demande à chacun d\u0027agir, et chacun réagit à sa façon : le zombie avance, le creeper gonfle. Dans ta cible `Entites.cpp`, c\u0027est pareil. La fonction `decrire(e)` appelle `e-\u003etype()`, et pourtant un Joueur répond « joueur » quand un Monstre répond « monstre ». Comment un seul appel donne-t-il deux réponses ? Grâce aux **fonctions virtuelles** (virtual) et à la **table virtuelle** (vtable)."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Rappel : classes, objets, héritage",
+                      "paragraphes":  [
+                                          "Petit rappel des leçons précédentes. Une **classe** (class) regroupe au même endroit des données (les **champs**) et des fonctions (les **méthodes**). Un **objet** (object) est un exemplaire concret d\u0027une classe, comme un Joueur précis avec ses propres valeurs.",
+                                          "L\u0027**héritage** (inheritance) relie deux classes. Ici, `Joueur` et `Monstre` héritent d\u0027`Entite` : ils reprennent son champ `vie` et sa méthode `type()`, puis chacun ajoute ou redéfinit ce qu\u0027il veut. `Joueur` ajoute `niveau`, `Monstre` ajoute `force`.",
+                                          "Chaque méthode reçoit en secret l\u0027adresse de l\u0027objet sur lequel elle travaille : `this`. En x64, `this` arrive dans le registre **RCX**, comme le premier paramètre d\u0027une fonction ordinaire. Garde ça en tête pour l\u0027assembleur."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Trois sortes d\u0027Entite",
+                      "code":  "struct Entite\n{\n    int vie;\n    virtual std::string type() const { return \"entite\"; }\n};\n\nstruct Joueur : Entite\n{\n    int niveau;\n    std::string type() const override { return \"joueur\"; }\n};\n\nstruct Monstre : Entite\n{\n    int force;\n    std::string type() const override { return \"monstre\"; }\n};\n\nvoid decrire(const Entite* e)\n{\n    // le vrai type de l\u0027objet choisit : Joueur ou Monstre\n    std::cout \u003c\u003c e-\u003etype() \u003c\u003c \" avec \" \u003c\u003c e-\u003evie \u003c\u003c \" PV\\n\";\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  4,
+                                        "texte":  "`virtual` devant `type()` : cette méthode devient **redéfinissable**. Sans ce mot, l\u0027appel serait figé d\u0027avance ; avec lui, il passera par la table virtuelle."
+                                    },
+                                    {
+                                        "ligne":  10,
+                                        "texte":  "`override` dit « je redéfinis le `type()` du parent ». Le Joueur renvoie « joueur » au lieu d\u0027« entite ». `Monstre` fait pareil avec « monstre »."
+                                    },
+                                    {
+                                        "ligne":  22,
+                                        "texte":  "`e` est une `Entite*`, mais l\u0027objet derrière peut être un Joueur ou un Monstre. `e-\u003etype()` choisit la bonne version à l\u0027exécution : c\u0027est tout l\u0027enjeu de la leçon."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "virtual et le polymorphisme",
+                      "paragraphes":  [
+                                          "Le mot-clé **virtual** rend une méthode redéfinissable par les classes dérivées. Quand tu appelles `e-\u003etype()` sur une `Entite*`, le programme ne sait pas d\u0027avance si l\u0027objet est un Joueur ou un Monstre.",
+                                          "Il le découvre à l\u0027exécution, et appelle la bonne version. C\u0027est le **polymorphisme** (polymorphism) : le même appel, écrit une seule fois, se comporte différemment selon le vrai type de l\u0027objet. Un mot savant pour une idée simple.",
+                                          "Sans `virtual`, le choix serait figé à la compilation, d\u0027après le type écrit (`Entite`), et tout le monde répondrait « entite ». Avec `virtual`, le choix se fait au dernier moment. Reste à voir comment."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "Repérer une méthode virtuelle",
+                      "texte":  "Pour repérer une fonction virtuelle dans du code, cherche le mot `virtual` dans la classe de base, et `override` dans les classes dérivées. `override` n\u0027est pas obligatoire, mais il est très courant : il annonce clairement « je remplace la version du parent ». Deux indices qui promettent un appel passant par la table virtuelle."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La table virtuelle (vtable)",
+                      "paragraphes":  [
+                                          "Voici le mécanisme. Pour chaque classe à fonctions virtuelles, MSVC construit une **table virtuelle** (vtable, pour *virtual table*) : un petit tableau d\u0027adresses de fonctions. La vtable de `Joueur` pointe vers le `type()` qui renvoie « joueur », celle de `Monstre` vers le `type()` qui renvoie « monstre ».",
+                                          "Une seule vtable par classe, partagée par tous ses objets. Et chaque objet à fonctions virtuelles commence, à l\u0027**offset 0**, par un **pointeur vers sa vtable**. MSVC l\u0027appelle le **vfptr** (virtual function table pointer). C\u0027est le tout premier champ, avant même `vie`.",
+                                          "Appeler `e-\u003etype()` devient alors mécanique. On lit le vfptr au début de l\u0027objet, on y trouve la vtable, puis on saute à la bonne entrée. Le Joueur pointe vers sa table, le Monstre vers la sienne : deux réponses, un seul appel."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "txt",
+                      "titre":  "Un objet et sa vtable",
+                      "code":  "Objet Joueur (en memoire)        vtable de Joueur\n+0   vfptr  -----------------\u003e   [0] type()  -\u003e  \"joueur\"\n+8   vie    = 100                (une table par classe,\n+16  niveau = 7                   partagee par ses objets)"
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "curieux",
+                      "titre":  "La vtable, un standard téléphonique",
+                      "texte":  "Une image pour retenir tout ça. La vtable, c\u0027est le standard téléphonique d\u0027une classe. L\u0027objet ne connaît pas les numéros par cœur ; il garde juste l\u0027adresse du standard, son vfptr. Quand tu demandes `type()`, il transmet l\u0027appel au bon poste. Le standard de Joueur et celui de Monstre ne branchent pas sur le même correspondant : voilà pourquoi la réponse change."
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Regardons l\u0027appel virtuel en assembleur. Pour voir le mécanisme sans le bruit, on prend une `Entite` simplifiée dont `type()` renvoie un `int`. `e`, l\u0027adresse de l\u0027objet, arrive dans **RCX**, comme tout premier argument en x64.",
+                      "cpp":  "int type_de(const Entite* e)\n{\n    return e-\u003etype();\n}",
+                      "asm":  "?type_de@@YAHPEBUEntite@@@Z PROC\n    mov rax, QWORD PTR [rcx]\n    rex_jmp QWORD PTR [rax]\n?type_de@@YAHPEBUEntite@@@Z ENDP",
+                      "liens":  [
+                                    {
+                                        "cpp":  1,
+                                        "asm":  [
+                                                    1
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  3,
+                                        "asm":  [
+                                                    2,
+                                                    3
+                                                ]
+                                    }
+                                ],
+                      "conclusion":  "Deux instructions, tout le mécanisme. `mov rax, QWORD PTR [rcx]` lit les 8 premiers octets de l\u0027objet (`[rcx]`, offset 0) : le **pointeur de vtable**. Dès lors `[rax]` désigne la première entrée de la vtable, l\u0027adresse de `type()`. `rex_jmp QWORD PTR [rax]` saute à cette adresse : c\u0027est un `jmp` optimisé (un appel-queue, *tail call*) que MSVC écrit `rex_jmp`. Voilà **le motif** d\u0027un appel virtuel : charger la vtable depuis le début de l\u0027objet, puis sauter à l\u0027une de ses entrées. Le nom tordu `?type_de@@...` est le **nom décoré** de MSVC, déjà croisé en phase 1.",
+                      "godbolt":  "https://godbolt.org/clientstate/eyJzZXNzaW9ucyI6W3sic291cmNlIjoic3RydWN0IEVudGl0ZVxue1xuICAgIHZpcnR1YWwgaW50IHR5cGUoKSBjb25zdDtcbiAgICBpbnQgdmllO1xufTtcblxuaW50IHR5cGVfZGUoY29uc3QgRW50aXRlKiBlKVxue1xuICAgIHJldHVybiBlLT50eXBlKCk7XG59XG4iLCJsYW5ndWFnZSI6ImMrKyIsImlkIjoxLCJjb21waWxlcnMiOlt7ImlkIjoidmNwcF92MTlfbGF0ZXN0X3g2NCIsIm9wdGlvbnMiOiIvTzIifV19XX0"
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La disposition exacte d\u0027un objet",
+                      "paragraphes":  [
+                                          "On vient de voir que le vfptr est au début de l\u0027objet. MSVC peut te le prouver. L\u0027option `/d1reportSingleClassLayoutJoueur` affiche la disposition exacte de la classe `Joueur` : l\u0027ordre et l\u0027offset de chaque élément.",
+                                          "Voici ce qu\u0027elle renvoie pour ta cible. Lis-la comme un plan de la mémoire, du haut (offset 0) vers le bas."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "txt",
+                      "titre":  "class Joueur, vue par MSVC",
+                      "code":  "class Joueur  taille(24) :\n  +0    {vfptr}    pointeur de table virtuelle (8 octets)\n  +8    vie        int (4 octets + 4 de remplissage)\n  +16   niveau     int (4 octets + 4 de remplissage)",
+                      "notes":  [
+                                    {
+                                        "ligne":  2,
+                                        "texte":  "Le **vfptr** est à l\u0027offset 0 : l\u0027objet commence par l\u0027adresse de sa vtable, avant `vie`, avant tout. C\u0027est la signature d\u0027un objet C++ à fonctions virtuelles."
+                                    },
+                                    {
+                                        "ligne":  3,
+                                        "texte":  "`vie` est à +8, juste après le vfptr (8 octets). Les `int` sont suivis de 4 octets de **remplissage** (padding) pour l\u0027alignement : voilà pourquoi l\u0027objet fait 24 octets, et non 16."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Le premier indice du reverse",
+                      "texte":  "Ce pointeur de vtable en tête d\u0027objet, c\u0027est **le premier indice** qu\u0027un reverse engineer cherche en mémoire. Un bloc de 8 octets qui pointe vers une table de fonctions ? « Ceci est un objet C++ ». Des outils de rétro-ingénierie se servent ainsi des vtables (et du RTTI, voir plus bas) pour retrouver, dans un binaire, les classes C++ d\u0027un programme et les relier entre elles. MSVC range même, près de la vtable, des informations de type (**RTTI**, Run-Time Type Information) : le nom de la classe sous forme encodée, parfois lisible tel quel dans le `.exe`. Règle du dojo : on étudie ça pour comprendre, sur ses propres programmes ou un jeu solo, hors ligne."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "virtual",
+                                       "fr":  "virtuel",
+                                       "note":  "Devant une méthode : elle devient redéfinissable, et l\u0027appel passe par la vtable."
+                                   },
+                                   {
+                                       "en":  "to override",
+                                       "fr":  "redéfinir",
+                                       "note":  "Dans une classe dérivée : « je remplace la méthode du parent ». Clair, mais pas obligatoire."
+                                   },
+                                   {
+                                       "en":  "polymorphism",
+                                       "fr":  "polymorphisme",
+                                       "note":  "Le même appel se comporte selon le vrai type de l\u0027objet, choisi à l\u0027exécution."
+                                   },
+                                   {
+                                       "en":  "virtual table (vtable)",
+                                       "fr":  "table virtuelle",
+                                       "note":  "Le tableau d\u0027adresses de fonctions d\u0027une classe, partagé par tous ses objets."
+                                   },
+                                   {
+                                       "en":  "vfptr",
+                                       "fr":  "pointeur de table virtuelle",
+                                       "note":  "De *virtual function table pointer*. À l\u0027offset 0 de chaque objet à fonctions virtuelles."
+                                   },
+                                   {
+                                       "en":  "RTTI",
+                                       "fr":  "informations de type à l\u0027exécution",
+                                       "note":  "De *Run-Time Type Information*. Le nom de la classe est parfois lisible dans le `.exe`."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Dans un appel virtuel, l\u0027objet est dans RCX. Que charge `mov rax, QWORD PTR [rcx]` ?",
+                                            "choix":  [
+                                                          "La valeur du champ `vie`",
+                                                          "Le pointeur de table virtuelle, rangé au tout début de l\u0027objet",
+                                                          "L\u0027adresse de retour"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "`[rcx]` lit les 8 premiers octets de l\u0027objet (offset 0) : le vfptr, le pointeur vers la vtable. Ensuite `[rax]` donne la fonction à appeler."
+                                        },
+                                        {
+                                            "q":  "Dans un objet à fonctions virtuelles, où se trouve le pointeur de vtable (vfptr) ?",
+                                            "choix":  [
+                                                          "À l\u0027offset 0, tout au début de l\u0027objet",
+                                                          "À la toute fin, après les champs",
+                                                          "Il n\u0027est pas rangé dans l\u0027objet"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "Le vfptr est le tout premier champ, à l\u0027offset 0, avant même `vie`. C\u0027est pour ça que le code lit `[rcx]` (offset 0) pour trouver la vtable."
+                                        },
+                                        {
+                                            "q":  "Qu\u0027est-ce que le polymorphisme ?",
+                                            "choix":  [
+                                                          "Un bug d\u0027optimisation de MSVC",
+                                                          "Deux classes qui portent le même nom",
+                                                          "Le même appel choisit la bonne version à l\u0027exécution, selon le vrai type de l\u0027objet"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Le polymorphisme, c\u0027est `e-\u003etype()` écrit une seule fois qui donne « joueur » ou « monstre » selon le vrai objet. Le choix se fait à l\u0027exécution, via la vtable."
+                                        },
+                                        {
+                                            "q":  "`rex_jmp QWORD PTR [rax]`, dans l\u0027appel virtuel, c\u0027est quoi ?",
+                                            "choix":  [
+                                                          "Une multiplication",
+                                                          "Un saut (`jmp`) optimisé vers l\u0027adresse de la fonction trouvée dans la vtable",
+                                                          "Une mise à zéro de l\u0027objet"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "`rex_jmp` est un `jmp` optimisé en appel-queue (tail call). Il saute à l\u0027entrée de la vtable, ici `type()`. Charger la vtable puis sauter : c\u0027est le motif d\u0027un appel virtuel."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "**virtual** rend une méthode redéfinissable ; le **polymorphisme** (polymorphism) fait qu\u0027un même appel comme `e-\u003etype()` choisit la bonne version à l\u0027exécution, selon le vrai type de l\u0027objet.",
+                                     "La **table virtuelle** (vtable) est un tableau d\u0027adresses de fonctions, un par classe, partagé par tous ses objets. Chaque objet à fonctions virtuelles commence (offset 0) par un pointeur vers sa vtable, le **vfptr**.",
+                                     "Avec MSVC en x64, un appel virtuel suit un motif net : `mov rax, QWORD PTR [rcx]` charge le vfptr au début de l\u0027objet, puis `rex_jmp QWORD PTR [rax]` (un `jmp`) saute à la bonne entrée de la vtable.",
+                                     "Ce vfptr en tête d\u0027objet est le premier indice qu\u0027un reverse engineer cherche pour dire « ceci est un objet C++ ». Près de la vtable, le **RTTI** peut même livrer le nom de la classe."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "6.4 — Boss : dissèque un objet",
+                      "texte":  "Place à la pratique. En 6.4, tu ouvres ta cible dans le débogueur et tu regardes un `Joueur` octet par octet, dans la fenêtre Mémoire (Memory), que tu ouvres par Déboguer \u003e Fenêtres \u003e Mémoire (Debug \u003e Windows \u003e Memory). Tu y repéreras le vfptr à l\u0027offset 0, puis `vie` et `niveau`. Dissèque un objet de tes propres mains, et la mémoire d\u0027un jeu aura déjà moins de secrets."
+                  }
+              ]
+},"6-4":{
+    "id":  "6-4",
+    "phase":  6,
+    "numero":  "6.4",
+    "titre":  "Boss : dissèque un objet Joueur",
+    "duree":  30,
+    "objectif":  "Voir, dans ton propre programme Entites.cpp, comment un objet C++ est rangé en mémoire : un pointeur de table virtuelle (vfptr) en tête, puis les champs. Lancer le programme pour sentir le polymorphisme, lire la disposition réelle de `Joueur` avec MSVC (vfptr à +0, vie à +8, niveau à +16, taille 24), repérer ce pointeur au débogueur, et relier le tout à l\u0027appel virtuel en assembleur. C\u0027est la toute première marque qu\u0027un reverse cherche en mémoire, et la base du SDK dumping.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Dans un jeu, un ennemi n\u0027est pas qu\u0027un dessin à l\u0027écran. C\u0027est un objet en mémoire : sa vie, sa position, son équipement, rangés ensemble. Quand tu voudras lire un jeu, tu chercheras d\u0027abord ça : où vit l\u0027objet « joueur », et comment il est rangé. Ce boss te montre, sur ton propre programme, la toute première marque qui le trahit : un pointeur en tête de l\u0027objet, qui mène à sa table de fonctions."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Ce que la phase 6 t\u0027a appris",
+                      "paragraphes":  [
+                                          "Une **classe** (class) range au même endroit des données, les **champs**, et des fonctions, les **méthodes** (methods). Un **objet** (object) est un exemplaire concret d\u0027une classe, avec ses propres valeurs. En C++, `struct` et `class` font la même chose, à un détail d\u0027accès près ; `Entites.cpp` utilise `struct` pour rester simple.",
+                                          "Une méthode reçoit en secret un pointeur vers l\u0027objet sur lequel elle travaille : `this`. Avec MSVC en x64, `this` arrive dans RCX, comme le premier paramètre d\u0027une fonction ordinaire (phases 2-4). L\u0027**héritage** (inheritance) laisse une classe en reprendre une autre : `Joueur` hérite d\u0027`Entite`, garde ses champs et ses méthodes, et peut en ajouter ou en redéfinir.",
+                                          "Une **fonction virtuelle** (virtual) ouvre le **polymorphisme** : `e-\u003etype()` choisit la bonne version selon le vrai type de l\u0027objet, décidé à l\u0027exécution. Ce choix passe par la **table virtuelle** (vtable), un petit tableau d\u0027adresses de fonctions, un par classe. Chaque objet à fonctions virtuelles commence par un **pointeur de vtable** (vfptr), à l\u0027offset 0."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Entites.cpp, en entier",
+                      "code":  "// Entites.cpp - la cible de la phase 6 (objets, classes, tables virtuelles).\n// Un Joueur et un Monstre sont deux sortes d\u0027Entite. Chacun repond a sa facon\n// a la meme demande : type(). C\u0027est le polymorphisme, et il passe par une\n// table virtuelle (vtable) rangee au debut de chaque objet.\n// Compile :  cl /nologo /EHsc /std:c++20 /W4 Entites.cpp\n\n#include \u003ciostream\u003e\n#include \u003cstring\u003e\n\nstruct Entite\n{\n    int vie;\n    virtual std::string type() const { return \"entite\"; }\n    virtual ~Entite() = default;\n};\n\nstruct Joueur : Entite\n{\n    int niveau;\n    std::string type() const override { return \"joueur\"; }\n};\n\nstruct Monstre : Entite\n{\n    int force;\n    std::string type() const override { return \"monstre\"; }\n};\n\nvoid decrire(const Entite* e)\n{\n    // e-\u003etype() choisit la bonne version selon le vrai type de l\u0027objet : la vtable.\n    std::cout \u003c\u003c e-\u003etype() \u003c\u003c \" avec \" \u003c\u003c e-\u003evie \u003c\u003c \" PV\\n\";\n}\n\nint main()\n{\n    Joueur j;\n    j.vie = 100;\n    j.niveau = 7;\n\n    Monstre m;\n    m.vie = 50;\n    m.force = 12;\n\n    decrire(\u0026j);\n    decrire(\u0026m);\n\n    return 0;\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  13,
+                                        "texte":  "`virtual` est le mot-clé qui compte : il rend `type()` redéfinissable et fait naître la **table virtuelle** (vtable). La version de base d\u0027`Entite` renvoie « entite »."
+                                    },
+                                    {
+                                        "ligne":  14,
+                                        "texte":  "`virtual ~Entite() = default;` est le **destructeur** (destructor), la méthode appelée quand l\u0027objet disparaît. On le met `virtual` dès qu\u0027une classe a des méthodes virtuelles : c\u0027est la bonne habitude."
+                                    },
+                                    {
+                                        "ligne":  20,
+                                        "texte":  "`type() const override` **redéfinit** (override) la version de base. Pour un `Joueur`, `type()` renvoie « joueur » ; `Monstre` fait pareil avec « monstre »."
+                                    },
+                                    {
+                                        "ligne":  32,
+                                        "texte":  "`e-\u003etype()` suit la vtable de l\u0027objet et choisit SA version : c\u0027est le polymorphisme. Les messages affichés n\u0027ont pas d\u0027accents (« avec », « PV ») : la console Windows les gère mal, on les évite dans le texte imprimé."
+                                    },
+                                    {
+                                        "ligne":  37,
+                                        "texte":  "`Joueur j;` crée un **objet** : un exemplaire concret de la classe `Joueur`, rangé en mémoire avec ses propres champs."
+                                    },
+                                    {
+                                        "ligne":  45,
+                                        "texte":  "`decrire(\u0026j)` passe l\u0027**adresse** de l\u0027objet (phase 5). Dans `decrire`, le paramètre `e` tient cette adresse ; `e-\u003etype()` part de là pour trouver la vtable."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Lis le programme comme une histoire",
+                      "paragraphes":  [
+                                          "Prends ton temps. `main` crée un `Joueur` avec 100 de vie et niveau 7, puis un `Monstre` avec 50 de vie et 12 de force. Les deux passent par la même fonction `decrire`, qui ne connaît qu\u0027une `Entite`.",
+                                          "Et pourtant la sortie affiche « joueur avec 100 PV » puis « monstre avec 50 PV ». Chaque objet répond à sa façon, parce que `e-\u003etype()` suit sa propre vtable. C\u0027est le polymorphisme, en une seule ligne.",
+                                          "Pour voir comment un objet est rangé, MSVC a une option : `/d1reportSingleClassLayoutJoueur`. Elle imprime la **disposition** (layout) de la classe `Joueur`, champ par champ, avec les offsets vus en phase 3. Voici ce qu\u0027elle donne."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "txt",
+                      "titre":  "La disposition de Joueur, vue par MSVC",
+                      "code":  "class Joueur  taille(24) :\n   +0    {vfptr}    le pointeur de table virtuelle (8 octets)\n   +8    vie        (int, 4 octets ; 4 octets de remplissage)\n   +16   niveau     (int, 4 octets ; 4 octets de remplissage)",
+                      "notes":  [
+                                    {
+                                        "ligne":  1,
+                                        "texte":  "`taille(24)` : un `Joueur` pèse 24 octets en tout. L\u0027**alignement** cale chaque champ sur une frontière ronde, d\u0027où les octets de remplissage (padding)."
+                                    },
+                                    {
+                                        "ligne":  2,
+                                        "texte":  "`{vfptr}` à l\u0027offset 0 : le **pointeur de vtable**. Dès qu\u0027une classe a une fonction virtuelle, chaque objet commence par lui. C\u0027est le premier indice qu\u0027on cherche en mémoire."
+                                    },
+                                    {
+                                        "ligne":  3,
+                                        "texte":  "`vie` ne vient qu\u0027à +8 : les 8 premiers octets sont pris par le vfptr, même si tu as écrit `int vie;` en premier dans le code. L\u0027ordre en mémoire n\u0027est pas l\u0027ordre du texte source."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "L\u0027empreinte d\u0027un objet C++",
+                      "texte":  "En mémoire, un objet C++ à fonctions virtuelles a une signature. Ses 8 premiers octets forment une **adresse**, et cette adresse mène à un tableau d\u0027autres adresses : les fonctions de la classe. Repère ce motif en analysant un jeu, et tu tiens sans doute un objet et sa vtable. Les champs de données, eux, suivent juste après, à leurs offsets."
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Les `struct` ne produisent aucune instruction : elles décrivent la forme des objets. Pour voir l\u0027appel virtuel tout nu, voici une `Entite` réduite dont `type()` renvoie un `int` ; renvoyer une chaîne ajouterait du bruit. La fonction `type_de` reçoit l\u0027adresse de l\u0027objet dans RCX, exactement comme `this`. `?type_de@@...` est son nom décoré (phase 1) ; `QWORD PTR` veut dire 8 octets, la taille d\u0027une adresse.",
+                      "cpp":  "struct Entite {\n    virtual int type() const;   // fonction virtuelle\n    int vie;\n};\n\nint type_de(const Entite* e) {\n    return e-\u003etype();           // appel virtuel\n}",
+                      "asm":  "?type_de@@YAHPEBUEntite@@@Z PROC\n    mov rax, QWORD PTR [rcx]\n    rex_jmp QWORD PTR [rax]\n?type_de@@YAHPEBUEntite@@@Z ENDP",
+                      "liens":  [
+                                    {
+                                        "cpp":  7,
+                                        "asm":  [
+                                                    2,
+                                                    3
+                                                ]
+                                    }
+                                ],
+                      "conclusion":  "Deux instructions, et l\u0027appel virtuel est là. `mov rax, QWORD PTR [rcx]` lit le tout premier champ de l\u0027objet, le pointeur de vtable ; `[rax]` pointe alors sa première entrée, l\u0027adresse de `type()`. `rex_jmp QWORD PTR [rax]` y saute : MSVC écrit `rex_jmp`, un `jmp` optimisé en appel-queue (tail call), qui saute au lieu d\u0027appeler puis revenir. Charger la vtable depuis le début de l\u0027objet, puis sauter à une de ses entrées : voilà le motif d\u0027un appel virtuel."
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "La base du SDK dumping",
+                      "texte":  "Dans les jeux **Unreal Engine**, les objets suivent tous ce schéma : un pointeur de vtable en tête, puis les champs. En phase 12, tu verras le **SDK dumping** : parcourir ces objets et leurs vtables pour reconstruire, de l\u0027extérieur, la liste des classes et des champs d\u0027un jeu. Tout part de ce que tu observes ici, sur ton propre programme : un objet commence par l\u0027adresse de sa vtable."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "class",
+                                       "fr":  "classe",
+                                       "note":  "Regroupe données et méthodes. Dans les outils, « class » est partout : c\u0027est l\u0027unité de base du C++."
+                                   },
+                                   {
+                                       "en":  "object",
+                                       "fr":  "objet",
+                                       "note":  "Un exemplaire concret d\u0027une classe, rangé en mémoire avec ses propres valeurs."
+                                   },
+                                   {
+                                       "en":  "method",
+                                       "fr":  "méthode",
+                                       "note":  "Une fonction qui appartient à une classe. Elle reçoit l\u0027objet en secret, via `this`."
+                                   },
+                                   {
+                                       "en":  "virtual",
+                                       "fr":  "virtuel",
+                                       "note":  "Rend une méthode redéfinissable. C\u0027est ce mot qui fait naître la vtable et le vfptr."
+                                   },
+                                   {
+                                       "en":  "vtable (virtual table)",
+                                       "fr":  "table virtuelle",
+                                       "note":  "Le tableau d\u0027adresses de fonctions d\u0027une classe. Son pointeur est en tête de chaque objet."
+                                   },
+                                   {
+                                       "en":  "override",
+                                       "fr":  "redéfinir",
+                                       "note":  "Dit qu\u0027une méthode remplace celle de la classe de base, comme `type()` dans `Joueur`."
+                                   },
+                                   {
+                                       "en":  "layout",
+                                       "fr":  "disposition",
+                                       "note":  "L\u0027ordre et les offsets des champs d\u0027un objet. L\u0027option `/d1reportSingleClassLayout` de MSVC la montre."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "atoi",
+                      "titre":  "À toi : dissèque ton Joueur",
+                      "etapes":  [
+                                     "Dans Visual Studio, crée un projet **Application console** (Console App) nommé `Entites`, avec pour Emplacement (Location) ton dossier `Learning\\exercices\\phase-6`. Efface le code proposé, colle celui d\u0027`Entites.cpp` ci-dessus, et lance avec Ctrl+F5. Tu lis « joueur avec 100 PV » puis « monstre avec 50 PV » : chaque objet a répondu à sa façon, c\u0027est le polymorphisme.",
+                                     "Vois maintenant la disposition réelle. Ouvre les **Propriétés** du projet (Project Properties) \u003e C/C++ \u003e Ligne de commande (Command Line) et ajoute `/d1reportSingleClassLayoutJoueur` dans Options supplémentaires (Additional Options) ; à la compilation, MSVC imprime la fiche de `Joueur`. Plus simple : demande à ton coach de la lancer. Retiens les offsets : vfptr à +0, `vie` à +8, `niveau` à +16, taille 24.",
+                                     "Passe au débogueur. Pose un **point d\u0027arrêt** (F9) dans `decrire`, sur la ligne `std::cout`, puis lance avec F5 : le programme s\u0027arrête pendant qu\u0027il décrit le `Joueur`. Ouvre Déboguer \u003e Fenêtres \u003e Mémoire (Debug \u003e Windows \u003e Memory), tape `e` dans la case Adresse (Address) et valide. `e` est l\u0027adresse de l\u0027objet (ici le même que `\u0026j`) : ses 8 premiers octets forment une adresse, le pointeur de vtable, et les champs `vie` puis `niveau` suivent après."
+                                 ],
+                      "indices":  [
+                                      "Première exécution : Ctrl+F5, juste pour voir la sortie. Pour fouiller la mémoire, c\u0027est F5 (avec débogage) : la fenêtre Mémoire ne s\u0027ouvre qu\u0027en cours de débogage.",
+                                      "Les messages du programme n\u0027ont pas d\u0027accents (« joueur avec 100 PV ») : la console Windows les gère mal, on les évite dans le texte imprimé. Garde tes accents partout ailleurs dans ton code.",
+                                      "Dans la fenêtre Mémoire, les octets sont groupés et affichés en hexadécimal. Souviens-toi du petit-boutisme (phase 2) : l\u0027adresse de la vtable se lit à l\u0027envers, octet par octet.",
+                                      "L\u0027adresse de la vtable change d\u0027un lancement à l\u0027autre (l\u0027ASLR, phase 5), mais elle pointe toujours vers le même tableau de fonctions. Un point te bloque ? Demande à ton coach dans VS Code, avec le numéro de l\u0027étape."
+                                  ],
+                      "solution":  "Au lancement, chaque objet répond à sa façon : « joueur avec 100 PV », « monstre avec 50 PV ». C\u0027est le polymorphisme, et il passe par la vtable. L\u0027option `/d1reportSingleClassLayoutJoueur` confirme la disposition : vfptr à +0, `vie` à +8, `niveau` à +16, taille 24 octets. Et dans la fenêtre Mémoire, à l\u0027adresse `e`, les 8 premiers octets sont bien une adresse, le pointeur de vtable ; les champs ne viennent qu\u0027après. Tu viens de voir, de tes yeux, la marque d\u0027un objet C++.",
+                      "lien":  {
+                                   "texte":  "raylib : la petite bibliothèque de jeu 2D que ton coach pourra t\u0027aider à brancher plus tard, pour passer ta cible en 2D",
+                                   "url":  "https://www.raylib.com"
+                               }
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Dans `decrire`, `e` est un `const Entite*`. Pourquoi « joueur » puis « monstre » s\u0027affichent-ils, et pas « entite » deux fois ?",
+                                            "choix":  [
+                                                          "Parce que `decrire` teste le type avec un `if`",
+                                                          "Parce que `e-\u003etype()` suit la vtable de l\u0027objet et choisit sa version (polymorphisme)",
+                                                          "Parce que la classe `Entite` n\u0027existe pas vraiment"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "`type()` est virtuelle. `e-\u003etype()` passe par la vtable de l\u0027objet pointé et appelle la bonne version, décidée à l\u0027exécution. C\u0027est le polymorphisme, sans aucun `if`."
+                                        },
+                                        {
+                                            "q":  "Dans un objet `Joueur` (qui a une fonction virtuelle), qu\u0027y a-t-il tout au début, à l\u0027offset 0 ?",
+                                            "choix":  [
+                                                          "Le pointeur de vtable (vfptr)",
+                                                          "Le champ `vie`",
+                                                          "Le champ `niveau`"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "Dès qu\u0027une classe a au moins une fonction virtuelle, chaque objet commence par le pointeur de vtable (8 octets). `vie` ne vient qu\u0027à +8, `niveau` à +16, pour une taille de 24."
+                                        },
+                                        {
+                                            "q":  "Avec MSVC en x64, dans `type_de`, que fait `mov rax, QWORD PTR [rcx]` ?",
+                                            "choix":  [
+                                                          "Il lit le champ `vie`",
+                                                          "Il charge le pointeur de vtable, rangé au tout début de l\u0027objet",
+                                                          "Il additionne deux nombres"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "`rcx` tient l\u0027adresse de l\u0027objet. `[rcx]` lit ses 8 premiers octets : le pointeur de vtable. Ensuite `rex_jmp QWORD PTR [rax]` saute à la première fonction listée, `type()`."
+                                        },
+                                        {
+                                            "q":  "En fouillant la mémoire d\u0027un jeu, quel motif trahit un objet C++ à fonctions virtuelles ?",
+                                            "choix":  [
+                                                          "Une longue suite de zéros",
+                                                          "Un grand nombre négatif",
+                                                          "Un pointeur en tête qui mène à un tableau d\u0027adresses de fonctions"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Les 8 premiers octets sont une adresse, et cette adresse mène à la vtable, un tableau d\u0027adresses de fonctions. C\u0027est la première marque que cherche un reverse, et la base du SDK dumping (phase 12)."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Une **classe** réunit des données (champs) et des fonctions (méthodes) ; un **objet** en est un exemplaire en mémoire. Une méthode reçoit l\u0027objet en secret via `this` (dans RCX avec MSVC en x64).",
+                                     "Une **fonction virtuelle** (virtual) donne le **polymorphisme** : `e-\u003etype()` choisit la bonne version à l\u0027exécution, en suivant la **table virtuelle** (vtable).",
+                                     "Un objet à fonctions virtuelles commence (offset 0) par un **pointeur de vtable** (vfptr). Ses champs suivent : pour `Joueur`, `vie` à +8, `niveau` à +16, taille 24 octets.",
+                                     "En mémoire, un pointeur en tête qui mène à un tableau d\u0027adresses de fonctions = tu tiens un objet C++ et sa vtable. C\u0027est la première marque d\u0027un reverse, et la base du SDK dumping (phase 12)."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "Phase 7 — C++ moderne",
+                      "texte":  "Boss plié : tu sais lire la disposition d\u0027un objet et reconnaître un pointeur de vtable en tête. En phase 7, tu passes au **C++ moderne** et à la **bibliothèque standard** : `std::vector` (une liste qui grandit) et `std::string` (du texte), et comment les repérer en mémoire. Et quand tu voudras, ton coach pourra faire passer ta cible en 2D avec raylib, une petite bibliothèque de jeu."
                   }
               ]
 }}};</script>
