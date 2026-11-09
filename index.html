@@ -801,7 +801,34 @@ html.is-tel #app { height: 100%; }
                        "boss":  "remonter une chaîne de pointeurs jusqu\u0027aux PV",
                        "duree":  "6-7 sem",
                        "lecons":  [
-
+                                      {
+                                          "id":  "5-1",
+                                          "numero":  "5.1",
+                                          "titre":  "L\u0027adresse et le pointeur",
+                                          "duree":  16,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "5-2",
+                                          "numero":  "5.2",
+                                          "titre":  "Suivre une chaîne de pointeurs",
+                                          "duree":  17,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "5-3",
+                                          "numero":  "5.3",
+                                          "titre":  "Les pièges de la mémoire",
+                                          "duree":  15,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "5-4",
+                                          "numero":  "5.4",
+                                          "titre":  "Boss : remonter jusqu\u0027aux PV",
+                                          "duree":  30,
+                                          "dispo":  true
+                                      }
                                   ]
                    },
                    {
@@ -3722,6 +3749,499 @@ html.is-tel #app { height: 100%; }
                        "affirmation":  "Dans la fenêtre Pile des appels, la fonction tout en haut est celle qui s\u0027exécute en ce moment.",
                        "vrai":  true,
                        "explication":  "Vrai : en haut, la fonction en cours ; juste en dessous, celle qui l\u0027a appelée, et ainsi de suite jusqu\u0027à `main`, tout en bas."
+                   },
+                   {
+                       "id":  "c501",
+                       "type":  "concept",
+                       "lecon":  "5-1",
+                       "jeu":  "",
+                       "titre":  "L\u0027adresse, le numéro d\u0027une case",
+                       "texte":  "Imagine la mémoire comme une rue de cases numérotées. Le numéro d\u0027une case, c\u0027est son **adresse**. Tu l\u0027as déjà croisée en phase 2 : chaque octet a la sienne. Une variable comme `int vie = 100` occupe quelques cases, et le programme la retrouve grâce à cette adresse."
+                   },
+                   {
+                       "id":  "c502",
+                       "type":  "concept",
+                       "lecon":  "5-1",
+                       "jeu":  "",
+                       "titre":  "Le pointeur montre une autre case",
+                       "texte":  "Un **pointeur** (pointer) est une variable spéciale. Au lieu de ranger une valeur, elle range une adresse : le numéro d\u0027une autre case. Elle ne contient pas la vie du héros, elle *montre* la case où cette vie est rangée. C\u0027est le cœur de tous les *trainers*."
+                   },
+                   {
+                       "id":  "c503",
+                       "type":  "code",
+                       "lecon":  "5-1",
+                       "jeu":  "",
+                       "titre":  "Lis : que contient le pointeur ?",
+                       "langage":  "cpp",
+                       "code":  "int vie = 100;\nint* pointeurVie = \u0026vie;",
+                       "question":  "Après ces deux lignes, que contient `pointeurVie` ?",
+                       "reponse":  "L\u0027adresse de `vie`, pas la valeur 100. `\u0026` est l\u0027opérateur d\u0027adresse : `\u0026vie` donne le numéro de la case où vit `vie`. Le pointeur range ce numéro.",
+                       "explication":  "`int*` se lit « pointeur vers un `int` » : l\u0027étoile annonce une adresse, pas un entier."
+                   },
+                   {
+                       "id":  "c504",
+                       "type":  "code",
+                       "lecon":  "5-1",
+                       "jeu":  "",
+                       "titre":  "Lis : suivre le pointeur",
+                       "langage":  "cpp",
+                       "code":  "int vie = 100;\nint* pointeurVie = \u0026vie;\nstd::cout \u003c\u003c *pointeurVie;",
+                       "question":  "Qu\u0027affiche `*pointeurVie` ?",
+                       "reponse":  "`100`. L\u0027étoile `*` suit le pointeur et lit la valeur à l\u0027adresse : c\u0027est le **déréférencement**. `pointeurVie` seul afficherait l\u0027adresse ; `*pointeurVie` affiche ce qu\u0027il y a au bout.",
+                       "explication":  "« Déréférencer », c\u0027est aller voir la valeur rangée à l\u0027adresse."
+                   },
+                   {
+                       "id":  "c505",
+                       "type":  "code",
+                       "lecon":  "5-1",
+                       "jeu":  "",
+                       "titre":  "Lis : écrire à travers le pointeur",
+                       "langage":  "cpp",
+                       "code":  "int vie = 100;\nint* pointeurVie = \u0026vie;\n*pointeurVie = 9999;",
+                       "question":  "Après la 3e ligne, que vaut `vie` ?",
+                       "reponse":  "`9999`. L\u0027étoile `*` à gauche du `=` écrit à l\u0027adresse : on range `9999` dans la case de `vie`, sans jamais nommer `vie`. C\u0027est le geste d\u0027un *trainer* qui force des points de vie.",
+                       "explication":  "Même étoile `*` pour les deux sens : à droite on lit la valeur, à gauche du `=` on l\u0027écrit."
+                   },
+                   {
+                       "id":  "c506",
+                       "type":  "capot",
+                       "lecon":  "5-1",
+                       "jeu":  "",
+                       "titre":  "`[rcx]`, c\u0027est l\u0027étoile `*`",
+                       "cpp":  "int lire_vie(const int* p)\n{\n    return *p;\n}",
+                       "asm":  "mov eax, DWORD PTR [rcx]\nret 0",
+                       "texte":  "Avec MSVC en x64, suivre un pointeur tient en une ligne. `p` (une adresse) arrive dans RCX. `[rcx]` veut dire « la valeur à l\u0027adresse contenue dans RCX » : c\u0027est l\u0027étoile `*` du C++, qui part dans EAX."
+                   },
+                   {
+                       "id":  "c507",
+                       "type":  "vraifaux",
+                       "lecon":  "5-1",
+                       "jeu":  "",
+                       "titre":  "Une adresse tient dans RCX, pas ECX",
+                       "affirmation":  "En x64, une adresse fait 8 octets, donc elle voyage dans un registre complet comme RCX, et non ECX.",
+                       "vrai":  true,
+                       "explication":  "Vrai. Une adresse x64 fait 64 bits, soit 8 octets : il faut un registre entier comme RCX. ECX n\u0027en est que la moitié (32 bits). C\u0027est pour ça que `lire_vie` reçoit `p` dans RCX."
+                   },
+                   {
+                       "id":  "c508",
+                       "type":  "quiz",
+                       "lecon":  "5-1",
+                       "jeu":  "",
+                       "titre":  "`\u0026` ou `*` ?",
+                       "question":  "Quel signe donne l\u0027**adresse** d\u0027une variable ?",
+                       "choix":  [
+                                     "`*`",
+                                     "`\u0026`",
+                                     "N\u0027importe lequel des deux"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "`\u0026vie` donne l\u0027adresse de `vie` : c\u0027est l\u0027opérateur d\u0027adresse. L\u0027étoile `*` fait l\u0027inverse, elle suit une adresse pour lire la valeur au bout."
+                   },
+                   {
+                       "id":  "c509",
+                       "type":  "vraifaux",
+                       "lecon":  "5-1",
+                       "jeu":  "",
+                       "titre":  "Ce que montre un pointeur",
+                       "affirmation":  "Un pointeur vers la vie contient directement le nombre de points de vie.",
+                       "vrai":  false,
+                       "explication":  "Faux. Il contient l\u0027**adresse** où la vie est rangée, pas la vie elle-même. Pour atteindre la valeur, on suit le pointeur avec l\u0027étoile `*` : `*pointeurVie`."
+                   },
+                   {
+                       "id":  "c510",
+                       "type":  "anglais",
+                       "lecon":  "5-1",
+                       "jeu":  "",
+                       "titre":  "dereference",
+                       "en":  "to dereference",
+                       "fr":  "déréférencer",
+                       "texte":  "Suivre un pointeur pour atteindre la valeur au bout : l\u0027étoile `*` du C++, les crochets `[rcx]` en assembleur. « Va voir ce qu\u0027il y a à l\u0027adresse »."
+                   },
+                   {
+                       "id":  "c511",
+                       "type":  "concept",
+                       "lecon":  "5-1",
+                       "jeu":  "gta",
+                       "titre":  "Un trainer, en une phrase",
+                       "texte":  "Un *trainer* n\u0027a rien de magique. Il lit et écrit la mémoire d\u0027un jeu avec des adresses et des pointeurs, comme ceux d\u0027aujourd\u0027hui. « Vie infinie » = `*adresseDeLaVie = 9999` répété à chaque image. On en lira le détail dans le bestiaire des triches, en étude et hors ligne."
+                   },
+                   {
+                       "id":  "c512",
+                       "type":  "savaistu",
+                       "lecon":  "5-1",
+                       "jeu":  "minecraft",
+                       "titre":  "Le pointeur nul qui fait tout planter",
+                       "texte":  "En C++, suivre un pointeur **nul** (`nullptr`) ou égaré plante le programme aussitôt : l\u0027une des causes de crash les plus courantes. Si tu as moddé Minecraft, tu as sans doute déjà vu l\u0027erreur « NullPointerException » : la même idée côté Java, une référence qui ne montre rien."
+                   },
+                   {
+                       "id":  "c514",
+                       "type":  "concept",
+                       "lecon":  "5-2",
+                       "jeu":  "gta",
+                       "titre":  "Pourquoi ton or déménage",
+                       "texte":  "Dans un jeu, ta vie ou ton or n\u0027a presque jamais d\u0027adresse fixe : tu relances, la valeur a changé de place. Pour la retrouver à tous les coups, on ne vise pas une adresse. On part d\u0027un point stable, puis on saute de pointeur en pointeur jusqu\u0027à elle : une chaîne de pointeurs."
+                   },
+                   {
+                       "id":  "c515",
+                       "type":  "code",
+                       "lecon":  "5-2",
+                       "jeu":  "",
+                       "titre":  "Où est rangé `vie` ?",
+                       "langage":  "cpp",
+                       "code":  "struct Arme { int degats; };\nstruct Joueur\n{\n    Arme* arme;\n    int vie;\n};",
+                       "question":  "Le champ `arme` est au décalage +0. À quel décalage se trouve `vie` ?",
+                       "reponse":  "Au décalage +8. `arme` est un pointeur, et une adresse en x64 occupe 8 octets. `vie` vient donc après ces 8 octets, à +8, et non +4 comme pour un `int`.",
+                       "explication":  "Un pointeur est plus large qu\u0027un `int` : 8 octets contre 4, avec MSVC en x64."
+                   },
+                   {
+                       "id":  "c516",
+                       "type":  "code",
+                       "lecon":  "5-2",
+                       "jeu":  "",
+                       "titre":  "Combien de sauts ?",
+                       "langage":  "cpp",
+                       "code":  "int degats_arme(const Joueur* j)\n{\n    return j-\u003earme-\u003edegats;\n}",
+                       "question":  "Combien de sauts de pointeur fait `j-\u003earme-\u003edegats` ?",
+                       "reponse":  "Deux. Chaque flèche `-\u003e` est un saut. On suit `j` pour lire le champ `arme`, puis on suit `arme` pour lire `degats`. Deux flèches, deux maillons de la chaîne.",
+                       "explication":  "Astuce : compte les flèches, tu comptes les sauts."
+                   },
+                   {
+                       "id":  "c517",
+                       "type":  "capot",
+                       "lecon":  "5-2",
+                       "jeu":  "",
+                       "titre":  "Deux mov, deux sauts",
+                       "cpp":  "int degats_arme(const Joueur* j)\n{\n    return j-\u003earme-\u003edegats;\n}",
+                       "asm":  "mov rax, QWORD PTR [rcx]\nmov eax, DWORD PTR [rax]\nret 0",
+                       "texte":  "Avec MSVC en x64. `mov rax, [rcx]` suit `j` et charge l\u0027adresse de l\u0027arme dans RAX, un registre 64 bits. `mov eax, [rax]` suit cette adresse et lit `degats`. Deux `mov`, deux maillons de la chaîne."
+                   },
+                   {
+                       "id":  "c518",
+                       "type":  "capot",
+                       "lecon":  "5-2",
+                       "jeu":  "",
+                       "titre":  "Un seul saut",
+                       "cpp":  "int lire_vie(const int* p)\n{\n    return *p;\n}",
+                       "asm":  "mov eax, DWORD PTR [rcx]\nret 0",
+                       "texte":  "Avec MSVC en x64. `p` arrive dans RCX. `[rcx]` veut dire « la valeur à l\u0027adresse dans RCX » : c\u0027est l\u0027étoile `*` du C++, un saut de pointeur. Un seul `mov` ici : un seul maillon."
+                   },
+                   {
+                       "id":  "c519",
+                       "type":  "code",
+                       "lecon":  "5-2",
+                       "jeu":  "",
+                       "titre":  "Que vaut `heros.arme-\u003edegats` ?",
+                       "langage":  "cpp",
+                       "code":  "Arme epee{ 25 };\nJoueur heros{ \u0026epee, 100 };\nstd::cout \u003c\u003c heros.arme-\u003edegats;",
+                       "question":  "Qu\u0027affiche ce code ?",
+                       "reponse":  "25. `heros.arme` est l\u0027adresse de `epee`. La flèche `-\u003e` suit cette adresse et lit le champ `degats`, qui vaut 25. La vie du héros, 100, n\u0027est pas touchée.",
+                       "explication":  "Le `\u0026` donne l\u0027adresse de `epee` ; `heros.arme` la contient."
+                   },
+                   {
+                       "id":  "c520",
+                       "type":  "vraifaux",
+                       "lecon":  "5-2",
+                       "jeu":  "",
+                       "titre":  "Le chemin reste, l\u0027adresse bouge",
+                       "affirmation":  "Dans une chaîne de pointeurs, l\u0027adresse finale change à chaque lancement, mais le chemin pour l\u0027atteindre reste stable.",
+                       "vrai":  true,
+                       "explication":  "Vrai. L\u0027ASLR déplace les données à chaque lancement, donc l\u0027adresse finale bouge. Mais la base et les décalages, eux, ne changent pas : c\u0027est ce qui rend la chaîne fiable."
+                   },
+                   {
+                       "id":  "c521",
+                       "type":  "quiz",
+                       "lecon":  "5-2",
+                       "jeu":  "",
+                       "titre":  "L\u0027énigme de la phase 2",
+                       "question":  "Pourquoi l\u0027adresse du score gelé en phase 2 ne marchait plus au relancement ?",
+                       "choix":  [
+                                     "Cheat Engine avait un bug",
+                                     "Le score était devenu un texte",
+                                     "L\u0027ASLR déplace la mémoire à chaque lancement"
+                                 ],
+                       "bonne":  2,
+                       "explication":  "L\u0027ASLR place les données à des adresses différentes à chaque lancement, pour la sécurité. Une adresse brute ne tient pas : il faut une chaîne de pointeurs depuis une base stable."
+                   },
+                   {
+                       "id":  "c522",
+                       "type":  "concept",
+                       "lecon":  "5-2",
+                       "jeu":  "oblivion",
+                       "titre":  "Le Pointer scan de Cheat Engine",
+                       "texte":  "Comment un trainer retrouve tes PV malgré l\u0027ASLR ? Cheat Engine a le Pointer scan (scan de pointeurs). Tu lui donnes l\u0027adresse du moment ; il cherche les chaînes qui y mènent depuis une base stable. Tu gardes la plus fiable. À faire sur un jeu solo que tu possèdes, hors ligne."
+                   },
+                   {
+                       "id":  "c523",
+                       "type":  "anglais",
+                       "lecon":  "5-2",
+                       "jeu":  "",
+                       "titre":  "pointer chain",
+                       "en":  "pointer chain",
+                       "fr":  "chaîne de pointeurs",
+                       "texte":  "Une suite de sauts, d\u0027un pointeur au suivant, depuis une base stable jusqu\u0027à une valeur. C\u0027est ce que remonte un trainer."
+                   },
+                   {
+                       "id":  "c524",
+                       "type":  "anglais",
+                       "lecon":  "5-2",
+                       "jeu":  "",
+                       "titre":  "base pointer",
+                       "en":  "base pointer",
+                       "fr":  "pointeur de base",
+                       "texte":  "Le point de départ d\u0027une chaîne, repéré par rapport au module du jeu (son `.exe` en mémoire). Ce repère tient malgré l\u0027ASLR."
+                   },
+                   {
+                       "id":  "c525",
+                       "type":  "savaistu",
+                       "lecon":  "5-2",
+                       "jeu":  "",
+                       "titre":  "D\u0027où vient l\u0027ASLR",
+                       "texte":  "L\u0027ASLR (Address Space Layout Randomization) n\u0027a pas toujours existé. Windows l\u0027active par défaut depuis Windows Vista, en 2007. L\u0027idée : brouiller les adresses à chaque lancement, pour gêner les attaques. Effet de bord pour le reverse : l\u0027adresse d\u0027une valeur bouge à chaque fois."
+                   },
+                   {
+                       "id":  "c527",
+                       "type":  "concept",
+                       "lecon":  "5-3",
+                       "jeu":  "gta",
+                       "titre":  "Un pointeur peut mener dans le vide",
+                       "texte":  "Deux pièges rendent un **pointeur** dangereux. Le **pointeur nul** (null pointer) ne montre rien : le suivre fait planter le jeu. Le **pointeur pendouillant** (dangling pointer) montre une case déjà libérée : le suivre renvoie n\u0027importe quoi. Deux causes de crash fréquentes."
+                   },
+                   {
+                       "id":  "c528",
+                       "type":  "code",
+                       "lecon":  "5-3",
+                       "jeu":  "",
+                       "titre":  "Lis : un pointeur nul",
+                       "langage":  "cpp",
+                       "code":  "int* p = nullptr;   // ne montre rien\nint vie = *p;       // on suit le pointeur nul",
+                       "question":  "Que se passe-t-il à la deuxième ligne ?",
+                       "reponse":  "Le programme plante. `*p` lit la valeur à l\u0027adresse contenue dans `p`. Or `p` est `nullptr` : il ne montre aucune case. Lire à l\u0027adresse interdite zéro arrête le programme net.",
+                       "explication":  "Un `if (p != nullptr)` avant de suivre le pointeur aurait évité le plantage."
+                   },
+                   {
+                       "id":  "c529",
+                       "type":  "capot",
+                       "lecon":  "5-3",
+                       "jeu":  "",
+                       "titre":  "Suivre un pointeur, en assembleur",
+                       "cpp":  "int lire_vie(const int* p)\n{\n    return *p;\n}",
+                       "asm":  "    mov eax, DWORD PTR [rcx]\n    ret 0",
+                       "texte":  "Avec MSVC en x64, `return *p;` devient `mov eax, DWORD PTR [rcx]`. `[rcx]` veut dire « la valeur à l\u0027adresse dans RCX » : c\u0027est l\u0027étoile `*`. Si `p` vaut `nullptr`, cette lecture échoue, et le programme plante."
+                   },
+                   {
+                       "id":  "c530",
+                       "type":  "vraifaux",
+                       "lecon":  "5-3",
+                       "jeu":  "",
+                       "titre":  "Suivre un pointeur nul",
+                       "affirmation":  "Suivre un pointeur nul avec `*p` affiche simplement 0.",
+                       "vrai":  false,
+                       "explication":  "Faux. `*p` sur un pointeur nul demande de lire à l\u0027adresse interdite zéro. Le programme ne renvoie pas 0 : il s\u0027arrête net, c\u0027est un plantage (violation d\u0027accès)."
+                   },
+                   {
+                       "id":  "c531",
+                       "type":  "concept",
+                       "lecon":  "5-3",
+                       "jeu":  "",
+                       "titre":  "ASLR : l\u0027adresse qui bouge",
+                       "texte":  "En phase 2, l\u0027adresse du score gelé ne valait plus rien au relancement. En cause : l\u0027**ASLR**. À chaque lancement, Windows range les données à des adresses différentes, par sécurité. La valeur ne change pas : c\u0027est son adresse qui bouge."
+                   },
+                   {
+                       "id":  "c532",
+                       "type":  "quiz",
+                       "lecon":  "5-3",
+                       "jeu":  "",
+                       "titre":  "Pourquoi l\u0027adresse change",
+                       "question":  "Tu relances ton programme. Pourquoi l\u0027adresse d\u0027une variable n\u0027est-elle plus la même ?",
+                       "choix":  [
+                                     "La variable a changé de valeur",
+                                     "L\u0027ASLR range les données au hasard à chaque lancement",
+                                     "Le compilateur a recompilé le code"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "L\u0027ASLR place les données à des adresses différentes à chaque lancement, par sécurité. C\u0027est pourquoi un simple numéro d\u0027adresse ne suffit pas à retrouver une valeur d\u0027un lancement à l\u0027autre."
+                   },
+                   {
+                       "id":  "c533",
+                       "type":  "capot",
+                       "lecon":  "5-3",
+                       "jeu":  "",
+                       "titre":  "Deux sauts de pointeur",
+                       "cpp":  "int degats_arme(const Joueur* j)\n{\n    return j-\u003earme-\u003edegats;\n}",
+                       "asm":  "    mov rax, QWORD PTR [rcx]\n    mov eax, DWORD PTR [rax]\n    ret 0",
+                       "texte":  "Avec MSVC en x64, `j-\u003earme-\u003edegats` fait deux sauts. `mov rax, [rcx]` lit le pointeur `arme` (une adresse, 8 octets : RAX). `mov eax, [rax]` suit ce pointeur et lit `degats`. Si un maillon est nul, le saut plante."
+                   },
+                   {
+                       "id":  "c534",
+                       "type":  "code",
+                       "lecon":  "5-3",
+                       "jeu":  "",
+                       "titre":  "Lis : d\u0027où vient le danger ?",
+                       "langage":  "cpp",
+                       "code":  "int* adresse_vie()\n{\n    int vie = 100;\n    return \u0026vie;\n}",
+                       "question":  "Pourquoi le pointeur renvoyé est-il dangereux à suivre ?",
+                       "reponse":  "`vie` est une variable locale, sur la pile (stack). À la fin de la fonction, son cadre est libéré (`add rsp`) et `vie` disparaît. Le pointeur renvoyé montre une case vide : un **pointeur pendouillant**.",
+                       "explication":  "MSVC t\u0027avertit même : on renvoie l\u0027adresse d\u0027une variable locale."
+                   },
+                   {
+                       "id":  "c535",
+                       "type":  "concept",
+                       "lecon":  "5-3",
+                       "jeu":  "",
+                       "titre":  "La pile et le tas",
+                       "texte":  "Les valeurs vivent à deux endroits. La **pile** (stack) sert aux variables locales des fonctions ; elle se remplit et se vide au fil des appels. Le **tas** (heap) garde ce qui doit durer plus longtemps : l\u0027inventaire, les monstres. Les deux bougent à chaque lancement (ASLR)."
+                   },
+                   {
+                       "id":  "c536",
+                       "type":  "anglais",
+                       "lecon":  "5-3",
+                       "jeu":  "",
+                       "titre":  "dangling pointer",
+                       "en":  "dangling pointer",
+                       "fr":  "pointeur pendouillant",
+                       "texte":  "Un pointeur dont la case visée a déjà été libérée : il « pendouille » dans le vide. Le suivre renvoie n\u0027importe quoi, ou plante."
+                   },
+                   {
+                       "id":  "c537",
+                       "type":  "vraifaux",
+                       "lecon":  "5-3",
+                       "jeu":  "",
+                       "titre":  "L\u0027anti-triche veille",
+                       "affirmation":  "Un anti-triche peut repérer un programme qui scrute la mémoire d\u0027un jeu.",
+                       "vrai":  true,
+                       "explication":  "Vrai. Un outil comme Cheat Engine ouvert à côté d\u0027une partie se remarque. Côté défense, on peut aussi rendre une valeur plus dure à trouver : la ranger codée ou la recalculer. On étudie ça pour protéger son propre jeu."
+                   },
+                   {
+                       "id":  "c538",
+                       "type":  "savaistu",
+                       "lecon":  "5-3",
+                       "jeu":  "",
+                       "titre":  "L\u0027erreur à un milliard de dollars",
+                       "texte":  "Tony Hoare a inventé le pointeur nul en 1965, pour le langage ALGOL W. En 2009, il l\u0027a publiquement appelé son « erreur à un milliard de dollars », tant il a causé de plantages et de failles depuis. Un simple pointeur qui ne montre rien."
+                   },
+                   {
+                       "id":  "c540",
+                       "type":  "concept",
+                       "lecon":  "5-4",
+                       "jeu":  "",
+                       "titre":  "Un pointeur, c\u0027est une adresse",
+                       "texte":  "Un **pointeur** est une variable qui contient une **adresse** : le numéro d\u0027une case mémoire, pas une valeur ordinaire. `\u0026vie` donne l\u0027adresse de `vie`. `*p` fait l\u0027inverse : il suit le pointeur et lit la valeur au bout. Deux signes, tout le pouvoir des pointeurs."
+                   },
+                   {
+                       "id":  "c541",
+                       "type":  "code",
+                       "lecon":  "5-4",
+                       "jeu":  "",
+                       "titre":  "Écrire à travers un pointeur",
+                       "langage":  "cpp",
+                       "code":  "int pieces = 50;\nint* p = \u0026pieces;\n*p = *p + 100;",
+                       "question":  "Que vaut `pieces` à la fin ?",
+                       "reponse":  "150. `p` montre `pieces` ; `*p` lit 50, on y ajoute 100, et `*p =` réécrit à cette adresse. `pieces` vaut 150, sans être nommée directement.",
+                       "explication":  ""
+                   },
+                   {
+                       "id":  "c542",
+                       "type":  "code",
+                       "lecon":  "5-4",
+                       "jeu":  "",
+                       "titre":  "Compte les sauts",
+                       "langage":  "cpp",
+                       "code":  "struct Sac { int or; };\nstruct Heros { Sac* sac; };\n\n// on veut lire   heros.sac-\u003eor",
+                       "question":  "Combien de sauts de pointeur pour atteindre `or` ?",
+                       "reponse":  "Deux : d\u0027abord suivre `sac` (l\u0027adresse du sac rangée dans le héros), puis lire `or` à cette adresse. C\u0027est une chaîne de deux pointeurs.",
+                       "explication":  ""
+                   },
+                   {
+                       "id":  "c543",
+                       "type":  "concept",
+                       "lecon":  "5-4",
+                       "jeu":  "",
+                       "titre":  "Pourquoi l\u0027adresse a changé",
+                       "texte":  "Au boss, tu relances `Pointeurs.cpp` et l\u0027adresse affichée n\u0027est plus la même : c\u0027est l\u0027**ASLR**, le placement aléatoire de la mémoire par Windows. Voilà pourquoi ton gel du score, en phase 2, ne tenait plus après un relancement."
+                   },
+                   {
+                       "id":  "c544",
+                       "type":  "capot",
+                       "lecon":  "5-4",
+                       "jeu":  "",
+                       "titre":  "Deux mov, deux sauts",
+                       "cpp":  "int degats_arme(const Joueur* j)\n{\n    return j-\u003earme-\u003edegats;\n}",
+                       "asm":  "mov rax, QWORD PTR [rcx]\nmov eax, DWORD PTR [rax]\nret 0",
+                       "texte":  "Avec MSVC en x64, deux `mov` = deux sauts. `[rcx]` lit `arme`, une adresse, mise dans RAX (64 bits : une adresse fait 8 octets). `[rax]` suit cette adresse et lit `degats` dans EAX. Une chaîne de pointeurs en machine."
+                   },
+                   {
+                       "id":  "c545",
+                       "type":  "concept",
+                       "lecon":  "5-4",
+                       "jeu":  "",
+                       "titre":  "L\u0027énigme de la phase 2, résolue",
+                       "texte":  "Ton score gelé en phase 2 glissait dès que tu relançais le programme. La raison a un nom : l\u0027**ASLR**. À chaque lancement, Windows range les données à une adresse différente, par sécurité. L\u0027adresse bouge, ton gel tombe à côté. La parade : une chaîne de pointeurs."
+                   },
+                   {
+                       "id":  "c546",
+                       "type":  "quiz",
+                       "lecon":  "5-4",
+                       "jeu":  "",
+                       "titre":  "Pourquoi RCX ?",
+                       "question":  "Pourquoi une adresse voyage-t-elle dans RCX (64 bits) et non dans ECX (32 bits) ?",
+                       "choix":  [
+                                     "Parce qu\u0027une adresse en x64 occupe 8 octets",
+                                     "Parce que RCX va plus vite qu\u0027ECX",
+                                     "Parce qu\u0027ECX n\u0027existe pas en x64"
+                                 ],
+                       "bonne":  0,
+                       "explication":  "Une adresse mémoire fait 8 octets (64 bits) en x64. Il faut donc un registre complet comme RCX ; ECX n\u0027en est que la moitié basse."
+                   },
+                   {
+                       "id":  "c547",
+                       "type":  "vraifaux",
+                       "lecon":  "5-4",
+                       "jeu":  "",
+                       "titre":  "Le pointeur nul qui fait planter",
+                       "affirmation":  "Suivre un pointeur nul (`nullptr`) avec `*` fait planter le programme.",
+                       "vrai":  true,
+                       "explication":  "Vrai. Un pointeur nul ne montre rien. Le suivre, ou suivre un pointeur vers une case déjà libérée, fait planter net : c\u0027est une des causes de plantage les plus courantes dans les jeux."
+                   },
+                   {
+                       "id":  "c548",
+                       "type":  "concept",
+                       "lecon":  "5-4",
+                       "jeu":  "gta",
+                       "titre":  "Ressources infinies et chaîne de pointeurs",
+                       "texte":  "La triche « ressources infinies » du **bestiaire** repose souvent sur une chaîne de pointeurs. L\u0027argent est un compteur en mémoire, mais son adresse change à chaque partie. Un trainer remonte une chaîne stable pour le retrouver, puis le fige. Sur tes propres cibles, hors ligne."
+                   },
+                   {
+                       "id":  "c549",
+                       "type":  "anglais",
+                       "lecon":  "5-4",
+                       "jeu":  "",
+                       "titre":  "pointer",
+                       "en":  "pointer",
+                       "fr":  "pointeur",
+                       "texte":  "Une variable qui contient une adresse, pas une valeur. Dans les outils de rétro-ingénierie, le mot `pointer` est partout."
+                   },
+                   {
+                       "id":  "c550",
+                       "type":  "savaistu",
+                       "lecon":  "5-4",
+                       "jeu":  "",
+                       "titre":  "Lire un rapport de plantage",
+                       "texte":  "Quand un programme plante, Windows écrit souvent un rapport de plantage (crash report). Il contient la pile des appels (phase 4) : la liste des fonctions en cours au moment du crash. C\u0027est la première piste pour trouver la ligne fautive, souvent un pointeur égaré."
+                   },
+                   {
+                       "id":  "c551",
+                       "type":  "quiz",
+                       "lecon":  "5-4",
+                       "jeu":  "",
+                       "titre":  "À quoi sert un Pointer scan",
+                       "question":  "Dans Cheat Engine, que cherche un « Pointer scan » ?",
+                       "choix":  [
+                                     "La version du jeu",
+                                     "Un chemin stable (une base + des sauts) jusqu\u0027à une valeur",
+                                     "Le mot de passe du joueur"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "Il cherche une chaîne de pointeurs stable : une adresse de base qui ne bouge pas, puis des sauts et décalages jusqu\u0027à la valeur, pour la retrouver à chaque lancement."
                    }
                ]
 },"glossaire":{
@@ -4467,6 +4987,90 @@ html.is-tel #app { height: 100%; }
                           "definition":  "Écrire une chose une seule fois pour la réutiliser partout, au lieu de copier-coller. C\u0027est le principe DRY (Don\u0027t Repeat Yourself) : une fonction évite de répéter le code.",
                           "exemple":  "`calculer_degats` est écrite une fois, puis réutilisée à chaque tour de combat dans `Aventure.cpp`.",
                           "lecon":  "4-1"
+                      },
+                      {
+                          "terme":  "pointeur",
+                          "en":  "pointer",
+                          "definition":  "Une variable qui contient une adresse au lieu d\u0027une valeur ordinaire : elle montre une autre case de la mémoire. En C++, son type s\u0027écrit avec une étoile : `int*` veut dire « pointeur vers un `int` ».",
+                          "exemple":  "Dans `Pointeurs.cpp`, `int* pointeurVie = \u0026vie;` crée un pointeur : il range l\u0027adresse de `vie`, pas le nombre 100.",
+                          "lecon":  "5-1"
+                      },
+                      {
+                          "terme":  "opérateur d\u0027adresse (\u0026)",
+                          "en":  "address-of operator",
+                          "definition":  "L\u0027opérateur `\u0026` donne l\u0027adresse d\u0027une variable : `\u0026vie` vaut l\u0027adresse de la case `vie`. C\u0027est ainsi qu\u0027on remplit un pointeur, en lui confiant l\u0027adresse d\u0027une valeur qui existe déjà.",
+                          "exemple":  "`int* pointeurVie = \u0026vie;` : le `\u0026` prend l\u0027adresse de `vie`, et le pointeur la garde.",
+                          "lecon":  "5-1"
+                      },
+                      {
+                          "terme":  "déréférencement (opérateur *)",
+                          "en":  "dereference",
+                          "definition":  "Suivre un pointeur jusqu\u0027à la valeur qu\u0027il montre. L\u0027opérateur `*` : `*p` lit la valeur rangée à l\u0027adresse `p`, et `*p = 9999` l\u0027écrit. Avec MSVC en x64, les crochets `[rcx]` font pareil.",
+                          "exemple":  "`*pointeurVie = 9999;` écrit à travers le pointeur : la variable `vie` passe aussitôt de 100 à 9999.",
+                          "lecon":  "5-1"
+                      },
+                      {
+                          "terme":  "chaîne de pointeurs",
+                          "en":  "pointer chain",
+                          "definition":  "Une adresse de base stable, puis une suite de sauts (suivre un pointeur) et de décalages (offset de champ) pour atteindre une valeur. C\u0027est ce que remonte Cheat Engine pour retrouver une donnée.",
+                          "exemple":  "`heros.arme-\u003edegats` fait deux sauts : `heros` montre l\u0027arme, l\u0027arme contient `degats`. Une mini-chaîne de pointeurs.",
+                          "lecon":  "5-2"
+                      },
+                      {
+                          "terme":  "opérateur flèche (-\u003e)",
+                          "en":  "arrow operator",
+                          "definition":  "Il suit un pointeur, puis lit un champ, en un seul geste. `j-\u003earme` veut dire « suis le pointeur `j`, puis prends le champ `arme` ». C\u0027est l\u0027écriture courte de `(*j).arme`.",
+                          "exemple":  "`heros.arme-\u003edegats` : le `-\u003e` suit le pointeur `arme`, puis lit `degats`. Chaque flèche est un saut de pointeur.",
+                          "lecon":  "5-2"
+                      },
+                      {
+                          "terme":  "pointeur de base",
+                          "en":  "base pointer",
+                          "definition":  "Le point de départ stable d\u0027une chaîne de pointeurs, d\u0027où partent les sauts. Un trainer part de l\u0027adresse du module du jeu, qui ne bouge pas à chaque lancement.",
+                          "exemple":  "La base d\u0027une chaîne s\u0027écrit souvent `jeu.exe`+un décalage fixe : un point d\u0027ancrage qui reste le même à chaque lancement.",
+                          "lecon":  "5-2"
+                      },
+                      {
+                          "terme":  "pointeur nul (nullptr)",
+                          "en":  "null pointer",
+                          "definition":  "Un pointeur qui ne montre rien : en C++, on l\u0027écrit `nullptr`. Suivre un pointeur nul fait planter le programme sur-le-champ. C\u0027est une des causes de plantage les plus fréquentes dans les jeux.",
+                          "exemple":  "En Java, Minecraft affiche une `NullPointerException` quand un mod suit un pointeur nul : même idée, le jeu plante.",
+                          "lecon":  "5-3"
+                      },
+                      {
+                          "terme":  "pointeur pendouillant",
+                          "en":  "dangling pointer",
+                          "definition":  "Un pointeur qui garde l\u0027adresse d\u0027une case déjà libérée ou disparue. La suivre lit n\u0027importe quoi, ou fait planter : la donnée n\u0027est plus là. Un bug sournois, difficile à repérer.",
+                          "exemple":  "Ton code garde le pointeur d\u0027une arme, puis l\u0027arme est détruite : le pointeur pendouille, et le lire peut planter le jeu.",
+                          "lecon":  "5-3"
+                      },
+                      {
+                          "terme":  "ASLR",
+                          "en":  "Address Space Layout Randomization",
+                          "definition":  "Une sécurité de Windows qui place les données à des adresses différentes à chaque lancement. D\u0027où l\u0027adresse de ton score gelé qui change au relancement. La parade : une chaîne de pointeurs.",
+                          "exemple":  "Tu gèles ta vie dans un jeu solo, tu quittes, tu relances : l\u0027adresse a bougé. C\u0027est l\u0027ASLR en action.",
+                          "lecon":  "5-3"
+                      },
+                      {
+                          "terme":  "violation d\u0027accès",
+                          "en":  "access violation",
+                          "definition":  "Un plantage qui arrive quand un programme touche une adresse interdite, souvent via un pointeur nul ou pendouillant. Windows l\u0027appelle « violation d\u0027accès » ; Linux, « segmentation fault ».",
+                          "exemple":  "Visual Studio s\u0027arrête et affiche « Violation d\u0027accès » (Access violation) : ton code a suivi un pointeur interdit.",
+                          "lecon":  "5-3"
+                      },
+                      {
+                          "terme":  "tas",
+                          "en":  "heap",
+                          "definition":  "Une zone de mémoire pour les données qui survivent à une fonction, contrairement à la pile (phase 4). On y réserve une case, puis on la libère. La libérer trop tôt crée un pointeur pendouillant.",
+                          "exemple":  "Les objets d\u0027un niveau (créatures, armes) vivent souvent sur le tas : créés au chargement, libérés quand tu quittes la zone.",
+                          "lecon":  "5-3"
+                      },
+                      {
+                          "terme":  "scan de pointeurs",
+                          "en":  "pointer scan",
+                          "definition":  "Un outil de Cheat Engine qui cherche une chaîne de pointeurs menant à une adresse. Il teste des bases et des décalages, et garde ceux qui retombent sur la valeur même après un redémarrage.",
+                          "exemple":  "L\u0027adresse des PV change à chaque lancement : un scan de pointeurs (Pointer scan) retrouve une chaîne stable qui y mène.",
+                          "lecon":  "5-2"
                       }
                   ]
 },"bestiaire":{
@@ -8662,6 +9266,862 @@ html.is-tel #app { height: 100%; }
                       "type":  "suite",
                       "titre":  "Phase 5 — Pointeurs",
                       "texte":  "Boss plié : tu as vu la pile des appels de ton programme se dresser, puis se réduire, sous tes yeux. En phase 5, tu suis les **pointeurs** : des adresses qui mènent à d\u0027autres adresses, comme une piste de chasse au trésor. C\u0027est le cœur d\u0027un *trainer*, qui remonte cette piste jusqu\u0027aux points de vie d\u0027un jeu."
+                  }
+              ]
+},"5-1":{
+    "id":  "5-1",
+    "phase":  5,
+    "numero":  "5.1",
+    "titre":  "L\u0027adresse et le pointeur",
+    "duree":  16,
+    "objectif":  "Comprendre qu\u0027une adresse est le numéro d\u0027une case en mémoire, et qu\u0027un pointeur est une variable qui contient une adresse. Savoir lire `\u0026vie` (l\u0027adresse de `vie`), `*p` (la valeur au bout du pointeur) et `*p = 9999` (écrire à cette adresse) ; et voir qu\u0027en assembleur x64, les crochets `[rcx]` sont l\u0027étoile `*` du C++.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Souviens-toi de la phase 2 : tu as gelé le score de `Score.cpp` avec Cheat Engine, à une adresse bien précise. Puis tu as relancé le programme, et l\u0027adresse avait changé : ton gel ne tenait plus. Pour comprendre pourquoi, il faut parler d\u0027**adresses** et de **pointeurs** (pointers). C\u0027est le cœur de tous les *trainers*, et le grand sujet de cette phase."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La mémoire, une rue de cases numérotées",
+                      "paragraphes":  [
+                                          "Revois la mémoire vive comme une immense rue. Des deux côtés, des cases alignées à l\u0027infini, chacune avec un numéro. Ce numéro, c\u0027est l\u0027**adresse** (address) de la case : tu l\u0027as déjà croisée en phase 2, où chaque octet a la sienne.",
+                                          "Une variable, comme `int vie = 100`, occupe quelques cases voisines. Le programme sait où la trouver grâce à son adresse. C\u0027est juste un numéro, comme celui d\u0027une maison dans la rue.",
+                                          "Un **pointeur** (pointer) est une variable d\u0027un genre spécial. Au lieu de ranger une valeur ordinaire, elle range une adresse : le numéro d\u0027une autre case. Elle ne contient pas la vie du héros, elle *montre* la case où cette vie est rangée."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Un pointeur, en C++",
+                      "code":  "int vie = 100;\nint* pointeurVie = \u0026vie;   // \u0026 donne l\u0027adresse de vie\n\nstd::cout \u003c\u003c \"pointeurVie montre l\u0027adresse \" \u003c\u003c pointeurVie \u003c\u003c \"\\n\";\nstd::cout \u003c\u003c \"en suivant le pointeur (*) : \" \u003c\u003c *pointeurVie \u003c\u003c \"\\n\";\n\n*pointeurVie = 9999;   // on ecrit a cette adresse, EN PASSANT PAR le pointeur\nstd::cout \u003c\u003c \"vie vaut maintenant \" \u003c\u003c vie \u003c\u003c \"\\n\";",
+                      "notes":  [
+                                    {
+                                        "ligne":  2,
+                                        "texte":  "`int*` se lit « pointeur vers un `int` ». L\u0027étoile dit : ceci n\u0027est pas un entier, mais l\u0027adresse d\u0027un entier. `\u0026vie` donne l\u0027adresse de `vie`, et `pointeurVie` la range."
+                                    },
+                                    {
+                                        "ligne":  4,
+                                        "texte":  "`pointeurVie` tout seul affiche l\u0027adresse : un grand nombre en hexadécimal, du genre `00000010924FF9F0`. C\u0027est le numéro de la case, pas la vie."
+                                    },
+                                    {
+                                        "ligne":  5,
+                                        "texte":  "`*pointeurVie` suit le pointeur et lit la valeur à cette adresse : `100`. Cette étoile, c\u0027est le **déréférencement** : « va voir ce qu\u0027il y a à l\u0027adresse »."
+                                    },
+                                    {
+                                        "ligne":  7,
+                                        "texte":  "`*pointeurVie = 9999` écrit *à travers* le pointeur. On ne touche pas `vie` par son nom, mais `vie` passe quand même à `9999`. C\u0027est exactement ce que fait un *trainer*."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Deux signes à ne pas confondre : `\u0026` et `*`",
+                      "paragraphes":  [
+                                          "Deux petits signes font tout le travail. `\u0026` est l\u0027**opérateur d\u0027adresse** : `\u0026vie` veut dire « l\u0027adresse de `vie` ». Il te donne le numéro de la case.",
+                                          "`*` est l\u0027**opérateur de déréférencement** : `*pointeurVie` veut dire « la valeur rangée à cette adresse ». Mets-le à gauche d\u0027un `=`, et tu écris à cette adresse : `*pointeurVie = 9999` change `vie` sans la nommer.",
+                                          "Retiens l\u0027image. `\u0026` prend l\u0027adresse d\u0027une case, `*` suit l\u0027adresse pour entrer dans la case. L\u0027un range le numéro, l\u0027autre va voir ce qu\u0027il y a au bout."
+                                      ]
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Voici une fonction minuscule qui suit un pointeur. `lire_vie` reçoit un pointeur `p` et renvoie `*p` : la valeur au bout. Regardons ce que MSVC en fait en x64, en version Release (optimisée). Un détail compte : une adresse fait 8 octets en x64, donc `p` voyage dans un registre complet de 64 bits, RCX, et non ECX qui n\u0027en est que la moitié.",
+                      "cpp":  "int lire_vie(const int* p)\n{\n    return *p;\n}",
+                      "asm":  "mov eax, DWORD PTR [rcx]\nret 0",
+                      "liens":  [
+                                    {
+                                        "cpp":  3,
+                                        "asm":  [
+                                                    1,
+                                                    2
+                                                ]
+                                    }
+                                ],
+                      "conclusion":  "Deux instructions, tout est là. `p`, l\u0027adresse, est dans RCX. Les crochets `[rcx]` veulent dire « la valeur rangée à l\u0027adresse contenue dans RCX » : c\u0027est *exactement* l\u0027étoile `*` du C++. La valeur lue est un `int` de 4 octets, elle atterrit donc dans EAX, le registre de réponse, et `ret` la rend. Souviens-toi de la phase 1 : `[rcx]` servait déjà à lire un champ de structure. Suivre un pointeur, c\u0027est le même geste."
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Ce que fait un trainer, en une phrase",
+                      "texte":  "Un *trainer* n\u0027a pas de secret magique. Il lit et il écrit la mémoire d\u0027un jeu, case par case, avec des adresses et des pointeurs comme ceux d\u0027aujourd\u0027hui. « Vie infinie », au fond, c\u0027est un `*adresseDeLaVie = 9999` répété à chaque image. Ici tu en lis la logique, hors ligne, sur tes propres programmes : c\u0027est de l\u0027étude, pas une attaque."
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "piege",
+                      "titre":  "Le pointeur qui ne montre rien",
+                      "texte":  "Un pointeur peut ne désigner aucune case valide : on dit qu\u0027il est **nul** (`nullptr`, pour *null pointer* en anglais). Suivre un pointeur nul, ou un pointeur qui montre une case déjà libérée, fait planter le programme net. C\u0027est l\u0027une des causes de crash les plus courantes dans les jeux. Quand un mod plante au lancement, un pointeur égaré est souvent au bout de l\u0027histoire."
+                  },
+                  {
+                      "type":  "atoi",
+                      "titre":  "À toi : fais apparaître une vraie adresse",
+                      "etapes":  [
+                                     "Dans Visual Studio, crée un projet **Application console** (Console App) nommé `Pointeurs`, avec pour Emplacement (Location) ton dossier `Learning\\exercices\\phase-5`. Efface le code proposé, colle celui de `Pointeurs.cpp` fourni, puis lance avec Ctrl+F5.",
+                                     "Lis la sortie. Une ligne affiche une vraie adresse : un grand nombre en hexadécimal, du genre `00000010924FF9F0`. C\u0027est le numéro de la case où vit `vie`, à cet instant.",
+                                     "Relance avec Ctrl+F5, deux ou trois fois de suite. Regarde l\u0027adresse affichée : elle change à chaque lancement. Garde bien cette observation en tête.",
+                                     "Repère la ligne `*pointeurVie = 9999;`. Juste après, `vie` vaut `9999`, alors qu\u0027on ne l\u0027a jamais nommée directement. Tu viens d\u0027écrire à travers un pointeur.",
+                                     "Un détail d\u0027affichage : dans le code, les messages n\u0027ont pas d\u0027accents (`apres`, `ecrit`). La console de Windows gère mal les accents, donc on les évite dans ce que le programme affiche. Tes commentaires, eux, peuvent en garder."
+                                 ],
+                      "indices":  [
+                                      "Ctrl+F5 lance sans débogage : parfait pour juste voir la sortie. Pas besoin du débogueur dans cette leçon, on observe l\u0027affichage.",
+                                      "L\u0027adresse est en hexadécimal (base 16) : des chiffres et des lettres A à F. Normal qu\u0027elle paraisse énorme, elle désigne une case parmi des milliards.",
+                                      "L\u0027adresse change à chaque lancement : c\u0027est voulu, pas un bug. La leçon 5.2 explique pourquoi, et comment les *trainers* s\u0027y adaptent.",
+                                      "Les deux dernières lignes parlent d\u0027une chaîne `heros -\u003e arme -\u003e degats` : c\u0027est l\u0027amuse-bouche de la leçon 5.2. Tu peux les survoler pour l\u0027instant.",
+                                      "Un point te bloque ? Demande à ton coach dans VS Code, avec le numéro de l\u0027étape."
+                                  ],
+                      "solution":  "Au lancement, le programme affiche l\u0027adresse de `vie` (un grand nombre hexadécimal), puis la valeur suivie par le pointeur, `100`. La ligne `*pointeurVie = 9999;` écrit à cette adresse : `vie` passe à `9999` sans jamais être nommée. Et si tu relances, l\u0027adresse n\u0027est plus la même : Windows range `vie` ailleurs à chaque fois. C\u0027est précisément pour ça que ton gel du score, en phase 2, ne tenait plus après un relancement. La parade, une **chaîne de pointeurs** partant d\u0027une base stable, est le sujet de la leçon suivante."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "pointer",
+                                       "fr":  "pointeur",
+                                       "note":  "Une variable qui contient une adresse. Dans Cheat Engine, tu croiseras « Pointer » et « Pointer scan » : tout le sujet de cette phase."
+                                   },
+                                   {
+                                       "en":  "address",
+                                       "fr":  "adresse",
+                                       "note":  "Le numéro d\u0027une case en mémoire. Les outils l\u0027affichent en hexadécimal, comme `7FF6C0A41000`."
+                                   },
+                                   {
+                                       "en":  "to dereference",
+                                       "fr":  "déréférencer",
+                                       "note":  "Suivre un pointeur pour atteindre la valeur au bout. C\u0027est l\u0027étoile `*` du C++, les crochets `[rcx]` en assembleur."
+                                   },
+                                   {
+                                       "en":  "null pointer",
+                                       "fr":  "pointeur nul",
+                                       "note":  "Un pointeur qui ne montre rien (`nullptr`). Le suivre fait planter le programme."
+                                   },
+                                   {
+                                       "en":  "to point to",
+                                       "fr":  "pointer vers",
+                                       "note":  "Ce que fait un pointeur : il montre une case. On dit qu\u0027il « pointe vers » telle adresse."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Un **pointeur**, qu\u0027est-ce qu\u0027il contient ?",
+                                            "choix":  [
+                                                          "La valeur de la variable, comme 100",
+                                                          "Une adresse : le numéro d\u0027une case en mémoire",
+                                                          "Le nom de la variable"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Un pointeur range une adresse, pas une valeur ordinaire. Il ne contient pas la vie, il contient le numéro de la case où la vie est rangée : il montre une autre case."
+                                        },
+                                        {
+                                            "q":  "Dans `int* p = \u0026vie;`, que fait `\u0026vie` ?",
+                                            "choix":  [
+                                                          "Il donne l\u0027adresse de `vie`",
+                                                          "Il multiplie `vie` par deux",
+                                                          "Il suit le pointeur"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "`\u0026` est l\u0027opérateur d\u0027adresse : `\u0026vie` donne le numéro de la case où vit `vie`. C\u0027est cette adresse qu\u0027on range dans le pointeur `p`."
+                                        },
+                                        {
+                                            "q":  "Après `*pointeurVie = 9999;`, que vaut `vie` ?",
+                                            "choix":  [
+                                                          "100, elle n\u0027a pas bougé",
+                                                          "L\u0027adresse de 9999",
+                                                          "9999"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "L\u0027étoile à gauche du `=` écrit à l\u0027adresse : `*pointeurVie = 9999` range `9999` dans la case de `vie`. On n\u0027a jamais écrit `vie` par son nom, mais sa valeur change. C\u0027est le geste d\u0027un trainer."
+                                        },
+                                        {
+                                            "q":  "En x64, dans `mov eax, DWORD PTR [rcx]` issu de `return *p;`, que veulent dire les crochets `[rcx]` ?",
+                                            "choix":  [
+                                                          "« la valeur rangée à l\u0027adresse contenue dans RCX »",
+                                                          "« additionne RCX et EAX »",
+                                                          "« l\u0027adresse du registre RCX »"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "`[rcx]` veut dire « va lire à l\u0027adresse que contient RCX ». C\u0027est exactement l\u0027étoile `*` du C++. L\u0027adresse `p` tient dans RCX, un registre 64 bits, car une adresse fait 8 octets."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "La mémoire est une rue de cases numérotées. Le numéro d\u0027une case, c\u0027est son **adresse** (address) ; chaque octet a la sienne.",
+                                     "Un **pointeur** (pointer) est une variable qui contient une adresse, pas une valeur. Il *montre* une autre case.",
+                                     "`\u0026vie` donne l\u0027adresse de `vie`. `*p` suit le pointeur (**déréférencement**) : il lit la valeur au bout, et `*p = 9999` l\u0027écrit.",
+                                     "En assembleur x64, les crochets `[rcx]` sont l\u0027étoile `*` du C++ : « la valeur à l\u0027adresse dans RCX ». Une adresse fait 8 octets, d\u0027où un registre 64 bits comme RCX, et non ECX."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "5.2 — Suivre une chaîne de pointeurs",
+                      "texte":  "Tu sais lire et suivre un pointeur. Mais pourquoi l\u0027adresse de `vie` change-t-elle à chaque lancement ? Et comment un *trainer* retrouve-t-il quand même la bonne case ? La réponse tient en trois mots : une **chaîne de pointeurs**, une adresse qui mène à une autre, qui mène à la valeur. C\u0027est la prochaine leçon."
+                  }
+              ]
+},"5-2":{
+    "id":  "5-2",
+    "phase":  5,
+    "numero":  "5.2",
+    "titre":  "Suivre une chaîne de pointeurs",
+    "duree":  17,
+    "objectif":  "Comprendre une chaîne de pointeurs, exactement ce que suit un trainer : partir d\u0027un point stable, puis enchaîner des sauts et des décalages jusqu\u0027à une valeur. Lire `j-\u003earme-\u003edegats` comme deux sauts, les retrouver dans l\u0027assembleur de MSVC (deux `mov`), et faire le lien avec le Pointer scan de Cheat Engine et l\u0027ASLR, qui résout l\u0027énigme de la phase 2.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Dans GTA V, ton or n\u0027est presque jamais rangé à une adresse fixe : tu relances le jeu, et la valeur a déménagé. C\u0027est l\u0027énigme de la phase 2, quand le score que tu avais gelé changeait d\u0027adresse à chaque lancement. La réponse tient en trois mots, *chaîne de pointeurs* (pointer chain) : on part d\u0027un point stable, puis on saute de pointeur en pointeur jusqu\u0027à la valeur."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Un pointeur, rangé dans une structure",
+                      "paragraphes":  [
+                                          "Rappel de la leçon 5.1 : un **pointeur** est une variable qui contient une **adresse**, le numéro d\u0027une case mémoire. Il ne range pas une valeur ordinaire, mais l\u0027endroit où la trouver. Avec MSVC en x64, une adresse occupe 8 octets, soit 64 bits.",
+                                          "Depuis la phase 1, tu sais qu\u0027une **structure** range ses **champs** les uns derrière les autres, à des **décalages** (offsets) fixes. Or un champ peut très bien être un pointeur. Une structure peut donc contenir l\u0027adresse d\u0027une autre structure.",
+                                          "C\u0027est comme ça qu\u0027un jeu relie ses données. Le joueur pointe vers son arme, l\u0027arme pointe vers ses dégâts. Suivre ces liens, c\u0027est remonter une chaîne."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "piege",
+                      "titre":  "Deux sens pour « chaîne »",
+                      "texte":  "Attention au mot « chaîne ». En phase 1, une **chaîne de caractères** (string) était une suite de lettres, comme un nom. Ici, une **chaîne de pointeurs** n\u0027a rien à voir : c\u0027est une suite de maillons, comme les anneaux d\u0027une vraie chaîne. Chaque maillon est un saut, d\u0027une adresse vers la suivante."
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Un joueur, son arme, ses dégâts",
+                      "code":  "struct Arme\n{\n    int degats;\n};\n\nstruct Joueur\n{\n    Arme* arme;   // un pointeur : l\u0027adresse de l\u0027arme du joueur\n    int vie;\n};\n\nint degats_arme(const Joueur* j)\n{\n    return j-\u003earme-\u003edegats;\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  8,
+                                        "texte":  "`Arme*` se lit « pointeur vers une Arme ». Ce champ ne contient pas l\u0027arme, mais son **adresse**. Comme toute adresse en x64, il occupe 8 octets."
+                                    },
+                                    {
+                                        "ligne":  9,
+                                        "texte":  "`vie` vient après le pointeur. Celui-ci prend 8 octets, donc `vie` est au décalage +8, et non +4 comme un simple `int`."
+                                    },
+                                    {
+                                        "ligne":  12,
+                                        "texte":  "`const Joueur* j` : `j` est l\u0027**adresse** d\u0027un Joueur, pas le Joueur lui-même. Le `const` promet seulement qu\u0027on n\u0027y touchera pas."
+                                    },
+                                    {
+                                        "ligne":  14,
+                                        "texte":  "Deux flèches `-\u003e`, donc deux sauts. On lit le pointeur `arme` dans le Joueur, puis on suit ce pointeur pour lire `degats` dans l\u0027Arme."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "txt",
+                      "titre":  "La chaîne, maillon par maillon",
+                      "code":  "j\n|\nv   (saut 1 : on suit le pointeur j)\nJoueur  { arme +0 , vie +8 }\n|\nv   (saut 2 : on suit le pointeur arme)\nArme    { degats +0 }   -\u003e   degats = 25"
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Lis la flèche de gauche à droite",
+                      "paragraphes":  [
+                                          "La ligne clé est `return j-\u003earme-\u003edegats;`. Lis-la de gauche à droite, comme une adresse postale. Pars de `j`, entre dans l\u0027arme, puis lis les dégâts.",
+                                          "La flèche `-\u003e` veut dire « suis le pointeur, puis prends ce champ ». `j-\u003earme` suit `j` et récupère le champ `arme`. Ce champ est lui-même un pointeur, et `-\u003edegats` le suit à son tour pour lire `degats`.",
+                                          "Deux flèches, donc deux sauts. Chaque saut quitte une case mémoire pour rejoindre l\u0027adresse qu\u0027elle contient. C\u0027est le cœur d\u0027une chaîne de pointeurs."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "Compte les flèches, compte les sauts",
+                      "texte":  "Une astuce de lecture rapide : compte les flèches `-\u003e`, tu comptes les sauts. `j-\u003earme` fait un saut, `j-\u003earme-\u003edegats` en fait deux, `a-\u003eb-\u003ec-\u003ed` en fait trois. Sous le capot, chaque flèche devient un `mov` qui suit un pointeur. Plus la chaîne est longue, plus les `mov` s\u0027enchaînent."
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Voici `degats_arme` traduite par MSVC en x64. Le pointeur `j` arrive dans le registre **RCX**. Les crochets `[rcx]` veulent dire « la valeur à l\u0027adresse contenue dans RCX » : c\u0027est l\u0027étoile `*` du C++, un saut de pointeur.",
+                      "cpp":  "int degats_arme(const Joueur* j)\n{\n    return j-\u003earme-\u003edegats;\n}",
+                      "asm":  "?degats_arme@@YAHPEBUJoueur@@@Z PROC\n    mov rax, QWORD PTR [rcx]\n    mov eax, DWORD PTR [rax]\n    ret 0\n?degats_arme@@YAHPEBUJoueur@@@Z ENDP",
+                      "liens":  [
+                                    {
+                                        "cpp":  1,
+                                        "asm":  [
+                                                    1
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  3,
+                                        "asm":  [
+                                                    2,
+                                                    3
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  4,
+                                        "asm":  [
+                                                    4,
+                                                    5
+                                                ]
+                                    }
+                                ],
+                      "conclusion":  "Deux `mov`, deux maillons. Le premier, `mov rax, QWORD PTR [rcx]`, suit `j` et met l\u0027adresse de l\u0027arme dans **RAX** : `QWORD PTR` annonce 8 octets, la taille d\u0027une adresse. Le second, `mov eax, DWORD PTR [rax]`, suit cette adresse et lit `degats` : `DWORD PTR`, 4 octets, la taille d\u0027un `int`. Le nom tordu `?degats_arme@@...` est le **nom décoré** que MSVC donne à la fonction, comme en phase 1.",
+                      "godbolt":  "https://godbolt.org/clientstate/eyJzZXNzaW9ucyI6W3sic291cmNlIjoic3RydWN0IEFybWUgeyBpbnQgZGVnYXRzOyB9O1xuc3RydWN0IEpvdWV1ciB7IEFybWUqIGFybWU7IGludCB2aWU7IH07XG5cbmludCBkZWdhdHNfYXJtZShjb25zdCBKb3VldXIqIGopXG57XG4gICAgcmV0dXJuIGotPmFybWUtPmRlZ2F0cztcbn1cbiIsImxhbmd1YWdlIjoiYysrIiwiaWQiOjEsImNvbXBpbGVycyI6W3siaWQiOiJ2Y3BwX3YxOV9sYXRlc3RfeDY0Iiwib3B0aW9ucyI6Ii9PMiJ9XX1dfQ"
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "L\u0027énigme de la phase 2, résolue",
+                      "paragraphes":  [
+                                          "Souviens-toi de la phase 2. Tu avais gelé ton score dans Cheat Engine, puis l\u0027adresse ne marchait plus au lancement suivant. Voici pourquoi.",
+                                          "Windows déplace les données d\u0027un programme à chaque lancement, exprès, pour la sécurité. Ce mécanisme s\u0027appelle **ASLR** (Address Space Layout Randomization), le « placement aléatoire de la mémoire ». Du coup, l\u0027adresse exacte d\u0027une valeur n\u0027est jamais deux fois la même.",
+                                          "La parade, c\u0027est justement la chaîne de pointeurs. On repère un point de départ stable, puis on suit des sauts et des décalages jusqu\u0027à la valeur. L\u0027adresse finale bouge, mais le chemin pour y arriver reste le même."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Le Pointer scan de Cheat Engine",
+                      "paragraphes":  [
+                                          "Ce point de départ stable, c\u0027est le **module** du jeu : son `.exe` chargé en mémoire. On l\u0027appelle un **pointeur de base** (base pointer). À partir de lui, une suite de décalages et de sauts mène à la valeur.",
+                                          "Cheat Engine a un outil pour trouver ce chemin à ta place : le **Pointer scan** (scan de pointeurs). Tu lui donnes l\u0027adresse du moment, il cherche toutes les chaînes qui y mènent depuis une base stable. Tu gardes la plus fiable, et ton repère tient d\u0027un lancement à l\u0027autre.",
+                                          "Règle du dojo : tu fais ça sur **tes propres programmes**, ou sur un jeu solo que tu possèdes, hors ligne. Jamais sur un jeu en ligne, jamais contre un anti-triche. Ici, la cible, c\u0027est `Pointeurs.cpp`."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Une chaîne stable, un trainer robuste",
+                      "texte":  "Pourquoi les *trainers* cherchent-ils une chaîne, plutôt qu\u0027une simple adresse ? Parce qu\u0027une adresse brute meurt au prochain lancement, balayée par l\u0027ASLR. Une chaîne, elle, repart du module du jeu et survit d\u0027une partie à l\u0027autre. C\u0027est la différence entre un repère jetable et un trainer qui tient, à tester sur tes propres programmes, hors ligne."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "pointer chain",
+                                       "fr":  "chaîne de pointeurs",
+                                       "note":  "Une suite de sauts, d\u0027un pointeur au suivant, jusqu\u0027à une valeur."
+                                   },
+                                   {
+                                       "en":  "base pointer",
+                                       "fr":  "pointeur de base",
+                                       "note":  "Le point de départ stable de la chaîne, souvent le module du jeu."
+                                   },
+                                   {
+                                       "en":  "offset",
+                                       "fr":  "décalage",
+                                       "note":  "La distance d\u0027un champ depuis le début d\u0027une structure. Déjà vu en phase 1."
+                                   },
+                                   {
+                                       "en":  "pointer scan",
+                                       "fr":  "scan de pointeurs",
+                                       "note":  "L\u0027outil de Cheat Engine qui cherche une chaîne depuis une base stable."
+                                   },
+                                   {
+                                       "en":  "dereference",
+                                       "fr":  "déréférencer",
+                                       "note":  "Suivre un pointeur pour lire ce qu\u0027il y a à son adresse : l\u0027étoile `*`, les crochets `[ ]`."
+                                   },
+                                   {
+                                       "en":  "module",
+                                       "fr":  "module",
+                                       "note":  "Un `.exe` ou une `.dll` chargé en mémoire : une base dont le repère est stable."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Dans `j-\u003earme-\u003edegats`, combien de sauts de pointeur fais-tu ?",
+                                            "choix":  [
+                                                          "Aucun, tout est déjà là",
+                                                          "Un seul",
+                                                          "Deux"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Deux flèches `-\u003e`, donc deux sauts. On suit `j` pour lire `arme`, puis on suit `arme` pour lire `degats`."
+                                        },
+                                        {
+                                            "q":  "Avec MSVC en x64, pourquoi l\u0027adresse de l\u0027arme est-elle chargée dans RAX (64 bits) et non EAX (32 bits) ?",
+                                            "choix":  [
+                                                          "Parce qu\u0027une adresse fait 8 octets",
+                                                          "Parce que RAX est plus rapide",
+                                                          "Par hasard, les deux marchent pareil"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "Une adresse en x64 occupe 8 octets, soit 64 bits : il faut un registre complet comme RAX. EAX n\u0027en contient que 4. `degats`, un `int` de 4 octets, tient lui dans EAX."
+                                        },
+                                        {
+                                            "q":  "Pourquoi l\u0027adresse d\u0027une valeur change-t-elle à chaque lancement du programme ?",
+                                            "choix":  [
+                                                          "Le programme est mal écrit",
+                                                          "À cause de l\u0027ASLR, qui déplace la mémoire exprès",
+                                                          "Parce que Cheat Engine l\u0027efface"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "L\u0027ASLR place les données à des adresses différentes à chaque lancement, pour la sécurité. C\u0027est pourquoi une adresse brute ne tient pas : il faut une chaîne de pointeurs."
+                                        },
+                                        {
+                                            "q":  "À quoi sert le Pointer scan de Cheat Engine ?",
+                                            "choix":  [
+                                                          "À geler une valeur instantanément",
+                                                          "À traduire le jeu en français",
+                                                          "À trouver une chaîne de pointeurs depuis une base stable"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Le Pointer scan cherche le chemin, base plus sauts plus décalages, qui mène à une adresse. On s\u0027en sert sur ses propres programmes, hors ligne."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Une **chaîne de pointeurs** (pointer chain) relie des cases mémoire : on part d\u0027un point stable, puis on saute d\u0027une adresse à la suivante jusqu\u0027à la valeur.",
+                                     "Une **structure** peut contenir un pointeur vers une autre. Lire `j-\u003earme-\u003edegats`, c\u0027est deux sauts : suivre `j` pour prendre `arme`, puis suivre `arme` pour lire `degats`.",
+                                     "Avec MSVC en x64, chaque flèche `-\u003e` devient un `mov` qui suit un pointeur. L\u0027adresse va dans un registre 64 bits comme RAX, car elle fait 8 octets.",
+                                     "L\u0027**ASLR** déplace la mémoire à chaque lancement : une adresse brute ne tient pas. La parade, c\u0027est la chaîne depuis une base stable, ce que cherche le **Pointer scan** de Cheat Engine."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "5.3 — Les pièges de la mémoire",
+                      "texte":  "Suivre un pointeur, c\u0027est puissant, mais ça peut tout faire planter. Que se passe-t-il quand un pointeur ne montre rien, ou montre une case déjà libérée ? En 5.3, tu verras le **pointeur nul** (nullptr) et les crashs qu\u0027il provoque, l\u0027une des pannes les plus courantes des jeux."
+                  }
+              ]
+},"5-3":{
+    "id":  "5-3",
+    "phase":  5,
+    "numero":  "5.3",
+    "titre":  "Les pièges de la mémoire",
+    "duree":  15,
+    "objectif":  "Comprendre pourquoi les pointeurs font planter un programme — le pointeur nul (null pointer) et le pointeur pendouillant (dangling pointer) — et pourquoi les adresses changent à chaque lancement (ASLR) ; voir comment une chaîne de pointeurs, partie d\u0027une base stable, rattrape une valeur dont l\u0027adresse bouge.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Tu lances GTA V ou une partie d\u0027Oblivion, et le jeu se ferme net au bout d\u0027une seconde. Ce brusque arrêt, c\u0027est un **plantage** (crash). Très souvent, le coupable est un **pointeur** mal utilisé : une adresse qui ne mène nulle part, ou qui mène à une case déjà disparue. Aujourd\u0027hui, tu vois pourquoi les pointeurs font planter un programme, et pourquoi leurs adresses changent à chaque lancement."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Rappel : un pointeur mène à une case",
+                      "paragraphes":  [
+                                          "Depuis le début de la phase 5, tu suis des **pointeurs**. Un pointeur est une variable qui contient une **adresse** : le numéro d\u0027une case en mémoire. Il ne range pas une valeur, il indique seulement où elle se trouve.",
+                                          "Pour lire la valeur au bout du pointeur, tu le *suis* : c\u0027est l\u0027étoile `*`, le **déréférencement**. `*p` veut dire « la valeur rangée à l\u0027adresse `p` ».",
+                                          "Tout va bien tant que le pointeur montre une case valide. Les ennuis commencent quand il montre n\u0027importe quoi. C\u0027est le sujet du jour."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Le pointeur nul",
+                      "paragraphes":  [
+                                          "Le premier piège, c\u0027est le **pointeur nul** (null pointer). C\u0027est un pointeur qui ne montre rien du tout. En C++, on l\u0027écrit `nullptr`.",
+                                          "Le danger, c\u0027est de le suivre quand même. `*p` sur un pointeur nul demande au processeur de lire à l\u0027adresse zéro, une adresse interdite. Le programme s\u0027arrête net : un **plantage** (crash).",
+                                          "Le pointeur nul est une des causes de plantage les plus fréquentes, dans les logiciels comme dans les jeux. Un test `if (p != nullptr)` avant de suivre le pointeur suffit souvent à l\u0027éviter."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "piege",
+                      "titre":  "Le pointeur pendouillant",
+                      "texte":  "Le second piège est plus sournois : le **pointeur pendouillant** (dangling pointer). Lui montre bien une adresse, mais la case qu\u0027il visait a déjà été rendue au système. Souviens-toi de la phase 4 : à la fin d\u0027une fonction, `add rsp` libère son cadre de pile, et les variables locales disparaissent. Garder un pointeur vers l\u0027une d\u0027elles, c\u0027est garder l\u0027adresse d\u0027une place vide. La suivre renvoie n\u0027importe quoi, ou plante. Un mod mal écrit qui garde un pointeur « trop longtemps » tombe souvent dans ce piège."
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Deux façons de planter",
+                      "code":  "// 1) Pointeur nul : il ne montre rien.\nint* pointeurVie = nullptr;\nint vie = *pointeurVie;   // suivre un pointeur nul -\u003e plantage\n\n// 2) Pointeur pendouillant : il montre une case disparue.\nint* adresse_du_score()\n{\n    int score = 50;\n    return \u0026score;   // score disparait a la fin de la fonction\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  3,
+                                        "texte":  "`*pointeurVie` demande la valeur à l\u0027adresse contenue dans `pointeurVie`. Mais il vaut `nullptr` : il ne montre aucune case. Lire là plante le programme."
+                                    },
+                                    {
+                                        "ligne":  9,
+                                        "texte":  "`\u0026score` donne l\u0027adresse de `score`, une variable locale. À la fin de la fonction, son cadre de pile est libéré et `score` disparaît. Le pointeur renvoyé pendouille dans le vide : c\u0027est le dangling pointer."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Pourquoi l\u0027adresse change : ASLR",
+                      "paragraphes":  [
+                                          "Passons à l\u0027autre mystère. En phase 2, tu avais gelé le score de `Score.cpp` avec Cheat Engine. Au relancement, l\u0027adresse gelée ne pointait plus sur le score : la valeur avait bougé.",
+                                          "La raison porte un nom : l\u0027**ASLR** (Address Space Layout Randomization). À chaque lancement, Windows range les données du programme à des adresses différentes. C\u0027est une sécurité : un attaquant ne peut pas deviner où se trouve quoi.",
+                                          "Résultat : l\u0027adresse exacte d\u0027une valeur n\u0027est presque jamais deux fois la même. Une adresse notée aujourd\u0027hui sera fausse au prochain lancement. Un simple numéro d\u0027adresse ne suffit donc pas à retrouver les points de vie d\u0027un jeu."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La pile et le tas",
+                      "paragraphes":  [
+                                          "Où vivent ces valeurs, au juste ? À deux endroits. La **pile** (stack), tu la connais depuis la phase 4 : la mémoire de travail des fonctions, pour les variables locales.",
+                                          "L\u0027autre réserve, c\u0027est le **tas** (heap). Le programme y demande de la place pour ce qui doit durer plus longtemps qu\u0027une fonction : l\u0027inventaire du joueur, la liste des monstres. Un objet du tas reste tant qu\u0027on ne le libère pas.",
+                                          "Pile ou tas, les deux bougent à chaque lancement, à cause de l\u0027ASLR. Tu ne peux compter sur aucune adresse fixe."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La parade : partir d\u0027une base stable",
+                      "paragraphes":  [
+                                          "Alors comment un *trainer* retrouve-t-il les points de vie, si l\u0027adresse change sans cesse ? La réponse, tu l\u0027as vue en 5.2 : une **chaîne de pointeurs**.",
+                                          "L\u0027idée : partir d\u0027une **base stable**. Le module du jeu, son `.exe` chargé en mémoire, a un point de départ repérable. De là, on suit une suite de pointeurs et de décalages (offsets), de saut en saut, jusqu\u0027à la valeur.",
+                                          "Même si l\u0027adresse finale bouge, le chemin, lui, reste le même. Cheat Engine a un outil pour le trouver, le *Pointer scan*. On s\u0027entraîne dessus sur ses propres programmes, hors ligne, jamais sur un jeu en ligne."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Côté défense",
+                      "texte":  "Puisque les trainers lisent la mémoire, comment un jeu se protège-t-il ? Un **anti-triche** (anti-cheat) surveille les programmes qui scrutent la mémoire d\u0027une partie : un outil comme Cheat Engine ouvert à côté d\u0027un jeu, ça se repère. Côté défense, on peut aussi rendre une valeur plus dure à trouver : la ranger codée, la découper en morceaux, ou la recalculer sans jamais la stocker en clair. On étudie ça pour comprendre et pour protéger son propre jeu, pas pour contourner celui des autres."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "null pointer",
+                                       "fr":  "pointeur nul",
+                                       "note":  "Un pointeur qui ne montre rien. On l\u0027écrit `nullptr` en C++. Le suivre avec `*` fait planter le programme."
+                                   },
+                                   {
+                                       "en":  "dangling pointer",
+                                       "fr":  "pointeur pendouillant",
+                                       "note":  "Un pointeur dont la case visée a déjà été libérée. Il montre une place vide : le suivre est dangereux."
+                                   },
+                                   {
+                                       "en":  "crash",
+                                       "fr":  "plantage",
+                                       "note":  "L\u0027arrêt brutal d\u0027un programme. Suivre un pointeur nul ou pendouillant en est une cause très fréquente."
+                                   },
+                                   {
+                                       "en":  "ASLR",
+                                       "fr":  "placement au hasard de la mémoire",
+                                       "note":  "Windows range les données à des adresses différentes à chaque lancement, par sécurité. D\u0027où l\u0027adresse qui change."
+                                   },
+                                   {
+                                       "en":  "heap",
+                                       "fr":  "le tas",
+                                       "note":  "La réserve de mémoire pour ce qui doit durer plus longtemps qu\u0027une fonction. L\u0027autre réserve est la pile (stack)."
+                                   },
+                                   {
+                                       "en":  "pointer scan",
+                                       "fr":  "recherche de pointeurs",
+                                       "note":  "L\u0027outil de Cheat Engine qui remonte une chaîne de pointeurs vers une valeur, depuis une base stable."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "atoi",
+                      "titre":  "À toi : regarde l\u0027adresse bouger",
+                      "etapes":  [
+                                     "Ouvre `Pointeurs.cpp` dans Visual Studio, le programme de la phase 5. Lance-le avec Ctrl+F5. Repère l\u0027adresse affichée après « pointeurVie montre l\u0027adresse », par exemple `00000010924FF9F0`.",
+                                     "Relance avec Ctrl+F5, sans rien changer au code. Regarde la même ligne : l\u0027adresse a changé. Relance une troisième fois, encore une autre adresse. C\u0027est l\u0027ASLR en direct.",
+                                     "Regarde la première ligne, « vie vaut 100 » : elle est identique à chaque lancement. D\u0027un lancement à l\u0027autre, ce n\u0027est pas cette valeur de départ qui bouge, seulement l\u0027adresse affichée juste en dessous. Le `9999` plus bas, c\u0027est le programme qui modifie `vie` lui-même (vu en 5.1), pas l\u0027ASLR.",
+                                     "Bonus, pour voir un plantage pour de vrai. Juste avant `return 0;`, déclare un pointeur nul et suis-le : `int* mort = nullptr;` puis `std::cout \u003c\u003c *mort;`. Lance avec Ctrl+F5.",
+                                     "Le programme s\u0027arrête net : Windows signale une violation d\u0027accès (access violation). Tu viens de suivre un pointeur nul. Relance en débogage avec F5 : le débogueur s\u0027arrête pile sur la ligne fautive et te la montre en surbrillance.",
+                                     "Enlève ces deux lignes de test pour laisser `Pointeurs.cpp` propre."
+                                 ],
+                      "indices":  [
+                                      "Ctrl+F5 lance sans débogage : parfait pour relancer vite et comparer les adresses. F5 lance en débogage : utile pour que le débogueur attrape le plantage sur la bonne ligne.",
+                                      "L\u0027adresse est un long nombre en hexadécimal, comme `00000010924FF9F0`. Compare seulement s\u0027il change d\u0027un lancement à l\u0027autre, pas sa valeur exacte.",
+                                      "Le plantage du pointeur nul est normal et sans danger pour ton PC : c\u0027est ton propre programme qui s\u0027arrête, rien d\u0027autre. Les messages affichés par le programme sont sans accents, car la console Windows les gère mal.",
+                                      "Un point te bloque ? Demande à ton coach dans VS Code, avec le numéro de l\u0027étape."
+                                  ],
+                      "solution":  "D\u0027un lancement à l\u0027autre, l\u0027adresse affichée change : `00000010924FF9F0`, puis une autre, puis une autre encore. La valeur de départ, « vie vaut 100 », s\u0027affiche à l\u0027identique à chaque lancement : d\u0027un lancement à l\u0027autre, c\u0027est l\u0027adresse qui bouge, pas cette valeur de départ. Voilà l\u0027ASLR, et voilà pourquoi l\u0027adresse gelée en phase 2 ne tenait pas au relancement. Le bonus `*mort` sur un pointeur nul provoque une violation d\u0027accès : le programme s\u0027arrête net, et en F5 le débogueur pointe la ligne fautive. Deux pièges vus de tes propres yeux : l\u0027adresse qui bouge, et le pointeur qui mène dans le vide."
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Que se passe-t-il si tu suis un pointeur nul, par exemple `*p` avec `p` à `nullptr` ?",
+                                            "choix":  [
+                                                          "Il renvoie 0, la valeur par défaut",
+                                                          "Le programme plante (violation d\u0027accès)",
+                                                          "Il crée une nouvelle variable"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Suivre un pointeur nul demande une lecture à l\u0027adresse interdite zéro. Le programme s\u0027arrête net : c\u0027est un plantage, une des causes les plus fréquentes dans les jeux."
+                                        },
+                                        {
+                                            "q":  "Pourquoi l\u0027adresse d\u0027une valeur change-t-elle à chaque lancement du programme ?",
+                                            "choix":  [
+                                                          "Parce que la valeur change aussi",
+                                                          "Parce que le compilateur se trompe",
+                                                          "À cause de l\u0027ASLR, qui range les données au hasard par sécurité"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "L\u0027ASLR (placement aléatoire de la mémoire) place les données à des adresses différentes à chaque lancement. C\u0027est pour ça que l\u0027adresse gelée en phase 2 ne valait plus rien au relancement."
+                                        },
+                                        {
+                                            "q":  "Un **pointeur pendouillant** (dangling pointer), c\u0027est…",
+                                            "choix":  [
+                                                          "un pointeur vers une case déjà libérée",
+                                                          "un pointeur qui montre `main`",
+                                                          "un pointeur toujours rangé sur le tas"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "Le pointeur pendouillant montre une adresse dont la case a déjà été rendue au système, par exemple une variable locale disparue à la fin de sa fonction. Le suivre renvoie n\u0027importe quoi, ou plante."
+                                        },
+                                        {
+                                            "q":  "Comment un *trainer* retrouve-t-il une valeur alors que son adresse change tout le temps ?",
+                                            "choix":  [
+                                                          "Il relance le jeu jusqu\u0027à retomber sur la bonne adresse",
+                                                          "Il part d\u0027une base stable et suit une chaîne de pointeurs",
+                                                          "Il désactive l\u0027ASLR de Windows"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "On part d\u0027un point repérable, le module du jeu, puis on suit une chaîne de pointeurs et de décalages jusqu\u0027à la valeur. Le chemin reste le même même si l\u0027adresse finale bouge. On s\u0027entraîne dessus hors ligne, sur ses propres programmes."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Le **pointeur nul** (null pointer), écrit `nullptr`, ne montre rien. Le suivre avec `*` fait planter le programme : une des causes de crash les plus fréquentes.",
+                                     "Le **pointeur pendouillant** (dangling pointer) montre une case déjà libérée, comme une variable locale disparue à la fin de sa fonction. Le suivre est dangereux.",
+                                     "L\u0027**ASLR** range les données à des adresses différentes à chaque lancement, par sécurité. D\u0027où l\u0027adresse gelée en phase 2 qui avait changé, sur la pile (stack) comme sur le tas (heap).",
+                                     "La parade d\u0027un *trainer* : partir d\u0027une base stable et suivre une **chaîne de pointeurs**, car le chemin, lui, ne bouge pas. On s\u0027entraîne hors ligne, sur ses propres programmes."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "5.4 — Boss : remonter jusqu\u0027aux PV",
+                      "texte":  "Tu sais maintenant pourquoi une adresse ne tient pas, et comment une chaîne de pointeurs la rattrape. Au boss de la phase 5, tu passes à l\u0027acte : dans ton propre programme, tu pars d\u0027une base stable et tu remontes une **chaîne de pointeurs** jusqu\u0027aux points de vie (PV). Le geste exact d\u0027un *trainer*, sur ta cible, hors ligne."
+                  }
+              ]
+},"5-4":{
+    "id":  "5-4",
+    "phase":  5,
+    "numero":  "5.4",
+    "titre":  "Boss : remonter jusqu\u0027aux PV",
+    "duree":  30,
+    "objectif":  "Lire et suivre une chaîne de pointeurs dans ton propre programme Pointeurs.cpp : voir une vraie adresse changer d\u0027un lancement à l\u0027autre (l\u0027ASLR, qui résout l\u0027énigme de la phase 2), modifier `vie` à travers un pointeur, et relier ces deux sauts à l\u0027assembleur de MSVC et au scan de pointeurs de Cheat Engine.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Phase 2, tu as gelé le score de ton programme avec Cheat Engine : ton premier hack. Puis tu as relancé le programme, et l\u0027adresse avait changé. Ton gel ne tenait plus. C\u0027est exactement le mur que rencontre un *trainer* qui veut figer ta vie dans un jeu : l\u0027adresse bouge à chaque partie. Ce boss résout l\u0027énigme, et te donne la parade : la **chaîne de pointeurs**."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Ce que la phase 5 t\u0027a appris",
+                      "paragraphes":  [
+                                          "Depuis le début de la phase 5, tu suis des **pointeurs**. Un pointeur ne range pas une valeur ordinaire, mais une **adresse** : le numéro d\u0027une case en mémoire. En C++, son type porte une étoile ; `int*` se lit « pointeur vers un `int` ».",
+                                          "Deux signes font tout le travail. `\u0026vie` donne l\u0027adresse de la variable `vie`. `*p` fait l\u0027inverse : il suit le pointeur `p` et lit la valeur rangée à cette adresse. Suivre un pointeur, on dit **déréférencer** (dereference).",
+                                          "Ce boss relie les trois morceaux de la phase. Tu vas voir une vraie adresse, la suivre, puis remonter une **chaîne de pointeurs** : une case qui mène à une autre, jusqu\u0027à la valeur. C\u0027est le cœur d\u0027un trainer."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Pointeurs.cpp, en entier",
+                      "code":  "// Pointeurs.cpp - la cible de la phase 5.\n// Un pointeur est une variable qui contient une ADRESSE : il montre une autre case.\n// Ici tu vois une adresse, tu suis un pointeur, et tu remontes une chaine de pointeurs.\n// Compile :  cl /nologo /EHsc /std:c++20 /W4 Pointeurs.cpp\n\n#include \u003ciostream\u003e\n\nstruct Arme\n{\n    int degats;\n};\n\nstruct Joueur\n{\n    Arme* arme;   // un pointeur : l\u0027adresse de l\u0027arme du joueur\n    int vie;\n};\n\nint main()\n{\n    int vie = 100;\n    int* pointeurVie = \u0026vie;   // \u0026 donne l\u0027adresse de vie ; pointeurVie la contient\n\n    std::cout \u003c\u003c \"vie vaut \" \u003c\u003c vie \u003c\u003c \"\\n\";\n    std::cout \u003c\u003c \"pointeurVie montre l\u0027adresse \" \u003c\u003c pointeurVie \u003c\u003c \"\\n\";\n    std::cout \u003c\u003c \"en suivant le pointeur (*) : \" \u003c\u003c *pointeurVie \u003c\u003c \"\\n\";\n\n    *pointeurVie = 9999;   // on change vie EN PASSANT PAR le pointeur\n    std::cout \u003c\u003c \"apres *pointeurVie = 9999, vie vaut \" \u003c\u003c vie \u003c\u003c \"\\n\\n\";\n\n    // Une chaine de pointeurs : heros -\u003e arme -\u003e degats\n    Arme epee{ 25 };\n    Joueur heros{ \u0026epee, 100 };\n\n    std::cout \u003c\u003c \"degats de l\u0027arme du heros : \" \u003c\u003c heros.arme-\u003edegats \u003c\u003c \"\\n\";\n    std::cout \u003c\u003c \"(heros montre arme, arme contient degats : deux sauts)\\n\";\n\n    return 0;\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  15,
+                                        "texte":  "`Arme* arme;` : le champ `arme` n\u0027est pas une arme, mais un **pointeur** vers une arme. L\u0027étoile le dit : il contient l\u0027adresse d\u0027une `Arme` rangée ailleurs en mémoire."
+                                    },
+                                    {
+                                        "ligne":  22,
+                                        "texte":  "`int* pointeurVie = \u0026vie;` : `\u0026vie` donne l\u0027adresse de `vie`, et `pointeurVie` la garde. `int*` se lit « pointeur vers un `int` ». `pointeurVie` ne contient pas 100, mais où trouver 100."
+                                    },
+                                    {
+                                        "ligne":  24,
+                                        "texte":  "Les messages affichés n\u0027ont pas d\u0027accents (« apres », « degats », « heros ») : la console Windows les gère mal, on les évite donc dans le texte imprimé. Garde tes accents partout ailleurs dans ton code."
+                                    },
+                                    {
+                                        "ligne":  25,
+                                        "texte":  "Cette ligne affiche la vraie adresse de `vie`, un long nombre en hexadécimal comme `00000010924FF9F0`. Relance le programme : elle change. On y revient, c\u0027est l\u0027ASLR."
+                                    },
+                                    {
+                                        "ligne":  28,
+                                        "texte":  "`*pointeurVie = 9999` : l\u0027étoile suit le pointeur et écrit 9999 à l\u0027adresse de `vie`. On n\u0027a pas nommé `vie`, et pourtant `vie` vaut maintenant 9999."
+                                    },
+                                    {
+                                        "ligne":  33,
+                                        "texte":  "`Joueur heros{ \u0026epee, 100 };` : le champ `arme` de `heros` reçoit `\u0026epee`, l\u0027adresse de l\u0027épée. `heros` ne contient pas l\u0027épée, il retient seulement où elle est."
+                                    },
+                                    {
+                                        "ligne":  35,
+                                        "texte":  "`heros.arme-\u003edegats` fait deux sauts : va à l\u0027arme par son adresse, puis lis son champ `degats`, soit 25. Une chaîne de pointeurs en miniature."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Lis le programme comme une histoire",
+                      "paragraphes":  [
+                                          "Prends le temps. `vie` vaut 100, et `pointeurVie` retient son adresse. Le programme affiche cette adresse, puis `*pointeurVie = 9999` écrit 9999 dans la case de `vie`. On n\u0027a pas touché `vie` par son nom, et pourtant `vie` vaut maintenant 9999 : voilà tout le pouvoir d\u0027un pointeur.",
+                                          "La fin monte une chaîne. L\u0027épée contient 25 de dégâts, et `heros` garde l\u0027adresse de l\u0027épée dans son champ `arme`. `heros.arme-\u003edegats` fait alors deux sauts : va à l\u0027arme, puis lis ses dégâts. Une case mène à une autre, jusqu\u0027à 25."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "piege",
+                      "titre":  "Le pointeur qui ne montre rien",
+                      "texte":  "Un pointeur peut ne montrer nulle part : c\u0027est le **pointeur nul** (`nullptr`). Le suivre avec `*` fait planter le programme net. Même chose pour un pointeur qui montre une case déjà libérée, dite « pendouillante » (dangling). C\u0027est une des causes de plantage les plus courantes dans les jeux : une flèche `-\u003e` sur quelque chose qui n\u0027existe plus. En lisant du code, méfie-toi de tout pointeur suivi sans avoir été vérifié."
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Les deux `struct` ne produisent aucune instruction : elles décrivent juste la forme des fiches. Pour voir les deux sauts en assembleur, voici la même chaîne écrite comme une fonction qui reçoit l\u0027adresse du `Joueur` dans RCX. C\u0027est tout ce qu\u0027un trainer possède : une adresse, pas l\u0027objet. `?degats_arme@@...` est son nom décoré, croisé en phase 1. `QWORD PTR` veut dire 8 octets (une adresse) ; `DWORD PTR`, 4 octets (un `int`).",
+                      "cpp":  "struct Arme { int degats; };\nstruct Joueur { Arme* arme; int vie; };\n\nint degats_arme(const Joueur* j)\n{\n    return j-\u003earme-\u003edegats;\n}",
+                      "asm":  "?degats_arme@@YAHPEBUJoueur@@@Z PROC\n    mov rax, QWORD PTR [rcx]\n    mov eax, DWORD PTR [rax]\n    ret 0\n?degats_arme@@YAHPEBUJoueur@@@Z ENDP",
+                      "liens":  [
+                                    {
+                                        "cpp":  6,
+                                        "asm":  [
+                                                    2,
+                                                    3
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  7,
+                                        "asm":  [
+                                                    4
+                                                ]
+                                    }
+                                ],
+                      "octets":  [
+                                     {
+                                         "hex":  "48 8B 01",
+                                         "asm":  "mov rax, QWORD PTR [rcx]",
+                                         "explication":  "Le `48` en tête, c\u0027est le préfixe qui dit « registre 64 bits » : donc RAX en entier. Normal, on charge une adresse, et une adresse fait 8 octets."
+                                     },
+                                     {
+                                         "hex":  "8B 00",
+                                         "asm":  "mov eax, DWORD PTR [rax]",
+                                         "explication":  "Pas de `48` cette fois : on reste sur EAX, les 32 bits de poids faible. Normal, on lit `degats`, un `int` de 4 octets."
+                                     },
+                                     {
+                                         "hex":  "C3",
+                                         "asm":  "ret 0",
+                                         "explication":  "Un seul octet pour rendre la main. La valeur de `degats` attend déjà dans EAX : il n\u0027y a plus qu\u0027à la renvoyer."
+                                     }
+                                 ],
+                      "conclusion":  "Deux `mov`, deux sauts. Le premier lit le champ `arme` à `[rcx]` : une adresse, rangée dans RAX, le registre 64 bits en entier, car une adresse fait 8 octets. Le second suit cette adresse, `[rax]`, et lit `degats` dans EAX, les 32 bits d\u0027un `int`. C\u0027est mot pour mot ce que fait Cheat Engine en remontant une chaîne de pointeurs : une base, des sauts, une valeur.",
+                      "godbolt":  "https://godbolt.org/clientstate/eyJzZXNzaW9ucyI6W3sic291cmNlIjoic3RydWN0IEFybWUgeyBpbnQgZGVnYXRzOyB9O1xuc3RydWN0IEpvdWV1ciB7IEFybWUqIGFybWU7IGludCB2aWU7IH07XG5cbmludCBkZWdhdHNfYXJtZShjb25zdCBKb3VldXIqIGopXG57XG4gICAgcmV0dXJuIGotXHUwMDNlYXJtZS1cdTAwM2VkZWdhdHM7XG59XG4iLCJsYW5ndWFnZSI6ImMrKyIsImlkIjoxLCJjb21waWxlcnMiOlt7ImlkIjoidmNwcF92MTlfbGF0ZXN0X3g2NCIsIm9wdGlvbnMiOiIvTzIifV19XX0"
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "La chaîne qui survit au relancement",
+                      "texte":  "Remonter une chaîne de pointeurs, c\u0027est LA technique pour qu\u0027un trainer retrouve une valeur à chaque partie. L\u0027adresse exacte change au lancement, tu viens de le voir. Mais le chemin pour y arriver reste stable : pars d\u0027une base solide, suis les sauts et les décalages, et tu retombes sur la valeur. Cheat Engine a même un **scan de pointeurs** (Pointer scan) pour trouver ce chemin. On s\u0027entraîne là-dessus sur ses propres programmes, hors ligne."
+                  },
+                  {
+                      "type":  "atoi",
+                      "titre":  "À toi : remonte la chaîne jusqu\u0027aux PV",
+                      "etapes":  [
+                                     "Dans Visual Studio, crée un projet **Application console** (Console App) nommé `Pointeurs`, avec pour Emplacement (Location) ton dossier `Learning\\exercices\\phase-5`. Efface le code proposé, colle celui de `Pointeurs.cpp` ci-dessus. Lance avec Ctrl+F5 : tu vois la vie, une adresse, puis 9999 et les 25 dégâts.",
+                                     "Note l\u0027adresse affichée après « pointeurVie montre l\u0027adresse ». Relance le programme avec Ctrl+F5, puis compare : l\u0027adresse a changé. C\u0027est l\u0027**ASLR** (Address Space Layout Randomization), et c\u0027est la réponse à l\u0027énigme de la phase 2, quand ton score gelé glissait au relancement.",
+                                     "Pose un **point d\u0027arrêt** (F9) sur la ligne juste après `*pointeurVie = 9999;`, celle qui affiche la nouvelle vie. Lance en débogage avec F5 : le programme se fige là, l\u0027écriture déjà faite.",
+                                     "Ouvre Déboguer \u003e Fenêtres \u003e Variables locales (Debug \u003e Windows \u003e Locals). Regarde `pointeurVie` : un long nombre en hexadécimal, une adresse. Et `vie` : 9999. Tu l\u0027as changée sans la nommer, à travers le pointeur.",
+                                     "Reprends (F5) et lis la fin : `heros.arme-\u003edegats` vaut 25, atteint en deux sauts. Extension, avec ton coach et hors ligne : dans Cheat Engine, un **scan de pointeurs** sur un de tes programmes retrouve une valeur par une chaîne stable, pour que le gel survive au relancement."
+                                 ],
+                      "indices":  [
+                                      "Première exécution : Ctrl+F5, juste pour voir la sortie. Pour fouiller, c\u0027est F5 (avec débogage) : la fenêtre Variables locales ne s\u0027ouvre qu\u0027en cours de débogage.",
+                                      "Le point d\u0027arrêt va sur la ligne d\u0027après `*pointeurVie = 9999;`, pas dessus : ainsi l\u0027écriture est déjà faite quand le programme se fige, et `vie` montre bien 9999.",
+                                      "Sur clavier AZERTY : `\u0026` c\u0027est la touche `1` pressée directement, sans Maj (avec Maj tu obtiens le chiffre 1), `*` la touche dédiée, et la flèche `-\u003e` se tape avec le tiret (touche 6) puis Maj et la touche `\u003c`. Des guillemets droits, jamais « » ni \" \".",
+                                      "L\u0027adresse change à chaque lancement, c\u0027est voulu : ne cherche pas à retenir le nombre exact, l\u0027important est qu\u0027il bouge. Un point te bloque ? Demande à ton coach dans VS Code, avec le numéro de l\u0027étape."
+                                  ],
+                      "solution":  "L\u0027adresse affichée change à chaque lancement : c\u0027est l\u0027ASLR, Windows qui range les données ailleurs par sécurité. Voilà pourquoi ton score gelé en phase 2 glissait au relancement. Dans Variables locales, `pointeurVie` contient une adresse (un long nombre hexadécimal) et `vie` vaut 9999 : tu l\u0027as écrite à travers le pointeur. Enfin, `heros.arme-\u003edegats` atteint 25 en deux sauts. Un trainer ne suit jamais l\u0027adresse exacte, qui bouge, mais ce chemin stable.",
+                      "lien":  {
+                                   "texte":  "Cheat Engine, site officiel (pour le scan de pointeurs ; refuse chaque offre de l\u0027installateur)",
+                                   "url":  "https://cheatengine.org"
+                               }
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "pointer",
+                                       "fr":  "pointeur",
+                                       "note":  "Une variable qui contient une adresse, comme `pointeurVie`. Le mot est partout dans les outils de rétro-ingénierie."
+                                   },
+                                   {
+                                       "en":  "dereference",
+                                       "fr":  "déréférencer",
+                                       "note":  "Suivre un pointeur pour lire ou écrire la valeur au bout : c\u0027est l\u0027étoile `*` du C++."
+                                   },
+                                   {
+                                       "en":  "null pointer",
+                                       "fr":  "pointeur nul",
+                                       "note":  "Un pointeur qui ne montre rien (`nullptr`). Le suivre fait planter le programme."
+                                   },
+                                   {
+                                       "en":  "pointer chain",
+                                       "fr":  "chaîne de pointeurs",
+                                       "note":  "Une adresse qui mène à une autre, jusqu\u0027à la valeur. La piste que remonte un trainer."
+                                   },
+                                   {
+                                       "en":  "pointer scan",
+                                       "fr":  "scan de pointeurs",
+                                       "note":  "L\u0027outil de Cheat Engine qui retrouve une chaîne stable vers une valeur."
+                                   },
+                                   {
+                                       "en":  "ASLR (Address Space Layout Randomization)",
+                                       "fr":  "placement aléatoire en mémoire",
+                                       "note":  "Windows range les données à une adresse différente à chaque lancement. D\u0027où l\u0027adresse qui change."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Que fait `*pointeurVie = 9999;` ?",
+                                            "choix":  [
+                                                          "Il crée un deuxième pointeur nommé 9999",
+                                                          "Il compare `pointeurVie` à 9999",
+                                                          "Il écrit 9999 dans la case que montre `pointeurVie`"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "L\u0027étoile suit le pointeur et écrit à l\u0027adresse qu\u0027il contient. Comme `pointeurVie` montre `vie`, c\u0027est `vie` qui devient 9999, sans être nommée."
+                                        },
+                                        {
+                                            "q":  "Pourquoi l\u0027adresse affichée change-t-elle à chaque lancement du programme ?",
+                                            "choix":  [
+                                                          "À cause de l\u0027ASLR : Windows place les données ailleurs à chaque fois",
+                                                          "Parce que le programme contient un bug",
+                                                          "Parce que la valeur de `vie` change"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "L\u0027ASLR range les données à une adresse différente à chaque lancement, par sécurité. C\u0027est la raison pour laquelle ton score gelé en phase 2 glissait au relancement."
+                                        },
+                                        {
+                                            "q":  "Dans `heros.arme-\u003edegats`, combien de sauts pour atteindre la valeur 25 ?",
+                                            "choix":  [
+                                                          "Un seul",
+                                                          "Deux : aller à l\u0027arme, puis lire ses dégâts",
+                                                          "Trois"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Deux sauts : `heros.arme` donne l\u0027adresse de l\u0027arme, puis `-\u003edegats` suit cette adresse et lit les dégâts. En assembleur, ce sont les deux `mov` : `[rcx]` puis `[rax]`."
+                                        },
+                                        {
+                                            "q":  "Avec MSVC en x64, pourquoi l\u0027adresse de l\u0027arme est-elle chargée dans RAX, et non EAX ?",
+                                            "choix":  [
+                                                          "Parce que RAX calcule plus vite",
+                                                          "Parce que l\u0027arme a 25 de dégâts",
+                                                          "Parce qu\u0027une adresse fait 8 octets, et RAX est le registre 64 bits"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Une adresse en x64 occupe 8 octets. Elle tient dans RAX en entier, pas dans EAX, qui n\u0027en est que la moitié (32 bits). La valeur finale, un `int` de 4 octets, revient dans EAX."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Un **pointeur** contient une **adresse**. `\u0026vie` donne l\u0027adresse de `vie` ; `*p` suit le pointeur et lit, ou écrit, la valeur au bout.",
+                                     "L\u0027adresse exacte d\u0027une valeur change à chaque lancement : c\u0027est l\u0027**ASLR**. Voilà pourquoi ton score gelé en phase 2 glissait dès que tu relançais le programme.",
+                                     "Une **chaîne de pointeurs** part d\u0027une base stable et remonte par sauts et décalages jusqu\u0027à la valeur. Avec MSVC en x64, chaque saut est un `mov` qui suit une adresse : `[rcx]`, puis `[rax]`.",
+                                     "C\u0027est la parade des trainers, et le **scan de pointeurs** de Cheat Engine la trouve. On s\u0027entraîne sur ses propres programmes, hors ligne."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "Phase 6 — Objets",
+                      "texte":  "Boss plié : tu sais lire et suivre une chaîne de pointeurs, et tu as résolu l\u0027énigme de la phase 2. En phase 6, tu passes aux **objets** : comment un `Joueur` entier est rangé en mémoire, avec ses classes et ses tables virtuelles. Et ta cible fait un grand saut : elle passe en 2D avec raylib."
                   }
               ]
 }}};</script>
