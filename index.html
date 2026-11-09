@@ -13934,6 +13934,7 @@ html.is-tel #app { height: 100%; }
         '</dl></section>').join('') + '</div>';
   }
   const IA = { history: [], busy: false, ctl: null };
+  function iaReady() { return MODE !== 'tel' && location.protocol === 'http:' && /^(localhost|127\.0\.0\.1)$/i.test(location.hostname); }
   function aiHtml(text) {
     const parts = String(text == null ? '' : text).split('```');
     let out = '';
@@ -14032,8 +14033,8 @@ html.is-tel #app { height: 100%; }
     if (MODE === 'tel') {
       return '<div class="page narrow"><a class="back" href="#accueil">← Parcours</a><header class="vh"><h1>Coach IA</h1></header><div class="ia-card"><p>Le coach IA tourne <strong>sur ton PC</strong>, grâce à ta carte graphique. Il n\'est pas disponible sur téléphone.</p><p class="muted">Sur ton PC, ouvre CZKLearning et va dans « Coach IA » : tu pourras lui poser tes questions de code à toute heure, sans passer par Claude.</p></div></div>';
     }
-    if (location.protocol === 'file:') {
-      return '<div class="page narrow"><header class="vh"><h1>Coach IA</h1></header><div class="ia-card"><p>Le coach IA a besoin d\'une autorisation réseau qu\'un fichier ouvert en local (<code>file://</code>) ne permet pas.</p><p>Ouvre plutôt la <a href="' + esc(PAGES_URL) + '">version en ligne de CZKLearning</a> sur ce PC : le coach IA y fonctionne, tant qu\'Ollama est lancé.</p></div></div>';
+    if (!iaReady()) {
+      return '<div class="page narrow"><a class="back" href="#accueil">← Parcours</a><header class="vh"><h1>Coach IA</h1></header><div class="ia-card"><p>Le coach IA s\'ouvre avec un petit lanceur, pour qu\'il puisse parler en toute sécurité au modèle qui tourne sur ton PC.</p><p>Dans ton dossier <code>Learning</code>, double-clique sur <strong>« Coach IA.bat »</strong> : CZKLearning se rouvre avec le coach IA activé, prêt à répondre.</p><p class="muted">Garde l\'application Ollama lancée (elle démarre toute seule avec Windows). Le coach IA, c\'est sur PC uniquement.</p></div></div>';
     }
     return '<div class="page"><header class="vh"><h1>Coach IA</h1><p class="sub">Un assistant de code qui tourne <strong>en local sur ton PC</strong> (Qwen Coder 14B, via Ollama), gratuit et sans limite. Rappel honnête : il est rapide mais pas infaillible — pour un point critique (un octet, une adresse), recoupe avec ton coach Claude.</p></header>' +
       '<div class="ia-wrap"><div class="ia-status busy" id="ia-status"><span class="ia-dot"></span><span id="ia-status-txt">Connexion au coach IA…</span></div>' +
@@ -14043,7 +14044,7 @@ html.is-tel #app { height: 100%; }
       '<p class="ia-hint">Entrée pour envoyer, Maj+Entrée pour une nouvelle ligne. Tes échanges restent sur ton PC, ils ne sortent jamais sur Internet.</p></div></div>';
   }
   function bindIA() {
-    if (MODE === 'tel' || location.protocol === 'file:') return;
+    if (!iaReady()) return;
     renderIAMsgs();
     checkIA();
     const form = $('#ia-form'); if (form) form.addEventListener('submit', (e) => { e.preventDefault(); askIA(); });
