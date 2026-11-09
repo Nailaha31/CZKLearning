@@ -725,7 +725,34 @@ html.is-tel #app { height: 100%; }
                        "boss":  "un combat au tour par tour, puis repérer le « si PV ≤ 0 » dans l\u0027assembleur",
                        "duree":  "3-4 sem",
                        "lecons":  [
-
+                                      {
+                                          "id":  "3-1",
+                                          "numero":  "3.1",
+                                          "titre":  "Si... alors : les conditions",
+                                          "duree":  15,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "3-2",
+                                          "numero":  "3.2",
+                                          "titre":  "Répéter : les boucles",
+                                          "duree":  15,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "3-3",
+                                          "numero":  "3.3",
+                                          "titre":  "La boucle de jeu",
+                                          "duree":  14,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "3-4",
+                                          "numero":  "3.4",
+                                          "titre":  "Boss : un combat au tour par tour",
+                                          "duree":  30,
+                                          "dispo":  true
+                                      }
                                   ]
                    },
                    {
@@ -2640,6 +2667,515 @@ html.is-tel #app { height: 100%; }
                        "jeu":  "",
                        "titre":  "Un tutoriel fait exprès",
                        "texte":  "Cheat Engine contient son propre terrain d\u0027entraînement : menu Help \u003e Cheat Engine Tutorial. Il lance un programme-énigme (Tutorial-x86_64) où tu t\u0027exerces à scanner et geler des valeurs, en toute légalité et hors ligne."
+                   },
+                   {
+                       "id":  "c301",
+                       "type":  "concept",
+                       "lecon":  "3-1",
+                       "jeu":  "",
+                       "titre":  "Tout est décision",
+                       "texte":  "Un jeu décide sans arrêt : si la vie tombe à zéro, c\u0027est game over ; si tu as la clé, la porte s\u0027ouvre. En C++, cette réponse oui/non a un type : le `bool` (booléen), qui vaut `true` ou `false`. Une condition est une question dont la réponse est un `bool`."
+                   },
+                   {
+                       "id":  "c302",
+                       "type":  "code",
+                       "lecon":  "3-1",
+                       "jeu":  "",
+                       "titre":  "Vrai ou faux ?",
+                       "langage":  "cpp",
+                       "code":  "int vie = 0;\nbool mort = vie \u003c= 0;",
+                       "question":  "Que vaut `mort` ?",
+                       "reponse":  "`true` (vrai). `vie` vaut 0, et `0 \u003c= 0` est vrai. L\u0027opérateur `\u003c=` (plus petit ou égal) compare deux nombres et rend un `bool`.",
+                       "explication":  "Si `vie` valait 100, `100 \u003c= 0` serait faux et `mort` recevrait `false`."
+                   },
+                   {
+                       "id":  "c303",
+                       "type":  "code",
+                       "lecon":  "3-1",
+                       "jeu":  "",
+                       "titre":  "Quel message ?",
+                       "langage":  "cpp",
+                       "code":  "int vie = 15;\nif (vie \u003c= 0)\n    std::cout \u003c\u003c \"Game over\";\nelse if (vie \u003c 20)\n    std::cout \u003c\u003c \"Vie basse\";\nelse\n    std::cout \u003c\u003c \"Ca va\";",
+                       "question":  "Qu\u0027affiche ce code ?",
+                       "reponse":  "« Vie basse ». `vie` vaut 15 : la première condition `vie \u003c= 0` est fausse, mais `vie \u003c 20` est vraie. Le programme prend ce chemin et saute le `else`.",
+                       "explication":  "Un seul des trois chemins s\u0027exécute : le premier dont la condition est vraie."
+                   },
+                   {
+                       "id":  "c304",
+                       "type":  "vraifaux",
+                       "lecon":  "3-1",
+                       "jeu":  "",
+                       "titre":  "Un seul égal suffit ?",
+                       "affirmation":  "Dans un `if`, écrire `if (vie = 0)` avec un seul `=` teste si la vie vaut zéro.",
+                       "vrai":  false,
+                       "explication":  "Faux : un seul `=` range 0 dans `vie` au lieu de comparer. Pour tester une égalité, il faut `==`. MSVC t\u0027avertit souvent de ce piège classique."
+                   },
+                   {
+                       "id":  "c305",
+                       "type":  "code",
+                       "lecon":  "3-1",
+                       "jeu":  "gmod",
+                       "titre":  "La même chose en Lua",
+                       "langage":  "lua",
+                       "code":  "local vie = 0\nif vie \u003c= 0 then\n    print(\"Game over\")\nend",
+                       "question":  "Ce code d\u0027un addon Garry\u0027s Mod, qu\u0027affiche-t-il ?",
+                       "reponse":  "« Game over ». Même logique qu\u0027en C++ : `if vie \u003c= 0 then`. En Lua, pas d\u0027accolades : un `then` ouvre le bloc et un `end` le ferme.",
+                       "explication":  "`print` écrit dans la console du jeu. La comparaison `\u003c=` s\u0027écrit exactement comme en C++."
+                   },
+                   {
+                       "id":  "c306",
+                       "type":  "code",
+                       "lecon":  "3-1",
+                       "jeu":  "minecraft",
+                       "titre":  "Et en Java (Minecraft)",
+                       "langage":  "java",
+                       "code":  "int vie = 0;\nif (vie \u003c= 0) {\n    System.out.println(\"Game over\");\n}",
+                       "question":  "Minecraft est en Java. Que fait ce `if` ?",
+                       "reponse":  "Il affiche « Game over » : `vie \u003c= 0` est vrai, car 0 est bien plus petit ou égal à 0. Le Java ressemble beaucoup au C++ : mêmes `if`, mêmes comparaisons, mêmes accolades.",
+                       "explication":  "En Java, le type vrai/faux s\u0027appelle `boolean` ; en C++, `bool`. L\u0027idée reste la même."
+                   },
+                   {
+                       "id":  "c307",
+                       "type":  "capot",
+                       "lecon":  "3-1",
+                       "jeu":  "",
+                       "titre":  "Le « si vie \u003c= 0 » en vrai",
+                       "cpp":  "bool est_mort(int vie)\n{\n    return vie \u003c= 0;\n}",
+                       "asm":  "test ecx, ecx\nsetle al",
+                       "texte":  "Avec MSVC en x64 (mode optimisé), la condition tient en deux instructions clés. `ECX` porte le paramètre `vie`. `test ecx, ecx` lit son signe ; `setle al` (set if less or equal) range 1 si `vie \u003c= 0`, sinon 0."
+                   },
+                   {
+                       "id":  "c308",
+                       "type":  "quiz",
+                       "lecon":  "3-1",
+                       "jeu":  "oblivion",
+                       "titre":  "ET ou OU ?",
+                       "question":  "`if (aLaCle \u0026\u0026 vie \u003e 0)` ouvre la porte quand...",
+                       "choix":  [
+                                     "tu as la clé OU tu es en vie",
+                                     "tu as la clé ET tu es en vie",
+                                     "tu n\u0027as pas la clé"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "`\u0026\u0026` est le ET : il faut les deux côtés vrais à la fois. Avoir la clé ne suffit pas si `vie \u003e 0` est faux. Avec `||` (OU), un seul côté vrai suffirait."
+                   },
+                   {
+                       "id":  "c309",
+                       "type":  "anglais",
+                       "lecon":  "3-1",
+                       "jeu":  "",
+                       "titre":  "boolean",
+                       "en":  "boolean",
+                       "fr":  "booléen",
+                       "texte":  "Le type d\u0027une valeur vrai/faux. En C++ le mot-clé est `bool` ; en Java, `boolean`. Il ne contient que `true` ou `false`."
+                   },
+                   {
+                       "id":  "c310",
+                       "type":  "code",
+                       "lecon":  "3-1",
+                       "jeu":  "oblivion",
+                       "titre":  "La porte du donjon",
+                       "langage":  "cpp",
+                       "code":  "bool aLaCle = false;\nint vie = 50;\n\nif (aLaCle \u0026\u0026 vie \u003e 0)\n    std::cout \u003c\u003c \"La porte s\u0027ouvre\";",
+                       "question":  "La porte s\u0027ouvre-t-elle ?",
+                       "reponse":  "Non. `\u0026\u0026` (ET) exige les deux côtés vrais. `vie \u003e 0` est vrai, mais `aLaCle` vaut `false` : le ET échoue, rien ne s\u0027affiche.",
+                       "explication":  "Il faudrait `aLaCle = true` pour ouvrir. Comme dans un donjon d\u0027Oblivion : sans la bonne clé, la porte reste close."
+                   },
+                   {
+                       "id":  "c311",
+                       "type":  "savaistu",
+                       "lecon":  "3-1",
+                       "jeu":  "",
+                       "titre":  "Boole, l\u0027inventeur du vrai/faux",
+                       "texte":  "Le mot « booléen » vient de George Boole, mathématicien anglais du XIXe siècle. En 1854, dans son livre « The Laws of Thought », il bâtit une algèbre où tout se ramène à vrai ou faux. Un siècle plus tard, cette idée est devenue le `bool` de nos programmes."
+                   },
+                   {
+                       "id":  "c312",
+                       "type":  "vraifaux",
+                       "lecon":  "3-1",
+                       "jeu":  "",
+                       "titre":  "Une comparaison, ça rend quoi ?",
+                       "affirmation":  "Une comparaison comme `vie \u003e 0` produit toujours un `bool` (vrai ou faux).",
+                       "vrai":  true,
+                       "explication":  "Vrai : les six opérateurs de comparaison (`==`, `!=`, `\u003c`, `\u003c=`, `\u003e`, `\u003e=`) rendent un `bool`. C\u0027est ce `bool` qu\u0027un `if` lit pour choisir son chemin."
+                   },
+                   {
+                       "id":  "c314",
+                       "type":  "code",
+                       "lecon":  "3-2",
+                       "jeu":  "",
+                       "titre":  "Combien vaut la boîte ?",
+                       "langage":  "cpp",
+                       "code":  "int argent = 0;\nwhile (argent \u003c 50)\n{\n    argent += 15;\n}",
+                       "question":  "Après cette boucle, que vaut `argent` ?",
+                       "reponse":  "60. On part de 0 : 15, 30, 45, puis 60. À 45, la condition `45 \u003c 50` est encore vraie, donc un tour de plus donne 60. Là, `60 \u003c 50` est faux : la boucle s\u0027arrête.",
+                       "explication":  "`while` teste sa condition avant chaque tour. Dès qu\u0027elle est fausse, la boucle rend la main sans refaire le bloc."
+                   },
+                   {
+                       "id":  "c315",
+                       "type":  "code",
+                       "lecon":  "3-2",
+                       "jeu":  "",
+                       "titre":  "La somme de 1 à 4",
+                       "langage":  "cpp",
+                       "code":  "int total = 0;\nfor (int i = 1; i \u003c= 4; i++)\n    total += i;",
+                       "question":  "Que vaut `total` à la fin ?",
+                       "reponse":  "10. La boucle ajoute `i` pour `i` = 1, 2, 3, 4 : 1 + 2 + 3 + 4 font 10. L\u0027incrément `i++` fait monter `i` d\u0027un cran à chaque tour.",
+                       "explication":  "`i \u003c= 4` arrête la boucle dès que `i` passe à 5. L\u0027initialisation `i = 1` fixe le point de départ."
+                   },
+                   {
+                       "id":  "c316",
+                       "type":  "code",
+                       "lecon":  "3-2",
+                       "jeu":  "",
+                       "titre":  "Un break au bon moment",
+                       "langage":  "cpp",
+                       "code":  "for (int i = 1; i \u003c= 10; i++)\n{\n    if (i == 3)\n        break;\n}",
+                       "question":  "Jusqu\u0027à quelle valeur `i` monte-t-il avant que la boucle s\u0027arrête ?",
+                       "reponse":  "Jusqu\u0027à 3. La boucle irait jusqu\u0027à 10, mais `break` la fait sortir dès que `i` vaut 3. Les tours 4 à 10 n\u0027ont jamais lieu.",
+                       "explication":  "`break` quitte la boucle sur-le-champ, sans attendre que `i \u003c= 10` devienne faux."
+                   },
+                   {
+                       "id":  "c317",
+                       "type":  "code",
+                       "lecon":  "3-2",
+                       "jeu":  "minecraft",
+                       "titre":  "Trois tours en Java",
+                       "langage":  "java",
+                       "code":  "int pains = 0;\nfor (int i = 0; i \u003c 3; i++) {\n    pains = pains + 2;\n}",
+                       "question":  "Dans un plugin Minecraft, que vaut `pains` à la fin ?",
+                       "reponse":  "6. La boucle tourne pour `i` = 0, 1, 2, soit trois tours, et ajoute 2 à chaque fois : 2, 4, 6. `i \u003c 3` l\u0027arrête quand `i` atteint 3.",
+                       "explication":  "Un `for` peut partir de 0. Avec `i \u003c 3`, il fait trois tours : 0, 1, 2. Très courant en Java comme en C++."
+                   },
+                   {
+                       "id":  "c318",
+                       "type":  "code",
+                       "lecon":  "3-2",
+                       "jeu":  "gmod",
+                       "titre":  "Compter en Lua",
+                       "langage":  "lua",
+                       "code":  "local kills = 0\nfor i = 1, 5 do\n    kills = kills + 1\nend\nprint(kills)",
+                       "question":  "Dans une extension (addon) de Garry\u0027s Mod, qu\u0027affiche ce code Lua ?",
+                       "reponse":  "5. `for i = 1, 5 do` répète cinq fois le bloc, jusqu\u0027à `end`. À chaque tour, `kills` gagne 1 : il finit à 5. `print` l\u0027écrit dans la console du jeu.",
+                       "explication":  "En Lua, un `for` s\u0027écrit `for i = début, fin do`. Pas d\u0027accolades : le bloc va jusqu\u0027à `end`."
+                   },
+                   {
+                       "id":  "c319",
+                       "type":  "vraifaux",
+                       "lecon":  "3-2",
+                       "jeu":  "",
+                       "titre":  "i++ ou i = i + 1 ?",
+                       "affirmation":  "Dans une boucle, `i++` fait exactement la même chose que `i = i + 1`.",
+                       "vrai":  true,
+                       "explication":  "Vrai : les deux incrémentent `i`, l\u0027augmentent de 1. `i++` est juste une écriture plus courte, très répandue dans l\u0027en-tête d\u0027un `for`."
+                   },
+                   {
+                       "id":  "c320",
+                       "type":  "vraifaux",
+                       "lecon":  "3-2",
+                       "jeu":  "",
+                       "titre":  "Une boucle qui s\u0027arrête seule ?",
+                       "affirmation":  "Une boucle `while` dont la condition reste toujours vraie finit par s\u0027arrêter toute seule.",
+                       "vrai":  false,
+                       "explication":  "Faux : si rien ne rend la condition fausse, elle tourne sans fin. Par accident, le programme se fige. Fait exprès, c\u0027est le cœur d\u0027une boucle de jeu."
+                   },
+                   {
+                       "id":  "c321",
+                       "type":  "concept",
+                       "lecon":  "3-2",
+                       "jeu":  "minecraft",
+                       "titre":  "Un bot, c\u0027est une boucle",
+                       "texte":  "Un bot qui joue à ta place, c\u0027est une boucle et des conditions : « tant que la partie tourne, si ceci, alors cela ». Une macro rejoue en boucle une suite de touches. Les jeux protégés repèrent ces répétitions trop régulières. Fiche dans le bestiaire, « Bots et macros »."
+                   },
+                   {
+                       "id":  "c322",
+                       "type":  "concept",
+                       "lecon":  "3-2",
+                       "jeu":  "",
+                       "titre":  "La boucle qui ne finit jamais",
+                       "texte":  "Une boucle `while (true)` ne s\u0027arrete jamais d\u0027elle-meme : la condition est toujours vraie. C\u0027est voulu pour une boucle de jeu, qui tourne jusqu\u0027a ce que tu quittes. Par accident, c\u0027est un programme qui fige : il faut un `break` pour en sortir."
+                   },
+                   {
+                       "id":  "c323",
+                       "type":  "capot",
+                       "lecon":  "3-2",
+                       "jeu":  "",
+                       "titre":  "Le test d\u0027une boucle",
+                       "cpp":  "for (int i = 1; i \u003c= n; i++)\n    total += i;",
+                       "asm":  "    cmp DWORD PTR n[rsp], eax\n    jl SHORT Fin",
+                       "texte":  "Le test de la boucle de `somme()`, en Debug (MSVC en x64). `cmp` compare `n` et `i`, `jl` sort quand `n \u003c i`. Même duo comparer-sauter qu\u0027un `if`. `Fin` est une étiquette renommée pour la lecture."
+                   },
+                   {
+                       "id":  "c324",
+                       "type":  "anglais",
+                       "lecon":  "3-2",
+                       "jeu":  "",
+                       "titre":  "loop",
+                       "en":  "loop",
+                       "fr":  "boucle",
+                       "texte":  "Un bloc de code qui se répète. « Game loop » désigne la boucle principale d\u0027un jeu, celle qui tourne des dizaines de fois par seconde."
+                   },
+                   {
+                       "id":  "c325",
+                       "type":  "quiz",
+                       "lecon":  "3-2",
+                       "jeu":  "",
+                       "titre":  "Boucle ou if ?",
+                       "question":  "En assembleur, qu\u0027est-ce qui distingue une boucle d\u0027un simple `if` ?",
+                       "choix":  [
+                                     "Rien, c\u0027est pareil",
+                                     "Un `jmp` qui revient en arrière pour refaire le bloc",
+                                     "L\u0027absence de `cmp`"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "Les deux utilisent une comparaison (`cmp`) et un saut. La boucle ajoute un `jmp` qui remonte au début, pour recommencer tant que la condition tient."
+                   },
+                   {
+                       "id":  "c327",
+                       "type":  "concept",
+                       "lecon":  "3-3",
+                       "jeu":  "",
+                       "titre":  "La boucle de jeu",
+                       "texte":  "La **boucle de jeu** (game loop) est le cycle qui fait tourner un jeu. À chaque tour, il lit les entrées (manette, clavier), met à jour l\u0027état (positions, vies, physique), puis affiche l\u0027image. Des dizaines de fois par seconde, tant que tu joues."
+                   },
+                   {
+                       "id":  "c328",
+                       "type":  "code",
+                       "lecon":  "3-3",
+                       "jeu":  "",
+                       "titre":  "Lis cette boucle de combat",
+                       "langage":  "cpp",
+                       "code":  "while (!est_mort(vieHeros) \u0026\u0026 !est_mort(vieMonstre))\n{\n    vieMonstre -= degatsHeros;\n    vieHeros   -= degatsMonstre;\n}",
+                       "question":  "D\u0027après Combat.cpp, quand cette boucle s\u0027arrête-t-elle ?",
+                       "reponse":  "Au test suivant, dès que l\u0027un des deux est mort. `\u0026\u0026` veut dire ET : la condition n\u0027est vraie que si les **deux** sont vivants. `!est_mort(x)` se lit « x n\u0027est pas mort ».",
+                       "explication":  "C\u0027est le cœur d\u0027une boucle : un bloc répété **tant que** sa condition tient."
+                   },
+                   {
+                       "id":  "c329",
+                       "type":  "code",
+                       "lecon":  "3-3",
+                       "jeu":  "gta",
+                       "titre":  "Un tour de boucle de jeu",
+                       "langage":  "cpp",
+                       "code":  "while (jeuOuvert)\n{\n    lireManette();\n    mettreAJour();\n    afficher();\n}",
+                       "question":  "Que fait ce programme tant que `jeuOuvert` est vrai ?",
+                       "reponse":  "Il répète trois étapes sans fin : lire la manette, mettre à jour l\u0027état, afficher l\u0027image. C\u0027est la **boucle de jeu**, le squelette de tout jeu d\u0027action comme GTA V.",
+                       "explication":  "Chaque tour produit une image (frame) ; des dizaines par seconde donnent les FPS."
+                   },
+                   {
+                       "id":  "c330",
+                       "type":  "concept",
+                       "lecon":  "3-3",
+                       "jeu":  "",
+                       "titre":  "Un tour de boucle de jeu",
+                       "texte":  "À chaque image, un jeu refait trois gestes : 1) lire les entrées (clavier, manette) ; 2) mettre à jour l\u0027état (positions, vies, physique) ; 3) afficher l\u0027image. Puis il recommence, des dizaines de fois par seconde."
+                   },
+                   {
+                       "id":  "c331",
+                       "type":  "quiz",
+                       "lecon":  "3-3",
+                       "jeu":  "",
+                       "titre":  "L\u0027ordre d\u0027un tour",
+                       "question":  "Dans quel ordre s\u0027enchaîne un tour de boucle de jeu ?",
+                       "choix":  [
+                                     "Afficher, puis lire les entrées, puis mettre à jour",
+                                     "Lire les entrées, puis mettre à jour l\u0027état, puis afficher",
+                                     "Mettre à jour, puis afficher, puis lire les entrées"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "On lit d\u0027abord ce que fait le joueur, on met à jour le monde en conséquence, puis on affiche le résultat. Et on recommence."
+                   },
+                   {
+                       "id":  "c332",
+                       "type":  "concept",
+                       "lecon":  "3-3",
+                       "jeu":  "",
+                       "titre":  "Mettre à jour, puis afficher",
+                       "texte":  "Dans un tour de boucle, deux temps forts. **Mettre à jour** (update) : recalculer l\u0027état du jeu, les positions, les vies, la physique. **Afficher** (render) : dessiner l\u0027image à l\u0027écran, une fois l\u0027état à jour. L\u0027un pense, l\u0027autre montre, des dizaines de fois par seconde."
+                   },
+                   {
+                       "id":  "c333",
+                       "type":  "vraifaux",
+                       "lecon":  "3-3",
+                       "jeu":  "",
+                       "titre":  "Plus d\u0027images, plus fluide ?",
+                       "affirmation":  "Plus un jeu affiche d\u0027images par seconde (FPS), plus le mouvement paraît fluide.",
+                       "vrai":  true,
+                       "explication":  "Vrai. À 60 FPS, l\u0027écran montre 60 images par seconde : plus fluide qu\u0027à 30. Le cinéma, lui, tient depuis toujours avec 24 images par seconde."
+                   },
+                   {
+                       "id":  "c334",
+                       "type":  "concept",
+                       "lecon":  "3-3",
+                       "jeu":  "",
+                       "titre":  "La boucle et le speedhack",
+                       "texte":  "Un jeu calcule ses mouvements d\u0027après le temps écoulé entre deux tours de boucle. L\u0027**accélération du temps** (speedhack) fausse ce temps pour que tout aille plus vite. On l\u0027étudie côté défense, jamais comme recette : le bestiaire la détaille en phase 10."
+                   },
+                   {
+                       "id":  "c335",
+                       "type":  "vraifaux",
+                       "lecon":  "3-3",
+                       "jeu":  "minecraft",
+                       "titre":  "Le vol et la gravité",
+                       "affirmation":  "À chaque tour de boucle, un jeu applique la gravité ; le vol (fly hack) annule cette chute.",
+                       "vrai":  true,
+                       "explication":  "Vrai. La boucle te fait tomber à chaque tour si tu n\u0027es pas au sol. Le vol supprime cette chute, tour après tour. On l\u0027étudie côté défense : le bestiaire l\u0027explique."
+                   },
+                   {
+                       "id":  "c336",
+                       "type":  "concept",
+                       "lecon":  "3-3",
+                       "jeu":  "",
+                       "titre":  "Le serveur a sa propre boucle",
+                       "texte":  "Un jeu en ligne tourne à deux endroits. Ton PC fait tourner sa boucle, mais le serveur fait tourner la sienne et vérifie ce qu\u0027il raconte. Tricher ta boucle locale ne trompe pas le serveur, qui a le dernier mot. C\u0027est l\u0027autorité du serveur, vu en phase 11."
+                   },
+                   {
+                       "id":  "c337",
+                       "type":  "savaistu",
+                       "lecon":  "3-3",
+                       "jeu":  "minecraft",
+                       "titre":  "Minecraft bat 20 fois par seconde",
+                       "texte":  "Le serveur de Minecraft (Java) avance par **tics** (ticks) : 20 par seconde, soit un tic toutes les 50 millisecondes. Redstone, pousses et croissance des plantes suivent ce rythme. Quand le PC ne suit plus, le jeu « lague » : les tics prennent du retard."
+                   },
+                   {
+                       "id":  "c338",
+                       "type":  "anglais",
+                       "lecon":  "3-3",
+                       "jeu":  "",
+                       "titre":  "frame",
+                       "en":  "frame",
+                       "fr":  "image",
+                       "texte":  "Une image de jeu. La boucle en calcule et en affiche des dizaines par seconde : les FPS, « frames per second »."
+                   },
+                   {
+                       "id":  "c340",
+                       "type":  "concept",
+                       "lecon":  "3-4",
+                       "jeu":  "",
+                       "titre":  "La question « es-tu mort ? »",
+                       "texte":  "Dans `Combat.cpp`, `est_mort(int vie)` renvoie un `bool` : *vrai* (`true`) si `vie \u003c= 0`, *faux* (`false`) sinon. Un `bool` ne vaut que ces deux réponses. Toute comparaison (`\u003c=`, `==`, `\u003e`...) en donne une : c\u0027est ainsi qu\u0027un programme tranche « mort ou vivant »."
+                   },
+                   {
+                       "id":  "c341",
+                       "type":  "code",
+                       "lecon":  "3-4",
+                       "jeu":  "",
+                       "titre":  "Lis : la fonction est_mort",
+                       "langage":  "cpp",
+                       "code":  "bool est_mort(int vie)\n{\n    return vie \u003c= 0;\n}",
+                       "question":  "Que renvoie `est_mort(0)` ?",
+                       "reponse":  "`true` (vrai). `0 \u003c= 0` est vrai : la vie a atteint zéro, le personnage est mort. Avec `est_mort(1)`, ce serait `false` : encore vivant.",
+                       "explication":  "C\u0027est le test que tout jeu répète pour savoir si un personnage doit tomber."
+                   },
+                   {
+                       "id":  "c342",
+                       "type":  "code",
+                       "lecon":  "3-4",
+                       "jeu":  "",
+                       "titre":  "Lis : la boucle de combat",
+                       "langage":  "cpp",
+                       "code":  "while (!est_mort(vieHeros)\n    \u0026\u0026 !est_mort(vieMonstre))\n{\n    // un tour de combat\n}",
+                       "question":  "Quand cette boucle s\u0027arrête-t-elle ?",
+                       "reponse":  "Dès que l\u0027un des deux meurt. `!` veut dire NON, `\u0026\u0026` veut dire ET : on continue tant que le héros ET le monstre sont vivants. Le premier à tomber met fin au combat.",
+                       "explication":  "C\u0027est la boucle du boss `Combat.cpp` : tant que les deux tiennent, on joue un tour."
+                   },
+                   {
+                       "id":  "c343",
+                       "type":  "code",
+                       "lecon":  "3-4",
+                       "jeu":  "",
+                       "titre":  "Lis : une petite boucle for",
+                       "langage":  "cpp",
+                       "code":  "int total = 0;\nfor (int i = 1; i \u003c= 3; i++)\n    total += i;",
+                       "question":  "Que vaut `total` à la fin ?",
+                       "reponse":  "6. La boucle répète pour `i` = 1, puis 2, puis 3, en ajoutant chaque fois `i` à `total` : 1 + 2 + 3 = 6. À `i = 4`, la condition `i \u003c= 3` lâche et la boucle s\u0027arrête.",
+                       "explication":  "Une boucle, c\u0027est un test (`i \u003c= 3`) et un retour en arrière tant qu\u0027il tient. Le cœur d\u0027un jeu est une boucle du même genre."
+                   },
+                   {
+                       "id":  "c344",
+                       "type":  "vraifaux",
+                       "lecon":  "3-4",
+                       "jeu":  "",
+                       "titre":  "Le piège = ou ==",
+                       "affirmation":  "Dans une condition, écrire `vie = 0` et `vie == 0` revient au même.",
+                       "vrai":  false,
+                       "explication":  "Faux. `==` compare : `vie == 0` demande « la vie vaut-elle zéro ? ». `=` seul range : `vie = 0` mettrait la vie à zéro. Un piège classique, déjà croisé en phase 1."
+                   },
+                   {
+                       "id":  "c345",
+                       "type":  "quiz",
+                       "lecon":  "3-4",
+                       "jeu":  "",
+                       "titre":  "Que veut dire « ! » ?",
+                       "question":  "Dans la boucle, que veut dire `!est_mort(vieHeros)` ?",
+                       "choix":  [
+                                     "Le héros est mort",
+                                     "Le héros est vivant",
+                                     "Le héros a zéro de vie"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "`!` veut dire NON. `est_mort` répond « mort ? » ; `!est_mort` renverse la réponse en « pas mort », donc vivant. La boucle continue tant que c\u0027est le cas pour les deux."
+                   },
+                   {
+                       "id":  "c346",
+                       "type":  "anglais",
+                       "lecon":  "3-4",
+                       "jeu":  "",
+                       "titre":  "loop",
+                       "en":  "loop",
+                       "fr":  "boucle",
+                       "texte":  "Un bloc qu\u0027on répète tant qu\u0027une condition tient. `while` et `for` en créent. Tout jeu tourne sur une grande boucle, répétée des dizaines de fois par seconde."
+                   },
+                   {
+                       "id":  "c347",
+                       "type":  "capot",
+                       "lecon":  "3-4",
+                       "jeu":  "",
+                       "titre":  "est_mort en trois lignes",
+                       "cpp":  "bool est_mort(int vie)\n{\n    return vie \u003c= 0;\n}",
+                       "asm":  "test ecx, ecx\nsetle al\nret 0",
+                       "texte":  "Avec MSVC en x64 (`/O2`), `vie` arrive dans ECX. `test ecx, ecx` lit son signe sans la changer ; `setle al` range 1 si `vie \u003c= 0`, sinon 0 : le `bool` renvoyé. Trois instructions, et tout le « si vie \u003c= 0 » est là."
+                   },
+                   {
+                       "id":  "c348",
+                       "type":  "quiz",
+                       "lecon":  "3-4",
+                       "jeu":  "",
+                       "titre":  "Une condition en assembleur",
+                       "question":  "En assembleur, comment se traduit une condition (`if` ou boucle) ?",
+                       "choix":  [
+                                     "Par une comparaison, puis un saut",
+                                     "Par un seul `mov`",
+                                     "Elle n\u0027existe pas en assembleur"
+                                 ],
+                       "bonne":  0,
+                       "explication":  "D\u0027abord une comparaison (`cmp` ou `test`), puis un saut selon le résultat (`jg`, `jl`...) ou un `setle` qui range *vrai*/*faux*. Un `if` et une boucle suivent ce même schéma."
+                   },
+                   {
+                       "id":  "c349",
+                       "type":  "vraifaux",
+                       "lecon":  "3-4",
+                       "jeu":  "",
+                       "titre":  "test ne change rien",
+                       "affirmation":  "`test ecx, ecx` modifie la valeur rangée dans ECX.",
+                       "vrai":  false,
+                       "explication":  "Faux. `test` ne fait que lire : il positionne des indicateurs du processeur selon le signe de la valeur, sans la toucher. D\u0027où son emploi pour savoir si un nombre est nul, positif ou négatif avant un saut."
+                   },
+                   {
+                       "id":  "c350",
+                       "type":  "concept",
+                       "lecon":  "3-4",
+                       "jeu":  "oblivion",
+                       "titre":  "God mode et le « si vie \u003c= 0 »",
+                       "texte":  "Un god mode (vie infinie) gèle la vie pour qu\u0027elle ne tombe jamais sous zéro. Du coup, le test `si vie \u003c= 0` reste *faux* : le personnage ne meurt plus. En solo dans Oblivion, c\u0027est la commande `tgm` ; sur ton programme, c\u0027est le gel de la phase 2. Voir le bestiaire."
+                   },
+                   {
+                       "id":  "c351",
+                       "type":  "savaistu",
+                       "lecon":  "3-4",
+                       "jeu":  "",
+                       "titre":  "Le cœur qui bat d\u0027un jeu",
+                       "texte":  "Tout jeu tourne sur une boucle de jeu (game loop) : lire les entrées, mettre à jour l\u0027état (vies, positions), dessiner l\u0027image, recommencer, des dizaines de fois par seconde. Ce sont les images par seconde (FPS). `CZKArene`, ton jeu, a une boucle du même genre."
                    }
                ]
 },"glossaire":{
@@ -3203,6 +3739,97 @@ html.is-tel #app { height: 100%; }
                           "definition":  "Un scanner et éditeur de mémoire vive. On y choisit un type de valeur : « 4 octets » (4 Bytes) pour un `int`, « Float » pour un nombre à virgule. Puis on cherche la valeur et on la change.",
                           "exemple":  "Télécharge-le depuis cheatengine.org en refusant chaque offre. Entraîne-toi sur son tutoriel intégré, hors ligne.",
                           "lecon":  "2-4"
+                      },
+                      {
+                          "terme":  "condition",
+                          "en":  "condition",
+                          "definition":  "Un test qui vaut vrai ou faux et décide quelle instruction s\u0027exécute. En C++, le mot-clé `if` lance une condition, et `else` donne le cas contraire.",
+                          "exemple":  "Dans `est_mort`, `vie \u003c= 0` est la condition : si c\u0027est vrai, le héros est mort.",
+                          "lecon":  "3-1"
+                      },
+                      {
+                          "terme":  "booléen",
+                          "en":  "bool",
+                          "definition":  "Un type qui ne contient que deux valeurs : `true` (vrai) ou `false` (faux). Toute comparaison (`==`, `\u003c`, `\u003c=`...) produit un booléen.",
+                          "exemple":  "`bool est_mort(int vie)` renvoie `true` quand la vie passe à 0 ou en dessous.",
+                          "lecon":  "3-1"
+                      },
+                      {
+                          "terme":  "opérateur de comparaison",
+                          "en":  "comparison operator",
+                          "definition":  "Un signe qui compare deux valeurs et renvoie un booléen : `==` (égal), `!=` (différent), `\u003c`, `\u003c=`, `\u003e`, `\u003e=`. Piège : `==` compare, `=` range une valeur.",
+                          "exemple":  "`vieHeros \u003c= 0` teste avec `\u003c=` si le héros a perdu, dans le combat de CZKArene.",
+                          "lecon":  "3-1"
+                      },
+                      {
+                          "terme":  "opérateur logique",
+                          "en":  "logical operator",
+                          "definition":  "Il combine des booléens : `\u0026\u0026` (ET, vrai si les deux le sont), `||` (OU, vrai si au moins un l\u0027est), `!` (NON, inverse vrai et faux).",
+                          "exemple":  "`!est_mort(vieHeros) \u0026\u0026 !est_mort(vieMonstre)` : on continue tant que les deux vivent.",
+                          "lecon":  "3-1"
+                      },
+                      {
+                          "terme":  "true et false",
+                          "en":  "",
+                          "definition":  "Les deux seules valeurs d\u0027un booléen : `true` (vrai) et `false` (faux). Tu les lis tels quels dans le code, par exemple dans `return true;`.",
+                          "exemple":  "Quand `vie \u003c= 0` est vrai, `est_mort` renvoie `true` ; sinon, elle renvoie `false`.",
+                          "lecon":  "3-1"
+                      },
+                      {
+                          "terme":  "boucle",
+                          "en":  "loop",
+                          "definition":  "Elle répète un bloc d\u0027instructions tant qu\u0027une condition reste vraie. En C++ : `while` et `for`. En assembleur : un test suivi d\u0027un saut qui revient en arrière.",
+                          "exemple":  "La boucle `while` de CZKArene rejoue un tour de combat tant que les deux combattants vivent.",
+                          "lecon":  "3-2"
+                      },
+                      {
+                          "terme":  "itération",
+                          "en":  "iteration",
+                          "definition":  "Un seul tour de boucle. La boucle répète la même itération, encore et encore, jusqu\u0027à ce que sa condition devienne fausse.",
+                          "exemple":  "Chaque tour de combat de CZKArene est une itération ; il en faut cinq pour battre le monstre.",
+                          "lecon":  "3-2"
+                      },
+                      {
+                          "terme":  "incrémenter",
+                          "en":  "increment",
+                          "definition":  "Ajouter 1 à une variable. En C++, `i++` incrémente `i`. Avec MSVC en x64, ça devient souvent l\u0027instruction `inc`.",
+                          "exemple":  "Dans la boucle `somme`, `i++` devient `inc eax` : `i` passe de 1 à 2, puis à 3...",
+                          "lecon":  "3-2"
+                      },
+                      {
+                          "terme":  "étiquette",
+                          "en":  "label",
+                          "definition":  "Un nom qui marque une position dans le code assembleur et sert de cible à un saut. MSVC les crée tout seul, avec des noms comme `$LN4@somme`.",
+                          "exemple":  "`jl SHORT $LN3@somme` saute à l\u0027étiquette qui termine la boucle `somme`.",
+                          "lecon":  "3-2"
+                      },
+                      {
+                          "terme":  "boucle de jeu",
+                          "en":  "game loop",
+                          "definition":  "La grande boucle d\u0027un jeu, répétée des dizaines de fois par seconde : lire les commandes, mettre à jour l\u0027état (vies, positions, physique), afficher l\u0027image.",
+                          "exemple":  "Dans Minecraft, la boucle de jeu redessine le monde et applique la gravité à chaque image.",
+                          "lecon":  "3-3"
+                      },
+                      {
+                          "terme":  "image par seconde (FPS)",
+                          "en":  "frames per second",
+                          "definition":  "Le nombre d\u0027images que la boucle de jeu affiche en une seconde. Plus il est élevé, plus le jeu est fluide : 60 FPS, c\u0027est 60 tours de boucle par seconde.",
+                          "exemple":  "Si GTA V tombe de 60 à 20 FPS, la boucle de jeu tourne moins vite et l\u0027image saccade.",
+                          "lecon":  "3-3"
+                      },
+                      {
+                          "terme":  "branchement (saut)",
+                          "en":  "jump / branch",
+                          "definition":  "En assembleur, une instruction qui envoie le processeur ailleurs dans le code. `jmp` saute toujours ; `jg`, `jl`, `je`... ne sautent que si la comparaison le dit.",
+                          "exemple":  "Pour `vie \u003c= 0`, MSVC fait `cmp` avec 0, puis `jg` saute plus loin si `vie \u003e 0` : pas mort.",
+                          "lecon":  "3-4"
+                      },
+                      {
+                          "terme":  "pile",
+                          "en":  "stack",
+                          "definition":  "Une zone de mémoire où une fonction range ses variables locales et ses paramètres, le temps de son exécution. On la détaille en phase 4.",
+                          "exemple":  "En Debug, `est_mort` range `vie` sur la pile (`[rsp+8]`) avant de la comparer à 0.",
+                          "lecon":  "3-4"
                       }
                   ]
 },"bestiaire":{
@@ -5693,6 +6320,883 @@ html.is-tel #app { height: 100%; }
                       "type":  "suite",
                       "titre":  "Phase 3 — Logique de jeu",
                       "texte":  "Tu viens de signer ton premier hack : trouvé, changé, gelé, sur ta propre cible. En phase 3, tu donnes des choix et des boucles à tes programmes, la logique qui fait tourner un jeu. Et tu retrouves le « si la vie tombe à zéro » directement dans l\u0027assembleur."
+                  }
+              ]
+},"3-1":{
+    "id":  "3-1",
+    "phase":  3,
+    "numero":  "3.1",
+    "titre":  "Si... alors : les conditions",
+    "duree":  15,
+    "objectif":  "Lire et comprendre les conditions en C++ — le type bool, les opérateurs de comparaison et logiques, if/else — et reconnaître une décision « si vie \u003c= 0 » dans l\u0027assembleur.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Dans Oblivion, tu pousses une porte : si tu as la bonne clé, elle s\u0027ouvre ; sinon, elle résiste. Dans GTA V, si ta vie tombe à zéro, c\u0027est l\u0027écran de mort (game over). Un jeu n\u0027arrête jamais de décider. Chacune de ces décisions, dans le code, s\u0027appelle une condition."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Vrai ou faux : le bool",
+                      "paragraphes":  [
+                                          "Avant de décider, un programme répond à une question par oui ou non. En C++, cette réponse a son propre type : le **bool** (de l\u0027anglais boolean, booléen). Un `bool` ne prend que deux valeurs : `true` (vrai) ou `false` (faux).",
+                                          "D\u0027où vient un `bool` ? Le plus souvent d\u0027une comparaison entre deux valeurs. Tu demandes « ce nombre est-il plus petit que l\u0027autre ? », et la réponse est vraie ou fausse.",
+                                          "Les **opérateurs de comparaison** (comparison operators) sont six : `==` (égal à), `!=` (différent de), `\u003c` (plus petit), `\u003c=` (plus petit ou égal), `\u003e` (plus grand), `\u003e=` (plus grand ou égal). Chacun regarde deux valeurs et rend un `bool`."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Une comparaison, un bool",
+                      "code":  "int vieHeros = 100;\n\nbool mort = vieHeros \u003c= 0;          // faux : 100 n\u0027est pas \u003c= 0\nbool presqueKO = vieHeros \u003c 20;     // faux : 100 n\u0027est pas \u003c 20\nbool pleineForme = vieHeros == 100; // vrai : 100 est egal a 100",
+                      "notes":  [
+                                    {
+                                        "ligne":  3,
+                                        "texte":  "`\u003c=` veut dire « plus petit ou égal ». 100 n\u0027est pas plus petit ou égal à 0, donc `mort` reçoit `false`."
+                                    },
+                                    {
+                                        "ligne":  5,
+                                        "texte":  "`==` teste l\u0027égalité. Ici 100 vaut bien 100, donc `pleineForme` reçoit `true`. Attention : c\u0027est un double `=`, on y revient plus bas."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "if, else if, else : choisir un chemin",
+                      "paragraphes":  [
+                                          "Un `bool` devient utile quand il commande un choix. Le mot-clé `if` (si, en anglais) exécute un bloc de code seulement si sa condition est vraie. Sinon, ce bloc est sauté.",
+                                          "Pour traiter l\u0027autre cas, on ajoute `else` (sinon). Pour tester plusieurs cas à la suite, on enchaîne des `else if` (sinon si). Le programme suit le premier chemin dont la condition est vraie, puis ignore tous les autres."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Choisir un message avec if / else",
+                      "code":  "if (vie \u003c= 0)\n    std::cout \u003c\u003c \"Game over\";\nelse if (vie \u003c 20)\n    std::cout \u003c\u003c \"Vie basse, attention\";\nelse\n    std::cout \u003c\u003c \"Tout va bien\";",
+                      "notes":  [
+                                    {
+                                        "ligne":  1,
+                                        "texte":  "Le programme lit les conditions de haut en bas. Il prend le premier `if` vrai, affiche son message, et saute tout le reste."
+                                    },
+                                    {
+                                        "ligne":  2,
+                                        "texte":  "« Game over » est l\u0027anglais pour « fin de partie » : l\u0027écran qui s\u0027affiche quand la vie atteint zéro."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "piege",
+                      "titre":  "`==` compare, `=` range",
+                      "texte":  "Un piège classique, déjà croisé en phase 1. Un seul `=` **range** une valeur : `vie = 0` met la vie à zéro. Deux signes `==` **comparent** : `vie == 0` demande « la vie vaut-elle zéro ? » et donne un `bool`. Dans un `if`, tu veux presque toujours `==`. Écrire `if (vie = 0)` par erreur range 0 au lieu de tester ; par chance, MSVC te le signale souvent par un avertissement (warning), alors prends le temps de le lire."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Combiner : ET, OU, NON",
+                      "paragraphes":  [
+                                          "Souvent, une décision dépend de plusieurs conditions à la fois. Les **opérateurs logiques** (logical operators) les relient. Ils prennent des `bool` et rendent un `bool`.",
+                                          "`\u0026\u0026` est le **ET** : vrai seulement si les deux côtés sont vrais. `||` est le **OU** : vrai dès qu\u0027un seul côté est vrai. `!` est le **NON** : il inverse une valeur, `!true` donne `false`.",
+                                          "« La porte s\u0027ouvre si tu as la clé ET si tu es en vie » devient `if (aLaCle \u0026\u0026 vie \u003e 0)`. Et « tant que le héros n\u0027est pas mort » s\u0027écrit `!est_mort(vie)` : tu retrouveras ce `!` dans la boucle de combat de ta cible."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Relier deux conditions avec \u0026\u0026",
+                      "code":  "bool aLaCle = true;\nint vie = 30;\n\n// La porte s\u0027ouvre si tu as la cle ET si tu es en vie.\nif (aLaCle \u0026\u0026 vie \u003e 0)\n    std::cout \u003c\u003c \"La porte s\u0027ouvre\";",
+                      "notes":  [
+                                    {
+                                        "ligne":  5,
+                                        "texte":  "`\u0026\u0026` (ET) exige les deux côtés vrais. Ici `aLaCle` vaut `true` et `vie \u003e 0` est vrai : la porte s\u0027ouvre. Si un seul côté était faux, rien ne s\u0027afficherait."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Voici la promesse de la carte du parcours : le fameux « si vie \u003c= 0 ». C\u0027est la fonction `est_mort` de ta cible `Combat.cpp`. En mode optimisé (Release), MSVC en x64 la résume en trois instructions.",
+                      "cpp":  "bool est_mort(int vie)\n{\n    return vie \u003c= 0;\n}",
+                      "asm":  "test ecx, ecx\nsetle al\nret 0",
+                      "liens":  [
+                                    {
+                                        "cpp":  3,
+                                        "asm":  [
+                                                    1,
+                                                    2
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  4,
+                                        "asm":  [
+                                                    3
+                                                ]
+                                    }
+                                ],
+                      "conclusion":  "Trois lignes, et tout y est. `ECX` est le registre où arrive le paramètre `vie` : la convention d\u0027appel de Microsoft, croisée en phase 2. `test ecx, ecx` regarde le signe de `vie` sans le modifier. `setle al` (set if less or equal) range 1 dans le résultat si `vie \u003c= 0`, sinon 0 : c\u0027est exactement « est mort ». Enfin `ret 0` rend la main à qui a appelé la fonction. En mode Debug — celui par défaut, et celui de ton boss — la même décision est plus longue : elle passe par `cmp` (compare) et un saut `jg`, mais le mécanisme ne change pas.",
+                      "godbolt":  "https://godbolt.org/clientstate/eyJzZXNzaW9ucyI6W3sic291cmNlIjoiYm9vbCBlc3RfbW9ydChpbnQgdmllKVxue1xuICAgIHJldHVybiB2aWUgPD0gMDtcbn1cbiIsImxhbmd1YWdlIjoiYysrIiwiaWQiOjEsImNvbXBpbGVycyI6W3siaWQiOiJ2Y3BwX3YxOV9sYXRlc3RfeDY0Iiwib3B0aW9ucyI6Ii9PMiJ9XX1dfQ"
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Ce que tu viseras au boss",
+                      "texte":  "La cible de la phase, c\u0027est `Combat.cpp`, dans `exercices/phase-3` : un héros à 100 PV contre un monstre à 80 PV, au tour par tour. Tu le compileras et le lanceras dans Visual Studio. Au boss, tu ouvriras son assembleur pour retrouver, de tes yeux, cette décision « si vie \u003c= 0 ». C\u0027est la fonction `est_mort` que tu viens de lire, dans un vrai programme à toi."
+                  },
+                  {
+                      "type":  "tesjeux",
+                      "titre":  "Et tes jeux ?",
+                      "intro":  "La décision « si la vie est à zéro » existe dans tous les langages. Seule l\u0027écriture change un peu.",
+                      "jeux":  [
+                                   {
+                                       "nom":  "Minecraft",
+                                       "langage":  "Java",
+                                       "texte":  "Minecraft est écrit en Java, un proche cousin du C++. La condition s\u0027y écrit presque à l\u0027identique : `if (vie \u003c= 0) { ... }`. Le type vrai/faux s\u0027appelle `boolean`, mais `true` et `false` sont les mêmes."
+                                   },
+                                   {
+                                       "nom":  "Garry\u0027s Mod",
+                                       "langage":  "Lua",
+                                       "texte":  "Les extensions (addons) de Garry\u0027s Mod sont en Lua. Même logique, mots différents : `if vie \u003c= 0 then ... end`. Pas d\u0027accolades : un `then` ouvre, un `end` ferme. La comparaison `\u003c=`, elle, ne bouge pas."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "condition",
+                                       "fr":  "condition",
+                                       "note":  "Une question à laquelle le programme répond vrai ou faux, pour choisir quoi faire."
+                                   },
+                                   {
+                                       "en":  "boolean",
+                                       "fr":  "booléen",
+                                       "note":  "Le type d\u0027une valeur vrai/faux. En C++, le mot-clé est `bool`."
+                                   },
+                                   {
+                                       "en":  "if / else",
+                                       "fr":  "si / sinon",
+                                       "note":  "`if` exécute un bloc si la condition est vraie ; `else` traite l\u0027autre cas."
+                                   },
+                                   {
+                                       "en":  "comparison operator",
+                                       "fr":  "opérateur de comparaison",
+                                       "note":  "Un signe qui compare deux valeurs et rend un bool : `==`, `!=`, `\u003c`, `\u003c=`, `\u003e`, `\u003e=`."
+                                   },
+                                   {
+                                       "en":  "logical operator",
+                                       "fr":  "opérateur logique",
+                                       "note":  "Relie des bool : `\u0026\u0026` (ET), `||` (OU), `!` (NON)."
+                                   },
+                                   {
+                                       "en":  "game over",
+                                       "fr":  "fin de partie",
+                                       "note":  "Mot à mot « jeu terminé » : l\u0027écran affiché quand ta vie tombe à zéro."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "atoi",
+                      "titre":  "À toi : fais parler un if",
+                      "etapes":  [
+                                     "Dans Visual Studio, ouvre un petit projet console (celui de la phase 1 fera l\u0027affaire). Dans `main`, au-dessus du `return 0;`, écris : `int vie = 100;`.",
+                                     "Juste en dessous, ajoute la décision : `if (vie \u003c= 0) std::cout \u003c\u003c \"Game over\"; else std::cout \u003c\u003c \"Encore debout\";`.",
+                                     "Lance avec Ctrl+F5 (menu Déboguer \u003e Exécuter sans débogage, Debug \u003e Start Without Debugging). La console affiche « Encore debout ».",
+                                     "Repasse `vie` à `0`, puis relance. Le message bascule sur « Game over ». Tu viens de piloter un `if` à la main."
+                                 ],
+                      "indices":  [
+                                      "Les messages affichés n\u0027ont pas d\u0027accents : la console Windows les gère mal par défaut. Écris `Game over`, pas « terminé ».",
+                                      "Il faut `#include \u003ciostream\u003e` tout en haut, sinon `std::cout` reste inconnu (vu en phase 1).",
+                                      "Dans le `if`, c\u0027est bien `\u003c=` ou `==`, jamais un seul `=` : c\u0027est le piège de la leçon."
+                                  ],
+                      "solution":  "Avec `vie` à 100, la condition `vie \u003c= 0` est fausse : le `else` s\u0027exécute, « Encore debout ». Avec `vie` à 0, elle devient vraie : « Game over ». À chaque lancement, un seul des deux chemins s\u0027affiche, jamais les deux."
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Que vaut `vie \u003c= 0` quand `vie` vaut 100 ?",
+                                            "choix":  [
+                                                          "true (vrai)",
+                                                          "false (faux)",
+                                                          "100"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "100 n\u0027est pas plus petit ou égal à 0, donc la comparaison rend `false`. Une comparaison donne toujours un `bool`, jamais un nombre."
+                                        },
+                                        {
+                                            "q":  "Comment écrire « est-ce que vie vaut 0 ? » dans un `if` ?",
+                                            "choix":  [
+                                                          "if (vie = 0)",
+                                                          "if (vie =\u003c 0)",
+                                                          "if (vie == 0)"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "`==` compare ; un seul `=` rangerait 0 dans `vie`. Et « plus petit ou égal » s\u0027écrit `\u003c=`, jamais `=\u003c`."
+                                        },
+                                        {
+                                            "q":  "Quand l\u0027opérateur `\u0026\u0026` (ET) rend-il `true` ?",
+                                            "choix":  [
+                                                          "Quand les deux côtés sont vrais",
+                                                          "Quand au moins un côté est vrai",
+                                                          "Quand les deux côtés sont faux"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "`\u0026\u0026` (ET) exige les deux côtés vrais. C\u0027est `||` (OU) qui se contente d\u0027un seul côté vrai."
+                                        },
+                                        {
+                                            "q":  "Dans l\u0027assembleur /O2 de `est_mort`, quelle instruction pose le résultat vrai/faux ?",
+                                            "choix":  [
+                                                          "ret 0",
+                                                          "test ecx, ecx",
+                                                          "setle al"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "`setle al` (set if less or equal) met 1 si `vie \u003c= 0`, sinon 0. `test ecx, ecx` prépare la comparaison et `ret 0` rend la main."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Un **bool** (booléen) ne vaut que `true` ou `false`. Les six comparaisons `==`, `!=`, `\u003c`, `\u003c=`, `\u003e`, `\u003e=` rendent un `bool`.",
+                                     "`if` exécute un bloc si sa condition est vraie ; `else if` teste un autre cas, `else` prend le reste. Un seul chemin passe.",
+                                     "Les opérateurs logiques relient des `bool` : `\u0026\u0026` (ET, les deux vrais), `||` (OU, au moins un), `!` (NON, inverse). Piège : `==` compare, `=` range.",
+                                     "En assembleur, une condition = une comparaison (`cmp` ou `test`) suivie d\u0027un saut (`jg`, `jl`…) ou d\u0027un `setcc` (`setle`…). Même mécanisme pour un `if` et pour une boucle."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "3.2 — Répéter : les boucles",
+                      "texte":  "Une décision, c\u0027est un choix pris une fois. Mais un jeu refait les mêmes gestes des dizaines de fois par seconde. En 3.2, tu découvres la boucle (`while`, `for`) : un test suivi d\u0027un saut qui revient en arrière tant que la condition tient. C\u0027est le cœur de la boucle de jeu qui anime Minecraft comme ta cible `Combat.cpp`."
+                  }
+              ]
+},"3-2":{
+    "id":  "3-2",
+    "phase":  3,
+    "numero":  "3.2",
+    "titre":  "Répéter : les boucles",
+    "duree":  15,
+    "objectif":  "Comprendre les boucles `while` et `for`, savoir les lire pas à pas, et reconnaître une boucle dans l\u0027assembleur : un test, un saut conditionnel, et un saut qui revient en arrière.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Dans GTA V, roule sur l\u0027autoroute : à chaque image, le jeu passe en revue chaque voiture et chaque piéton, puis recommence, des dizaines de fois par seconde. Dans Minecraft, ton four fait fondre tes minerais un par un, sans que tu t\u0027en occupes. Derrière chaque « encore, et encore » d\u0027un jeu, il y a une boucle."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Tant que : la boucle while",
+                      "paragraphes":  [
+                                          "Une boucle (loop), c\u0027est un bloc de code qui se répète. La plus simple s\u0027écrit avec le mot-clé `while`, « tant que » en anglais. Elle rejoue son bloc tant qu\u0027une condition reste vraie.",
+                                          "Avant chaque tour, le programme teste la condition. Si elle est vraie, il refait le bloc. Si elle devient fausse, il arrête et passe à la suite.",
+                                          "Tu en as déjà une sous les yeux dans ton `Combat.cpp`. La ligne `while (!est_mort(vieHeros) \u0026\u0026 !est_mort(vieMonstre))` se lit : tant que le héros et le monstre sont vivants, joue un tour. Un seul passage dans le bloc s\u0027appelle une itération (iteration)."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Lire une boucle while",
+                      "code":  "int vie = 100;\n\nwhile (vie \u003e 0)\n{\n    vie -= 30;\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  3,
+                                        "texte":  "Tant que `vie` reste au-dessus de 0, le bloc entre accolades se rejoue. Dès que `vie` tombe à 0 ou moins, la boucle s\u0027arrête."
+                                    },
+                                    {
+                                        "ligne":  5,
+                                        "texte":  "`vie -= 30` enlève 30 à `vie`, comme `vie = vie - 30`. Pars de 100 : 70, 40, 10, puis -20. La condition devient fausse après quatre tours."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Pour : la boucle for",
+                      "paragraphes":  [
+                                          "Quand tu sais d\u0027avance combien de fois répéter, le mot-clé `for`, « pour », est plus pratique. Il réunit trois choses sur une seule ligne, séparées par des points-virgules.",
+                                          "Prends `for (int i = 1; i \u003c= n; i++)`. L\u0027initialisation, `int i = 1`, crée un compteur qui part de 1. La condition, `i \u003c= n`, est testée avant chaque tour.",
+                                          "Le dernier morceau, `i++`, est l\u0027incrément, fait à la fin de chaque tour. `i++` veut dire `i = i + 1` : on incrémente `i`, on l\u0027augmente de 1. Le compteur monte d\u0027un cran par tour, jusqu\u0027à ce que la condition devienne fausse."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Additionner de 1 à n",
+                      "code":  "int somme(int n)\n{\n    int total = 0;\n    for (int i = 1; i \u003c= n; i++)\n        total += i;\n    return total;\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  4,
+                                        "texte":  "La boucle tourne pour `i` = 1, 2, 3… jusqu\u0027à `n`. À chaque tour, `i` vaut un de plus."
+                                    },
+                                    {
+                                        "ligne":  5,
+                                        "texte":  "`total += i` ajoute `i` au total, comme `total = total + i`. Avec `n` = 5 : 1 + 2 + 3 + 4 + 5, soit 15."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Reprenons `somme()`, compilée avec MSVC en x64 en mode Debug (`/Od`), le réglage par défaut : c\u0027est l\u0027assembleur que tu croiseras le plus souvent. Il est plus long qu\u0027en Release, mais la boucle s\u0027y lit très bien. Les étiquettes sont renommées en `Increment`, `Test` et `Fin` pour la lecture ; MSVC les nomme en vrai `$LN2@somme`, `$LN4@somme`, `$LN3@somme`.",
+                      "cpp":  "int total = 0;\nfor (int i = 1; i \u003c= n; i++)\n    total += i;",
+                      "asm":  "    mov DWORD PTR total[rsp], 0    ; total = 0\n    mov DWORD PTR i[rsp], 1        ; i = 1\n    jmp Test                       ; aller au test\nIncrement:\n    mov eax, DWORD PTR i[rsp]\n    inc eax                        ; i = i + 1\n    mov DWORD PTR i[rsp], eax\nTest:\n    mov eax, DWORD PTR i[rsp]\n    cmp DWORD PTR n[rsp], eax       ; compare n et i\n    jl SHORT Fin                   ; si n \u003c i, sortir de la boucle\n    ; ... ici, total += i ...\n    jmp Increment                  ; on remonte\nFin:",
+                      "liens":  [
+                                    {
+                                        "cpp":  1,
+                                        "asm":  [
+                                                    1
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  2,
+                                        "asm":  [
+                                                    2,
+                                                    6,
+                                                    10,
+                                                    11
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  3,
+                                        "asm":  [
+                                                    12
+                                                ]
+                                    }
+                                ],
+                      "conclusion":  "Le squelette d\u0027une boucle tient en trois gestes : un test (`cmp` puis `jl`) qui décide de continuer ou de sortir, et un `jmp` final qui revient en arrière pour recommencer. C\u0027est le même duo comparer-sauter qu\u0027un `if`, plus le saut en arrière. En mode Release (optimisé), MSVC transforme et déroule cette boucle : elle devient méconnaissable, et c\u0027est le sujet de la phase 8."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Sortir ou sauter un tour",
+                      "paragraphes":  [
+                                          "Deux mots-clés changent le cours d\u0027une boucle. `break`, « casser », l\u0027arrête net et en sort, même si la condition est encore vraie.",
+                                          "Tu l\u0027as dans ton `Combat.cpp` : `if (est_mort(vieMonstre)) break;`. Autrement dit, si le monstre est à terre, quitte le combat tout de suite, avant qu\u0027il ne riposte. Sans ce `break`, le héros prendrait un coup de trop.",
+                                          "`continue`, lui, saute le reste du tour courant et file au suivant. C\u0027est comme dire : pour ce tour, rien de plus à faire, au suivant. Les deux servent partout, dès qu\u0027une boucle doit réagir à un cas particulier."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "piege",
+                      "titre":  "Le piège : la boucle infinie",
+                      "texte":  "Si la condition d\u0027une boucle reste toujours vraie, elle ne s\u0027arrête jamais : c\u0027est une boucle infinie. Par accident, c\u0027est le gel classique, le programme se fige et ne répond plus. La cause est souvent un oubli : la variable testée ne change pas dans le bloc, comme un `while (vie \u003e 0)` qui n\u0027enlève jamais de vie. Fait exprès, c\u0027est tout autre chose : le cœur d\u0027un jeu est une boucle voulue sans fin, qui redessine l\u0027écran jusqu\u0027à ce que tu quittes."
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Un bot, c\u0027est une boucle",
+                      "texte":  "Un bot ou une macro, c\u0027est une boucle qui répète des actions à ta place. Une macro rejoue une suite de touches enregistrée. Un bot va plus loin : « tant que la partie tourne, si ceci, alors cela », une boucle et des conditions, exactement ce que tu apprends ici. Côté détection, c\u0027est la phase 11 : les jeux protégés repèrent les rythmes trop réguliers, un clic toutes les mêmes millisecondes. Sa fiche t\u0027attend déjà dans le bestiaire, « Bots et macros »."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "loop",
+                                       "fr":  "boucle",
+                                       "note":  "Un bloc de code qui se répète. Tu le liras partout, et « game loop » nomme la boucle principale d\u0027un jeu."
+                                   },
+                                   {
+                                       "en":  "while",
+                                       "fr":  "tant que",
+                                       "note":  "Répète un bloc tant qu\u0027une condition reste vraie, testée avant chaque tour."
+                                   },
+                                   {
+                                       "en":  "for",
+                                       "fr":  "pour",
+                                       "note":  "Une boucle qui réunit un compteur, une condition et un incrément sur une seule ligne."
+                                   },
+                                   {
+                                       "en":  "iteration",
+                                       "fr":  "itération",
+                                       "note":  "Un seul tour de boucle. Dix itérations, c\u0027est dix passages dans le bloc."
+                                   },
+                                   {
+                                       "en":  "increment",
+                                       "fr":  "incrément",
+                                       "note":  "Augmenter une valeur, souvent de 1. `i++` incrémente `i`."
+                                   },
+                                   {
+                                       "en":  "break",
+                                       "fr":  "sortir, casser",
+                                       "note":  "Sortir d\u0027une boucle sur-le-champ, même si la condition tient encore."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Une boucle `while (vie \u003e 0)` enlève 10 à `vie` à chaque tour. En partant de `vie` = 25, combien de tours fait-elle ?",
+                                            "choix":  [
+                                                          "Une infinité",
+                                                          "Deux",
+                                                          "Trois"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "25, puis 15, 5, et -5. La boucle tourne tant que `vie` dépasse 0 : trois tours, puis `vie` passe sous zéro et elle s\u0027arrête."
+                                        },
+                                        {
+                                            "q":  "Dans `for (int i = 1; i \u003c= n; i++)`, à quoi sert `i++` ?",
+                                            "choix":  [
+                                                          "À incrémenter `i` de 1 à chaque tour",
+                                                          "À tester la condition",
+                                                          "À sortir de la boucle"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "`i++` veut dire `i = i + 1`. C\u0027est l\u0027incrément : à la fin de chaque tour, le compteur `i` monte de 1, jusqu\u0027à ce que `i \u003c= n` devienne faux."
+                                        },
+                                        {
+                                            "q":  "En assembleur (MSVC en x64), à quoi reconnais-tu une boucle ?",
+                                            "choix":  [
+                                                          "À un `mov` isolé",
+                                                          "À un test (`cmp`) suivi d\u0027un saut, et d\u0027un `jmp` qui revient en arrière",
+                                                          "À un `ret` au début"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Une boucle, c\u0027est un test (`cmp`) plus un saut conditionnel (`jl`, `jg`…), et un `jmp` qui remonte au début du bloc. Comme un `if`, avec le saut en arrière en plus."
+                                        },
+                                        {
+                                            "q":  "Que fait `break` dans une boucle ?",
+                                            "choix":  [
+                                                          "Il saute au tour suivant",
+                                                          "Il met la boucle en pause",
+                                                          "Il sort de la boucle tout de suite"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "`break` quitte la boucle sur-le-champ, même si la condition tient encore. Pour seulement sauter au tour suivant, c\u0027est `continue`."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Une boucle répète un bloc. `while` (tant que) teste sa condition avant chaque tour et s\u0027arrête quand elle devient fausse.",
+                                     "`for` réunit trois choses : l\u0027initialisation d\u0027un compteur, la condition, et l\u0027incrément `i++` (soit `i = i + 1`).",
+                                     "En assembleur (MSVC en x64), une boucle = un test (`cmp`) + un saut conditionnel (`jl`…) + un `jmp` qui revient en arrière.",
+                                     "`break` sort de la boucle d\u0027un coup, `continue` saute au tour suivant. Une condition toujours vraie donne une boucle infinie : le cœur d\u0027un jeu, ou un gel par accident."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "3.3 — La boucle de jeu",
+                      "texte":  "Tu sais lire une boucle, dans ton code et dans l\u0027assembleur. La prochaine fois, on branche tout ça : la boucle de jeu (game loop), ce cycle que tout jeu répète des dizaines de fois par seconde pour lire tes touches, mettre à jour le monde et dessiner l\u0027image. C\u0027est elle qui donne vie à un jeu."
+                  }
+              ]
+},"3-3":{
+    "id":  "3-3",
+    "phase":  3,
+    "numero":  "3.3",
+    "titre":  "La boucle de jeu",
+    "duree":  14,
+    "objectif":  "Comprendre la boucle de jeu (game loop) — lire les entrées, mettre à jour l\u0027état, afficher l\u0027image — et pourquoi elle est au cœur de la triche et de sa défense.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Quand tu fonces dans Los Santos sur GTA V, ton PC redessine l\u0027image des dizaines de fois par seconde. Entre deux images, il relit ta manette, déplace les voitures et applique la gravité. Ce cycle qui ne s\u0027arrête jamais porte un nom : la boucle de jeu."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Le cœur d\u0027un jeu : une boucle",
+                      "paragraphes":  [
+                                          "Un jeu, au fond, répète toujours le même cycle. Il **lit les entrées** (ta manette, ton clavier), il **met à jour l\u0027état** (positions, vies, physique), puis il **affiche l\u0027image**. Ce cycle, c\u0027est la **boucle de jeu** (game loop).",
+                                          "Chaque tour produit une **image** (frame). Un jeu en enchaîne des dizaines par seconde : ce sont les **FPS** (images par seconde, frames per second). À 60 FPS, la boucle tourne 60 fois par seconde, un tour toutes les 16 millisecondes environ.",
+                                          "Deux mots reviennent sans cesse. **Mettre à jour** (update), c\u0027est recalculer l\u0027état du jeu. **Afficher** (render), c\u0027est dessiner l\u0027image à l\u0027écran."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "La boucle de combat de Combat.cpp (extrait)",
+                      "code":  "while (!est_mort(vieHeros) \u0026\u0026 !est_mort(vieMonstre))\n{\n    vieMonstre -= degatsHeros;\n    if (est_mort(vieMonstre))\n        break;\n    vieHeros -= degatsMonstre;\n    tour += 1;\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  1,
+                                        "texte":  "`while (...)` répète le bloc **tant que** sa condition tient. Ici : tant que le héros **et** (`\u0026\u0026`) le monstre sont vivants. `!est_mort(x)` se lit « x n\u0027est pas mort » ; le `!` inverse le vrai et le faux."
+                                    },
+                                    {
+                                        "ligne":  3,
+                                        "texte":  "Le cœur d\u0027un tour : on retire les dégâts du héros à la vie du monstre. C\u0027est la **mise à jour** (update) de l\u0027état."
+                                    },
+                                    {
+                                        "ligne":  5,
+                                        "texte":  "`break` **sort** de la boucle sur-le-champ, dès que le monstre tombe, sans finir le tour."
+                                    },
+                                    {
+                                        "ligne":  7,
+                                        "texte":  "On compte le tour, puis la boucle revient au test du `while`. Tant qu\u0027il reste vrai, elle recommence."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La même idée dans CZKArene",
+                      "paragraphes":  [
+                                          "CZKArene, le jeu que tu construis, tourne sur la même mécanique. Son combat répète un tour tant que les deux adversaires sont vivants. La boucle attend ton choix avant de continuer.",
+                                          "Un vrai jeu d\u0027action, lui, n\u0027attend personne. Sa boucle tourne toute seule, des dizaines de fois par seconde. Chaque tour de cette boucle logique s\u0027appelle souvent un **tic** (tick).",
+                                          "La différence tient au rythme, pas à l\u0027idée. Tour par tour ou course effrénée, c\u0027est la même boucle : lire, mettre à jour, afficher, recommencer."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "curieux",
+                      "titre":  "Combien d\u0027images voit ton œil ?",
+                      "texte":  "Au-delà d\u0027une certaine vitesse, ton œil ne voit plus des images séparées : elles se fondent en mouvement. Le cinéma tient depuis toujours avec 24 images par seconde. Les jeux visent souvent 30 ou 60 FPS, et les écrans récents montent à 120 ou 240. Plus il y a d\u0027images, plus le geste paraît fluide et la visée précise."
+                  },
+                  {
+                      "type":  "tesjeux",
+                      "titre":  "Et tes jeux ?",
+                      "intro":  "La même boucle bat dans les jeux que tu connais, à des rythmes différents.",
+                      "jeux":  [
+                                   {
+                                       "nom":  "Minecraft (Java Edition)",
+                                       "langage":  "Java",
+                                       "texte":  "Le serveur avance par **tics** (ticks) : 20 par seconde, un tic toutes les 50 millisecondes. Redstone, pousses et fermes suivent tous ce rythme."
+                                   },
+                                   {
+                                       "nom":  "GTA V",
+                                       "langage":  "C++",
+                                       "texte":  "Son moteur RAGE vise 30 ou 60 images par seconde. À chaque tour, il déplace le trafic, la foule et la physique des voitures, puis redessine la ville."
+                                   },
+                                   {
+                                       "nom":  "Garry\u0027s Mod",
+                                       "langage":  "Lua et C++",
+                                       "texte":  "Bâti sur le moteur Source. Le serveur avance par tics et fixe l\u0027état commun ; ton PC, lui, affiche au rythme de tes FPS."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Pourquoi la boucle intéresse la triche",
+                      "paragraphes":  [
+                                          "La boucle de jeu est au cœur de beaucoup de triches, donc de la défense. On l\u0027étudie ici pour **comprendre** et **protéger**, jamais comme mode d\u0027emploi.",
+                                          "Premier exemple : l\u0027**accélération du temps** (speedhack). Un jeu calcule ses mouvements d\u0027après le temps écoulé entre deux tours ; fausser ce temps fait tout accélérer. Le bestiaire la détaille, côté défense, en phase 10.",
+                                          "Autre exemple : le **vol** (fly hack). À chaque tour, la boucle applique la gravité et te fait tomber ; annuler cette chute, tour après tour, te maintient en l\u0027air. Le bestiaire l\u0027explique, côté défense."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Tricher la boucle locale ne suffit pas en ligne",
+                      "texte":  "Un jeu en ligne tourne à deux endroits. Ton PC fait tourner sa boucle, mais le serveur fait tourner la sienne, qui vérifie ce que ton PC raconte. Si ta boucle locale te fait courir trop vite, celle du serveur le voit et te corrige. C\u0027est l\u0027autorité du serveur, le grand sujet de la phase 11."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "game loop",
+                                       "fr":  "boucle de jeu",
+                                       "note":  "Le cycle qui fait tourner un jeu : lire les entrées, mettre à jour, afficher. Répété sans arrêt."
+                                   },
+                                   {
+                                       "en":  "frame",
+                                       "fr":  "image",
+                                       "note":  "Une image de jeu. La boucle en calcule et en affiche des dizaines par seconde."
+                                   },
+                                   {
+                                       "en":  "FPS",
+                                       "fr":  "images par seconde",
+                                       "note":  "De « frames per second ». Le nombre d\u0027images affichées chaque seconde ; 60 FPS, c\u0027est fluide."
+                                   },
+                                   {
+                                       "en":  "update",
+                                       "fr":  "mettre à jour",
+                                       "note":  "Le temps d\u0027un tour qui recalcule l\u0027état du jeu : positions, vies, physique."
+                                   },
+                                   {
+                                       "en":  "render",
+                                       "fr":  "afficher",
+                                       "note":  "Dessiner l\u0027image à l\u0027écran, une fois l\u0027état mis à jour."
+                                   },
+                                   {
+                                       "en":  "tick",
+                                       "fr":  "tic",
+                                       "note":  "Un tour de la boucle logique d\u0027un jeu. Minecraft en fait 20 par seconde."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Dans quel ordre se déroule un tour de boucle de jeu ?",
+                                            "choix":  [
+                                                          "Afficher, puis lire les entrées, puis mettre à jour",
+                                                          "Mettre à jour, puis afficher, puis lire les entrées",
+                                                          "Lire les entrées, mettre à jour l\u0027état, puis afficher l\u0027image"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Chaque tour : on lit les entrées (manette, clavier), on met à jour l\u0027état (positions, vies, physique), puis on affiche l\u0027image. Et on recommence."
+                                        },
+                                        {
+                                            "q":  "Que veulent dire les FPS ?",
+                                            "choix":  [
+                                                          "Le nombre d\u0027images affichées par seconde",
+                                                          "La vitesse du processeur",
+                                                          "Le nombre de joueurs connectés"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "FPS, « frames per second », c\u0027est le nombre d\u0027images (frames) par seconde. Plus il est élevé, plus le mouvement paraît fluide."
+                                        },
+                                        {
+                                            "q":  "Dans `while (!est_mort(vieHeros) \u0026\u0026 !est_mort(vieMonstre))`, quand la boucle s\u0027arrête-t-elle ?",
+                                            "choix":  [
+                                                          "Jamais, elle tourne sans fin",
+                                                          "Dès que l\u0027un des deux est mort",
+                                                          "Seulement quand les deux sont morts en même temps"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "`\u0026\u0026` veut dire ET : la condition n\u0027est vraie que si les deux sont vivants. Dès que l\u0027un tombe, elle devient fausse et la boucle s\u0027arrête."
+                                        },
+                                        {
+                                            "q":  "Pourquoi tricher la boucle de son propre PC ne marche pas sur un jeu en ligne ?",
+                                            "choix":  [
+                                                          "Parce que le PC est trop lent pour tricher",
+                                                          "Parce que la triche ralentit la connexion",
+                                                          "Parce que le serveur fait tourner sa propre boucle, qui vérifie le PC"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Un jeu en ligne tourne aussi sur un serveur, qui fait tourner sa boucle et vérifie chaque action. C\u0027est l\u0027autorité du serveur, le sujet de la phase 11."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "La **boucle de jeu** (game loop) répète sans arrêt le même cycle : lire les entrées, mettre à jour l\u0027état, afficher l\u0027image.",
+                                     "Chaque tour produit une **image** (frame). Des dizaines par seconde, ce sont les **FPS** : plus il y en a, plus c\u0027est fluide.",
+                                     "Un `while` est une boucle : il répète son bloc **tant que** sa condition tient. C\u0027est la boucle de combat de `Combat.cpp` et de CZKArene.",
+                                     "La boucle est un terrain de triche (speedhack, vol) que l\u0027on étudie côté défense. En ligne, le serveur a sa propre boucle, qui a le dernier mot."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "3.4 — Boss : un combat au tour par tour",
+                      "texte":  "Tu connais la boucle qui fait tourner un jeu. Place au boss de la phase : tu lances `Combat.cpp`, tu le lis en entier, puis tu retrouves son « si vie \u003c= 0 » dans l\u0027assembleur. Conditions et boucles réunies, dans ton propre programme."
+                  }
+              ]
+},"3-4":{
+    "id":  "3-4",
+    "phase":  3,
+    "numero":  "3.4",
+    "titre":  "Boss : un combat au tour par tour",
+    "duree":  30,
+    "objectif":  "Lire, lancer et modifier un vrai combat au tour par tour en C++, puis retrouver le « si vie \u003c= 0 » de ta fonction est_mort directement dans son assembleur.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Dans tes jeux, un monstre s\u0027écroule dès que sa vie tombe à zéro. Derrière, le programme pose sans cesse la même question : « cette vie est-elle à zéro ? ». Aujourd\u0027hui, tu l\u0027écris toi-même dans un petit combat, puis tu la débusques dans l\u0027assembleur de ton propre `.exe` : le trophée de la phase 3."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Ce que la phase 3 t\u0027a mis en main",
+                      "paragraphes":  [
+                                          "Depuis le début de la phase 3, tu sais donner des choix et des boucles à tes programmes. Un `if` choisit selon une condition, un `while` répète tant qu\u0027une condition tient. Et une condition, comme `vie \u003c= 0`, répond par *vrai* ou *faux* : c\u0027est un `bool`, le type des réponses par oui ou non.",
+                                          "Ce boss rassemble tout ça dans un seul programme : `Combat.cpp`. Un héros et un monstre se tapent dessus, chacun son tour, jusqu\u0027à ce que l\u0027un tombe. Tu vas le lire, le lancer, puis l\u0027ouvrir en grand pour voir sa logique en assembleur."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Combat.cpp, en entier",
+                      "code":  "// Combat.cpp - la cible de la phase 3 (conditions et boucles).\n// Un combat au tour par tour, tres simple, sans interaction : le heros et le\n// monstre se tapent dessus a tour de role jusqu\u0027a ce que l\u0027un tombe.\n// Tu vas le lire, le lancer, puis retrouver le test « si vie \u003c= 0 » dans son assembleur.\n// Compile :  cl /nologo /EHsc /std:c++20 /W4 Combat.cpp\n\n#include \u003ciostream\u003e\n\nbool est_mort(int vie)\n{\n    return vie \u003c= 0;\n}\n\nint main()\n{\n    int vieHeros = 100;\n    int vieMonstre = 80;\n    int degatsHeros = 18;\n    int degatsMonstre = 14;\n    int tour = 1;\n\n    while (!est_mort(vieHeros) \u0026\u0026 !est_mort(vieMonstre))\n    {\n        std::cout \u003c\u003c \"--- Tour \" \u003c\u003c tour \u003c\u003c \" ---\\n\";\n\n        vieMonstre -= degatsHeros;\n        std::cout \u003c\u003c \"Tu frappes : le monstre tombe a \" \u003c\u003c vieMonstre \u003c\u003c \" de vie.\\n\";\n\n        if (est_mort(vieMonstre))\n            break;\n\n        vieHeros -= degatsMonstre;\n        std::cout \u003c\u003c \"Le monstre riposte : tu tombes a \" \u003c\u003c vieHeros \u003c\u003c \" de vie.\\n\";\n\n        tour += 1;\n    }\n\n    if (est_mort(vieHeros))\n        std::cout \u003c\u003c \"\\nDefaite au bout de \" \u003c\u003c tour \u003c\u003c \" tours.\\n\";\n    else\n        std::cout \u003c\u003c \"\\nVictoire au bout de \" \u003c\u003c tour \u003c\u003c \" tours.\\n\";\n\n    return 0;\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  9,
+                                        "texte":  "`est_mort` reçoit une vie et renvoie un `bool` : *vrai* (`true`) si le personnage est mort, *faux* (`false`) sinon. C\u0027est le type des réponses par oui ou non."
+                                    },
+                                    {
+                                        "ligne":  11,
+                                        "texte":  "`vie \u003c= 0` est une comparaison : elle vaut `true` dès que la vie atteint zéro ou passe en négatif. Attention, `\u003c=` compare, alors que `=` seul rangerait une valeur (le piège vu en phase 1)."
+                                    },
+                                    {
+                                        "ligne":  22,
+                                        "texte":  "Le `while` répète le bloc tant que sa condition tient. `!est_mort(...)` veut dire « n\u0027est pas mort » (`!` = NON), et `\u0026\u0026` veut dire ET : on continue tant que le héros et le monstre sont vivants."
+                                    },
+                                    {
+                                        "ligne":  26,
+                                        "texte":  "`vieMonstre -= degatsHeros` enlève les dégâts du héros à la vie du monstre. C\u0027est `vieMonstre = vieMonstre - degatsHeros`, en plus court."
+                                    },
+                                    {
+                                        "ligne":  29,
+                                        "texte":  "Si le monstre vient de tomber, `break` sort de la boucle sur-le-champ, avant qu\u0027il ne riposte. Sans ce `break`, un monstre à zéro frapperait encore."
+                                    },
+                                    {
+                                        "ligne":  38,
+                                        "texte":  "La boucle finie, une dernière question tranche l\u0027issue : si le héros est mort, défaite ; sinon, victoire. Le même `est_mort` sert partout."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "txt",
+                      "titre":  "Ce que le combat affiche",
+                      "code":  "--- Tour 1 ---\nTu frappes : le monstre tombe a 62 de vie.\nLe monstre riposte : tu tombes a 86 de vie.\n--- Tour 2 ---\nTu frappes : le monstre tombe a 44 de vie.\nLe monstre riposte : tu tombes a 72 de vie.\n--- Tour 3 ---\nTu frappes : le monstre tombe a 26 de vie.\nLe monstre riposte : tu tombes a 58 de vie.\n--- Tour 4 ---\nTu frappes : le monstre tombe a 8 de vie.\nLe monstre riposte : tu tombes a 44 de vie.\n--- Tour 5 ---\nTu frappes : le monstre tombe a -10 de vie.\n\nVictoire au bout de 5 tours.",
+                      "notes":  [
+                                    {
+                                        "ligne":  14,
+                                        "texte":  "Au tour 5, le monstre passe à -10 : `est_mort(-10)` est *vrai* et le `break` coupe le combat avant la riposte. Le héros tient encore à 44 de vie : victoire en 5 tours."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La boucle, le cœur d\u0027un jeu",
+                      "paragraphes":  [
+                                          "Regarde la structure du combat : *tant que* les deux sont vivants, joue un tour. C\u0027est une **boucle de jeu** (game loop), le moteur de tout jeu vidéo. Un vrai jeu la répète des dizaines de fois par seconde.",
+                                          "À chaque tour de boucle, un jeu lit tes touches, met à jour l\u0027état (positions, vies, physique), puis dessine l\u0027image. Ces images par seconde, ce sont les **FPS** (frames per second). `CZKArene`, ton jeu de combat, tourne sur une boucle du même genre."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Une comparaison, un saut",
+                      "texte":  "Garde en tête ce duo : une **comparaison**, puis un **saut**. En assembleur, tout choix se dit ainsi : on compare deux valeurs (`cmp` ou `test`), puis on saute ailleurs selon le résultat (`jg`, `jl`...), ou on range *vrai*/*faux* (`setle`). Repérer ce duo dans un jeu, c\u0027est la base de sa lecture : tu t\u0027y entraîneras pour de bon en phase 8."
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Voici `est_mort`, ta fonction, traduite par MSVC en x64 en mode optimisé (`/O2`). Le paramètre `vie` arrive dans le registre ECX, la boîte du processeur choisie par Microsoft pour le premier argument. En trois instructions, tout le « si vie \u003c= 0 » est là.",
+                      "cpp":  "bool est_mort(int vie)\n{\n    return vie \u003c= 0;\n}",
+                      "asm":  "?est_mort@@YA_NH@Z PROC\n    test ecx, ecx\n    setle al\n    ret 0\n?est_mort@@YA_NH@Z ENDP",
+                      "liens":  [
+                                    {
+                                        "cpp":  1,
+                                        "asm":  [
+                                                    1,
+                                                    5
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  3,
+                                        "asm":  [
+                                                    2,
+                                                    3
+                                                ]
+                                    }
+                                ],
+                      "conclusion":  "`test ecx, ecx` lit le signe de `vie` sans la modifier : une astuce courante pour savoir si une valeur est nulle, positive ou négative. `setle al` (*Set if Less or Equal*) range alors 1 dans AL, l\u0027octet bas de EAX (le registre de réponse déjà vu), si `vie \u003c= 0`, et 0 sinon : c\u0027est le `bool` renvoyé. `ret 0` rend la réponse, et tu viens de relier une ligne de ton C++ à son assembleur, dans ton propre jeu."
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "curieux",
+                      "titre":  "Au débogueur, c\u0027est plus bavard",
+                      "texte":  "Si tu ouvres `est_mort` dans le débogueur, en mode Debug (le réglage par défaut), tu verras une version plus longue. `vie` est d\u0027abord rangée en mémoire de travail, puis `cmp DWORD PTR [rsp+8], 0` la compare à 0, et un saut `jg` (*Jump if Greater*) file plus loin si la vie reste positive. Même « si vie \u003c= 0 », en plus d\u0027étapes : la version courte de trois lignes ci-dessus vient du mode optimisé, et pourquoi les deux diffèrent autant est le sujet de la phase 8."
+                  },
+                  {
+                      "type":  "atoi",
+                      "titre":  "À toi : lance le combat, puis lis-le en machine",
+                      "etapes":  [
+                                     "Dans Visual Studio, crée un projet **Application console** (Console App) nommé `Combat`, avec pour Emplacement (Location) ton dossier `Learning\\exercices\\phase-3`. Efface le code proposé et colle celui de `Combat.cpp` ci-dessus. Pas besoin de taper la commande `cl` du commentaire : lance avec Ctrl+F5, qui compile, exécute, et la console déroule le combat.",
+                                     "Lis la sortie et compte les tours. Combien en faut-il pour que le monstre tombe ? Repère le moment où sa vie passe sous zéro.",
+                                     "Change les nombres du début de `main`. Monte les dégâts du monstre (`degatsMonstre`) à 25, ou donne 150 de vie au héros. Avant de relancer, devine qui gagne et en combien de tours, puis vérifie avec Ctrl+F5.",
+                                     "Mets un **point d\u0027arrêt** (breakpoint) sur la ligne `return vie \u003c= 0;` : clique dans la marge grise à gauche de cette ligne, un rond rouge apparaît. Lance avec F5, cette fois avec débogage : le programme s\u0027arrête pile à cette ligne.",
+                                     "Ouvre alors Déboguer \u003e Fenêtres \u003e Code Assembleur (Debug \u003e Windows \u003e Disassembly). Tu vois `est_mort` en instructions machine, avec sa comparaison et son saut. En Debug, c\u0027est la version plus longue de l\u0027encadré : le `cmp` et le `jg` sont ton « si vie \u003c= 0 »."
+                                 ],
+                      "indices":  [
+                                      "Sur un clavier AZERTY, `{` se tape avec AltGr+4 et `}` avec AltGr+=. Les symboles `\u003c`, `\u003e`, `\u0026` et `!` sont en direct sur le clavier. Tape des guillemets droits `\"` ; les guillemets « » ou “ ” déclenchent une erreur.",
+                                      "Les messages du programme n\u0027ont pas d\u0027accent, par exemple `\"Tu frappes\"`. Par défaut, la console de Windows affiche mal les lettres accentuées, comme vu en phase 1.",
+                                      "La console se ferme aussitôt ? Tu as sûrement lancé avec F5 au lieu de Ctrl+F5. Ctrl+F5 lance sans débogage et garde la fenêtre ouverte à la fin.",
+                                      "La fenêtre Code Assembleur (Disassembly) ne s\u0027ouvre qu\u0027en cours de débogage : il faut d\u0027abord poser un point d\u0027arrêt et lancer avec F5, pas Ctrl+F5.",
+                                      "L\u0027assembleur à l\u0027écran ne colle pas pile avec le capot (trois lignes) ? C\u0027est normal : le capot montre le mode optimisé, le débogueur le mode Debug. Pour tout le reste, demande à ton coach dans VS Code, avec le numéro de l\u0027étape."
+                                  ],
+                      "solution":  "Au départ (100 et 80 de vie, 18 et 14 de dégâts), le monstre tombe au tour 5 : victoire, le héros est encore à 44 de vie. Donne 150 de vie au héros et c\u0027est toujours une victoire au tour 5, mais tu finis à 94 : c\u0027est ton épée (18 de dégâts) qui fixe le rythme. Passe plutôt `degatsMonstre` à 25 et le combat bascule : le héros tombe au tour 5. Au débogueur, sur `return vie \u003c= 0;`, la fenêtre Code Assembleur (Disassembly) montre un `cmp` suivi d\u0027un saut `jg` : ton « si vie \u003c= 0 », en langage machine, dans ton propre programme."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "boolean",
+                                       "fr":  "booléen",
+                                       "note":  "Le type des réponses par oui ou non : `true` (vrai) ou `false` (faux). En C++, c\u0027est `bool`, comme ce que renvoie `est_mort`."
+                                   },
+                                   {
+                                       "en":  "loop",
+                                       "fr":  "boucle",
+                                       "note":  "Un bloc qu\u0027on répète tant qu\u0027une condition tient. `while` et `for` en créent, et le cœur de tout jeu en est une."
+                                   },
+                                   {
+                                       "en":  "break",
+                                       "fr":  "interrompre",
+                                       "note":  "Le mot-clé `break` interrompt une boucle sur-le-champ et en sort, comme quand le monstre tombe en plein tour."
+                                   },
+                                   {
+                                       "en":  "compare",
+                                       "fr":  "comparer",
+                                       "note":  "En assembleur, `cmp` et `test` comparent deux valeurs avant un saut. Tu verras un `cmp` dans le débogueur."
+                                   },
+                                   {
+                                       "en":  "jump",
+                                       "fr":  "saut",
+                                       "note":  "Une instruction qui envoie le processeur ailleurs dans le code. `jg` saute si « plus grand », `jl` si « plus petit »."
+                                   },
+                                   {
+                                       "en":  "disassembly",
+                                       "fr":  "désassemblage",
+                                       "note":  "La fenêtre Code Assembleur (Disassembly) de Visual Studio, qui montre une fonction en instructions machine."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Dans `Combat.cpp`, que renvoie `est_mort(5)` ?",
+                                            "choix":  [
+                                                          "`true` : le personnage est mort",
+                                                          "`false` : le personnage est vivant",
+                                                          "Le nombre 5"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "`5 \u003c= 0` est faux : `est_mort` renvoie `false`. La vie n\u0027est tombée ni à zéro ni en négatif, donc le personnage tient debout."
+                                        },
+                                        {
+                                            "q":  "La boucle `while(!est_mort(vieHeros) \u0026\u0026 !est_mort(vieMonstre))` tourne tant que...",
+                                            "choix":  [
+                                                          "...les deux sont morts",
+                                                          "...au moins un des deux est vivant",
+                                                          "...les deux sont vivants"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "`\u0026\u0026` veut dire ET, et `!est_mort` veut dire « est vivant ». On répète tant que le héros ET le monstre sont vivants ; dès que l\u0027un tombe, la boucle s\u0027arrête."
+                                        },
+                                        {
+                                            "q":  "Avec MSVC en x64 et `/O2`, `est_mort` tient en `test ecx, ecx` puis `setle al`. Que fait `setle al` ?",
+                                            "choix":  [
+                                                          "Il range 1 dans AL si `vie \u003c= 0`, sinon 0",
+                                                          "Il met toujours 1 dans AL",
+                                                          "Il efface la valeur de `vie`"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "`setle` (Set if Less or Equal) range 1 dans AL, l\u0027octet bas de EAX, quand la comparaison dit `vie \u003c= 0`, sinon 0. C\u0027est exactement le `bool` de `return vie \u003c= 0;`."
+                                        },
+                                        {
+                                            "q":  "En assembleur, comment s\u0027écrit toujours une condition, un `if` comme une boucle ?",
+                                            "choix":  [
+                                                          "Un seul `mov` qui décide tout",
+                                                          "Une comparaison (`cmp`/`test`) puis un saut ou un `setle`",
+                                                          "Rien : les conditions disparaissent à la compilation"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "On compare deux valeurs, puis on saute selon le résultat (`jg`, `jl`...) ou on range *vrai*/*faux* (`setle`). Même mécanisme pour un `if` et pour une boucle."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "`est_mort` renvoie un `bool` : `vie \u003c= 0` vaut *vrai* dès que la vie atteint zéro. `!` veut dire NON, `\u0026\u0026` veut dire ET, `||` veut dire OU.",
+                                     "Une boucle `while` répète un bloc tant que sa condition tient : c\u0027est la boucle de jeu (game loop), le moteur de tout jeu.",
+                                     "Sous le capot, avec MSVC en x64 et `/O2`, le « si vie \u003c= 0 » tient en `test ecx, ecx` puis `setle al` : une comparaison, puis un résultat *vrai*/*faux*.",
+                                     "En assembleur, toute condition se lit pareil : une comparaison (`cmp`/`test`) suivie d\u0027un saut (`jg`, `jl`...) ou d\u0027un `setle`. C\u0027est la base de la lecture d\u0027un vrai jeu."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "Phase 4 — Fonctions \u0026 pile",
+                      "texte":  "Avec ce boss, tu boucles la phase 3 : lu, lancé, modifié, puis relié à son assembleur. En phase 4, tu découpes ton code en fonctions bien rangées, et tu suis leurs appels pas à pas au débogueur — la *pile*, cette mémoire de travail déjà croisée dans `[rsp+8]`."
                   }
               ]
 }}};</script>
