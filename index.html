@@ -11609,7 +11609,7 @@ html.is-tel #app { height: 100%; }
   const GAME_LBL = { minecraft: 'Minecraft', gmod: "Garry's Mod", oblivion: 'Oblivion', gta: 'GTA V' };
   const LANG_LBL = { cpp: 'C++', asm: 'Assembleur x64', lua: 'Lua', java: 'Java', txt: 'Texte' };
   const ENC_LBL = { piege: 'Piège classique', cible: 'Pour ta cible', astuce: 'Astuce', curieux: 'Pour les curieux' };
-  const ROUTES = ['accueil', 'scroll', 'glossaire', 'bestiaire', 'regles', 'moi'];
+  const ROUTES = ['accueil', 'scroll', 'glossaire', 'memo', 'bestiaire', 'regles', 'moi'];
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ================= Petits outils ================= */
@@ -11933,7 +11933,7 @@ html.is-tel #app { height: 100%; }
     if (MODE === 'pc') {
       const nav = $('#nav'); if (!nav) return;
       const lecTarget = n ? 'lecon-' + n.id : (lessons().filter((l) => l.dispo).slice(-1)[0] ? 'lecon-' + lessons().filter((l) => l.dispo).slice(-1)[0].id : 'accueil');
-      const items = [['accueil', 'Parcours'], [lecTarget, 'Leçon en cours'], ['glossaire', 'Glossaire'], ['bestiaire', 'Bestiaire des triches'], ['regles', 'Règles du dojo'], ['moi', 'Ma progression']];
+      const items = [['accueil', 'Parcours'], [lecTarget, 'Leçon en cours'], ['glossaire', 'Glossaire'], ['memo', 'Mémo du C++'], ['bestiaire', 'Bestiaire des triches'], ['regles', 'Règles du dojo'], ['moi', 'Ma progression']];
       nav.innerHTML = items.map(([h, t], i) => {
         const cur = (i === 1 && r.view === 'lecon') || (i !== 1 && r.view === h);
         return '<a href="#' + h + '"' + (cur ? ' aria-current="page"' : '') + '><span class="ipm">' + ICON.ip + '</span><span>' + esc(t) + '</span></a>';
@@ -11945,7 +11945,7 @@ html.is-tel #app { height: 100%; }
       const tabs = $('#tabs'); if (!tabs) return;
       const items = [['scroll', 'Scroll', ICON.scroll], ['accueil', 'Parcours', ICON.map], ['glossaire', 'Glossaire', ICON.book], ['moi', 'Moi', ICON.me]];
       tabs.innerHTML = items.map(([h, t, ic]) => {
-        const cur = r.view === h || (h === 'accueil' && (r.view === 'lecon' || r.view === 'bestiaire' || r.view === 'regles'));
+        const cur = r.view === h || (h === 'accueil' && (r.view === 'lecon' || r.view === 'bestiaire' || r.view === 'regles')) || (h === 'glossaire' && r.view === 'memo');
         return '<a href="#' + h + '"' + (cur ? ' aria-current="page"' : '') + '>' + ic + '<span>' + t + '</span></a>';
       }).join('');
     }
@@ -11969,6 +11969,7 @@ html.is-tel #app { height: 100%; }
     if (r.view === 'accueil') vue.innerHTML = viewAccueil();
     else if (r.view === 'lecon') { if (key !== lastKey || !$('.lecon[data-lecon]', vue)) { vue.innerHTML = '<div class="lecon"><p class="muted">Chargement de la leçon…</p></div>'; renderLecon(r.id); } }
     else if (r.view === 'glossaire') { vue.innerHTML = viewGlossaire(); bindGlossaire(); }
+    else if (r.view === 'memo') vue.innerHTML = viewMemo();
     else if (r.view === 'bestiaire') vue.innerHTML = viewBestiaire();
     else if (r.view === 'regles') vue.innerHTML = viewRegles();
     else if (r.view === 'moi') vue.innerHTML = viewMoi();
@@ -12328,7 +12329,7 @@ html.is-tel #app { height: 100%; }
   /* ================= Vues : glossaire, bestiaire, règles, moi ================= */
   function viewGlossaire() {
     const items = C.glossaire.slice().sort((a, b) => String(a.terme).localeCompare(String(b.terme), 'fr', { sensitivity: 'base' }));
-    return '<div class="page"><header class="vh"><h1>Glossaire</h1><p class="sub">' + items.length + ' mots du cours, en français et en anglais. Les mots vus en leçon sont marqués en vert.</p>' +
+    return '<div class="page"><header class="vh"><h1>Glossaire</h1><p class="sub">' + items.length + ' mots du cours, en français et en anglais. Les mots vus en leçon sont marqués en vert. Pour un aide-mémoire groupé des types et mots-clés, va voir le <a href="#memo">Mémo du C++</a>.</p>' +
       '<label class="search"><span class="sr">Chercher un mot</span><input id="g-search" type="search" placeholder="Chercher un mot" autocomplete="off"></label></header>' +
       '<dl class="gloss">' + items.map((g) => '<div class="g-item' + (g.lecon && isDone(g.lecon) ? ' is-vu' : '') + '" data-k="' + esc(norm(g.terme + ' ' + (g.en || '') + ' ' + (g.definition || ''))) + '">' +
         '<dt><span class="g-t">' + esc(g.terme) + '</span>' + (g.en ? '<span class="g-en" lang="en">' + esc(g.en) + '</span>' : '') + (g.lecon ? '<span class="g-lec">Leçon ' + esc(String(g.lecon).replace('-', '.')) + '</span>' : '') + '</dt>' +
@@ -12343,6 +12344,50 @@ html.is-tel #app { height: 100%; }
       $$('.g-item').forEach((el) => { const ok = !q || el.dataset.k.indexOf(q) >= 0; el.hidden = !ok; if (ok) shown++; });
       $('#g-none').hidden = shown > 0;
     });
+  }
+  const MEMO = [
+    { titre: 'Les types : ce qu\'une boîte peut contenir', sous: 'Le type se met devant le nom quand tu crées une variable.', items: [
+      { t: 'int', en: 'integer', def: 'Un nombre entier, sans virgule (positif ou négatif).', ex: '`int vie = 100;`' },
+      { t: 'bool', en: 'boolean', def: 'Vrai ou faux, rien d\'autre. Les comparaisons (`<`, `==`...) en donnent un.', ex: '`bool mort = false;`' },
+      { t: 'char', en: 'character', def: 'Un seul caractère, entre apostrophes simples.', ex: '`char note = \'A\';`' },
+      { t: 'float', en: '', def: 'Un nombre à virgule. Le `f` à la fin dit « c\'est un float ».', ex: '`float vitesse = 2.5f;`' },
+      { t: 'double', en: '', def: 'Un nombre à virgule, deux fois plus précis qu\'un `float`.', ex: '`double pi = 3.14159;`' },
+      { t: 'void', en: '', def: 'Rien. Pour une fonction qui agit mais ne renvoie aucune valeur.', ex: '`void sauter() { ... }`' },
+      { t: 'auto', en: '', def: 'Demande au compilateur de deviner le type tout seul.', ex: '`auto x = 100;`  (x est un int)' },
+      { t: 'unsigned', en: '', def: 'Un entier qui ne peut jamais être négatif : 0 et au-dessus.', ex: '`unsigned int munitions = 30;`' },
+      { t: 'long long', en: '', def: 'Un entier qui peut être beaucoup plus grand qu\'un `int`.', ex: '`long long distance = 9000000000;`' },
+      { t: 'std::string', en: '', def: 'Du texte, qui connaît sa longueur. (Phase 7.)', ex: '`std::string nom = "Heros";`' },
+      { t: 'std::vector<...>', en: '', def: 'Une liste d\'éléments du même type, qui grandit toute seule. (Phase 7.)', ex: '`std::vector<int> scores;`' },
+    ] },
+    { titre: 'Les valeurs toutes prêtes', items: [
+      { t: 'true / false', en: '', def: 'Les deux seules valeurs d\'un `bool` : vrai et faux.', ex: '`bool ok = true;`' },
+      { t: 'nullptr', en: 'null pointer', def: 'Un pointeur qui ne montre rien. Le suivre fait planter. (Phase 5.)', ex: '`int* p = nullptr;`' },
+    ] },
+    { titre: 'Les mots-clés du quotidien', items: [
+      { t: 'return', en: '', def: 'Renvoie la valeur de retour et termine la fonction sur-le-champ.', ex: '`return vie;`' },
+      { t: 'if / else', en: 'si / sinon', def: 'Exécute un bloc selon qu\'une condition est vraie ou non. (Phase 3.)', ex: '`if (vie <= 0) ...`' },
+      { t: 'for / while', en: '', def: 'Les boucles : répéter tant qu\'une condition tient. (Phase 3.)', ex: '`for (int i = 0; i < 10; i++)`' },
+      { t: 'break / continue', en: '', def: 'Sortir d\'une boucle, ou passer directement au tour suivant.', ex: '`if (fini) break;`' },
+      { t: 'const', en: '', def: '« Ne change pas » : une valeur qu\'on promet de ne jamais modifier.', ex: '`const int MAX = 100;`' },
+      { t: 'struct / class', en: '', def: 'Regrouper des données (et des méthodes) sous un nom. (Phases 1 et 6.)', ex: '`struct Heros { int vie; };`' },
+      { t: 'new / delete', en: '', def: 'Réserver / rendre de la mémoire sur le tas pendant l\'exécution. (Phases 5 et 7.)', ex: '`int* t = new int[10]; delete[] t;`' },
+      { t: '#include', en: '', def: 'Ajouter un outil tout fait : un en-tête de la bibliothèque. (Phase 1.)', ex: '`#include <vector>`' },
+      { t: 'std::', en: 'namespace', def: 'L\'étiquette qui dit « cet outil vient de la bibliothèque standard ». (Phase 7.)', ex: '`std::cout << "Salut";`' },
+      { t: 'virtual', en: '', def: 'Rend une méthode redéfinissable : c\'est le mécanisme de la table virtuelle. (Phase 6.)', ex: '`virtual int type();`' },
+      { t: 'this', en: '', def: 'Le pointeur caché vers l\'objet sur lequel une méthode travaille. (Phase 6.)', ex: '`this->vie = 100;`' },
+    ] },
+    { titre: 'Les registres (quand tu lis l\'assembleur)', sous: 'Des petites cases **à l\'intérieur du processeur**. Un même registre a plusieurs noms selon la taille : **RAX** (64 bits) contient **EAX** (32 bits).', items: [
+      { t: 'RAX / EAX', en: '', def: 'La boîte-réponse : la valeur de retour d\'une fonction y est déposée. `EAX` pour un `int` (32 bits), `RAX` pour une adresse (64 bits).', ex: '`mov eax, 100`  = renvoyer 100' },
+      { t: 'RCX, RDX, R8, R9', en: '', def: 'Les quatre premiers arguments d\'une fonction arrivent là. `this` d\'une méthode est dans RCX. (Phases 2-6.)', ex: '`mov ecx, force`' },
+      { t: 'RSP', en: 'stack pointer', def: 'Le pointeur de pile : il marque le sommet de la pile. (Phase 4.)', ex: '`sub rsp, 56`' },
+      { t: '[rax]', en: '', def: 'Les crochets veulent dire « la valeur rangée à l\'adresse contenue dans RAX » : suivre un pointeur. (Phase 5.)', ex: '`mov eax, [rcx]`' },
+    ] },
+  ];
+  function viewMemo() {
+    return '<div class="page"><header class="vh"><h1>Mémo du C++</h1><p class="sub">Les types, les mots-clés et les registres que tu croises en codant, réunis au même endroit. Pour chercher un mot précis, le <a href="#glossaire">glossaire</a> a une barre de recherche.</p></header>' +
+      MEMO.map((grp) => '<section class="sec"><header class="sec-head"><h2>' + esc(grp.titre) + '</h2>' + (grp.sous ? '<p class="sub">' + md(grp.sous) + '</p>' : '') + '</header><dl class="gloss">' +
+        grp.items.map((it) => '<div class="g-item"><dt><span class="g-t"><code>' + esc(it.t) + '</code></span>' + (it.en ? '<span class="g-en" lang="en">' + esc(it.en) + '</span>' : '') + '</dt><dd><p>' + md(it.def) + '</p>' + (it.ex ? '<p class="g-ex">' + md(it.ex) + '</p>' : '') + '</dd></div>').join('') +
+        '</dl></section>').join('') + '</div>';
   }
   function viewBestiaire() {
     const cur = currentPhase();
