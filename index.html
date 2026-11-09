@@ -763,7 +763,34 @@ html.is-tel #app { height: 100%; }
                        "boss":  "ta cible réorganisée, suivie pas à pas au débogueur",
                        "duree":  "4 sem",
                        "lecons":  [
-
+                                      {
+                                          "id":  "4-1",
+                                          "numero":  "4.1",
+                                          "titre":  "Découper pour mieux régner",
+                                          "duree":  16,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "4-2",
+                                          "numero":  "4.2",
+                                          "titre":  "La pile d\u0027appels",
+                                          "duree":  17,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "4-3",
+                                          "numero":  "4.3",
+                                          "titre":  "Le débogueur, ton microscope",
+                                          "duree":  18,
+                                          "dispo":  true
+                                      },
+                                      {
+                                          "id":  "4-4",
+                                          "numero":  "4.4",
+                                          "titre":  "Boss : suis la pile dans ton programme",
+                                          "duree":  30,
+                                          "dispo":  true
+                                      }
                                   ]
                    },
                    {
@@ -3176,6 +3203,525 @@ html.is-tel #app { height: 100%; }
                        "jeu":  "",
                        "titre":  "Le cœur qui bat d\u0027un jeu",
                        "texte":  "Tout jeu tourne sur une boucle de jeu (game loop) : lire les entrées, mettre à jour l\u0027état (vies, positions), dessiner l\u0027image, recommencer, des dizaines de fois par seconde. Ce sont les images par seconde (FPS). `CZKArene`, ton jeu, a une boucle du même genre."
+                   },
+                   {
+                       "id":  "c401",
+                       "type":  "concept",
+                       "lecon":  "4-1",
+                       "jeu":  "",
+                       "titre":  "Un jeu, plein de petites fonctions",
+                       "texte":  "Un gros jeu n\u0027est pas un seul bloc de code. C\u0027est une foule de petites fonctions, qui font chacune une seule chose : sauter, tirer, calculer des dégâts. Chaque fonction porte un nom qui dit son rôle, et c\u0027est ce qui rend l\u0027ensemble lisible."
+                   },
+                   {
+                       "id":  "c402",
+                       "type":  "code",
+                       "lecon":  "4-1",
+                       "jeu":  "",
+                       "titre":  "Que renvoie cette fonction ?",
+                       "langage":  "cpp",
+                       "code":  "int calculer_degats(int force, int arme)\n{\n    return force + arme;\n}",
+                       "question":  "Que renvoie `calculer_degats(12, 5)` ?",
+                       "reponse":  "17. La fonction additionne ses deux entrées, `force` (12) et `arme` (5), et rend le résultat avec `return`. Cette sortie s\u0027appelle la valeur de retour.",
+                       "explication":  "Le type devant le nom, `int`, annonce que la sortie est un nombre entier."
+                   },
+                   {
+                       "id":  "c403",
+                       "type":  "concept",
+                       "lecon":  "4-1",
+                       "jeu":  "",
+                       "titre":  "DRY : ne te répète pas",
+                       "texte":  "DRY veut dire *Don\u0027t Repeat Yourself*, « ne te répète pas ». Au lieu de recopier un calcul à dix endroits, tu l\u0027écris une fois dans une fonction, puis tu l\u0027appelles. Si la formule change, un seul endroit à corriger."
+                   },
+                   {
+                       "id":  "c404",
+                       "type":  "vraifaux",
+                       "lecon":  "4-1",
+                       "jeu":  "",
+                       "titre":  "La mémoire d\u0027une variable locale",
+                       "affirmation":  "Une variable locale garde sa valeur après la fin de sa fonction.",
+                       "vrai":  false,
+                       "explication":  "Faux. Une variable locale n\u0027existe que pendant sa fonction. Quand celle-ci se termine, sa boîte disparaît : c\u0027est sa portée (scope)."
+                   },
+                   {
+                       "id":  "c405",
+                       "type":  "code",
+                       "lecon":  "4-1",
+                       "jeu":  "",
+                       "titre":  "Suis la valeur",
+                       "langage":  "cpp",
+                       "code":  "int doubler(int n)\n{\n    return n + n;\n}\n\n// puis quelque part : doubler(8)",
+                       "question":  "Que vaut `doubler(8)` ?",
+                       "reponse":  "16. La valeur 8 arrive dans le paramètre `n`, puis la fonction rend `n + n`, soit 8 + 8. La sortie vaut 16.",
+                       "explication":  "`n` est une boîte locale à `doubler` : elle reçoit la valeur passée au moment de l\u0027appel."
+                   },
+                   {
+                       "id":  "c406",
+                       "type":  "anglais",
+                       "lecon":  "4-1",
+                       "jeu":  "",
+                       "titre":  "return value",
+                       "en":  "return value",
+                       "fr":  "valeur de retour",
+                       "texte":  "La sortie d\u0027une fonction, le résultat qu\u0027elle rend après le mot-clé `return`. Pour `calculer_degats`, c\u0027est la somme `force + arme`."
+                   },
+                   {
+                       "id":  "c407",
+                       "type":  "code",
+                       "lecon":  "4-1",
+                       "jeu":  "gmod",
+                       "titre":  "Une fonction en Lua",
+                       "langage":  "lua",
+                       "code":  "function calculer_degats(force, arme)\n    return force + arme\nend",
+                       "question":  "Dans un addon Garry\u0027s Mod, que renvoie `calculer_degats(12, 5)` ?",
+                       "reponse":  "17. Même logique qu\u0027en C++ : la fonction additionne `force` et `arme`. En Lua, pas de types à écrire, et `end` ferme la fonction au lieu d\u0027une accolade.",
+                       "explication":  "Le mot `function` ouvre, `end` ferme. Le `return` rend le résultat, comme en C++."
+                   },
+                   {
+                       "id":  "c408",
+                       "type":  "quiz",
+                       "lecon":  "4-1",
+                       "jeu":  "",
+                       "titre":  "Pourquoi une fonction ?",
+                       "question":  "Quel est l\u0027intérêt principal d\u0027écrire un calcul dans une fonction ?",
+                       "choix":  [
+                                     "Le programme démarre plus vite",
+                                     "On peut l\u0027appeler partout sans le réécrire",
+                                     "Ça cache le calcul au processeur"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "Une fois écrite, on appelle la fonction autant de fois qu\u0027on veut : c\u0027est la réutilisation. Avec un nom clair, le code devient aussi plus lisible."
+                   },
+                   {
+                       "id":  "c409",
+                       "type":  "concept",
+                       "lecon":  "4-1",
+                       "jeu":  "",
+                       "titre":  "La portée d\u0027une variable",
+                       "texte":  "La portée (scope) d\u0027une variable, c\u0027est la zone où elle existe. Une variable locale, déclarée dans une fonction, a une portée limitée à cette fonction. En dehors, son nom n\u0027a aucun sens : la boîte n\u0027existe plus."
+                   },
+                   {
+                       "id":  "c410",
+                       "type":  "code",
+                       "lecon":  "4-1",
+                       "jeu":  "minecraft",
+                       "titre":  "Une méthode en Java",
+                       "langage":  "java",
+                       "code":  "int calculerDegats(int force, int arme) {\n    return force + arme;\n}",
+                       "question":  "Minecraft est en Java. Que renvoie `calculerDegats(12, 5)` ?",
+                       "reponse":  "17. En Java, une fonction s\u0027appelle une méthode (method), mais l\u0027idée est la même qu\u0027en C++ : deux entrées, une valeur de retour. Les noms prennent souvent une majuscule au milieu.",
+                       "explication":  "`calculerDegats` : la majuscule au milieu est le style Java. La logique, elle, ne change pas."
+                   },
+                   {
+                       "id":  "c411",
+                       "type":  "vraifaux",
+                       "lecon":  "4-1",
+                       "jeu":  "",
+                       "titre":  "Deux fois le même nom",
+                       "affirmation":  "Deux fonctions différentes peuvent chacune avoir une variable nommée `force` sans conflit.",
+                       "vrai":  true,
+                       "explication":  "Vrai. Chaque variable locale vit dans sa propre fonction, dans sa propre portée. Les deux `force` sont des boîtes séparées qui s\u0027ignorent."
+                   },
+                   {
+                       "id":  "c412",
+                       "type":  "savaistu",
+                       "lecon":  "4-1",
+                       "jeu":  "",
+                       "titre":  "D\u0027où vient « DRY »",
+                       "texte":  "Le principe DRY (*Don\u0027t Repeat Yourself*) a été nommé en 1999 dans le livre *The Pragmatic Programmer*, d\u0027Andrew Hunt et David Thomas. L\u0027idée : chaque savoir d\u0027un programme ne devrait être écrit qu\u0027à un seul endroit."
+                   },
+                   {
+                       "id":  "c414",
+                       "type":  "concept",
+                       "lecon":  "4-2",
+                       "jeu":  "",
+                       "titre":  "La pile, memoire du retour",
+                       "texte":  "Quand une fonction en appelle une autre, le programme doit retenir ou revenir. Il le note sur la **pile** (stack), sa memoire de travail. Chaque fonction en cours y pose un bloc, son **cadre de pile** (stack frame) : reserve au debut, libere a la fin."
+                   },
+                   {
+                       "id":  "c415",
+                       "type":  "code",
+                       "lecon":  "4-2",
+                       "jeu":  "",
+                       "titre":  "Quel registre ?",
+                       "langage":  "cpp",
+                       "code":  "int prepare_attaque()\n{\n    int force = 12;\n    int arme = 5;\n    return ajoute(force, arme);\n}",
+                       "question":  "Avec MSVC en x64, dans quel registre part `force`, le 1er argument de `ajoute` ?",
+                       "reponse":  "Dans ECX. La convention d\u0027appel met le 1er argument entier dans ECX, le 2e dans EDX. La reponse d\u0027`ajoute` reviendra, elle, dans EAX.",
+                       "explication":  "Dans l\u0027assembleur, on lit `mov ecx, DWORD PTR force[rsp]` juste avant le `call ajoute`."
+                   },
+                   {
+                       "id":  "c416",
+                       "type":  "capot",
+                       "lecon":  "4-2",
+                       "jeu":  "",
+                       "titre":  "Reserver, puis liberer",
+                       "cpp":  "int prepare_attaque()\n{\n    return ajoute(force, arme);\n}",
+                       "asm":  "sub rsp, 56\ncall ajoute\nadd rsp, 56\nret 0",
+                       "texte":  "Les quatre reperes d\u0027un appel, avec MSVC en x64 : `sub rsp, 56` ouvre le cadre de pile, `call ajoute` part en retenant le retour, `add rsp, 56` referme, `ret` revient. Entre eux, des `mov` placent les arguments."
+                   },
+                   {
+                       "id":  "c417",
+                       "type":  "quiz",
+                       "lecon":  "4-2",
+                       "jeu":  "",
+                       "titre":  "Deux choses a la fois",
+                       "question":  "Que fait l\u0027instruction `call ajoute` ?",
+                       "choix":  [
+                                     "Elle saute vers `ajoute` et retient l\u0027adresse de retour",
+                                     "Elle additionne force et arme",
+                                     "Elle libere le cadre de pile"
+                                 ],
+                       "bonne":  0,
+                       "explication":  "`call` saute dans la fonction et met de cote l\u0027adresse de retour, la ligne d\u0027apres. A la fin, `ret` relit cette adresse et y revient."
+                   },
+                   {
+                       "id":  "c418",
+                       "type":  "vraifaux",
+                       "lecon":  "4-2",
+                       "jeu":  "",
+                       "titre":  "La pile descend",
+                       "affirmation":  "Pour agrandir son cadre, une fonction fait `sub rsp` : la pile grandit vers les adresses basses.",
+                       "vrai":  true,
+                       "explication":  "Vrai. La pile grandit vers le bas, vers les adresses decroissantes. C\u0027est pour ca qu\u0027on soustrait a RSP (`sub rsp, 56`) pour reserver de la place, au lieu d\u0027ajouter."
+                   },
+                   {
+                       "id":  "c419",
+                       "type":  "anglais",
+                       "lecon":  "4-2",
+                       "jeu":  "",
+                       "titre":  "return address",
+                       "en":  "return address",
+                       "fr":  "adresse de retour",
+                       "texte":  "L\u0027adresse de la ligne juste apres un `call`. L\u0027instruction `call` la met de cote, et `ret` y revient quand la fonction a fini."
+                   },
+                   {
+                       "id":  "c420",
+                       "type":  "code",
+                       "lecon":  "4-2",
+                       "jeu":  "",
+                       "titre":  "Combien renvoie l\u0027attaque ?",
+                       "langage":  "cpp",
+                       "code":  "int calculer_degats(int force, int arme) { return force + arme; }\n\nint attaquer(int force)\n{\n    int arme = 5;\n    return calculer_degats(force, arme);\n}",
+                       "question":  "Si on appelle `attaquer(12)`, que renvoie la fonction ?",
+                       "reponse":  "17. `attaquer` fixe `arme` a 5, puis appelle `calculer_degats(12, 5)`, qui renvoie `12 + 5`, soit 17.",
+                       "explication":  "C\u0027est un extrait d\u0027`Aventure.cpp`, la cible de la phase 4. Les appels y descendent sur plusieurs etages, de `main` jusqu\u0027ici."
+                   },
+                   {
+                       "id":  "c421",
+                       "type":  "concept",
+                       "lecon":  "4-2",
+                       "jeu":  "gta",
+                       "titre":  "Mille appels par image",
+                       "texte":  "Dans un jeu comme GTA V, chaque image a l\u0027ecran declenche une avalanche de fonctions : physique, IA, affichage, son. Chacune en appelle d\u0027autres, et toutes s\u0027empilent sur la **pile**, puis se depilent. Le chemin de retour est retenu a chaque etage."
+                   },
+                   {
+                       "id":  "c422",
+                       "type":  "capot",
+                       "lecon":  "4-2",
+                       "jeu":  "",
+                       "titre":  "Poser les arguments",
+                       "cpp":  "return ajoute(force, arme);",
+                       "asm":  "mov edx, DWORD PTR arme[rsp]\nmov ecx, DWORD PTR force[rsp]\ncall ajoute",
+                       "texte":  "Avant le `call`, deux `mov` placent les arguments : `arme` dans EDX (2e argument), `force` dans ECX (1er argument). Puis `call ajoute` saute. Vrai code genere par MSVC en x64, mode Debug."
+                   },
+                   {
+                       "id":  "c423",
+                       "type":  "quiz",
+                       "lecon":  "4-2",
+                       "jeu":  "",
+                       "titre":  "La signature d\u0027une fonction",
+                       "question":  "Dans l\u0027assembleur d\u0027un jeu, tu vois `sub rsp ... call ... add rsp ... ret`. C\u0027est quoi ?",
+                       "choix":  [
+                                     "Un bug",
+                                     "Une fonction : debut, appel, fin",
+                                     "Une image du jeu"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "Ce motif est la signature d\u0027une fonction : elle reserve son cadre (`sub rsp`), appelle parfois une autre fonction (`call`), puis libere (`add rsp`) et revient (`ret`). Cle de lecture de la phase 8."
+                   },
+                   {
+                       "id":  "c424",
+                       "type":  "vraifaux",
+                       "lecon":  "4-2",
+                       "jeu":  "",
+                       "titre":  "Pourquoi le debogueur voit tout",
+                       "affirmation":  "En mode Debug, chaque variable locale a une place reservee sur la pile, comme `force[rsp]`.",
+                       "vrai":  true,
+                       "explication":  "Vrai. En Debug, MSVC range chaque variable a une place fixe sur la pile. C\u0027est pour ca que le debogueur peut l\u0027afficher a tout moment. En Release, il les garde souvent dans des registres (phase 8)."
+                   },
+                   {
+                       "id":  "c425",
+                       "type":  "savaistu",
+                       "lecon":  "4-2",
+                       "jeu":  "",
+                       "titre":  "Le site qui porte le nom d\u0027un bug",
+                       "texte":  "Quand des fonctions s\u0027appellent sans fin, la pile grossit jusqu\u0027a deborder : c\u0027est le **debordement de pile** (stack overflow), et le programme plante. Ce plantage tres courant a donne son nom au celebre site d\u0027entraide des programmeurs, *Stack Overflow*."
+                   },
+                   {
+                       "id":  "c427",
+                       "type":  "concept",
+                       "lecon":  "4-3",
+                       "jeu":  "",
+                       "titre":  "Ton microscope, enfin",
+                       "texte":  "Un débogueur (debugger) met ton programme en pause et te laisse l\u0027examiner de l\u0027intérieur, ligne par ligne. Tu lis la valeur de chaque variable au moment précis où le code s\u0027arrête. C\u0027est le microscope promis dès la phase 1, et le cousin des outils de rétro-ingénierie."
+                   },
+                   {
+                       "id":  "c428",
+                       "type":  "quiz",
+                       "lecon":  "4-3",
+                       "jeu":  "",
+                       "titre":  "F5 ou Ctrl+F5 ?",
+                       "question":  "Quelle touche lance ton programme avec le débogueur ?",
+                       "choix":  [
+                                     "Ctrl+F5",
+                                     "F5",
+                                     "Échap"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "F5 démarre avec le débogueur et s\u0027arrête sur tes points d\u0027arrêt. Ctrl+F5, vu en phase 1, lance sans débogueur et ne s\u0027arrête nulle part."
+                   },
+                   {
+                       "id":  "c429",
+                       "type":  "concept",
+                       "lecon":  "4-3",
+                       "jeu":  "",
+                       "titre":  "Le point d\u0027arrêt",
+                       "texte":  "Un point d\u0027arrêt (breakpoint) dit au programme « arrête-toi ici ». Tu le poses d\u0027un clic dans la marge grise, à gauche d\u0027une ligne, ou avec la touche F9 : un rond rouge apparaît. Lancé avec F5, le programme se fige sur cette ligne, une flèche jaune à l\u0027appui."
+                   },
+                   {
+                       "id":  "c430",
+                       "type":  "code",
+                       "lecon":  "4-3",
+                       "jeu":  "",
+                       "titre":  "Lis : qui appelle qui",
+                       "langage":  "cpp",
+                       "code":  "int main()\n{\n    int force = 12;\n    int vieMonstre = 80;\n    int tours = resoudre_combat(vieMonstre, force);\n}",
+                       "question":  "Dans `Aventure.cpp`, quelle fonction `main` appelle-t-il directement ?",
+                       "reponse":  "`resoudre_combat`. `main` lui passe `vieMonstre` (80) et `force` (12), et récupère le nombre de `tours`. C\u0027est ensuite `resoudre_combat` qui appelle `attaquer`, puis `attaquer` qui appelle `calculer_degats`.",
+                       "explication":  "Au débogueur, la Pile des appels (Call Stack) montrerait cette chaîne, de `main` tout en bas jusqu\u0027à la fonction du moment."
+                   },
+                   {
+                       "id":  "c431",
+                       "type":  "code",
+                       "lecon":  "4-3",
+                       "jeu":  "",
+                       "titre":  "Lis : que montre Locals ?",
+                       "langage":  "cpp",
+                       "code":  "int attaquer(int force)\n{\n    int arme = 5;\n    return calculer_degats(force, arme);\n}",
+                       "question":  "À l\u0027arrêt dans `attaquer` avec `force` à 12, que montre Variables locales (Locals) pour `arme` ?",
+                       "reponse":  "`arme` vaut 5. La ligne `int arme = 5;` vient de s\u0027exécuter, donc Variables locales affiche `force` à 12 et `arme` à 5. Ce sont les deux valeurs passées ensuite à `calculer_degats`."
+                   },
+                   {
+                       "id":  "c432",
+                       "type":  "vraifaux",
+                       "lecon":  "4-3",
+                       "jeu":  "",
+                       "titre":  "Des fenêtres qui vont et viennent",
+                       "affirmation":  "Les fenêtres Variables locales et Pile des appels sont visibles même quand tu n\u0027es pas en train de déboguer.",
+                       "vrai":  false,
+                       "explication":  "Faux. Elles n\u0027apparaissent que pendant une session de débogage : après F5 et un arrêt sur un point d\u0027arrêt. Le programme fini, elles disparaissent."
+                   },
+                   {
+                       "id":  "c433",
+                       "type":  "quiz",
+                       "lecon":  "4-3",
+                       "jeu":  "",
+                       "titre":  "F10 ou F11 ?",
+                       "question":  "En pause sur une ligne qui appelle une fonction, que fait F11 (Pas à pas détaillé) ?",
+                       "choix":  [
+                                     "Il saute la fonction d\u0027un bloc",
+                                     "Il entre dans la fonction appelée",
+                                     "Il ferme Visual Studio"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "F11 (Step Into) entre dans la fonction pour la suivre ligne par ligne. F10 (Step Over) l\u0027exécuterait d\u0027un bloc sans y entrer ; Maj+F11 (Step Out) en ressort."
+                   },
+                   {
+                       "id":  "c434",
+                       "type":  "concept",
+                       "lecon":  "4-3",
+                       "jeu":  "",
+                       "titre":  "La pile des appels",
+                       "texte":  "La Pile des appels (Call Stack) montre la chaîne des fonctions en cours : qui a appelé qui. À l\u0027arrêt dans `calculer_degats`, tu la lis de `main` en bas jusqu\u0027à `calculer_degats` en haut. Chaque appel pose une fonction sur la pile ; chaque retour la retire."
+                   },
+                   {
+                       "id":  "c435",
+                       "type":  "code",
+                       "lecon":  "4-3",
+                       "jeu":  "",
+                       "titre":  "Lis : combien de niveaux ?",
+                       "langage":  "cpp",
+                       "code":  "// Chaine d\u0027appels d\u0027Aventure.cpp :\n// main -\u003e resoudre_combat -\u003e attaquer -\u003e calculer_degats",
+                       "question":  "Tu poses un point d\u0027arrêt dans `calculer_degats`. Combien de fonctions la Pile des appels affiche-t-elle ?",
+                       "reponse":  "Quatre. La chaîne est `main` → `resoudre_combat` → `attaquer` → `calculer_degats`. À l\u0027arrêt tout au fond, tu vois les quatre empilées : `main` en bas, `calculer_degats` en haut.",
+                       "explication":  "C\u0027est le cœur du boss 4.4 : suivre cette pile d\u0027appels jusqu\u0027au fond, puis la remonter."
+                   },
+                   {
+                       "id":  "c436",
+                       "type":  "anglais",
+                       "lecon":  "4-3",
+                       "jeu":  "",
+                       "titre":  "breakpoint",
+                       "en":  "breakpoint",
+                       "fr":  "point d\u0027arrêt",
+                       "texte":  "L\u0027endroit où le programme doit se figer. Un clic dans la marge, ou la touche F9, et un rond rouge le marque sur la ligne."
+                   },
+                   {
+                       "id":  "c437",
+                       "type":  "capot",
+                       "lecon":  "4-3",
+                       "jeu":  "",
+                       "titre":  "Un cadre sur la pile",
+                       "cpp":  "int prepare_attaque()\n{\n    return ajoute(force, arme);\n}",
+                       "asm":  "sub rsp, 56\ncall ajoute\nadd rsp, 56\nret 0",
+                       "texte":  "Avec MSVC en x64, `prepare_attaque` réserve son cadre avec `sub rsp, 56`, puis le libère avec `add rsp, 56`. `call ajoute` saute en retenant l\u0027adresse de retour, `ret` y revient. La Pile des appels suit ces cadres."
+                   },
+                   {
+                       "id":  "c438",
+                       "type":  "savaistu",
+                       "lecon":  "4-3",
+                       "jeu":  "minecraft",
+                       "titre":  "Quand Minecraft plante",
+                       "texte":  "Quand Minecraft (Java) plante, il écrit un rapport de plantage (crash report). Dedans, une trace de pile (stack trace) liste les fonctions en cours au moment du crash : c\u0027est la Pile des appels, figée sur l\u0027instant fatal. Les moddeurs la lisent pour traquer d\u0027où vient le bug."
+                   },
+                   {
+                       "id":  "c440",
+                       "type":  "concept",
+                       "lecon":  "4-4",
+                       "jeu":  "",
+                       "titre":  "La pile des appels, qui a appelé qui",
+                       "texte":  "La **pile des appels** (call stack) empile un **cadre** (frame) par fonction en cours : celle qui tourne tout en haut, celle qui l\u0027a appelée juste dessous, jusqu\u0027à `main` tout en bas. Dans `Aventure.cpp`, la pile monte à quatre étages."
+                   },
+                   {
+                       "id":  "c441",
+                       "type":  "code",
+                       "lecon":  "4-4",
+                       "jeu":  "",
+                       "titre":  "Lis un maillon",
+                       "langage":  "cpp",
+                       "code":  "int attaquer(int force)\n{\n    int arme = 5;\n    return calculer_degats(force, arme);\n}",
+                       "question":  "Que renvoie `attaquer(12)` ?",
+                       "reponse":  "17. `attaquer` fixe `arme` à 5, puis appelle `calculer_degats(12, 5)`, qui rend 12 + 5 = 17.",
+                       "explication":  "C\u0027est un maillon de la chaîne d\u0027Aventure.cpp : `attaquer` ne calcule pas lui-même, il délègue à `calculer_degats`."
+                   },
+                   {
+                       "id":  "c442",
+                       "type":  "code",
+                       "lecon":  "4-4",
+                       "jeu":  "",
+                       "titre":  "Lis : attaquer",
+                       "langage":  "cpp",
+                       "code":  "int attaquer(int force)\n{\n    int arme = 5;\n    return calculer_degats(force, arme);\n}",
+                       "question":  "Avec quelle valeur d\u0027arme `attaquer` frappe-t-il toujours ?",
+                       "reponse":  "5. `attaquer` fixe `arme` à 5, puis appelle `calculer_degats(force, arme)`. Elle ne calcule rien elle-même : elle prépare les arguments et délègue au niveau suivant.",
+                       "explication":  "C\u0027est pour ça qu\u0027`attaquer` apparaît dans la pile juste au-dessus de `resoudre_combat` et juste sous `calculer_degats`."
+                   },
+                   {
+                       "id":  "c443",
+                       "type":  "code",
+                       "lecon":  "4-4",
+                       "jeu":  "",
+                       "titre":  "Lis : main lance tout",
+                       "langage":  "cpp",
+                       "code":  "int main()\n{\n    int force = 12;\n    int vieMonstre = 80;\n    int tours = resoudre_combat(vieMonstre, force);\n}",
+                       "question":  "Quelle fonction `main` appelle-t-il directement ?",
+                       "reponse":  "`resoudre_combat`. `main` pose la force à 12 et la vie du monstre à 80, puis confie le combat à `resoudre_combat`. La chaîne continue ensuite vers `attaquer`, puis `calculer_degats`.",
+                       "explication":  "`main` est toujours tout en bas de la pile des appels : c\u0027est lui le point de départ."
+                   },
+                   {
+                       "id":  "c444",
+                       "type":  "code",
+                       "lecon":  "4-4",
+                       "jeu":  "",
+                       "titre":  "Lis : la boucle de combat",
+                       "langage":  "cpp",
+                       "code":  "int tours = 0;\nwhile (vieMonstre \u003e 0)\n{\n    vieMonstre -= attaquer(force);\n    tours += 1;\n}",
+                       "question":  "Avec `vieMonstre` à 80 et `attaquer` qui rend 17, combien de tours ?",
+                       "reponse":  "5. Le monstre perd 17 par tour : 80, 63, 46, 29, 12, puis -5. Au cinquième coup, `vieMonstre \u003e 0` lâche et la boucle s\u0027arrête. D\u0027où « Monstre vaincu en 5 tours. ».",
+                       "explication":  "Chaque tour rappelle toute la chaîne d\u0027appels : le point d\u0027arrêt dans `calculer_degats` se déclenche donc cinq fois."
+                   },
+                   {
+                       "id":  "c445",
+                       "type":  "quiz",
+                       "lecon":  "4-4",
+                       "jeu":  "",
+                       "titre":  "Combien d\u0027étages dans la pile ?",
+                       "question":  "Au point d\u0027arrêt sur `return force + arme;`, combien de fonctions la Pile des appels montre-t-elle ?",
+                       "choix":  [
+                                     "Une seule : `calculer_degats`",
+                                     "Deux : `calculer_degats` et `main`",
+                                     "Quatre : `calculer_degats`, `attaquer`, `resoudre_combat`, `main`"
+                                 ],
+                       "bonne":  2,
+                       "explication":  "La chaîne complète est empilée : `calculer_degats` en haut, puis `attaquer`, `resoudre_combat`, et `main` en bas. Quatre fonctions en attente, quatre étages."
+                   },
+                   {
+                       "id":  "c446",
+                       "type":  "vraifaux",
+                       "lecon":  "4-4",
+                       "jeu":  "",
+                       "titre":  "Les fenêtres du débogueur",
+                       "affirmation":  "La fenêtre Pile des appels (Call Stack) s\u0027affiche même quand tu lances avec Ctrl+F5.",
+                       "vrai":  false,
+                       "explication":  "Faux. Les fenêtres du débogueur n\u0027existent que pendant une session de débogage, lancée par F5 et figée sur un point d\u0027arrêt. Ctrl+F5 lance sans débogage : pas de pile à l\u0027écran."
+                   },
+                   {
+                       "id":  "c447",
+                       "type":  "concept",
+                       "lecon":  "4-4",
+                       "jeu":  "",
+                       "titre":  "La chaine de l\u0027aventure",
+                       "texte":  "Dans Aventure.cpp, `main` appelle `resoudre_combat`, qui appelle `attaquer`, qui appelle `calculer_degats`. Quatre fonctions empilées : la fenêtre Pile des appels te montre ce chemin, de la plus récente (en haut) jusqu\u0027à `main` (en bas)."
+                   },
+                   {
+                       "id":  "c448",
+                       "type":  "anglais",
+                       "lecon":  "4-4",
+                       "jeu":  "",
+                       "titre":  "call stack",
+                       "en":  "call stack",
+                       "fr":  "pile des appels",
+                       "texte":  "La liste des fonctions en cours, empilées : la plus récente en haut, `main` en bas. La fenêtre Pile des appels de Visual Studio te la montre."
+                   },
+                   {
+                       "id":  "c449",
+                       "type":  "quiz",
+                       "lecon":  "4-4",
+                       "jeu":  "",
+                       "titre":  "Pas à pas sortant",
+                       "question":  "Que fait Pas à pas sortant (Step Out, Maj+F11) au débogueur ?",
+                       "choix":  [
+                                     "Il entre dans la fonction appelée",
+                                     "Il termine la fonction en cours et remonte à l\u0027appelant",
+                                     "Il ferme Visual Studio"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "Step Out finit la fonction courante et te ramène dans celle qui l\u0027a appelée. Un étage disparaît de la Pile des appels : tu la vois se réduire."
+                   },
+                   {
+                       "id":  "c450",
+                       "type":  "quiz",
+                       "lecon":  "4-4",
+                       "jeu":  "",
+                       "titre":  "Pas à pas sortant",
+                       "question":  "Tu es en pause dans `calculer_degats`. Que fait « Pas à pas sortant » (Maj+F11) ?",
+                       "choix":  [
+                                     "Il ferme le débogueur",
+                                     "Il termine la fonction en cours et revient à celle qui l\u0027a appelée",
+                                     "Il relance le programme depuis le début"
+                                 ],
+                       "bonne":  1,
+                       "explication":  "Maj+F11 finit la fonction courante et te ramène à l\u0027appelant (ici `attaquer`) : dans la Pile des appels, le niveau du haut disparaît."
+                   },
+                   {
+                       "id":  "c451",
+                       "type":  "vraifaux",
+                       "lecon":  "4-4",
+                       "jeu":  "",
+                       "titre":  "Qui est en haut ?",
+                       "affirmation":  "Dans la fenêtre Pile des appels, la fonction tout en haut est celle qui s\u0027exécute en ce moment.",
+                       "vrai":  true,
+                       "explication":  "Vrai : en haut, la fonction en cours ; juste en dessous, celle qui l\u0027a appelée, et ainsi de suite jusqu\u0027à `main`, tout en bas."
                    }
                ]
 },"glossaire":{
@@ -3830,6 +4376,97 @@ html.is-tel #app { height: 100%; }
                           "definition":  "Une zone de mémoire où une fonction range ses variables locales et ses paramètres, le temps de son exécution. On la détaille en phase 4.",
                           "exemple":  "En Debug, `est_mort` range `vie` sur la pile (`[rsp+8]`) avant de la comparer à 0.",
                           "lecon":  "3-4"
+                      },
+                      {
+                          "terme":  "appel de fonction",
+                          "en":  "function call",
+                          "definition":  "Quand un bout de code confie une tâche à une fonction, puis reprend juste après, une fois le travail fini. C\u0027est la base pour découper un programme en morceaux.",
+                          "exemple":  "Dans `Aventure.cpp`, `attaquer` fait un appel à `calculer_degats` pour obtenir les dégâts du tour.",
+                          "lecon":  "4-1"
+                      },
+                      {
+                          "terme":  "cadre de pile",
+                          "en":  "stack frame",
+                          "definition":  "Le bloc de mémoire qu\u0027une fonction réserve sur la pile pour y ranger ses variables, le temps de tourner. Avec MSVC en x64, `sub rsp, N` l\u0027ouvre et `add rsp, N` le rend.",
+                          "exemple":  "`prepare_attaque` réserve 56 octets avec `sub rsp, 56` : voilà son cadre de pile.",
+                          "lecon":  "4-2"
+                      },
+                      {
+                          "terme":  "adresse de retour",
+                          "en":  "return address",
+                          "definition":  "L\u0027adresse de la ligne juste après un `call`. L\u0027instruction `call` la retient, et `ret` y revient : c\u0027est ce qui permet d\u0027imbriquer les appels.",
+                          "exemple":  "`call ajoute` note l\u0027adresse de retour ; le `ret` d\u0027`ajoute` ramène à l\u0027`add rsp, 56` qui suit.",
+                          "lecon":  "4-2"
+                      },
+                      {
+                          "terme":  "pointeur de pile (RSP)",
+                          "en":  "stack pointer",
+                          "definition":  "Le registre qui pointe en permanence le sommet de la pile. Avec MSVC en x64, il s\u0027appelle RSP : `sub rsp` agrandit le cadre vers le bas, `add rsp` le libère.",
+                          "exemple":  "`sub rsp, 56` fait descendre RSP de 56 octets pour faire la place du cadre.",
+                          "lecon":  "4-2"
+                      },
+                      {
+                          "terme":  "portée",
+                          "en":  "scope",
+                          "definition":  "La zone du code où une variable existe et peut servir. Une variable locale n\u0027a de portée que dans sa fonction ; en dehors, elle n\u0027existe pas.",
+                          "exemple":  "Le `arme` d\u0027`attaquer` n\u0027existe que dans `attaquer` ; `resoudre_combat` ne le voit pas.",
+                          "lecon":  "4-1"
+                      },
+                      {
+                          "terme":  "variable locale",
+                          "en":  "local variable",
+                          "definition":  "Une variable déclarée dans une fonction. Elle vit sur le cadre de pile de cette fonction et disparaît dès que la fonction se termine.",
+                          "exemple":  "Dans `attaquer`, `arme` est une variable locale, rangée sur la pile à `arme[rsp]`.",
+                          "lecon":  "4-1"
+                      },
+                      {
+                          "terme":  "débordement de pile",
+                          "en":  "stack overflow",
+                          "definition":  "Un plantage qui arrive quand la pile grossit trop, souvent à cause de fonctions qui s\u0027appellent sans fin (récursion infinie). Rien à voir avec le dépassement d\u0027un entier.",
+                          "exemple":  "Le célèbre site Stack Overflow doit son nom à ce plantage.",
+                          "lecon":  "4-2"
+                      },
+                      {
+                          "terme":  "point d\u0027arrêt",
+                          "en":  "breakpoint",
+                          "definition":  "Un repère posé sur une ligne de code : clic dans la marge grise à gauche, ou touche F9. Pendant un débogage, le programme se met en pause à cette ligne.",
+                          "exemple":  "Un point d\u0027arrêt dans `calculer_degats` met le programme en pause au calcul des dégâts.",
+                          "lecon":  "4-3"
+                      },
+                      {
+                          "terme":  "pas à pas",
+                          "en":  "step",
+                          "definition":  "Avancer le programme en pause une ligne à la fois. F10 (Step Over) saute par-dessus les fonctions, F11 (Step Into) y entre, Maj+F11 (Step Out) en ressort.",
+                          "exemple":  "En pas à pas détaillé (F11) sur l\u0027appel à `calculer_degats`, tu entres dans la fonction.",
+                          "lecon":  "4-3"
+                      },
+                      {
+                          "terme":  "pile des appels",
+                          "en":  "call stack",
+                          "definition":  "La liste des fonctions en cours, empilées de l\u0027appelée vers celle qui l\u0027a appelée. La fenêtre « Pile des appels » (Call Stack) du débogueur l\u0027affiche pendant une pause.",
+                          "exemple":  "En pause dans `calculer_degats`, tu vois les 4 niveaux empilés : main, resoudre_combat, attaquer, calculer_degats.",
+                          "lecon":  "4-3"
+                      },
+                      {
+                          "terme":  "fenêtre Variables locales",
+                          "en":  "Locals window",
+                          "definition":  "La fenêtre « Variables locales » (Locals) du débogueur. Pendant une pause, elle affiche la valeur de chaque variable locale de la fonction en cours.",
+                          "exemple":  "Pendant une pause dans `calculer_degats`, tu lis `force` = 12 et `arme` = 5 dans cette fenêtre.",
+                          "lecon":  "4-3"
+                      },
+                      {
+                          "terme":  "gestion de versions (Git)",
+                          "en":  "version control",
+                          "definition":  "Un outil qui garde l\u0027historique de ton code : Git. Chaque version enregistrée (un commit) se retrouve plus tard, pour revenir en arrière après une modification qui casse tout.",
+                          "exemple":  "Avant de modifier un mod, un `commit` Git enregistre la version qui marche, pour pouvoir y revenir.",
+                          "lecon":  "4-1"
+                      },
+                      {
+                          "terme":  "réutilisation (DRY)",
+                          "en":  "Don\u0027t Repeat Yourself",
+                          "definition":  "Écrire une chose une seule fois pour la réutiliser partout, au lieu de copier-coller. C\u0027est le principe DRY (Don\u0027t Repeat Yourself) : une fonction évite de répéter le code.",
+                          "exemple":  "`calculer_degats` est écrite une fois, puis réutilisée à chaque tour de combat dans `Aventure.cpp`.",
+                          "lecon":  "4-1"
                       }
                   ]
 },"bestiaire":{
@@ -7197,6 +7834,834 @@ html.is-tel #app { height: 100%; }
                       "type":  "suite",
                       "titre":  "Phase 4 — Fonctions \u0026 pile",
                       "texte":  "Avec ce boss, tu boucles la phase 3 : lu, lancé, modifié, puis relié à son assembleur. En phase 4, tu découpes ton code en fonctions bien rangées, et tu suis leurs appels pas à pas au débogueur — la *pile*, cette mémoire de travail déjà croisée dans `[rsp+8]`."
+                  }
+              ]
+},"4-1":{
+    "id":  "4-1",
+    "phase":  4,
+    "numero":  "4.1",
+    "titre":  "Découper pour mieux régner",
+    "duree":  16,
+    "objectif":  "Comprendre pourquoi un jeu est fait de petites fonctions, lire une fonction (nom, entrées, sortie, corps), et découvrir la variable locale et sa portée.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Quand ton personnage saute dans Minecraft, le moteur du jeu appelle une fonction qui gère le saut. Quand tu tires dans GTA, une autre fonction calcule les dégâts. Un gros jeu n\u0027est pas un seul bloc de code géant : c\u0027est une foule de petites fonctions, qui font chacune une seule chose. Aujourd\u0027hui, tu vas voir pourquoi on découpe ainsi, et comment le lire."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Une fonction, de plus près",
+                      "paragraphes":  [
+                                          "Tu connais déjà la fonction depuis la phase 1 : un bloc de code portant un nom. Regardons-la de plus près, car tu vas bientôt en écrire toi-même.",
+                                          "Une fonction tient en quatre morceaux. Un **nom**, qui dit ce qu\u0027elle fait, et des **paramètres** (parameters), les valeurs qu\u0027elle reçoit pour travailler. Puis une **valeur de retour** (return value), le résultat qu\u0027elle rend à la fin.",
+                                          "Le quatrième morceau est le **corps** (body) : le bloc entre accolades `{ }` où le calcul se fait. Nom, entrées, sortie, corps : voilà la carte d\u0027identité de n\u0027importe quelle fonction."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Pourquoi découper ?",
+                      "paragraphes":  [
+                                          "Pourquoi couper un programme en petits morceaux ? D\u0027abord pour la **lisibilité**. Un nom comme `calculer_degats` te dit ce que fait le bloc, sans lire une seule ligne de son contenu.",
+                                          "Ensuite pour la **réutilisation**. Une fois la fonction écrite, tu l\u0027appelles autant de fois que tu veux, sans réécrire le calcul. Les programmeurs appellent ça le principe **DRY**, pour *Don\u0027t Repeat Yourself* : « ne te répète pas ».",
+                                          "Si le calcul des dégâts change un jour, tu le corriges à un seul endroit. Sans fonction, il faudrait retrouver et corriger chaque copie, une à une."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Avant : le calcul recopié",
+                      "code":  "#include \u003ciostream\u003e\n\nint main()\n{\n    int force = 12;\n    int arme = 5;\n\n    int degats = force + arme;\n    std::cout \u003c\u003c \"Attaque 1 : \" \u003c\u003c degats \u003c\u003c \" degats.\\n\";\n\n    degats = force + arme;\n    std::cout \u003c\u003c \"Attaque 2 : \" \u003c\u003c degats \u003c\u003c \" degats.\\n\";\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  8,
+                                        "texte":  "Le calcul `force + arme` est écrit ici une première fois. Rien de grave pour l\u0027instant : deux nombres additionnés, rangés dans `degats`."
+                                    },
+                                    {
+                                        "ligne":  9,
+                                        "texte":  "Les messages n\u0027ont pas d\u0027accent (`degats`, et non `dégâts`). La console de Windows les affiche mal, comme vu en phase 1."
+                                    },
+                                    {
+                                        "ligne":  11,
+                                        "texte":  "Et revoilà le même calcul, mot pour mot. Ce copier-coller est le signe qu\u0027une fonction manque : si la formule change, tu as deux endroits à corriger."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Après : une fonction nommée",
+                      "code":  "#include \u003ciostream\u003e\n\nint calculer_degats(int force, int arme)\n{\n    return force + arme;\n}\n\nint main()\n{\n    int force = 12;\n    int arme = 5;\n\n    std::cout \u003c\u003c \"Attaque 1 : \" \u003c\u003c calculer_degats(force, arme) \u003c\u003c \" degats.\\n\";\n    std::cout \u003c\u003c \"Attaque 2 : \" \u003c\u003c calculer_degats(force, arme) \u003c\u003c \" degats.\\n\";\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  3,
+                                        "texte":  "La fonction `calculer_degats` : son nom dit tout. **Entrées** : deux `int`, `force` et `arme`. **Sortie** : un `int`, annoncé devant le nom."
+                                    },
+                                    {
+                                        "ligne":  5,
+                                        "texte":  "Le **corps** tient en une ligne : `return` rend la somme `force + arme`. Le calcul vit désormais ici, à un seul endroit."
+                                    },
+                                    {
+                                        "ligne":  13,
+                                        "texte":  "On **appelle** (call) la fonction en écrivant son nom suivi des valeurs : `calculer_degats(force, arme)`. Elle renvoie 17, qui part droit dans l\u0027affichage."
+                                    },
+                                    {
+                                        "ligne":  14,
+                                        "texte":  "Même appel, réutilisé tel quel. Le calcul n\u0027est plus recopié : c\u0027est le principe DRY en action."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "Garde tes points de sauvegarde",
+                      "texte":  "Tu viens de transformer ton code : le calcul a déménagé dans une fonction. Un bon réflexe avant ce genre de changement : garder l\u0027historique de son code avec **Git** (un outil de *version control*, « gestion de versions »). C\u0027est comme des points de sauvegarde dans un jeu : si une modification casse tout, tu reviens à l\u0027état d\u0027avant. Rien à installer aujourd\u0027hui : on le mettra en place ensemble quand tu voudras."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Une variable qui ne vit qu\u0027ici",
+                      "paragraphes":  [
+                                          "Dans `main`, `force` et `arme` sont des **variables locales** (local variables) : des boîtes déclarées à l\u0027intérieur d\u0027une fonction. Elles naissent quand la fonction démarre, et disparaissent quand elle se termine.",
+                                          "Une variable locale a une **portée** (scope) limitée : elle n\u0027existe que dans la fonction qui la déclare. Dès que la fonction se termine, sa boîte est rangée et oubliée. Depuis une autre fonction, impossible de lire le `arme` de `main` : là-bas, ce nom n\u0027existe pas.",
+                                          "C\u0027est pour ça que `calculer_degats` a ses propres `force` et `arme` entre parenthèses. Ce sont des boîtes à elle, séparées de celles de `main`, même s\u0027ils portent le même nom."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "piege",
+                      "titre":  "Deux boîtes, un même nom",
+                      "texte":  "Dans le code plus haut, `force` apparaît deux fois : une fois dans `main`, une fois comme paramètre de `calculer_degats`. Ce sont **deux boîtes différentes**, chacune dans sa fonction. Changer l\u0027une ne touche pas l\u0027autre. Un même nom, deux portées : c\u0027est justement ce qui rend chaque fonction indépendante."
+                  },
+                  {
+                      "type":  "tesjeux",
+                      "titre":  "Et dans tes jeux ?",
+                      "intro":  "Une fonction existe dans tous les langages. Le découpage est le même ; seuls les mots changent un peu.",
+                      "jeux":  [
+                                   {
+                                       "nom":  "Minecraft",
+                                       "langage":  "Java",
+                                       "texte":  "Minecraft est en Java, un cousin du C++. La même fonction s\u0027y écrit presque pareil : `int calculerDegats(int force, int arme) { return force + arme; }`. En Java, on l\u0027appelle une **méthode** (method), et les noms prennent une majuscule au milieu, mais l\u0027idée ne bouge pas."
+                                   },
+                                   {
+                                       "nom":  "Garry\u0027s Mod",
+                                       "langage":  "Lua",
+                                       "texte":  "Les extensions (addons) de Garry\u0027s Mod sont en Lua. Pas de types à écrire : `function calculer_degats(force, arme) return force + arme end`. Un `function` ouvre, un `end` ferme, et `return` rend le résultat, comme en C++."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "function",
+                                       "fr":  "fonction",
+                                       "note":  "Un bloc de code nommé, avec des entrées et une sortie. En Java, on dit plutôt méthode (method)."
+                                   },
+                                   {
+                                       "en":  "parameter",
+                                       "fr":  "paramètre",
+                                       "note":  "Une entrée d\u0027une fonction, écrite entre ses parenthèses : `force` et `arme` pour `calculer_degats`."
+                                   },
+                                   {
+                                       "en":  "return value",
+                                       "fr":  "valeur de retour",
+                                       "note":  "Le résultat qu\u0027une fonction rend, après le mot-clé `return`."
+                                   },
+                                   {
+                                       "en":  "local variable",
+                                       "fr":  "variable locale",
+                                       "note":  "Une boîte déclarée dans une fonction, qui n\u0027existe que là."
+                                   },
+                                   {
+                                       "en":  "scope",
+                                       "fr":  "portée",
+                                       "note":  "La zone où une variable existe. Pour une variable locale, elle s\u0027arrête au bord de sa fonction."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Pourquoi découper un programme en fonctions ?",
+                                            "choix":  [
+                                                          "Pour que le programme tourne plus vite",
+                                                          "Pour cacher le code aux autres joueurs",
+                                                          "Pour le rendre lisible et réutilisable"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Un nom comme `calculer_degats` dit ce que fait le bloc, et on l\u0027appelle autant qu\u0027on veut sans le réécrire. Lisibilité et réutilisation : c\u0027est tout le but du découpage."
+                                        },
+                                        {
+                                            "q":  "Avec `int calculer_degats(int force, int arme) { return force + arme; }`, que renvoie `calculer_degats(12, 5)` ?",
+                                            "choix":  [
+                                                          "Rien, la fonction affiche juste un texte",
+                                                          "17",
+                                                          "Les deux nombres 12 et 5, séparément"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "La fonction additionne ses deux entrées et rend le résultat avec `return` : 12 + 5 = 17. Une seule valeur sort, la valeur de retour."
+                                        },
+                                        {
+                                            "q":  "Une variable locale, comme `arme` dans une fonction, existe...",
+                                            "choix":  [
+                                                          "...seulement dans la fonction où elle est déclarée",
+                                                          "...dans tout le programme",
+                                                          "...uniquement dans le fichier `.exe`"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "Sa portée (scope) s\u0027arrête au bord de sa fonction. Dès que la fonction se termine, la boîte disparaît ; une autre fonction ne peut pas la lire."
+                                        },
+                                        {
+                                            "q":  "Le principe DRY (*Don\u0027t Repeat Yourself*) conseille de...",
+                                            "choix":  [
+                                                          "...tout écrire dans `main`",
+                                                          "...recopier un calcul partout où il sert",
+                                                          "...écrire un calcul une fois, dans une fonction, et l\u0027appeler"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "« Ne te répète pas » : au lieu de copier-coller un calcul, on le met dans une fonction et on l\u0027appelle. Un seul endroit à corriger si la formule change."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Une fonction a quatre morceaux : un **nom**, des **paramètres** (entrées), une **valeur de retour** (sortie) et un **corps** (le bloc entre accolades).",
+                                     "On découpe pour deux raisons : la **lisibilité** (un nom qui parle) et la **réutilisation** (le principe DRY : écrire le calcul une fois, l\u0027appeler partout).",
+                                     "Une **variable locale** n\u0027existe que dans sa fonction. Sa **portée** (scope) s\u0027arrête quand la fonction se termine : sa boîte disparaît.",
+                                     "Deux fonctions peuvent avoir des variables du même nom sans se gêner : chacune a ses propres boîtes. C\u0027est ce qui les rend indépendantes."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "4.2 — La pile d\u0027appels",
+                      "texte":  "Tu sais maintenant pourquoi un jeu est fait de petites fonctions. Mais quand `main` appelle `resoudre_combat`, qui appelle `attaquer`, qui appelle `calculer_degats`, comment la machine s\u0027y retrouve ? La réponse tient dans une mémoire de travail : la **pile** (stack). En 4.2, tu suis ces appels s\u0027empiler, pas à pas, dans le débogueur."
+                  }
+              ]
+},"4-2":{
+    "id":  "4-2",
+    "phase":  4,
+    "numero":  "4.2",
+    "titre":  "La pile d\u0027appels",
+    "duree":  17,
+    "objectif":  "Comprendre la pile (stack) et lire un appel de fonction en assembleur : reserver un cadre avec sub rsp, placer les arguments dans ECX et EDX, call qui retient le retour, ret qui y revient. C\u0027est le motif d\u0027une fonction dans un vrai jeu.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Dans un jeu, frapper un monstre declenche une cascade d\u0027appels : une fonction en appelle une autre, qui en appelle une autre encore. Chacune finit son travail, puis doit rendre la main a celle qui l\u0027avait appelee. Comment le programme retient-il tout ce chemin de retour, etage par etage ? Grace a la **pile** (stack), une memoire de travail que tu vas apprendre a lire aujourd\u0027hui."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La pile, une pile d\u0027assiettes",
+                      "paragraphes":  [
+                                          "La **pile** (stack) est une zone de memoire que le programme garde comme brouillon de travail. Son nom vient d\u0027une image : une pile d\u0027assiettes. On pose toujours sur le dessus, et on reprend toujours celle du dessus en premier.",
+                                          "Chaque fonction en train de s\u0027executer pose son propre bloc sur cette pile : son **cadre de pile** (stack frame). Ce bloc lui sert a ranger ses variables locales et ses arguments. Il est reserve au demarrage de la fonction, et libere des qu\u0027elle se termine.",
+                                          "Un registre special, RSP, marque le sommet de la pile, c\u0027est-a-dire l\u0027assiette tout en haut. Reserver un cadre, c\u0027est faire descendre ce sommet pour se menager de la place. L\u0027instruction exacte, tu vas la voir juste en dessous."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Deux fonctions, un appel",
+                      "code":  "int ajoute(int a, int b)\n{\n    return a + b;\n}\n\nint prepare_attaque()\n{\n    int force = 12;\n    int arme = 5;\n    return ajoute(force, arme);\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  1,
+                                        "texte":  "`ajoute` recoit deux entiers, `a` et `b`, et renvoie leur somme. Une fonction minuscule, du genre qu\u0027un jeu appelle des milliers de fois par seconde."
+                                    },
+                                    {
+                                        "ligne":  8,
+                                        "texte":  "`prepare_attaque` range d\u0027abord ses deux valeurs, `force` et `arme`, dans des variables locales."
+                                    },
+                                    {
+                                        "ligne":  10,
+                                        "texte":  "Puis elle les passe a `ajoute`. On dit que `prepare_attaque` est l\u0027appelante (caller), et `ajoute` l\u0027appelee (callee)."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "call et ret, le duo du retour",
+                      "paragraphes":  [
+                                          "Avant d\u0027appeler `ajoute`, `prepare_attaque` doit lui transmettre ses deux nombres. La regle est fixee d\u0027avance par la **convention d\u0027appel** (calling convention), deja croisee aux phases precedentes : avec MSVC en x64, le 1er argument entier va dans le registre ECX, le 2e dans EDX. La reponse, elle, reviendra dans EAX, le registre de reponse.",
+                                          "Vient alors l\u0027instruction cle : `call`. Elle fait deux choses d\u0027un seul coup. Elle saute vers `ajoute`, et elle retient l\u0027**adresse de retour** (return address), la ligne juste apres l\u0027appel.",
+                                          "Quand `ajoute` a termine, son instruction `ret` relit cette adresse et y retourne. Ce duo `call` / `ret`, c\u0027est ce qui permet d\u0027imbriquer les appels sans jamais se perdre. Chaque etage sait exactement a qui rendre la main."
+                                      ]
+                  },
+                  {
+                      "type":  "capot",
+                      "titre":  "Sous le capot",
+                      "intro":  "Voici `prepare_attaque` traduite par MSVC en x64, en mode Debug (`/Od`), celui que tu retrouveras au debogueur. Tout l\u0027appel de fonction tient la, du debut a la fin. Les reperes `force[rsp]` et `arme[rsp]` sont les places reservees a ces variables sur la pile ; MSVC les note en vrai `force$` et `arme$`.",
+                      "cpp":  "int prepare_attaque()\n{\n    int force = 12;\n    int arme = 5;\n    return ajoute(force, arme);\n}",
+                      "asm":  "sub rsp, 56\nmov DWORD PTR force[rsp], 12\nmov DWORD PTR arme[rsp], 5\nmov edx, DWORD PTR arme[rsp]\nmov ecx, DWORD PTR force[rsp]\ncall ajoute\nadd rsp, 56\nret 0",
+                      "liens":  [
+                                    {
+                                        "cpp":  2,
+                                        "asm":  [
+                                                    1
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  3,
+                                        "asm":  [
+                                                    2
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  4,
+                                        "asm":  [
+                                                    3
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  5,
+                                        "asm":  [
+                                                    4,
+                                                    5,
+                                                    6
+                                                ]
+                                    },
+                                    {
+                                        "cpp":  6,
+                                        "asm":  [
+                                                    7,
+                                                    8
+                                                ]
+                                    }
+                                ],
+                      "octets":  [
+                                     {
+                                         "hex":  "48 83 EC 38",
+                                         "asm":  "sub rsp, 56",
+                                         "explication":  "`48 83 EC` veut dire « soustrais a RSP le petit nombre qui suit ». Ce nombre, `38`, c\u0027est 56 ecrit en hexadecimal (la base 16). La pile descend de 56 octets : le cadre est reserve."
+                                     },
+                                     {
+                                         "hex":  "E8 .. .. .. ..",
+                                         "asm":  "call ajoute",
+                                         "explication":  "`E8` lance l\u0027appel. Les quatre octets suivants disent a quelle distance se trouve `ajoute`. C\u0027est pendant ce `call` que l\u0027adresse de retour est mise de cote."
+                                     },
+                                     {
+                                         "hex":  "48 83 C4 38",
+                                         "asm":  "add rsp, 56",
+                                         "explication":  "Presque le jumeau du premier : `48 83 C4` veut dire « rajoute a RSP ». On remonte de 56 (`38`) : le cadre est libere, la pile revient a l\u0027etat d\u0027avant."
+                                     },
+                                     {
+                                         "hex":  "C3",
+                                         "asm":  "ret",
+                                         "explication":  "Un seul octet, `C3`, pour revenir. Le listing ecrit `ret 0`, mais en machine c\u0027est ce `C3` qui relit l\u0027adresse de retour et y saute."
+                                     }
+                                 ],
+                      "conclusion":  "Lis ce cadre de haut en bas. `sub rsp, 56` ouvre l\u0027atelier sur la pile, les deux `mov` posent les arguments dans EDX et ECX, `call ajoute` part en retenant l\u0027adresse de retour, `add rsp, 56` referme l\u0027atelier, et `ret` revient. Ce motif « reserver, remplir, appeler, liberer, revenir » est la signature d\u0027une fonction en assembleur, et tu viens de le lire en entier."
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Reperer une fonction dans un vrai jeu",
+                      "texte":  "Garde ce dessin en tete : `sub rsp`... (les arguments dans ECX et EDX)... `call`... `add rsp`... `ret`. Dans l\u0027assembleur d\u0027un vrai jeu, sans le moindre nom ni commentaire, ce motif saute aux yeux et annonce « ici commence une fonction, la elle en appelle une autre ». Savoir le reconnaitre d\u0027un coup d\u0027oeil est l\u0027une des competences cles que tu travailleras pour de bon en phase 8."
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "curieux",
+                      "titre":  "Quand la pile deborde",
+                      "texte":  "Et si une fonction s\u0027appelle elle-meme sans jamais s\u0027arreter ? Chaque appel empile un nouveau cadre, et la pile grossit, grossit, jusqu\u0027a depasser sa taille maximale. C\u0027est le **debordement de pile** (stack overflow) : le programme plante net, et ce plantage si courant a donne son nom au celebre site d\u0027entraide des programmeurs, *Stack Overflow*."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la lecon",
+                      "mots":  [
+                                   {
+                                       "en":  "stack",
+                                       "fr":  "pile",
+                                       "note":  "La memoire de travail du programme, organisee comme une pile d\u0027assiettes. Dans Visual Studio, la fenetre « Pile des appels » (Call Stack) la montre."
+                                   },
+                                   {
+                                       "en":  "stack frame",
+                                       "fr":  "cadre de pile",
+                                       "note":  "Le bloc qu\u0027une fonction reserve sur la pile le temps de son travail, pour ses variables locales et ses arguments."
+                                   },
+                                   {
+                                       "en":  "stack pointer",
+                                       "fr":  "pointeur de pile",
+                                       "note":  "Le registre RSP, qui marque le sommet de la pile. Les pointeurs, ces valeurs qui designent une adresse, sont le grand sujet de la phase 5."
+                                   },
+                                   {
+                                       "en":  "return address",
+                                       "fr":  "adresse de retour",
+                                       "note":  "L\u0027adresse de la ligne qui suit un `call`, mise de cote pour que `ret` sache ou revenir."
+                                   },
+                                   {
+                                       "en":  "call",
+                                       "fr":  "appeler",
+                                       "note":  "L\u0027instruction qui saute vers une fonction en retenant l\u0027adresse de retour. Tu la verras partout dans un desassemblage."
+                                   },
+                                   {
+                                       "en":  "ret",
+                                       "fr":  "retour",
+                                       "note":  "Abreviation de *return*. L\u0027instruction qui termine une fonction et revient a l\u0027appelante, a l\u0027adresse retenue par `call`."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Dans `return ajoute(force, arme);`, avec MSVC en x64, ou arrive `force`, le premier argument ?",
+                                            "choix":  [
+                                                          "Dans EAX, le registre de reponse",
+                                                          "Dans ECX, par la convention d\u0027appel",
+                                                          "Sur le disque dur"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "La convention d\u0027appel range le 1er argument entier dans ECX, le 2e dans EDX. Dans le capot, on lit bien `mov ecx, DWORD PTR force[rsp]` juste avant le `call`."
+                                        },
+                                        {
+                                            "q":  "Que fait `sub rsp, 56` au debut de `prepare_attaque` ?",
+                                            "choix":  [
+                                                          "Il reserve un cadre de pile de 56 octets",
+                                                          "Il efface 56 variables",
+                                                          "Il appelle la fonction numero 56"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "`sub rsp, 56` fait descendre le sommet de la pile de 56 octets : la fonction se reserve un cadre pour ses variables. A la fin, `add rsp, 56` le libere."
+                                        },
+                                        {
+                                            "q":  "L\u0027instruction `call ajoute` fait deux choses. Lesquelles ?",
+                                            "choix":  [
+                                                          "Elle additionne et elle affiche le resultat",
+                                                          "Elle reserve la pile puis la libere",
+                                                          "Elle saute vers `ajoute` et retient l\u0027adresse de retour"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "`call` saute dans `ajoute` tout en mettant de cote l\u0027adresse de retour, la ligne d\u0027apres. C\u0027est `ret`, a la fin d\u0027`ajoute`, qui relit cette adresse et y revient."
+                                        },
+                                        {
+                                            "q":  "Tu reperes `sub rsp ... call ... add rsp ... ret` dans l\u0027assembleur d\u0027un jeu. Qu\u0027est-ce que ca signale ?",
+                                            "choix":  [
+                                                          "Une erreur de compilation",
+                                                          "Une fonction : son debut, un appel, sa fin",
+                                                          "Un virus cache"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Ce motif est la signature d\u0027une fonction : elle reserve son cadre, appelle au besoin une autre fonction, puis libere et revient. Le reconnaitre, c\u0027est la base de la lecture d\u0027un jeu en phase 8."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "A retenir",
+                      "points":  [
+                                     "La **pile** (stack) est la memoire de travail du programme. Chaque fonction en cours y reserve un **cadre de pile** (stack frame) au debut, et le libere a la fin.",
+                                     "Avec MSVC en x64, `sub rsp, N` reserve ce cadre et `add rsp, N` le libere. Le registre RSP marque le sommet de la pile, qui grandit vers le bas.",
+                                     "`call` saute vers une fonction et retient l\u0027**adresse de retour** ; `ret` y revient. Ce duo permet d\u0027imbriquer les appels sans se perdre.",
+                                     "Le motif `sub rsp ... call ... add rsp ... ret` est la signature d\u0027une fonction en assembleur. Le reperer, c\u0027est reconnaitre une fonction dans un vrai jeu."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "4.3 — Le debogueur, ton microscope",
+                      "texte":  "Tu sais maintenant lire un appel de fonction en assembleur. Dans la prochaine lecon, tu passes a la pratique avec le **debogueur** (debugger) de Visual Studio : tu mets le programme en pause, tu avances pas a pas, et la fenetre « Pile des appels » (Call Stack) te montre tous les etages empiles. Sur `Aventure.cpp`, la cible de la phase, tu verras `main`, `resoudre_combat`, `attaquer` et `calculer_degats` empiles en direct."
+                  }
+              ]
+},"4-3":{
+    "id":  "4-3",
+    "phase":  4,
+    "numero":  "4.3",
+    "titre":  "Le débogueur, ton microscope",
+    "duree":  18,
+    "objectif":  "Apprendre à te servir du débogueur (debugger) de Visual Studio : poser un point d\u0027arrêt, lancer avec F5, avancer pas à pas, et lire les valeurs dans Variables locales et Pile des appels.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Ton but, c\u0027est de lire un jeu de l\u0027intérieur, pendant qu\u0027il tourne. Les spécialistes de la rétro-ingénierie font ça avec un outil précis : un débogueur. Il met le programme en pause et laisse examiner chaque ligne, une par une. Depuis la phase 1, on te promet ce microscope ; le voici."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Regarder un programme vivant",
+                      "paragraphes":  [
+                                          "Un **débogueur** (debugger) fait tourner ton programme tout en te laissant le piloter. Tu l\u0027arrêtes à l\u0027endroit de ton choix, puis tu l\u0027examines comme figé. À cet instant, tu lis la valeur de chaque variable et la ligne exacte où en est le code.",
+                                          "Visual Studio en contient un, déjà là avec ton atelier. Tu l\u0027as effleuré en phase 3, pour ouvrir l\u0027assembleur de `est_mort`. Ici, tu apprends à le piloter pour de bon, sur ton propre code."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Poser un point d\u0027arrêt, lancer avec F5",
+                      "paragraphes":  [
+                                          "Pour arrêter le programme à une ligne, pose-y un **point d\u0027arrêt** (breakpoint). Clique dans la marge grise, à gauche du numéro de ligne : un rond rouge apparaît. La touche F9 fait la même chose sur la ligne courante.",
+                                          "Ensuite, lance avec **F5**, pas Ctrl+F5. F5 démarre *avec* le débogueur ; Ctrl+F5 lançait sans lui. Le programme tourne, puis se fige pile sur ton point d\u0027arrêt.",
+                                          "Une **flèche jaune** se pose alors sur la ligne courante : celle qui va s\u0027exécuter, pas encore faite. Le programme t\u0027attend. À toi d\u0027avancer."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Microscope.cpp, un petit programme à observer",
+                      "code":  "// Microscope.cpp - un petit programme pour apprendre le debogueur.\n// Pose un point d\u0027arret sur « total = ajoute(total, i); »,\n// lance avec F5, puis avance avec F10 et regarde « total » changer.\n// Compile :  cl /nologo /EHsc /std:c++20 /W4 Microscope.cpp\n\n#include \u003ciostream\u003e\n\nint ajoute(int a, int b)\n{\n    return a + b;\n}\n\nint main()\n{\n    int total = 0;\n    for (int i = 1; i \u003c= 3; i++)\n    {\n        total = ajoute(total, i);\n    }\n    std::cout \u003c\u003c \"Total : \" \u003c\u003c total \u003c\u003c \"\\n\";\n    return 0;\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  8,
+                                        "texte":  "`ajoute` prend deux entiers et renvoie leur somme. On entrera dedans avec F11 pour voir `a` et `b` arriver."
+                                    },
+                                    {
+                                        "ligne":  15,
+                                        "texte":  "`total` démarre à 0. C\u0027est la variable qu\u0027on va suivre : à chaque tour, elle grandit."
+                                    },
+                                    {
+                                        "ligne":  16,
+                                        "texte":  "Boucle `for` : `i` vaut 1, puis 2, puis 3. Le bloc se répète trois fois."
+                                    },
+                                    {
+                                        "ligne":  18,
+                                        "texte":  "La ligne où poser le point d\u0027arrêt. À chaque passage, `total` devient `total + i` : 0, puis 1, puis 3, puis 6."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Avancer pas à pas",
+                      "paragraphes":  [
+                                          "Une fois en pause, tu avances à la main. **Pas à pas principal (Step Over)**, touche **F10**, exécute la ligne courante et s\u0027arrête à la suivante. Un appel de fonction sur la ligne ? Il l\u0027exécute d\u0027un bloc, sans y entrer.",
+                                          "**Pas à pas détaillé (Step Into)**, touche **F11**, entre *dans* la fonction appelée : la flèche jaune saute à son début. **Pas à pas sortant (Step Out)**, **Maj+F11**, finit la fonction courante et revient à l\u0027appelant.",
+                                          "F10 pour rester au même niveau, F11 pour plonger, Maj+F11 pour remonter. La flèche jaune te montre toujours où tu es."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Deux fenêtres, tes yeux",
+                      "paragraphes":  [
+                                          "Pendant la pause, deux fenêtres deviennent tes yeux. **Variables locales (Locals)** liste les variables du moment et leur valeur. Tu y vois `total` passer de 0 à 1, puis 3, puis 6, en direct.",
+                                          "**Pile des appels (Call Stack)** montre la chaîne des fonctions en cours. À l\u0027arrêt dans `ajoute`, elle affiche `ajoute` posée sur `main` : qui a appelé qui. On l\u0027ouvre par Déboguer \u003e Fenêtres \u003e Pile des appels (Debug \u003e Windows \u003e Call Stack).",
+                                          "Un détail qui surprend souvent : ces fenêtres n\u0027existent que pendant le débogage. Elles arrivent après F5 et un arrêt sur un point d\u0027arrêt, puis repartent à la fin."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "Le microscope de la phase 1",
+                      "texte":  "Ce débogueur, c\u0027est le microscope promis dès la phase 1. Aujourd\u0027hui tu l\u0027ouvres sur ton C++ ; en phase 8, tu le braqueras sur l\u0027assembleur de tes programmes, par la fenêtre Code Assembleur (Disassembly). Tu y suivras le code machine instruction par instruction, comme ici ligne par ligne. C\u0027est lui qui transforme un `.exe` opaque en quelque chose qui se lit."
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "Épingle une valeur dans l\u0027Espion",
+                      "texte":  "Variables locales (Locals) montre tout, parfois trop. Pour garder une seule valeur à l\u0027œil, utilise la fenêtre **Espion (Watch)**. Clic droit sur une variable, puis « Ajouter un espion » (Add Watch) : elle reste affichée tant que tu le veux. Pratique quand une seule valeur t\u0027intéresse, comme une vie ou un score."
+                  },
+                  {
+                      "type":  "atoi",
+                      "titre":  "À toi : mets un programme sous le microscope",
+                      "etapes":  [
+                                     "Dans Visual Studio, crée un projet **Application console (Console App)** nommé `Microscope`, avec pour Emplacement (Location) ton dossier `Learning\\exercices\\phase-4`. Efface le code proposé, colle celui de `Microscope.cpp` ci-dessus.",
+                                     "Pose un **point d\u0027arrêt** sur la ligne `total = ajoute(total, i);` : clique dans la marge grise à sa gauche, un rond rouge apparaît. Lance avec **F5** (pas Ctrl+F5). Le programme se fige sur cette ligne, flèche jaune à l\u0027appui.",
+                                     "Trouve la fenêtre **Variables locales (Locals)**, en bas (sinon : Déboguer \u003e Fenêtres \u003e Variables locales). Repère `total` et `i`, et note leurs valeurs : `total` à 0, `i` à 1.",
+                                     "Appuie sur **F10** (Pas à pas principal) pour tourner dans la boucle. Regarde `total` changer dans Variables locales : 0, puis 1, puis 3, puis 6. Tu vois une variable vivre, en direct.",
+                                     "À un arrêt sur la ligne d\u0027appel, appuie sur **F11** (Pas à pas détaillé) : tu entres dans `ajoute`. Ouvre **Pile des appels (Call Stack)** : `ajoute` est posée sur `main`. Ressors avec **Maj+F11** (Pas à pas sortant)."
+                                 ],
+                      "indices":  [
+                                      "Sur un clavier AZERTY, `{` se tape avec AltGr+4 et `}` avec AltGr+=. Autour de `Total : `, mets des guillemets droits `\"` ; les guillemets « » déclenchent une erreur.",
+                                      "Le message affiché n\u0027a pas d\u0027accent : `\"Total : \"`. Par défaut, la console de Windows affiche mal les lettres accentuées, comme vu en phase 1.",
+                                      "Rien ne s\u0027arrête au lancement ? Vérifie que tu as lancé avec F5 (pas Ctrl+F5) et qu\u0027un rond rouge est bien posé sur la ligne `total = ajoute(total, i);`.",
+                                      "Les fenêtres Variables locales et Pile des appels restent introuvables ? Elles n\u0027apparaissent qu\u0027en cours de débogage : lance d\u0027abord avec F5 et attends l\u0027arrêt sur le point d\u0027arrêt.",
+                                      "Pour toute autre question, demande à ton coach dans VS Code, avec le numéro de l\u0027étape."
+                                  ],
+                      "solution":  "Au point d\u0027arrêt sur `total = ajoute(total, i);`, Variables locales montre `total` à 0 et `i` à 1. Un F10 plus tard, `total` vaut 1 ; aux tours suivants, 3 puis 6, et le programme affiche `Total : 6`. En entrant dans `ajoute` avec F11, tu vois `a` et `b` dans Variables locales, et la Pile des appels empile `ajoute` sur `main` : deux niveaux. Tu viens de regarder un programme vivre de l\u0027intérieur, pas à pas."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "debugger",
+                                       "fr":  "débogueur",
+                                       "note":  "L\u0027outil qui met un programme en pause pour l\u0027examiner de l\u0027intérieur. Celui de Visual Studio, ou x64dbg en rétro-ingénierie."
+                                   },
+                                   {
+                                       "en":  "breakpoint",
+                                       "fr":  "point d\u0027arrêt",
+                                       "note":  "L\u0027endroit où le programme doit se figer. Un clic dans la marge, ou la touche F9, et un rond rouge le marque."
+                                   },
+                                   {
+                                       "en":  "step over",
+                                       "fr":  "pas à pas principal",
+                                       "note":  "Touche F10. Exécute la ligne courante sans entrer dans les fonctions qu\u0027elle appelle."
+                                   },
+                                   {
+                                       "en":  "step into",
+                                       "fr":  "pas à pas détaillé",
+                                       "note":  "Touche F11. Entre dans la fonction appelée pour la suivre de l\u0027intérieur. On ressort avec Maj+F11 (step out)."
+                                   },
+                                   {
+                                       "en":  "call stack",
+                                       "fr":  "pile des appels",
+                                       "note":  "La chaîne des fonctions en cours : qui a appelé qui. Une fenêtre du même nom l\u0027affiche pendant le débogage."
+                                   },
+                                   {
+                                       "en":  "locals",
+                                       "fr":  "variables locales",
+                                       "note":  "La fenêtre qui liste les variables du moment et leur valeur. Tu y vois une valeur changer en direct."
+                                   },
+                                   {
+                                       "en":  "watch",
+                                       "fr":  "espion",
+                                       "note":  "La fenêtre Espion garde à l\u0027œil une variable précise que tu choisis, même au fil des fonctions."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Quelle touche lance ton programme avec le débogueur ?",
+                                            "choix":  [
+                                                          "Ctrl+F5",
+                                                          "F5",
+                                                          "F9"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "F5 démarre avec le débogueur et s\u0027arrête sur tes points d\u0027arrêt. Ctrl+F5, vu en phase 1, lance sans débogueur. F9 sert à poser un point d\u0027arrêt, pas à lancer."
+                                        },
+                                        {
+                                            "q":  "Tu es en pause sur une ligne qui appelle une fonction. Que fait F11 (Pas à pas détaillé) ?",
+                                            "choix":  [
+                                                          "Il arrête le débogage",
+                                                          "Il exécute la fonction d\u0027un bloc, sans y entrer",
+                                                          "Il entre dans la fonction appelée"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "F11 (Step Into) entre dans la fonction pour la suivre ligne par ligne. C\u0027est F10 (Step Over) qui l\u0027exécuterait d\u0027un bloc. Pour ressortir, Maj+F11 (Step Out)."
+                                        },
+                                        {
+                                            "q":  "À quoi sert la fenêtre Pile des appels (Call Stack) ?",
+                                            "choix":  [
+                                                          "À montrer la chaîne des fonctions en cours, qui a appelé qui",
+                                                          "À lister toutes les variables du programme",
+                                                          "À compiler le programme"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "La Pile des appels affiche les fonctions imbriquées du moment : à l\u0027arrêt dans `ajoute`, tu vois `ajoute` sur `main`. Les valeurs des variables, elles, sont dans Variables locales (Locals)."
+                                        },
+                                        {
+                                            "q":  "Pourquoi les fenêtres Variables locales et Pile des appels sont-elles absentes quand tu écris ton code ?",
+                                            "choix":  [
+                                                          "Elles sont payantes",
+                                                          "Elles n\u0027existent que sous Linux",
+                                                          "Elles ne s\u0027affichent que pendant une session de débogage"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "Ces fenêtres ne vivent que pendant le débogage, après F5 et un arrêt sur un point d\u0027arrêt. Le programme figé, elles montrent son intérieur ; une fois fini, elles disparaissent."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "Un **débogueur** (debugger) met ton programme en pause et te laisse l\u0027examiner ligne par ligne. Visual Studio en contient un.",
+                                     "Pose un **point d\u0027arrêt** (breakpoint) d\u0027un clic dans la marge (ou F9), puis lance avec **F5** : le programme se fige là, flèche jaune à l\u0027appui.",
+                                     "Avance avec **F10** (Pas à pas principal), entre dans une fonction avec **F11** (Pas à pas détaillé), ressors avec **Maj+F11** (Pas à pas sortant).",
+                                     "**Variables locales (Locals)** montre les valeurs, **Pile des appels (Call Stack)** la chaîne des fonctions. Ces fenêtres n\u0027existent que pendant le débogage."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "4.4 — Boss : suis la pile",
+                      "texte":  "Tu tiens ton microscope. Au boss de la phase, tu l\u0027ouvres sur `Aventure.cpp` : une chaîne d\u0027appels `main` → `resoudre_combat` → `attaquer` → `calculer_degats`. Un point d\u0027arrêt tout au fond, la Pile des appels ouverte, et tu verras les quatre fonctions empilées — la pile, pour de vrai."
+                  }
+              ]
+},"4-4":{
+    "id":  "4-4",
+    "phase":  4,
+    "numero":  "4.4",
+    "titre":  "Boss : suis la pile dans ton programme",
+    "duree":  30,
+    "objectif":  "Voir de tes yeux la pile des appels de ton propre programme au débogueur de Visual Studio : poser un point d\u0027arrêt dans `calculer_degats`, lire les quatre fonctions empilées dans la fenêtre Pile des appels, et relier cet empilement au `sub rsp`/`call`/`add rsp` vu en assembleur.",
+    "blocs":  [
+                  {
+                      "type":  "accroche",
+                      "texte":  "Quand Minecraft plante, il crache un *rapport de crash* : une longue liste de fonctions, la dernière tout en haut. Cette liste, c\u0027est la **pile des appels** (call stack) : qui a appelé qui, jusqu\u0027au point du plantage. Aujourd\u0027hui, le boss de la phase 4 : voir cette pile de tes propres yeux, dans ton programme, au débogueur."
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Ce que la phase 4 t\u0027a appris",
+                      "paragraphes":  [
+                                          "Depuis le début de la phase 4, tu découpes ton code en **fonctions** : des blocs nommés qui prennent des arguments et rendent une valeur. Une fonction peut en appeler une autre, qui en appelle une autre encore. Le processeur doit retenir le chemin pour savoir où revenir.",
+                                          "Pour ça, il se sert de la **pile** (stack), sa mémoire de travail. Chaque fonction en cours y pose un **cadre de pile** (stack frame) : un bloc réservé par `sub rsp` au début, libéré par `add rsp` à la fin. Tu as vu ce motif en assembleur en 4-2.",
+                                          "Ce boss relie les deux bouts. Tu vas poser un **point d\u0027arrêt** (breakpoint), figer le programme en plein appel, et lire la pile en clair dans une fenêtre. Fini de l\u0027imaginer : tu la regardes."
+                                      ]
+                  },
+                  {
+                      "type":  "code",
+                      "langage":  "cpp",
+                      "titre":  "Aventure.cpp, en entier",
+                      "code":  "// Aventure.cpp - la cible de la phase 4 (fonctions et pile des appels).\n// Le programme appelle des fonctions qui en appellent d\u0027autres :\n//   main -\u003e resoudre_combat -\u003e attaquer -\u003e calculer_degats\n// Mets un point d\u0027arret dans calculer_degats, puis regarde la fenetre\n// « Pile des appels » (Call Stack) du debogueur : tu verras cette chaine.\n// Compile :  cl /nologo /EHsc /std:c++20 /W4 Aventure.cpp\n\n#include \u003ciostream\u003e\n\nint calculer_degats(int force, int arme)\n{\n    return force + arme;\n}\n\nint attaquer(int force)\n{\n    int arme = 5;\n    return calculer_degats(force, arme);\n}\n\nint resoudre_combat(int vieMonstre, int force)\n{\n    int tours = 0;\n    while (vieMonstre \u003e 0)\n    {\n        vieMonstre -= attaquer(force);\n        tours += 1;\n    }\n    return tours;\n}\n\nint main()\n{\n    int force = 12;\n    int vieMonstre = 80;\n\n    int tours = resoudre_combat(vieMonstre, force);\n\n    std::cout \u003c\u003c \"Monstre vaincu en \" \u003c\u003c tours \u003c\u003c \" tours.\\n\";\n    return 0;\n}",
+                      "notes":  [
+                                    {
+                                        "ligne":  3,
+                                        "texte":  "Ce commentaire annonce la **chaîne d\u0027appels** : `main` appelle `resoudre_combat`, qui appelle `attaquer`, qui appelle `calculer_degats`. Quatre fonctions en file, chacune lançant la suivante."
+                                    },
+                                    {
+                                        "ligne":  12,
+                                        "texte":  "`calculer_degats` est le bout de la chaîne : elle prend `force` et `arme` et renvoie leur somme. Avec `force` à 12 et `arme` à 5, elle rend 17. C\u0027est elle qui portera ton point d\u0027arrêt."
+                                    },
+                                    {
+                                        "ligne":  17,
+                                        "texte":  "`attaquer` fixe l\u0027arme à 5, puis passe la main à `calculer_degats`. Elle ne calcule rien elle-même : elle prépare les arguments et délègue au niveau suivant."
+                                    },
+                                    {
+                                        "ligne":  26,
+                                        "texte":  "`vieMonstre -= attaquer(force)` enlève les dégâts d\u0027une attaque à la vie du monstre. La boucle `while` répète tant que `vieMonstre \u003e 0` : chaque tour rappelle toute la chaîne d\u0027appels."
+                                    },
+                                    {
+                                        "ligne":  37,
+                                        "texte":  "`main` lance tout avec un seul appel à `resoudre_combat`. Les 80 points de vie du monstre fondent de 17 par tour : il tombe au cinquième."
+                                    }
+                                ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "Lis la chaîne, compte les tours",
+                      "paragraphes":  [
+                                          "Prends le temps de lire le programme comme une histoire. `main` pose le décor : une force de 12, un monstre à 80 de vie. Puis il confie tout à `resoudre_combat`, et attend le nombre de tours.",
+                                          "`resoudre_combat` tape en boucle. Chaque tour, `attaquer` met l\u0027arme à 5 et appelle `calculer_degats`, qui renvoie `12 + 5`, soit 17. Le monstre perd 17 points par tour.",
+                                          "Fais le calcul : 80, puis 63, 46, 29, 12, et enfin -5. Au cinquième coup, la vie passe sous zéro et la boucle s\u0027arrête. Le programme affiche « Monstre vaincu en 5 tours. »."
+                                      ]
+                  },
+                  {
+                      "type":  "texte",
+                      "titre":  "La pile, en vrai, au débogueur",
+                      "paragraphes":  [
+                                          "Le **débogueur** (debugger) de Visual Studio fige ton programme en pleine course. Tu poses un point d\u0027arrêt sur une ligne, tu lances en débogage, et tout s\u0027arrête pile là. Tant que c\u0027est figé, tu peux fouiller.",
+                                          "La fenêtre **Pile des appels** (Call Stack) liste les fonctions empilées, la plus récente tout en haut. La fenêtre **Variables locales** (Locals) montre la valeur de chaque variable du moment. Ces deux fenêtres n\u0027apparaissent que pendant une session de débogage.",
+                                          "Pour avancer sans tout relancer, des touches « pas à pas » exécutent le code petit bout par petit bout. Tu vas t\u0027en servir pour entrer dans les fonctions, puis en ressortir, et voir la pile monter et descendre."
+                                      ]
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "astuce",
+                      "titre":  "Entrer ou enjamber une fonction",
+                      "texte":  "Au débogueur, deux touches se ressemblent mais ne font pas pareil. Pas à pas principal (Step Over, F10) exécute la ligne d\u0027un coup, même si elle appelle une fonction : tu enjambes l\u0027appel. Pas à pas détaillé (Step Into, F11) entre dans la fonction pour la suivre de l\u0027intérieur. Sur la ligne `attaquer(force)`, F10 te donne direct le résultat, F11 t\u0027emmène voir comment il est calculé."
+                  },
+                  {
+                      "type":  "atoi",
+                      "titre":  "À toi : fige le combat et lis la pile",
+                      "etapes":  [
+                                     "Dans Visual Studio, crée un projet **Application console** (Console App) nommé `Aventure`, avec pour Emplacement (Location) ton dossier `Learning\\exercices\\phase-4`. Efface le code proposé, colle celui d\u0027`Aventure.cpp` ci-dessus. Lance avec Ctrl+F5 : la console affiche « Monstre vaincu en 5 tours. ».",
+                                     "Pose un **point d\u0027arrêt** sur la ligne `return force + arme;`, à l\u0027intérieur de `calculer_degats`. Clique dans la marge grise à gauche de la ligne, ou appuie sur F9. Un rond rouge apparaît.",
+                                     "Relance avec F5, en débogage. Le programme se fige sur ton point d\u0027arrêt, au plus profond de la chaîne d\u0027appels. Les fenêtres de débogage s\u0027ouvrent.",
+                                     "Ouvre Déboguer \u003e Fenêtres \u003e Pile des appels (Debug \u003e Windows \u003e Call Stack). Tu vois quatre étages : `calculer_degats` tout en haut, puis `attaquer`, `resoudre_combat`, et `main` tout en bas. La chaîne d\u0027appels, empilée pour de vrai.",
+                                     "Regarde la fenêtre Variables locales (Locals) : `force` vaut 12, `arme` vaut 5. La fonction est sur le point de renvoyer leur somme, 17.",
+                                     "Appuie sur Pas à pas sortant (Step Out, Maj+F11). `calculer_degats` se termine, tu remontes dans `attaquer`, et la Pile des appels n\u0027a plus que trois étages. Tu viens de voir la pile se réduire d\u0027un cadre."
+                                 ],
+                      "indices":  [
+                                      "Première exécution : Ctrl+F5 pour juste voir la sortie. Pour la suite, c\u0027est F5 (avec débogage) : les fenêtres Pile des appels et Variables locales ne s\u0027ouvrent qu\u0027en cours de débogage.",
+                                      "Le point d\u0027arrêt doit être dans `calculer_degats`, la fonction la plus profonde. C\u0027est là que la pile compte ses quatre étages d\u0027un coup.",
+                                      "`calculer_degats` est appelée à chaque tour de la boucle : ton point d\u0027arrêt se déclenche cinq fois. Appuie sur Continuer (F5) pour filer au tour suivant.",
+                                      "Dans la Pile des appels, la ligne surlignée en jaune est celle où le programme est figé, tout en haut. Un double-clic sur une autre ligne t\u0027emmène voir la fonction qui attend en dessous.",
+                                      "Un point te bloque ? Demande à ton coach dans VS Code, avec le numéro de l\u0027étape."
+                                  ],
+                      "solution":  "La Pile des appels (Call Stack) montre quatre étages, de haut en bas : `calculer_degats`, `attaquer`, `resoudre_combat`, `main`. C\u0027est la chaîne du commentaire, empilée pour de vrai. Dans Variables locales, `force` vaut 12 et `arme` vaut 5 : la somme renvoyée sera 17. Un Pas à pas sortant (Maj+F11) termine `calculer_degats` et te ramène dans `attaquer`, pile à trois étages. Et comme la boucle rappelle la chaîne à chaque tour, ton point d\u0027arrêt se déclenche cinq fois : les cinq coups du « Monstre vaincu en 5 tours. »."
+                  },
+                  {
+                      "type":  "encadre",
+                      "variante":  "cible",
+                      "titre":  "La boussole du reverse",
+                      "texte":  "Dans un vrai jeu, tu tombes souvent sur une fonction sans savoir d\u0027où elle vient. La Pile des appels (Call Stack) répond à la question clé : « quelle fonction a appelé celle-ci ? ». C\u0027est la boussole de la rétro-ingénierie : en remontant la pile, tu reconstruis le chemin qui mène du bouton pressé jusqu\u0027au code qui agit. Tu t\u0027en serviras pour de bon dès la phase 8."
+                  },
+                  {
+                      "type":  "anglais",
+                      "titre":  "Les mots anglais de la leçon",
+                      "mots":  [
+                                   {
+                                       "en":  "call stack",
+                                       "fr":  "pile des appels",
+                                       "note":  "La liste des fonctions en cours, empilées : la plus récente tout en haut, `main` tout en bas."
+                                   },
+                                   {
+                                       "en":  "stack frame",
+                                       "fr":  "cadre de pile",
+                                       "note":  "Le bloc qu\u0027une fonction réserve sur la pile le temps de tourner. Un cadre par étage de la pile des appels."
+                                   },
+                                   {
+                                       "en":  "breakpoint",
+                                       "fr":  "point d\u0027arrêt",
+                                       "note":  "Un repère posé sur une ligne (F9) : le débogueur fige le programme quand il l\u0027atteint."
+                                   },
+                                   {
+                                       "en":  "step over",
+                                       "fr":  "pas à pas principal",
+                                       "note":  "Exécuter la ligne courante sans entrer dans les fonctions qu\u0027elle appelle. Touche F10."
+                                   },
+                                   {
+                                       "en":  "step into",
+                                       "fr":  "pas à pas détaillé",
+                                       "note":  "Entrer dans la fonction appelée pour la suivre ligne par ligne. Touche F11."
+                                   },
+                                   {
+                                       "en":  "step out",
+                                       "fr":  "pas à pas sortant",
+                                       "note":  "Terminer la fonction en cours et remonter à celle qui l\u0027a appelée. Touche Maj+F11."
+                                   }
+                               ]
+                  },
+                  {
+                      "type":  "quiz",
+                      "questions":  [
+                                        {
+                                            "q":  "Dans `Aventure.cpp`, qui appelle `calculer_degats` ?",
+                                            "choix":  [
+                                                          "`main`, directement",
+                                                          "`attaquer`",
+                                                          "Personne, elle s\u0027appelle elle-même"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "La chaîne va `main` -\u003e `resoudre_combat` -\u003e `attaquer` -\u003e `calculer_degats`. C\u0027est `attaquer` qui l\u0027appelle, juste après avoir fixé `arme` à 5."
+                                        },
+                                        {
+                                            "q":  "Au point d\u0027arrêt dans `calculer_degats`, que montre la fenêtre Pile des appels (Call Stack) ?",
+                                            "choix":  [
+                                                          "La liste de toutes les variables du programme",
+                                                          "Seulement `calculer_degats`",
+                                                          "Les quatre fonctions empilées, `calculer_degats` en haut"
+                                                      ],
+                                            "bonne":  2,
+                                            "explication":  "La pile garde chaque fonction en attente : `calculer_degats`, `attaquer`, `resoudre_combat`, `main`, de haut en bas. C\u0027est la chaîne d\u0027appels entière."
+                                        },
+                                        {
+                                            "q":  "Que fait Pas à pas sortant (Step Out, Maj+F11) ?",
+                                            "choix":  [
+                                                          "Il termine la fonction en cours et revient à l\u0027appelant",
+                                                          "Il entre dans la fonction appelée",
+                                                          "Il arrête le programme"
+                                                      ],
+                                            "bonne":  0,
+                                            "explication":  "Step Out finit la fonction courante d\u0027un coup et te ramène dans celle qui l\u0027a appelée. Un étage disparaît de la Pile des appels : tu la vois se réduire."
+                                        },
+                                        {
+                                            "q":  "Pourquoi la fenêtre Pile des appels n\u0027apparaît-elle pas quand tu lances avec Ctrl+F5 ?",
+                                            "choix":  [
+                                                          "Parce qu\u0027il faut l\u0027acheter à part",
+                                                          "Parce que Ctrl+F5 lance sans débogage",
+                                                          "Parce que le programme est trop court"
+                                                      ],
+                                            "bonne":  1,
+                                            "explication":  "Les fenêtres du débogueur (Pile des appels, Variables locales) n\u0027existent que pendant une session de débogage, lancée par F5 et figée sur un point d\u0027arrêt. Ctrl+F5 lance sans débogage."
+                                        }
+                                    ]
+                  },
+                  {
+                      "type":  "resume",
+                      "titre":  "À retenir",
+                      "points":  [
+                                     "La **pile des appels** (call stack) garde la trace des fonctions en cours : qui a appelé qui. La plus récente est tout en haut, `main` tout en bas.",
+                                     "Chaque fonction y occupe un **cadre de pile** (stack frame), réservé par `sub rsp` et libéré par `add rsp` : le motif déjà vu en assembleur en 4-2.",
+                                     "Au débogueur, un **point d\u0027arrêt** fige le programme, et la fenêtre Pile des appels (Call Stack) te montre cet empilement en clair. Variables locales (Locals) donne les valeurs du moment.",
+                                     "Pas à pas sortant (Step Out, Maj+F11) termine une fonction et remonte à l\u0027appelant : tu vois la pile se réduire d\u0027un cadre. Tu sais suivre l\u0027enchaînement des fonctions d\u0027un programme."
+                                 ]
+                  },
+                  {
+                      "type":  "suite",
+                      "titre":  "Phase 5 — Pointeurs",
+                      "texte":  "Boss plié : tu as vu la pile des appels de ton programme se dresser, puis se réduire, sous tes yeux. En phase 5, tu suis les **pointeurs** : des adresses qui mènent à d\u0027autres adresses, comme une piste de chasse au trésor. C\u0027est le cœur d\u0027un *trainer*, qui remonte cette piste jusqu\u0027aux points de vie d\u0027un jeu."
                   }
               ]
 }}};</script>
